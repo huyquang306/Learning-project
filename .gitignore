@@ -13,3 +13,10 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+/.vagrant
+.env.testing
+/log
+.npm
+.composer
+.bash_history
+.cache/*
