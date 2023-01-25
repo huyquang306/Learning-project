@@ -47,7 +47,7 @@ Route::group([
 
 // Routes for admin site
 Route::group([
-//    'domain' => config('app.admin_domain'),
+    'domain' => config('app.admin_domain'),
     'middleware' => [
         'domain.admin_domain',
     ],
