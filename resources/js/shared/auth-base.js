@@ -1,6 +1,6 @@
 import * as firebase from "firebase/app";
-import 'firebase-auth';
-import 'firebase-analytics';
+import 'firebase/auth';
+import 'firebase/analytics';
 import React, {useState, useEffect, useRef} from "react";
 import PropTypes from 'prop-types';
 import jwt_decode from 'jwt-decode';
