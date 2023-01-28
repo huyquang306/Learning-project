@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Admin Site</title>
-    </head>
-
-    <body>
-        Admin Site
-    </body>
+<head>
+    <meta charset="utf-8" />
+    <!-- Google Font -->
+    <link href=“https://fonts.googleapis.com/css2?family=Open+Sans&display=swap” rel=“stylesheet”>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <meta name="theme-color" content="#000000" />
+    <title>Smart Order|Admin</title>
+</head>
+<body>
+    <noscript>JavaScript</noscript>
+    <div id="appRoot"></div>
+    <!-- script -->
+    <script src={{ mix("/assets/js/admin/app.js") }}></script>
+</body>
 </html>

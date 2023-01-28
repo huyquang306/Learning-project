@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Repositories\Interfaces\BaseRepositoryInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use function Symfony\Component\Translation\t;
 
 abstract class BaseRepository implements BaseRepositoryInterface
 {

@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const path = require("path");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +12,30 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .react()
-    .sass('resources/sass/app.scss', 'public/css');
+mix.webpackConfig({
+    resolve: {
+        modules: ['node_modules', path.resolve(__dirname, 'resources')]
+    }
+});
+
+// Cache busting
+mix.version();
+
+// Compile JavaScript
+mix.js('resources/js/admin/app.js', 'public/assets/js/admin/app.js')
+    .react();
+
+mix.js('resources/js/shop/app.js', 'public/assets/js/shop/app.js')
+    .react();
+
+mix.js('resources/js/shop-order/app.js', 'public/assets/js/shop-order/app.js')
+    .react();
+
+mix.js('resources/js/customer/app.js', 'public/assets/js/customer/app.js')
+    .react();
+
+mix.js('resources/js/customer-order/app.js', 'public/assets/js/customer-order/app.js')
+    .react();
+
+// Debug
+mix.sourceMaps();
