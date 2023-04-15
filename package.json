@@ -27,7 +27,11 @@
         "styled-components": "^5.1.1"
     },
     "dependencies": {
+        "@material-ui/core": "^4.12.4",
+        "@material-ui/icons": "^4.9.1",
+        "@material-ui/lab": "^4.0.0-alpha.56",
         "firebase": "^7.16.0",
+        "moment": "^2.27.0",
         "prop-types": "^15.8.1",
         "pubsub-js": "^1.9.3"
     }

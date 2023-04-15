@@ -35,6 +35,7 @@ export default class ApiBase
     this.baseUrl = '';
     this.authService = null;
     if (options) {
+      console.log('init');
       this.init(options);
     }
   }

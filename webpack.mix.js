@@ -37,5 +37,7 @@ mix.js('resources/js/customer/app.js', 'public/assets/js/customer/app.js')
 mix.js('resources/js/customer-order/app.js', 'public/assets/js/customer-order/app.js')
     .react();
 
+mix.copyDirectory('resources/img', 'public/assets/img');
+
 // Debug
 mix.sourceMaps();

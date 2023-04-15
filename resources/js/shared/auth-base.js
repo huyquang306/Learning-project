@@ -195,3 +195,48 @@ export default class AuthBase {
   }
 }
 
+/**
+ * ============================
+ * firebase auth reCaptcha
+ * ============================
+ * @return {React.Component}
+ */
+
+const RecaptchaContainer = (props) => {
+  const recaptchaRef = useRef(null);
+  
+  useEffect(() => {
+    // console.debug('RecaptchaContainer did mount ', recaptchaRef.current.innerHTML);
+    if (!props.authService.firebaseRecaptchaVarifier) {
+      // invisible reCAPTCHA
+      props.authService.firebaseRecaptchaVarifier = new firebase.auth.RecaptchaVerifier(
+        recaptchaRef.current,
+        {
+          size: 'invisible',
+          callback: (response) => {
+            // reCAPTCHA solved, allow signInWithPhoneNumber.
+            console.debug('reCAPTCHA resolved.', response);
+          },
+        }
+      );
+    }
+    
+    // cleanup
+    return () => {
+      if (props.authService.firebaseRecaptchaVarifier) {
+        props.authService.firebaseRecaptchaVarifier.clear();
+      }
+      props.authService.firebaseRecaptchaVarifier = null;
+      // console.debug('RecaptchaContainer did unmount ', recaptchaRef.current.innerHTML);
+    };
+  }, []);
+  return (
+    <div>
+      <span ref={recaptchaRef} />
+    </div>
+  );
+};
+RecaptchaContainer.propTypes = {
+  authService: PropTypes.instanceOf(AuthBase),
+};
+export { RecaptchaContainer };

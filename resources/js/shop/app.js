@@ -8,21 +8,26 @@ import AppContainer from "./components/AppContainer";
 
 // Initialize firebase
 ShopAuthService.initFirebase({
-  apiKey: process.env.FIREBASE_APIKEY,
-  authDomain: process.env.FIREBASE_AUTHDOMAIN,
-  projectId: process.env.FIREBASE_PROJECTID,
-  appId: process.env.FIREBASE_APPID,
-  measurementId: process.env.FIREBASE_MEASUREMENTID,
+  apiKey: process.env.MIX_FIREBASE_APIKEY,
+  authDomain: process.env.MIX_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.MIX_FIREBASE_PROJECTID,
+  appId: process.env.MIX_FIREBASE_APPID,
+  measurementId: process.env.MIX_FIREBASE_MEASUREMENTID,
 });
 
 ShopWithoutAuthApiService.init({
-  prefix: process.env.INDEX_PATH_SHOP_MANAGE,
+  prefix: process.env.MIX_INDEX_PATH_SHOP_MANAGE,
 });
 
 // Initialize api service
 ShopApiService.init({
-  prefix: process.env.INDEX_PATH_SHOP_MANAGE,
+  prefix: process.env.MIX_INDEX_PATH_SHOP_MANAGE,
   authService: ShopAuthService,
+});
+
+// api auth service initialize
+ShopAuthApiService.init({
+  prefix: process.env.MIX_API_PREFIX
 });
 
 // Rendering
