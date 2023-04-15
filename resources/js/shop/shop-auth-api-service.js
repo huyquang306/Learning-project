@@ -14,6 +14,7 @@ export const ENDPOINTS = {
   GET_AUTH_VERIFY_FORGOT_PASSWORD: ['auth/forgot-password/verify', METHOD.GET, true],
   POST_AUTH_RESET_PASSWORD: ['auth/reset-password', METHOD.POST, true],
   POST_VERIFY_CREATE_SHOP: ['shop/verify', METHOD.POST, true],
+  GET_SYSTEM_CONFIG: ['system/configurations', METHOD.GET, true],
 }
 
 class ShopAuthApiService extends ApiBase {
@@ -58,6 +59,15 @@ class ShopAuthApiService extends ApiBase {
    */
   async verifyCreateShop(token = '') {
     return await this.request(ENDPOINTS.POST_VERIFY_CREATE_SHOP, [], { token: token });
+  }
+  
+  /*
+   * get system config
+   * @param {string} hash id
+   * @returns
+   */
+  async getSystemConfiguration() {
+    return await this.request(ENDPOINTS.GET_SYSTEM_CONFIG, [], null);
   }
 }
 

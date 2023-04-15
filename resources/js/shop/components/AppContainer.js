@@ -1,11 +1,24 @@
 import React, {useState, useEffect} from "react";
 import { BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import shopInfoContext, { shopInfoDefault } from "./ShopInfoContext";
 import ShopApiService from "../shop-api-service";
 import ShopAuthService from "../shop-auth-service";
 import Utils from "../../shared/utils";
+
+// Page Components
+import PageContainer from "../../shared/components/PageContainer";
+import ShopInfoContext from "./ShopInfoContext";
+import PageSetting from "./PageSetting";
+import PageRegister from "./PageRegister";
+import PageItemList from "./PageItemList";
+import PageItemRegist from "./PageItemRegist";
+import PageItemEdit from "./PageItemEdit";
+import PageOnsale from "./PageOnsale";
+import PageStatistics from "./PageStatistics";
+import PageSignin from "./PageSignin";
+import PageLaunch from "./PageLaunch";
 
 const StyledAppContainer = styled.div`
   margin: 0px;
@@ -36,7 +49,7 @@ const LoadingContainer = styled.div`
 
 const RouterBase = (props) => {
   return (
-    <Router basename={process.env.INDEX_PATH_SHOP_MANAGE}>
+    <Router basename={process.env.MIX_INDEX_PATH_SHOP_MANAGE}>
       <Switch>
         {props.children}
       </Switch>
@@ -45,7 +58,7 @@ const RouterBase = (props) => {
 }
 
 RouterBase.PropTypes = {
-  children: PropTypes.node,
+  children: propTypes.node,
 }
 
 const RouteSignedInOut = (props) => {
@@ -53,8 +66,8 @@ const RouteSignedInOut = (props) => {
     if (!props.shopInfo.hashId) {
       return (
         <RouterBase>
-          <Route path='/register' exact/>
-          <Route path='/setting' exact/>
+          <Route path='/register' exact component={PageRegister} />
+          <Route path='/setting' exact component={PageSetting}/>
 
           <Redirect to='/register'/>
         </RouterBase>
@@ -63,15 +76,21 @@ const RouteSignedInOut = (props) => {
 
     return (
       <RouterBase>
-
+        <Route path="/item/list" exact component={PageItemList} />
+        <Route path="/item/regist" exact component={PageItemRegist} />
+        <Route path="/item/edit/:itemHash" exact component={PageItemEdit} />
+        <Route path="/onsale" exact component={PageOnsale} />
+        <Route path="/statistics" exact component={PageStatistics} />
+        
+        <Redirect to="/item/list" />
       </RouterBase>
     )
   } else {
     return (
       <RouterBase>
-        <Route path='/' exact/>
-        <Route path='/register' exact/>
-        <Route path='/sign-in' exact/>
+        <Route path="/" exact component={PageLaunch} />
+        <Route path="/register" exact component={PageRegister} />
+        <Route path="/signin" exact component={PageSignin} />
 
         <Redirect to='/'/>
       </RouterBase>
@@ -141,6 +160,37 @@ const AppContainer = () => {
       setIsSignedIn(false);
     }
   }, [authUser]);
+  
+  // Loading
+  if (isSignedIn === null) {
+    return (
+      <StyledAppContainer>
+        <PageContainer
+          backgroundImage={`${process.env.MIX_ASSETS_PATH}/img/shared/launch_background.png`}
+        >
+          <LoadingContainer>
+            <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/logo.png`} alt="logo" />
+            <br />
+            Please wait...
+          </LoadingContainer>
+        </PageContainer>
+      </StyledAppContainer>
+    )
+  }
+  
+  // Render
+  return (
+    <ShopAuthService.context.Provider
+      value={{ isSignedIn: isSignedIn, phoneNumber: phoneNumber, uid: uid }}
+    >
+      <ShopInfoContext.Provider value={[shopInfo, setShopInfo]}>
+        <StyledAppContainer auth={isSignedIn ? 'signin' : 'signout'}>
+          <RouteSignedInOut isSignedIn={isSignedIn} shopInfo={shopInfo} />
+        </StyledAppContainer>
+      </ShopInfoContext.Provider>
+      
+    </ShopAuthService.context.Provider>
+  )
 }
 
 export default AppContainer
