@@ -63,11 +63,11 @@ const PageSignin = (props) => {
   const handleLoginError = (error) => {
     console.error('[Login] signInWithEmailAndPassword ' + error.code);
     if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password' || error.code === 'auth/invalid-email') {
-      setErrorMessage('ログイン情報が正しくありません。');
+      setErrorMessage('Your login information is incorrect');
     } else if (error.code === 'auth/user-disabled') {
-      setErrorMessage('この店舗は無効です。');
+      setErrorMessage('This store is disabled');
     } else {
-      setErrorMessage('ログインが失敗しました。');
+      setErrorMessage('Login failed');
     }
   };
 
@@ -77,19 +77,19 @@ const PageSignin = (props) => {
     <PageContainer>
       <RegistContainer type="signin">
         <Card
-          title="ログイン"
+          title="Login"
           onButtonClick={handleButtonClick}
-          buttonTitle="ログイン"
+          buttonTitle="Login"
           buttonDisabled={!account.email && !account.password}
         >
           <FormsContainer>
-            <Box className={classes.labelInput}>メールアドレス</Box>
+            <Box className={classes.labelInput}>Email Address</Box>
             <TextField
               name="email"
               variant="outlined"
               value={account.email}
               onChange={handleChange}
-              placeholder="メールアドレス"
+              placeholder=""
               fullWidth
               inputProps={{
                 maxLength: 100,
@@ -97,13 +97,13 @@ const PageSignin = (props) => {
               }}
             />
 
-            <Box className={`${classes.labelInput} ${classes.labelInputTop}`}>パスワード</Box>
+            <Box className={`${classes.labelInput} ${classes.labelInputTop}`}>Password</Box>
             <TextField
               name="password"
               variant="outlined"
               value={account.password}
               onChange={handleChange}
-              placeholder="パスワード"
+              placeholder=""
               fullWidth
               inputProps={{
                 maxLength: 100,
@@ -123,7 +123,7 @@ const PageSignin = (props) => {
             />
 
             <Box className={`${classes.labelInput} ${classes.labelInputTop}`}>
-              <Link to="/verify-forgot-password">パスワードを忘れた方はこちらへ</Link>
+              <Link to="/verify-forgot-password">Forgot Password</Link>
             </Box>
           </FormsContainer>
 
@@ -131,16 +131,14 @@ const PageSignin = (props) => {
         </Card>
       </RegistContainer>
 
-      {/* 処理中 modal */}
       <Modal title="" open={showWait} height={250}>
-        ログイン中
+        Login
       </Modal>
 
-      {/* Error message modal */}
       <Modal title="" open={!!errorMessage} height={250}>
         <Box>{errorMessage}</Box>
         <br />
-        <Button onClick={() => setErrorMessage(null)}>確認</Button>
+        <Button onClick={() => setErrorMessage(null)}>Confirm</Button>
       </Modal>
     </PageContainer>
   );

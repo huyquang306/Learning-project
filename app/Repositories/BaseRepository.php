@@ -123,6 +123,19 @@ abstract class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
+     * Insert a row to table and retrieve its ID
+     *
+     * @param array $attributes
+     * @return mixed
+     */
+    public function insertGetId(array $attributes)
+    {
+        $result = $this->model->create($attributes);
+
+        return $result->id;
+    }
+
+    /**
      * Update
      *
      * @param $id

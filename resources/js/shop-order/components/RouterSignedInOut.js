@@ -1,4 +1,4 @@
-import React, {createElement} from 'react';
+import React, {createElement, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import { shopInfoDefault } from 'js/shop/components/ShopInfoContext';
@@ -57,6 +57,12 @@ const RouterSignedInOut = (props) => {
   const isAuthenticated = props.isSignedIn;
   const isRegistedShop = props.shopInfo.hashId;
   const {authUser} = props;
+  
+  useEffect(() => {
+    console.log(isAuthenticated);
+    console.log(isRegistedShop);
+    console.log(authUser);
+  }, [])
 
   const checkAuthorityPlan = (path) => {
     const servicePlan = props.shopInfo.service_plan;

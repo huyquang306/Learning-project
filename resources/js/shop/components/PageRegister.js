@@ -218,6 +218,7 @@ const PageRegister = (props) => {
   const getModelSetupRobot = async () => {
     try {
       const res = await ShopAuthApiService.getSystemConfiguration();
+      console.log(res);
       if (res.ROBOT_REGISTER == ROBOT_REGISTER) {
         setTypeModeRobot(true);
         setStep(SEARCH_SHOP_STEP);
@@ -231,6 +232,7 @@ const PageRegister = (props) => {
   };
   
   const createShopTemp = async (isResend = false) => {
+    console.log(isResend);
     isResend && setShowWait(true);
     setButtonResendDisabled(true);
     if (!infoAccountTypeModelRobot) {
@@ -304,7 +306,7 @@ const PageRegister = (props) => {
     setTimerInterval(countdownInterval);
     setBreakTimeout(timeoutCountdown);
   };
-  // ボタン押下
+  
   const handleButtonClick = async () => {
     let shopClone = Utils.cloneDeep(shop);
     
@@ -480,30 +482,30 @@ const PageRegister = (props) => {
   const handleChangePostalCode = (event) => {
     const pattern = event.target.dataset ? event.target.dataset.pattern : null;
     const value = event.target.value;
-    if (pattern) {
-      if (new RegExp(pattern).test(shop.postalCode)) {
-        if (shop.postalCode !== '') {
-          setShowWait(true);
-          ShopApiService.request(ENDPOINTS.SEARCH_ZIP, [shop.postalCode], null)
-            .then((result) => {
-              setShowWait(false);
-              console.debug('[app] api response', result);
-              if (result.prefecture) {
-                setShop((prev) => ({
-                  ...prev,
-                  prefecture: result.prefecture,
-                  city: result.city,
-                  address: result.address,
-                }));
-              }
-            })
-            .catch((error) => {
-              setShowWait(false);
-              console.error('SEARCH_ZIP ERROR', error);
-            });
-        }
-      }
-    }
+    // if (pattern) {
+    //   if (new RegExp(pattern).test(shop.postalCode)) {
+    //     if (shop.postalCode !== '') {
+    //       setShowWait(true);
+    //       ShopApiService.request(ENDPOINTS.SEARCH_ZIP, [shop.postalCode], null)
+    //         .then((result) => {
+    //           setShowWait(false);
+    //           console.debug('[app] api response', result);
+    //           if (result.prefecture) {
+    //             setShop((prev) => ({
+    //               ...prev,
+    //               prefecture: result.prefecture,
+    //               city: result.city,
+    //               address: result.address,
+    //             }));
+    //           }
+    //         })
+    //         .catch((error) => {
+    //           setShowWait(false);
+    //           console.error('SEARCH_ZIP ERROR', error);
+    //         });
+    //     }
+    //   }
+    // }
   };
   
   // checkbox handler
@@ -652,7 +654,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              店舗名 <Box className={classes.required}>(必須)</Box>
+              Shop name <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -675,7 +677,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Phone number <Box className={classes.required}>(必須)</Box>
+              Phone number <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -698,7 +700,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Postal code <Box className={classes.required}>(必須)</Box>
+              Postal code <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -719,7 +721,7 @@ const PageRegister = (props) => {
           </Grid>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Prefectures <Box className={classes.required}>(必須)</Box>
+              Prefectures <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -737,7 +739,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Municipalities <Box className={classes.required}>(必須)</Box>
+              Municipalities <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -755,7 +757,7 @@ const PageRegister = (props) => {
           </Grid>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Address <Box className={classes.required}>(必須)</Box>
+              Address <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -799,8 +801,7 @@ const PageRegister = (props) => {
                 >
                   Terms of service
                 </Link>
-                Agree
-                <span className={classes.required}>(必須)</span>
+                <span className={classes.required}>(*)</span>
               </Box>
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -830,7 +831,6 @@ const PageRegister = (props) => {
                 >
                   Privacy policy
                 </Link>
-                Agree
                 <span className={classes.required}>(Required)</span>
               </Box>
             </Grid>
@@ -856,8 +856,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} flexDirection={{ xs: 'row', sm: 'column' }}>
-              Email address
-              <Box>(ログインID)</Box>
+              Email Address <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -884,6 +883,8 @@ const PageRegister = (props) => {
         />
       </FormsContainer>
     </Card>,
+    
+    // === step 3: waiting confirmation ==========
     <Card
       title='Setting login information'
       key='waitConfirm'

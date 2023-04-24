@@ -3,6 +3,8 @@ import { shopInfoMapper } from "./components/ShopInfoContext";
 
 export const ENDPOINTS = {
   GET_SHOP: ['shop/$0', METHOD.GET, true],
+  POST_CREATE_SHOP_TMP: ['shop', METHOD.POST, true],
+  GET_LATLON: ['address/geo/$0', METHOD.GET, false],
 }
 
 class ShopApiService extends ApiBase {
@@ -34,6 +36,28 @@ class ShopApiService extends ApiBase {
           throw Error('invalid response(GET_SHOP)');
         }
       });
+  }
+  
+  /*
+   * Create shop tmp api
+   * @param {object} data
+   * @param {string} data.name
+   * @param {string} data.email
+   * @param {string} data.phone_number
+   * @param {string} data.address
+   * @param {string} data.postal_code
+   * @param {string} data.prefecture
+   * @param {string} data.start_time
+   * @param {string} data.end_time
+   * @param {string} data.city
+   * @param {string} data.genre
+   */
+  async createShopTemp(data = {}) {
+    return await this.request(ENDPOINTS.POST_CREATE_SHOP_TMP, [], data);
+  }
+  
+  async getLatLon(prefecture, city, address, building) {
+    return await this.request(ENDPOINTS.GET_LATLON, [prefecture + city + address + building], null);
   }
 }
 
