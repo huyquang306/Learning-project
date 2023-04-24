@@ -23,6 +23,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (request()->isSecure()) {
+            \URL::forceScheme('https');
+        }
+
+        $repositories = [
+            'SConfigurationRepositoryInterface' => 'SConfigurationRepository',
+            'TmpShopRepositoryInterface' => 'TmpShopRepository',
+            'StaffRepositoryInterface' => 'StaffRepository',
+        ];
+
+        foreach ($repositories as $key => $val) {
+            $this->app->singleton("App\\Repositories\\Interfaces\\$key", "App\\Repositories\\$val");
+        }
     }
 }

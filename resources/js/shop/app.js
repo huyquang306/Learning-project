@@ -16,18 +16,19 @@ ShopAuthService.initFirebase({
 });
 
 ShopWithoutAuthApiService.init({
-  prefix: process.env.MIX_INDEX_PATH_SHOP_MANAGE,
+  prefix: process.env.MIX_API_PREFIX,
 });
 
 // Initialize api service
 ShopApiService.init({
-  prefix: process.env.MIX_INDEX_PATH_SHOP_MANAGE,
+  prefix: process.env.MIX_API_PREFIX,
   authService: ShopAuthService,
 });
 
 // api auth service initialize
 ShopAuthApiService.init({
-  prefix: process.env.MIX_API_PREFIX
+  prefix: process.env.MIX_API_PREFIX,
+  authService: ShopAuthService,
 });
 
 // Rendering

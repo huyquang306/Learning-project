@@ -14,7 +14,7 @@ export const ENDPOINTS = {
   GET_AUTH_VERIFY_FORGOT_PASSWORD: ['auth/forgot-password/verify', METHOD.GET, true],
   POST_AUTH_RESET_PASSWORD: ['auth/reset-password', METHOD.POST, true],
   POST_VERIFY_CREATE_SHOP: ['shop/verify', METHOD.POST, true],
-  GET_SYSTEM_CONFIG: ['system/configurations', METHOD.GET, true],
+  GET_SYSTEM_CONFIG: ['system/configurations', METHOD.GET, false],
 }
 
 class ShopAuthApiService extends ApiBase {

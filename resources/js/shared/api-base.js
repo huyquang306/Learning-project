@@ -112,8 +112,8 @@ export default class ApiBase
         if (dataJson.status !== RESPONSE_STATUS.SUCCESS) {
           throw CustomError(dataJson.message || 'unknown error', dataJson.data);
         }
-
-        return dataJson.data;
+        
+        return dataJson.data !== undefined ? dataJson.data : dataJson.result;
       }).catch(error => {
         let message = error.message;
         if (error.data && Array.isArray(error.data) && error.data.length) {
@@ -190,7 +190,7 @@ export default class ApiBase
     }
 
     return this.authService.getIdToken().then((token) => {
-      options.headers['Authorization'] = 'Bearer' + token;
+      options.headers['Authorization'] = 'Bearer ' + token;
 
       return options;
     })

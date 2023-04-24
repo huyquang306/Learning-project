@@ -83,14 +83,14 @@ const PageVerifiedEmail = (props) => {
         }
 
         setWaiting(false);
-        setError('このコードが期限切れ、または無効です。');
+        setError('This code has expired or is invalid');
       } catch (er) {
         setWaiting(false);
         setError(er?.result?.errorMessage);
       }
     } else {
       setWaiting(false);
-      setError('このURLは無効です。');
+      setError('This URL is invalid');
     }
   };
 
@@ -100,15 +100,15 @@ const PageVerifiedEmail = (props) => {
         <StyledRegistContainer>
           <HeaderMessage>
             {paramType === PARAM_TYPES.FORGOT_PASSWORD ? (
-              'パスワードリセット'
+              'Password reset'
             ) : (
               <>
-                登録はかんたん！<strong>３分</strong>で終わります
+                Easy Registration with<strong>３ staps</strong>
               </>
             )}
           </HeaderMessage>
-          <Card title='確認中' buttonDisabled={true} customButtons={<></>}>
-            <Box>お待ち下さい。。。</Box>
+          <Card title='Confirming' buttonDisabled={true} customButtons={<></>}>
+            <Box>Please wait. . .</Box>
           </Card>
           <Waiting isOpen={waiting} />
         </StyledRegistContainer>

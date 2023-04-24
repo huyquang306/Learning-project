@@ -9,6 +9,7 @@ export const shopInfoDefault = {
   email: '',
   prefecture: '',
   city: '',
+  building: '',
   address: '',
   password: '',
   password_confirmation: '',

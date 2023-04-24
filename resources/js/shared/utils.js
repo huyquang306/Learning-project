@@ -5,12 +5,10 @@
 export default class Utils {
   constructor() {
   }
-  /*経過時間更新のインターバル*/
   static REFRESH_CYCLE_TIME_AGO() {
     return 5000; /* 5000ms */
   }
   
-  /*画面データ更新のインターバル*/
   static REFRESH_CYCLE_DATA() {
     return 30000; /* 30000ms */
   }
@@ -26,52 +24,39 @@ export default class Utils {
   /**
    * 電話番号変換
    */
-  // 国際プレフィックス付加
-  static addPhonePrefix(number, countoryCode = 'JP') {
-    // TODO 国際対応
-    if (countoryCode !== 'JP') {
+  static addPhonePrefix(number, countryCode = 'VN') {
+    if (countryCode !== 'VN') {
       return null;
     }
     if (/^\+/.test(number) || !/^0/.test(number)) {
-      if (/^\+81/.test(number)) {
+      if (/^\+84/.test(number)) {
         return number;
       }
       return null;
     }
-    return '+81' + number.replace(/^0/, '');
-  }
-  // 国際プレフィックス除去
-  static trimPhonePrefix(number, countoryCode = 'JP') {
-    // TODO 国際対応
-    if (countoryCode !== 'JP') {
-      return null;
-    }
-    return number.replace(/^\+81/, '0');
+    return '+84' + number.replace(/^0/, '');
   }
   
-  /**
-   * 文字列の形式パターン  (参考)http://emailregex.com/
-   */
+  static trimPhonePrefix(number, countryCode = 'VN') {
+    if (countryCode !== 'VN') {
+      return null;
+    }
+    return number?.replace(/^\+84/, '0');
+  }
+  
   static get VALIDATE_PATTERN() {
     return {
       EMAIL: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      // 8文字以上（128文字以下）の半角英数字、記号! @ # $ % ^ & * ( ) _ + - = ? [ ]
       PASSWORD: /^[a-zA-Z0-9!@#$%^&*()_+\-=?[\]]{8,128}$/,
-      // 日付形式
       DATE: /^\d{4}-\d{2}-\d{2}$/,
-      // 時刻形式 HH:mm or HH:mm:ss
       TIME: /^\d{1,2}(:\d{2}){1,2}$/,
-      // 郵便番号
       POSTAL: /^\d{7}$/,
-      // 日本国内携帯電話(ハイフンなし)
       MOBILE_JP: /^0[789]0[0-9]{8}$/,
-      // 日本国内携帯電話(ハイフン許容)
       MOBILE_JP_HYPHEN: /^0[789]0-?[0-9]{4}-?[0-9]{4}$/,
     };
   }
   
   /**
-   * 文字列の形式チェック
    * @param {string}  checkType
    * @param {string}  target
    */
@@ -85,7 +70,7 @@ export default class Utils {
   }
   
   /**
-   * userAgent から端末推定
+   * userAgent
    */
   static isAndroid() {
     return /android/.test(this.ua);
@@ -100,8 +85,6 @@ export default class Utils {
   }
   
   /**
-   * 数字を2桁にする
-   *
    * @param {number} 0 - 99
    * @returns {string} '00' - '99'
    */
@@ -111,9 +94,7 @@ export default class Utils {
   }
   
   /**
-   * 時刻を分換算にする
-   *
-   * @param {string} 'HH:mm(:ss)' 秒は切り捨て
+   * @param {string} 'HH:mm(:ss)'
    * @returns {number}  minutes
    */
   static hhmm2minutes(hhmm = '00:00') {

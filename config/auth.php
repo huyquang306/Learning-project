@@ -14,8 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
-        'passwords' => 'users',
+        'guard' => 'api'
     ],
 
     /*
@@ -40,6 +39,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'firebase',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -62,7 +65,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\SAccount::class, App\Models\MUser::class,
         ],
 
         // 'users' => [
