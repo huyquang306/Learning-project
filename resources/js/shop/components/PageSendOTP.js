@@ -6,7 +6,7 @@ import jwt_decode from 'jwt-decode';
 
 // Components
 import PageContainer from 'js/shared/components/PageContainer.js';
-import RegistContainer from 'js/shop/components/RegistContainer';
+import RegisterContainer from "./RegisterContainer";
 import Card from 'js/shared/components/Card';
 import { Box, Container, TextField } from '@material-ui/core';
 import Modal from 'js/shared/components/Modal.js';
@@ -149,7 +149,7 @@ const PageSendOTP = () => {
 
   return (
     <PageContainer>
-      <RegistContainer>
+      <RegisterContainer>
         <Card
           title="電話番号認証"
           onButtonClick={handleButtonClick}
@@ -174,7 +174,7 @@ const PageSendOTP = () => {
           </FormsContainer>
           <RecaptchaContainer authService={ShopAuthService} />
         </Card>
-      </RegistContainer>
+      </RegisterContainer>
 
       {/* 処理中 modal */}
       <Modal title="" open={showWait}>

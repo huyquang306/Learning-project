@@ -32,7 +32,7 @@ class MStaff extends Model
     {
         return $this->belongsToMany(
           MShop::class,
-          'm_shop_staff',
+          'r_shop_staff',
           'm_staff_id',
           'm_shop_id'
         )->wherePivot('deleted_at', '=', null);

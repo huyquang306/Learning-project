@@ -58,6 +58,7 @@ const PageVerifiedEmail = (props) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log('verifyCreateShop');
     const waitingForVerify = setTimeout(verifyToken, 2000);
     if (!waiting) {
       clearTimeout(waitingForVerify);
@@ -103,7 +104,7 @@ const PageVerifiedEmail = (props) => {
               'Password reset'
             ) : (
               <>
-                Easy Registration with<strong>３ staps</strong>
+                Easy Registration with<strong>３ steps</strong>
               </>
             )}
           </HeaderMessage>

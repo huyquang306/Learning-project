@@ -6,7 +6,9 @@ use App\Models\MGenre;
 use App\Models\MShop;
 use App\Models\MStaff;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ShopRepository extends BaseRepository
 {
@@ -20,10 +22,11 @@ class ShopRepository extends BaseRepository
      * Find Shop by User ID
      *
      * @param int $id
-     * @return MShop|null
+     * @return Collection
      */
-    public function findShopByUser(int $id): ?MShop
+    public function findShopByUser(int $id): Collection
     {
+        Log::info($id);
         return MStaff::find($id)->mShops()->get()
             ->load([
                 'mItems',

@@ -4,7 +4,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 // Components
 import PageContainer from 'js/shared/components/PageContainer';
-import RegistContainer from 'js/customer-order/components/RegistContainer';
+import RegisterContainer from "../../shop/components/RegisterContainer";
 import Card from 'js/shared/components/Card';
 import {Box, Grid} from '@material-ui/core';
 import Check from '@material-ui/icons/Check';
@@ -123,7 +123,7 @@ const PageWelcome = (_props) => {
 
   return (
     <PageContainer>
-      <RegistContainer>
+      <RegisterContainer>
         <Card
           title='再来店'
           buttonTitle='登録して進む'
@@ -174,7 +174,7 @@ const PageWelcome = (_props) => {
             </Box>
           </Box>
         </Card>
-      </RegistContainer>
+      </RegisterContainer>
 
       <Modal title='' open={!!errorMessage}>
         <Box>{errorMessage}</Box>

@@ -20,7 +20,7 @@ class CreateMShop extends Migration
             $table->string('postal_code', 10)
                 ->nullable(true)
                 ->comment('Postal Code');
-            $table->string('prefecture', 5)
+            $table->string('prefecture', 50)
                 ->nullable(true)
                 ->comment('Prefecture name');
             $table->string('city', 50)->nullable(true)->comment('City name');

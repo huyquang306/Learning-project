@@ -16,6 +16,10 @@ class CreateMTable extends Migration
     {
         Schema::create('m_table', function (Blueprint $table) {
             $table->bigIncrements('id')->comment('Primary key');
+            $table->string('hash_id', 128)
+                ->nullable(true)
+                ->comment('Hash Id');
+            $table->unique('hash_id');
             $table->unsignedBigInteger('m_shop_id')
                 ->nullable(false)
                 ->comment('FK reference to MShop');
@@ -25,7 +29,6 @@ class CreateMTable extends Migration
             $table->boolean('status')
                 ->default(true)
                 ->comment('Table status');
-
             $table->timestamp('created_at')
                 ->useCurrent();
             $table->timestamp('updated_at')

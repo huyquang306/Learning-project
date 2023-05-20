@@ -11,6 +11,7 @@ use App\Services\ShopService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Resources\ShopResource;
+use Illuminate\Support\Facades\Log;
 
 class ShopController extends BaseApiController
 {
@@ -78,6 +79,7 @@ class ShopController extends BaseApiController
     public function verifyShopRegister(VerifyShopRequest $request)
     {
         try {
+            Log::info('verifyShopRegister');
             $response = $this->shopService->verifyShopRegister($request->token);
 //            $this->shopService->generateShopTaxInfo($response);
 
