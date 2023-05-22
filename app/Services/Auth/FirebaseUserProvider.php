@@ -28,6 +28,7 @@ class FirebaseUserProvider implements UserProvider
             }
             $token = $verifier->verifyIdToken($token);
             $uid = $token->claims()->get('user_id');
+            $user = null;
 
             // Shop login & create account for staff as if its don't have before
             if (strpos($url, 'api/v1/shop') !== false) {
@@ -46,7 +47,7 @@ class FirebaseUserProvider implements UserProvider
             }
 
             // Customer login and create account as if its don't have before
-            if (strpos($url, 'api-or/v1/user') !== false) {
+            if (strpos($url, 'api-order/v1/user') !== false) {
                 $phoneNumber = $token->getClaim('phone_number');
                 $user = MUser::where('firebase_uid', $uid)->first();
                 if (!$user) {
@@ -58,6 +59,11 @@ class FirebaseUserProvider implements UserProvider
                         $user->save();
                     });
                 }
+            }
+
+            // Api order authentication
+            if (strpos($url, 'api-order/v1/shop') !== false) {
+                $user = SAccount::where('firebase_uid', $uid)->first();
             }
             $this->user = $user;
         } catch (Exception $e) {

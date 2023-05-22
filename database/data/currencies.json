@@ -1,0 +1,792 @@
+[
+  {
+    "code": "¥",
+    "name": "Chinese Yuan",
+    "country_english_name": "China"
+  },
+  {
+    "code": "NT$",
+    "name": "New Taiwan Dollar",
+    "country_english_name": "Taiwan"
+  },
+  {
+    "code": "HK$",
+    "name": "Hong Kong Dollar",
+    "country_english_name": "Hong Kong"
+  },
+  {
+    "code": "MOP$",
+    "name": "Macanese Pataca",
+    "country_english_name": "Macau"
+  },
+  {
+    "code": "₩",
+    "name": "South Korea Won",
+    "country_english_name": "Korea - South"
+  },
+  {
+    "code": "¥",
+    "name": "円",
+    "country_english_name": "Japan"
+  },
+  {
+    "code": "₮",
+    "name": "Mongolian tögrög",
+    "country_english_name": "Mongolia"
+  },
+  {
+    "code": "Af",
+    "name": "Afghani",
+    "country_english_name": "Afghanistan"
+  },
+  {
+    "code": "৳",
+    "name": "Bangladeshi Taka",
+    "country_english_name": "Bangladesh"
+  },
+  {
+    "code": "Nu",
+    "name": "Bhutan Ngultrum",
+    "country_english_name": "Bhutan"
+  },
+  {
+    "code": "₸",
+    "name": "Kazakhstani Tenge",
+    "country_english_name": "Kazakhstan"
+  },
+  {
+    "code": "Rs",
+    "name": "Nepalese Rupee",
+    "country_english_name": "Nepal"
+  },
+  {
+    "code": "Rs",
+    "name": "Pakistan Rupee",
+    "country_english_name": "Pakistan"
+  },
+  {
+    "code": "Rs",
+    "name": "Sri Lankan Rupee",
+    "country_english_name": "Sri Lanka"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Ireland"
+  },
+  {
+    "code": "Rs",
+    "name": "Pakistan Rupee",
+    "country_english_name": "Pakistan"
+  },
+  {
+    "code": "B$",
+    "name": "Brunei Dollar",
+    "country_english_name": "Brunei"
+  },
+  {
+    "code": "៛",
+    "name": "Cambodian Riel",
+    "country_english_name": "Cambodia"
+  },
+  {
+    "code": "$",
+    "name": "US Dollar",
+    "country_english_name": "East Timor"
+  },
+  {
+    "code": "Rp",
+    "name": "Indonesian Rupiah",
+    "country_english_name": "Indonesia"
+  },
+  {
+    "code": "K",
+    "name": "Burma Kyat",
+    "country_english_name": "Burma"
+  },
+  {
+    "code": "₭",
+    "name": "Lao Kip",
+    "country_english_name": "Laos"
+  },
+  {
+    "code": "RM",
+    "name": "Malaysian Ringgit",
+    "country_english_name": "Malaysia"
+  },
+  {
+    "code": "₱",
+    "name": "Philippines Peso",
+    "country_english_name": "Philippines"
+  },
+  {
+    "code": "S$",
+    "name": "Singapore Dollar",
+    "country_english_name": "Singapore"
+  },
+  {
+    "code": "฿",
+    "name": "Thai Baht",
+    "country_english_name": "Thailand"
+  },
+  {
+    "code": "₫",
+    "name": "Dong",
+    "country_english_name": "Viet Nam"
+  },
+  {
+    "code": "BD",
+    "name": "Bahrain Dinar",
+    "country_english_name": "Bahrain"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Cyprus"
+  },
+  {
+    "code": "₪",
+    "name": "Israeli New Shekel",
+    "country_english_name": "Israel"
+  },
+  {
+    "code": "K.D",
+    "name": "Kuwaiti Dinar",
+    "country_english_name": "Kuwait"
+  },
+  {
+    "code": "ل.ل",
+    "name": "Lebanese Pound",
+    "country_english_name": "Lebanon"
+  },
+  {
+    "code": "ر.ع",
+    "name": "Omani Rial",
+    "country_english_name": "Oman"
+  },
+  {
+    "code": "QR",
+    "name": "Qatari Riyal",
+    "country_english_name": "Qatar"
+  },
+  {
+    "code": "د.إ",
+    "name": "United Arab Emirates Dirham",
+    "country_english_name": "United Arab Emirates"
+  },
+  {
+    "code": "﷼",
+    "name": "Yemeni Rial",
+    "country_english_name": "Yemen"
+  },
+  {
+    "code": "SR",
+    "name": "Saudi Riyal",
+    "country_english_name": "Saudi Arabia"
+  },
+  {
+    "code": "Br",
+    "name": "Belarusian Ruble",
+    "country_english_name": "Belarus"
+  },
+  {
+    "code": "лв",
+    "name": "Bulgaria Lev",
+    "country_english_name": "Bulgaria"
+  },
+  {
+    "code": "Kč",
+    "name": "Czech Koruna",
+    "country_english_name": "Czech Republic"
+  },
+  {
+    "code": "Ft",
+    "name": "Hungarian Forint",
+    "country_english_name": "Hungary"
+  },
+  {
+    "code": "zl",
+    "name": "Polish Zloty Dollar",
+    "country_english_name": "Poland"
+  },
+  {
+    "code": "(",
+    "name": "Russian Rupee",
+    "country_english_name": "Russia Federation"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Slovakia"
+  },
+  {
+    "code": "₴",
+    "name": "Ukrainian Hryvnia",
+    "country_english_name": "Ukraine"
+  },
+  {
+    "code": "kr",
+    "name": "Danish Krone",
+    "country_english_name": "Denmark"
+  },
+  {
+    "code": "£",
+    "name": "British Pound",
+    "country_english_name": "England"
+  },
+  {
+    "code": "kr",
+    "name": "Faroese Krona",
+    "country_english_name": "Faroe Islands"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Finland"
+  },
+  {
+    "code": "kr",
+    "name": "Iceland Króna",
+    "country_english_name": "Iceland"
+  },
+  {
+    "code": "kr",
+    "name": "Norwegian krone",
+    "country_english_name": "Norway"
+  },
+  {
+    "code": "kr",
+    "name": "Swedish Krona",
+    "country_english_name": "Sweden"
+  },
+  {
+    "code": "£",
+    "name": "British Pound",
+    "country_english_name": "United Kingdom"
+  },
+  {
+    "code": "£",
+    "name": "British Pound",
+    "country_english_name": "Scotland"
+  },
+  {
+    "code": "L",
+    "name": "Albania Lek",
+    "country_english_name": "Albania"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Andorra"
+  },
+  {
+    "code": "KM",
+    "name": "Bosnia and Herzegovina convertible mark",
+    "country_english_name": "Bosnia and Herzegovina"
+  },
+  {
+    "code": "kn",
+    "name": "Croatian Kuna",
+    "country_english_name": "Croatia"
+  },
+  {
+    "code": "£",
+    "name": "Gibraltar Pound",
+    "country_english_name": "Gibraltar"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Greece"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Malta"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Montenegro"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Portugal"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "San Marino"
+  },
+  {
+    "code": "RSD",
+    "name": "Serbian Dinar",
+    "country_english_name": "Serbia"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Slovenia"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Austria"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Belgium"
+  },
+  {
+    "code": "F",
+    "name": "Euro",
+    "country_english_name": "France"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Germany"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Luxembourg"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Monaco"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Netherlands"
+  },
+  {
+    "code": "SFr",
+    "name": "Swiss Franc",
+    "country_english_name": "Switzerland"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "Vatican City"
+  },
+  {
+    "code": "$",
+    "name": "East Caribbean Dollar",
+    "country_english_name": "Anguilla"
+  },
+  {
+    "code": "$",
+    "name": "East Caribbean Dollar",
+    "country_english_name": "Antigua and Barbuda"
+  },
+  {
+    "code": "Afl",
+    "name": "Aruban Florin",
+    "country_english_name": "Aruba"
+  },
+  {
+    "code": "B$",
+    "name": "Bahamian dollar",
+    "country_english_name": "Bahamas"
+  },
+  {
+    "code": "Bds$",
+    "name": "Barbadian Dollar",
+    "country_english_name": "Barbados"
+  },
+  {
+    "code": "$",
+    "name": "British Virgin Islands Dollar",
+    "country_english_name": "British Virgin Islands"
+  },
+  {
+    "code": "$",
+    "name": "Cayman Islands Dollar",
+    "country_english_name": "Cayman Islands"
+  },
+  {
+    "code": "CUC",
+    "name": "Cuban Peso",
+    "country_english_name": "Cuba"
+  },
+  {
+    "code": "$",
+    "name": "East Caribbean Dollar",
+    "country_english_name": "Dominica"
+  },
+  {
+    "code": "RD$",
+    "name": "Dominican Peso",
+    "country_english_name": "Dominican Republic"
+  },
+  {
+    "code": "$",
+    "name": "East Caribbean Dollar",
+    "country_english_name": "Grenada"
+  },
+  {
+    "code": "G",
+    "name": "Haiti Gourde",
+    "country_english_name": "Haiti"
+  },
+  {
+    "code": "$",
+    "name": "Jamaican Dollar",
+    "country_english_name": "Jamaica"
+  },
+  {
+    "code": "$",
+    "name": "East Caribbean Dollar",
+    "country_english_name": "Montserrat"
+  },
+  {
+    "code": "BZ$",
+    "name": "Belize Dollar",
+    "country_english_name": "Belize"
+  },
+  {
+    "code": "₡",
+    "name": "Costa Rican Colon",
+    "country_english_name": "Costa Rica"
+  },
+  {
+    "code": "Q",
+    "name": "Guatemalan Quetzal",
+    "country_english_name": "Guatemala"
+  },
+  {
+    "code": "L",
+    "name": "Honduran Lempira",
+    "country_english_name": "Honduras"
+  },
+  {
+    "code": "Mex$",
+    "name": "Mexican Peso",
+    "country_english_name": "Mexico"
+  },
+  {
+    "code": "C$",
+    "name": "Nicaraguan Córdoba",
+    "country_english_name": "Nicaragua"
+  },
+  {
+    "code": "B/.",
+    "name": "Panamanian Balboa",
+    "country_english_name": "Panama"
+  },
+  {
+    "code": "$",
+    "name": "Argentina Peso",
+    "country_english_name": "Argentina"
+  },
+  {
+    "code": "Bs",
+    "name": "Bolivian Bolyviano",
+    "country_english_name": "Bolivia"
+  },
+  {
+    "code": "R$",
+    "name": "Brazil Real",
+    "country_english_name": "Brazil"
+  },
+  {
+    "code": "$",
+    "name": "Chilean Peso",
+    "country_english_name": "Chile"
+  },
+  {
+    "code": "$",
+    "name": "Colombia Peso",
+    "country_english_name": "Colombia"
+  },
+  {
+    "code": "$",
+    "name": "US Dollar",
+    "country_english_name": "Ecuador"
+  },
+  {
+    "code": "€",
+    "name": "Euro",
+    "country_english_name": "French Guiana"
+  },
+  {
+    "code": "$",
+    "name": "Guyanese Dollar",
+    "country_english_name": "Guyana"
+  },
+  {
+    "code": "₲",
+    "name": "Paraguayan Guarani",
+    "country_english_name": "Paraguay"
+  },
+  {
+    "code": "S/.",
+    "name": "Peru Nuevo sol",
+    "country_english_name": "Peru"
+  },
+  {
+    "code": "$U",
+    "name": "Uruguayan Peso",
+    "country_english_name": "Uruguay"
+  },
+  {
+    "code": "Bs",
+    "name": "Venezuelan Bolivar",
+    "country_english_name": "Venezuela"
+  },
+  {
+    "code": "BD$",
+    "name": "Bermudian Dollar",
+    "country_english_name": "Bermuda"
+  },
+  {
+    "code": "C$",
+    "name": "Canadian dollar",
+    "country_english_name": "Canada"
+  },
+  {
+    "code": "$",
+    "name": "United States Dollar",
+    "country_english_name": "United States"
+  },
+  {
+    "code": "WS$",
+    "name": "Samoan Tala",
+    "country_english_name": "Samoa"
+  },
+  {
+    "code": "A$",
+    "name": "Australia Dollar",
+    "country_english_name": "Australia"
+  },
+  {
+    "code": "$",
+    "name": "US Dollar",
+    "country_english_name": "American Samoa"
+  },
+  {
+    "code": "$",
+    "name": "Australian Dollar",
+    "country_english_name": "Christmas Island"
+  },
+  {
+    "code": "$",
+    "name": "Cook Islands Dollar",
+    "country_english_name": "Cook Islands"
+  },
+  {
+    "code": "FJ$",
+    "name": "Fijian Dollar",
+    "country_english_name": "Fiji"
+  },
+  {
+    "code": "$",
+    "name": "Nauruan Dollar",
+    "country_english_name": "Nauru"
+  },
+  {
+    "code": "$",
+    "name": "New Zealand Dollar",
+    "country_english_name": "New Zealand"
+  },
+  {
+    "code": "K",
+    "name": "Papua New Guinean Kina",
+    "country_english_name": "Papua New Guinea"
+  },
+  {
+    "code": "SI$",
+    "name": "Solomon Islands Dollar",
+    "country_english_name": "Solomon Islands"
+  },
+  {
+    "code": "FBu",
+    "name": "Burundian franc",
+    "country_english_name": "Burundi"
+  },
+  {
+    "code": "CF",
+    "name": "Comorian franc",
+    "country_english_name": "Comoros"
+  },
+  {
+    "code": "Fdj",
+    "name": "Djiboutian franc",
+    "country_english_name": "Djibouti"
+  },
+  {
+    "code": "Nfk",
+    "name": "Eritrean Nakfa",
+    "country_english_name": "Eritrea"
+  },
+  {
+    "code": "Br",
+    "name": "Ethiopian Birr",
+    "country_english_name": "Ethiopia"
+  },
+  {
+    "code": "KSh",
+    "name": "Kenyan Shilling",
+    "country_english_name": "Kenya"
+  },
+  {
+    "code": "MK",
+    "name": "Malawi Kwacha",
+    "country_english_name": "Malawi"
+  },
+  {
+    "code": "MT",
+    "name": "Mozambican Metical",
+    "country_english_name": "Mozambique"
+  },
+  {
+    "code": "SR",
+    "name": "Seychellois Rupee",
+    "country_english_name": "Seychelles"
+  },
+  {
+    "code": "Sh",
+    "name": "Somali Shilling",
+    "country_english_name": "Somalia"
+  },
+  {
+    "code": "USh",
+    "name": "Ugandan Shilling",
+    "country_english_name": "Uganda"
+  },
+  {
+    "code": "ZMK",
+    "name": "Zambian kwacha",
+    "country_english_name": "Zambia"
+  },
+  {
+    "code": "x/y",
+    "name": "Tanzanian Shilling",
+    "country_english_name": "Tanzania"
+  },
+  {
+    "code": "FCFA",
+    "name": "Central African CFA franc",
+    "country_english_name": "Cameroon"
+  },
+  {
+    "code": "FCFA",
+    "name": "Central African CFA franc",
+    "country_english_name": "Central African Republic"
+  },
+  {
+    "code": "FCFA",
+    "name": "Central African CFA franc",
+    "country_english_name": "Chad"
+  },
+  {
+    "code": "FC",
+    "name": "Central African CFA franc",
+    "country_english_name": "Democratic Republic of The Congo"
+  },
+  {
+    "code": "FCFA",
+    "name": "Central African CFA franc",
+    "country_english_name": "Gabon"
+  },
+  {
+    "code": "RF",
+    "name": "Rwandan franc",
+    "country_english_name": "Rwanda"
+  },
+  {
+    "code": "DA",
+    "name": "Algeria Dinar",
+    "country_english_name": "Algeria"
+  },
+  {
+    "code": "E£",
+    "name": "Egyptian Pound",
+    "country_english_name": "Egypt"
+  },
+  {
+    "code": ".م.",
+    "name": "Moroccan Dirham",
+    "country_english_name": "Morocco"
+  },
+  {
+    "code": "ج.س",
+    "name": "Sudanese Pound",
+    "country_english_name": "Sudan"
+  },
+  {
+    "code": "DT",
+    "name": "Tunisian Dinar",
+    "country_english_name": "Tunisia"
+  },
+  {
+    "code": "P",
+    "name": "Botswana Pula",
+    "country_english_name": "Botswana"
+  },
+  {
+    "code": "pl",
+    "name": "Lesotho Loti",
+    "country_english_name": "Lesotho"
+  },
+  {
+    "code": "N$",
+    "name": "Namibian Dollar",
+    "country_english_name": "Namibia"
+  },
+  {
+    "code": "R",
+    "name": "South African Rand",
+    "country_english_name": "South Africa"
+  },
+  {
+    "code": "CFA",
+    "name": "West African CFA franc",
+    "country_english_name": "Burkina Faso"
+  },
+  {
+    "code": "$",
+    "name": "Cape Verdean Escudo",
+    "country_english_name": "Cape Verde"
+  },
+  {
+    "code": "CFA",
+    "name": "West African CFA franc",
+    "country_english_name": "Cote d’Ivoire"
+  },
+  {
+    "code": "D",
+    "name": "Gambian Dalasi",
+    "country_english_name": "Gambia"
+  },
+  {
+    "code": "GH₵",
+    "name": "Ghanaian Cedi",
+    "country_english_name": "Ghana"
+  },
+  {
+    "code": "FG",
+    "name": "Guinean franc",
+    "country_english_name": "Guinea"
+  },
+  {
+    "code": "CFA",
+    "name": "West African CFA franc",
+    "country_english_name": "Mali"
+  },
+  {
+    "code": "₦",
+    "name": "Nigerian Naira",
+    "country_english_name": "Nigeria"
+  },
+  {
+    "code": "Le",
+    "name": "Sierra Leonean Leone",
+    "country_english_name": "Sierra Leone"
+  }
+]

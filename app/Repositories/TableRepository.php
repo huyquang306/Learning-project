@@ -33,4 +33,31 @@ class TableRepository extends BaseRepository
             $this->model->create($data);
         }
     }
+
+    /**
+     * Get all shop's tables ordered by code
+     *
+     * @param MShop $shop
+     * @return \Illuminate\Database\Eloquent\Collection|null
+     */
+    public function getShopTablesOrderByCode(MShop $shop): ?\Illuminate\Database\Eloquent\Collection
+    {
+        return $shop->mTables()
+            ->orderBy('code', 'ASC')
+            ->get() ? : null;
+    }
+
+    /**
+     * Get all shop's tables with deleted ordered by code
+     *
+     * @param MShop $shop
+     * @return \Illuminate\Database\Eloquent\Collection|null
+     */
+    public function getShopTablesWithTrashedOrderByCode(MShop $shop): ?\Illuminate\Database\Eloquent\Collection
+    {
+        return $shop->mTablesWithTrashed()
+            ->orderBy('code', 'ASC')
+            ->withTrashed()
+            ->get() ? : null;
+    }
 }

@@ -387,7 +387,7 @@ const PageTableList = (props) => {
 
   // Connect to endpoint API Gateway
   useEffect(() => {
-    onConnectWebSocket(shop.hashId);
+    // onConnectWebSocket(shop.hashId);
   }, []);
 
   // Refresh data after has new order
@@ -397,7 +397,7 @@ const PageTableList = (props) => {
 
   //get shop tax info
   useEffect(() => {
-    getShopTaxInfo();
+    // getShopTaxInfo();
   }, []);
 
   const getShopTaxInfo = async () => {
@@ -463,7 +463,7 @@ const PageTableList = (props) => {
   }, [shop, state, authUser]);
 
   useEffect(() => {
-    getServicePlans();
+    // getServicePlans();
   }, [shop]);
 
   useEffect(() => {
@@ -521,14 +521,14 @@ const PageTableList = (props) => {
            * 'SHIPPING'       => '3'
            * 'SHIPPED'        => '4'
            */
-          ShopOrderApiService.getOrderGroupSummary(shop.hashId, false, { status: '0,1,2,3,4' })
-            .then((result) => {
-              setOrdergroups(result);
-            })
-            .catch((error) => {
-              setToast({ isShow: true, status: 'error', message: error.message });
-              console.error('[PageTableList] getInit error', error);
-            });
+          // ShopOrderApiService.getOrderGroupSummary(shop.hashId, false, { status: '0,1,2,3,4' })
+          //   .then((result) => {
+          //     setOrdergroups(result);
+          //   })
+          //   .catch((error) => {
+          //     setToast({ isShow: true, status: 'error', message: error.message });
+          //     console.error('[PageTableList] getInit error', error);
+          //   });
         }
       })
       .catch((error) => {

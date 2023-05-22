@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Repositories\Interfaces;
+namespace App\Repositories;
 
 use App\Models\MStaff;
 use App\Models\SAccount;
 use App\Repositories\BaseRepository;
+use App\Repositories\Interfaces\StaffRepositoryInterface;
 
 class StaffRepository extends BaseRepository implements StaffRepositoryInterface
 {

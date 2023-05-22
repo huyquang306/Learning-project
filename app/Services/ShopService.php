@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\MShop;
 use App\Models\TTmpShop;
-use App\Repositories\Interfaces\StaffRepository;
+use App\Repositories\StaffRepository;
 use App\Repositories\Interfaces\TmpShopRepositoryInterface;
 use App\Repositories\ShopRepository;
 use App\Repositories\TableRepository;

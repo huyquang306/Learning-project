@@ -82,4 +82,56 @@ class MShop extends Model
             'id',
         )->where('deleted_at', null);
     }
+
+    /**
+     * Relationship with MTable (include deleted Table)
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function mTablesWithTrashed(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(MTable::class, 'm_shop_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tOrderGroups(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TOrderGroup::class, 'm_shop_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tOrderGroupsInLastMonth(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        $firstDayInLastMonth = now()->subMonth()->startOfMonth();
+        $lastDayInLastMonth = now()->subMonth()->lastOfMonth();
+
+        return $this->hasMany(TOrderGroup::class, 'm_shop_id', 'id')
+            ->whereDate('created_at', '>=', $firstDayInLastMonth)
+            ->whereDate('created_at', '<=', $lastDayInLastMonth);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function mCourses(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            MCourse::class,
+            'r_shop_course',
+            'm_shop_id',
+            'm_course_id'
+        )->wherePivot('deleted_at', null);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function mCountry(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(MCountry::class, 'm_country_id', 'id');
+    }
 }
