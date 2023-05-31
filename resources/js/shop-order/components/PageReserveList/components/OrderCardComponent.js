@@ -16,7 +16,7 @@ import { useStyleOrderCard as useStyles } from '../newStyles';
 // Utils
 import Utils from 'js/shared/utils';
 import {ORDER_STATUS} from 'js/utils/helpers/courseHelper';
-import {TIME_SECONDS_FORMAT, DATE_TIME_SECONDS_FORMAT, momentJP} from 'js/utils/helpers/timer';
+import {TIME_SECONDS_FORMAT, DATE_TIME_SECONDS_FORMAT, momentVN} from 'js/utils/helpers/timer';
 import useLongPress from 'js/utils/helpers/useLongPress';
 import { ENTER_KEY_CODE } from 'js/utils/helpers/const';
 
@@ -80,7 +80,7 @@ const OrderCardComponent = (props) => {
     if (order && order.m_menu) {
       const expectTime = moment(order.ordered_at, DATE_TIME_SECONDS_FORMAT)
         .add(order.m_menu.estimated_preparation_time, 'minutes');
-      const now = momentJP();
+      const now = momentVN();
       if (order.status === ORDER_STATUS.STATUS_ORDER && expectTime < now) {
         setIsOverTimeCook(true);
       } else {

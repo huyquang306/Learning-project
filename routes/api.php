@@ -37,6 +37,13 @@ Route::prefix('v1')->group(
                 Route::get('/{shop?}', 'Api\ShopController@show');
                 Route::post('/', 'Api\ShopController@createTmpShop');
                 Route::post('/verify', 'Api\ShopController@verifyShopRegister');
+
+                // Item
+                Route::get('{shop}/item', 'Api\ItemController@index');
+                Route::post('{shop}/item', 'Api\ItemController@create');
+                Route::post('{shop}/item/{item}/images', 'Api\ItemController@updateImages');
+                Route::put('{shop}/item/{item}', 'Api\ItemController@update');
+                Route::delete('{shop}/item/{item}', 'Api\ItemController@destroy');
             }
         );
     }

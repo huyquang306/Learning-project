@@ -719,24 +719,22 @@ const PageRegister = (props) => {
               fullWidth
             />
           </Grid>
-          <Grid item xs={12} sm={2}>
-            <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Prefectures <Box className={classes.required}>(*)</Box>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={4}>
-            <PrefSelector
-              id='prefecture'
-              variant='outlined'
-              value={shop.prefecture}
-              onChange={handleChange}
-              fullWidth
-              className={classes.textLeft}
-            />
-          </Grid>
-        </Grid>
-        
-        <Grid container spacing={4}>
+          {/*<Grid item xs={12} sm={2}>*/}
+          {/*  <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>*/}
+          {/*    Prefectures <Box className={classes.required}>(*)</Box>*/}
+          {/*  </Box>*/}
+          {/*</Grid>*/}
+          {/*<Grid item xs={12} sm={4}>*/}
+          {/*  <PrefSelector*/}
+          {/*    id='prefecture'*/}
+          {/*    variant='outlined'*/}
+          {/*    value={shop.prefecture}*/}
+          {/*    onChange={handleChange}*/}
+          {/*    fullWidth*/}
+          {/*    className={classes.textLeft}*/}
+          {/*  />*/}
+          {/*</Grid>*/}
+          
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
               Municipalities <Box className={classes.required}>(*)</Box>
@@ -755,6 +753,44 @@ const PageRegister = (props) => {
               onChange={handleChange}
             />
           </Grid>
+        </Grid>
+        
+        <Grid container spacing={4}>
+          {/*<Grid item xs={12} sm={2}>*/}
+          {/*  <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>*/}
+          {/*    Municipalities <Box className={classes.required}>(*)</Box>*/}
+          {/*  </Box>*/}
+          {/*</Grid>*/}
+          {/*<Grid item xs={12} sm={4}>*/}
+          {/*  <TextField*/}
+          {/*    id='city'*/}
+          {/*    inputProps={{*/}
+          {/*      maxLength: 50,*/}
+          {/*      type: 'text',*/}
+          {/*    }}*/}
+          {/*    variant='outlined'*/}
+          {/*    value={shop.city}*/}
+          {/*    fullWidth*/}
+          {/*    onChange={handleChange}*/}
+          {/*  />*/}
+          {/*</Grid>*/}
+          
+          <Grid item xs={12} sm={2}>
+            <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
+              Prefectures <Box className={classes.required}>(*)</Box>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <PrefSelector
+              id='prefecture'
+              variant='outlined'
+              value={shop.prefecture}
+              onChange={handleChange}
+              fullWidth
+              className={classes.textLeft}
+            />
+          </Grid>
+          
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
               Address <Box className={classes.required}>(*)</Box>

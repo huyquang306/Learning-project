@@ -15,4 +15,22 @@ return [
             'reset_password_exceed_limit' => 'RESET_PASSWORD_EXCEED_LIMIT',
         ],
     ],
+    'STATUS_ORDER' => '0',
+    'STATUS_FINISH' => '1',
+    'STATUS_CANCEL' => '2',
+    'ORDER_STATUS' => [
+        'SHIPPING' => '3',
+        'SHIPPED' => '4',
+    ],
+    'STATUS_ORDERGROUP' => [
+        'PRE_ORDER' => 0,
+        'ORDERING' => 1,
+        'REQUEST_CHECKOUT' => 2,
+        'WAITING_CHECKOUT' => 3,
+        'CHECKED_OUT' => 4,
+        'CANCEL' => 9
+    ],
+    'IMAGE_RESIZE_S' => [200, 200],
+    'IMAGE_RESIZE_M' => [500, 500],
+    'IMAGE_RESIZE_L' => [1000, 1000],
 ];

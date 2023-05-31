@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Utils from 'js/shared/utils';
-import { momentJP, TIME_SECONDS_FORMAT } from 'js/utils/helpers/timer';
+import { momentVN, TIME_SECONDS_FORMAT } from 'js/utils/helpers/timer';
 import PubSub from 'pubsub-js';
 
 import PropTypes from 'prop-types';
@@ -215,7 +215,7 @@ const AppContainer = () => {
   const checkComingFinishCourse = async () => {
     if (!orderGroup || !course) return;
 
-    let nowDateTime = momentJP();
+    let nowDateTime = momentVN();
     const {
       alert_notification_time = 0,
       time_block_unit = 0,

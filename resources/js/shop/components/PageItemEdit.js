@@ -121,7 +121,7 @@ const PageItemEdit = (props) => {
         if (item) {
           setItemName(item.name);
           setItemPrice(item.price);
-          setItemPict(Utils.getBucketPath(item.l_image_folder_path, ShopApiService.host));
+          setItemPict(Utils.getBucketPath(item.s_image_folder_path, ShopApiService.host));
           setIsLoaded(true);
         } else {
           console.error('item not found');
@@ -264,7 +264,7 @@ const PageItemEdit = (props) => {
   const SkipButtonCard = (props) => {
     return (
       <Card className={classes.skipper}>
-        <Box>{props.target}を変えない場合はスキップ</Box>
+        <Box>{props.target} Tiếp tục nếu bạn không muốn thay đổi</Box>
         <ButtonMUI
           variant="outlined"
           color="default"
@@ -273,7 +273,7 @@ const PageItemEdit = (props) => {
           }}
           className={classes.skipperButton}
         >
-          スキップ
+          Tiếp theo
           <ArrowForwardIcon fontSize="small" />
         </ButtonMUI>
       </Card>
@@ -290,13 +290,13 @@ const PageItemEdit = (props) => {
     // === step 0 =========
     <Container className={classes.textCenter}>
       <StepCard
-        title="お弁当の写真"
+        title="Ảnh"
         key="photo"
         customButtons={(() => {
           return (
             <Link to="/item/list" className={classes.link}>
               <ArrowBackIcon fontSize="small" />
-              登録画面に戻る
+              Quay lại
             </Link>
           );
         })()}
@@ -317,7 +317,7 @@ const PageItemEdit = (props) => {
         <Grid container>
           <Grid item xs={6} className={classes.buttonGrid}>
             <ButtonSquare
-              title="撮影する"
+              title="Chụp ảnh"
               bgcolor="#FFFFFF"
               fgcolor="#F8B62D"
               border="3px solid #F8B62D"
@@ -343,7 +343,7 @@ const PageItemEdit = (props) => {
           </Grid>
           <Grid item xs={6} className={classes.buttonGrid}>
             <ButtonSquare
-              title="写真を選ぶ"
+              title="Chọn ảnh"
               bgcolor="#FFFFFF"
               fgcolor="#F8B62D"
               border="3px solid #F8B62D"
@@ -368,7 +368,7 @@ const PageItemEdit = (props) => {
           </Grid>
         </Grid>
       </StepCard>
-      <SkipButtonCard target="写真" />
+      <SkipButtonCard target="" />
       <Button
         bgcolor="#E35649"
         onClick={() => {
@@ -379,14 +379,14 @@ const PageItemEdit = (props) => {
         }}
       >
         <DeleteOutlinedIcon />
-        削除する
+        Xóa
       </Button>
     </Container>,
 
     // === step 1 =========
     <Container className={classes.textCenter}>
       <StepCard
-        title="お弁当の名前"
+        title="Tên cửa hàng"
         key="name"
         customButtons={(() => {
           return (
@@ -400,7 +400,7 @@ const PageItemEdit = (props) => {
                 variant="outlined"
               >
                 <ArrowBackIcon fontSize="small" />
-                戻る
+                Quay lại
               </Button>
               <Button
                 disabled={buttonDisabled}
@@ -409,7 +409,7 @@ const PageItemEdit = (props) => {
                 }}
                 bgcolor="#F8B62D"
               >
-                進む
+                Tiếp tục
                 <ArrowForwardIcon fontSize="small" />
               </Button>
             </Box>
@@ -426,18 +426,18 @@ const PageItemEdit = (props) => {
             variant="outlined"
             value={itemName}
             onChange={handleInputChange}
-            placeholder="お店の名前を入力"
+            placeholder="Nhập tên cửa hàng"
             fullWidth
           />
         </FormsContainer>
       </StepCard>
-      <SkipButtonCard target="名前" />
+      <SkipButtonCard target=""/>
     </Container>,
 
     // === step 2 =========
     <Container className={classes.textCenter}>
       <StepCard
-        title="お弁当の金額"
+        title="Số lượng"
         key="price"
         customButtons={(() => {
           return (
@@ -451,7 +451,7 @@ const PageItemEdit = (props) => {
                 variant="outlined"
               >
                 <ArrowBackIcon fontSize="small" />
-                戻る
+                Quay lại
               </Button>
               <Button
                 disabled={buttonDisabled}
@@ -461,7 +461,7 @@ const PageItemEdit = (props) => {
                 bgcolor="#F8B62D"
               >
                 <AddIcon fontSize="small" />
-                登録
+                Lưu
               </Button>
             </Box>
           );
@@ -477,12 +477,12 @@ const PageItemEdit = (props) => {
             variant="outlined"
             value={itemPrice}
             onChange={handleInputChange}
-            placeholder="税込の金額を入力してください"
+            placeholder="Vui lòng nhập số tiền bao gồm thuế"
             fullWidth
           />
         </FormsContainer>
       </StepCard>
-      <SkipButtonCard target="金額" />
+      <SkipButtonCard target="" />
     </Container>,
   ];
 
@@ -493,7 +493,7 @@ const PageItemEdit = (props) => {
   if (!isLoaded) {
     return (
       <PageContainer padding="0px">
-        <HeaderAppBar title="お弁当編集" backButton={true} />
+        <HeaderAppBar title="Chỉnh sửa" backButton={true} />
         <Box className={classes.loading}> 読込中... </Box>
         <Footer initialTabIndex={Number(0)}></Footer>
       </PageContainer>
@@ -502,7 +502,7 @@ const PageItemEdit = (props) => {
 
   return (
     <PageContainer padding="0px">
-      <HeaderAppBar title="お弁当編集" backButton={true} />
+      <HeaderAppBar title="Chỉnh sửa" backButton={true} />
 
       <PageInnerContainer backgroundColor="rgba(200,200,200,0.4)">
         {cardList[step]}

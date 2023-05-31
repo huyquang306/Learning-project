@@ -4,7 +4,7 @@ import { useHistory } from 'react-router';
 
 // Components
 import PageContainer from 'js/shared/components/PageContainer';
-import RegistContainer from 'js/shop/components/RegistContainer';
+import RegisterContainer from "../RegisterContainer";
 import Card from 'js/shared/components/Card';
 import ConfirmPassword from 'js/shop/components/ConfirmPassword';
 
@@ -135,7 +135,7 @@ const PageForgotPassword = () => {
 
   return (
     <PageContainer>
-      <RegistContainer>
+      <RegisterContainer>
         <Card
           title='パスワード再設定'
           key='createAccount'
@@ -154,7 +154,7 @@ const PageForgotPassword = () => {
             <Button className={classes.cancelButton} onClick={handleCancel}>キャンセルする</Button>
           </FormsContainer>
         </Card>
-      </RegistContainer>
+      </RegisterContainer>
 
       <FlashMessage
         isOpen={toast.isShow}

@@ -11,7 +11,7 @@ import FlashMessage from 'js/shared-order/components/FlashMessage';
 
 // Library
 import Utils from 'js/shared/utils';
-import { momentJP } from 'js/utils/helpers/timer';
+import { momentVN } from 'js/utils/helpers/timer';
 import { ORDER_GROUP_STATUS, ORDER_TYPE, ORDER_STATUS } from 'js/utils/helpers/courseHelper';
 import moment from 'moment';
 import 'moment-timezone';

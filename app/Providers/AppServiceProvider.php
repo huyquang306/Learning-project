@@ -31,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
             'SConfigurationRepositoryInterface' => 'SConfigurationRepository',
             'TmpShopRepositoryInterface' => 'TmpShopRepository',
             'StaffRepositoryInterface' => 'StaffRepository',
+            'MImageRepositoryInterface' => 'MImageRepository',
         ];
 
         foreach ($repositories as $key => $val) {

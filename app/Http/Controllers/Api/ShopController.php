@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Auth\VerifyShopRequest;
 use App\Http\Requests\TmpShopRequest;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\Shop\ShopResource;
 use App\Models\MShop;
 use App\Services\ShopService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Http\Resources\ShopResource;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends BaseApiController
 {

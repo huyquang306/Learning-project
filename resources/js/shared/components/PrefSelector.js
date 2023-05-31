@@ -12,10 +12,10 @@ const OPTION_DEFAULT = 'Select prefecture';
 const PrefSelector = (props) => {
   const prefList = [
     OPTION_DEFAULT,
-    'Ha Noi',
-    'Hai Phong',
-    'Thai Binh',
-    'Nam Dinh',
+    'Hoang Mai',
+    'Hai Ba Trung',
+    'Ba Dinh',
+    'Cau Giay',
   ];
   const prefOptions = prefList.map((str) => ({
     value: str,

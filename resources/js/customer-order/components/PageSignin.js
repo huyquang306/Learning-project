@@ -4,7 +4,7 @@ import {makeStyles, styled} from '@material-ui/core/styles';
 
 // Components
 import PageContainer from 'js/shared/components/PageContainer';
-import RegistContainer from 'js/customer-order/components/RegistContainer';
+import RegisterContainer from "../../shop/components/RegisterContainer";
 import Card from 'js/shared/components/Card';
 import { Box, Container, TextField } from '@material-ui/core';
 import Modal from 'js/shared/components/Modal';
@@ -201,7 +201,7 @@ const PageSignin = (_props) => {
 
   return (
     <PageContainer>
-      <RegistContainer>
+      <RegisterContainer>
         <Card
           title='利用者様の登録'
           customButtons={<></>}
@@ -259,7 +259,7 @@ const PageSignin = (_props) => {
             </Box>
           </Box>
         </Card>
-      </RegistContainer>
+      </RegisterContainer>
 
       {/* Error modal */}
       <Modal title='' open={!!errorMessage}>

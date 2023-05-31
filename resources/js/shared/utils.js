@@ -124,11 +124,12 @@ export default class Utils {
     }
     
     const bucket = process.env.MIX_AWS_S3_BUCKET || false;
+    const region = process.env.MIX_AWS_S3_REGION;
     if (!bucket && !host) {
       return null;
     }
     
-    const path = bucket ? `https://${bucket}/${filePath}` : `${host}/${filePath}`;
+    const path = bucket ? `https://${bucket}.s3.${region}.amazonaws.com/${filePath}` : `${host}/${filePath}`;
     
     return path;
   }

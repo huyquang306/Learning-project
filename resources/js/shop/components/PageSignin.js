@@ -10,12 +10,12 @@ import { RecaptchaContainer } from 'js/shared/auth-base';
 
 // Components
 import PageContainer from 'js/shared/components/PageContainer.js';
-import RegistContainer from 'js/shop/components/RegisterContainer';
 import Card from 'js/shared/components/Card';
 import {Box, Container, IconButton, InputAdornment, TextField} from '@material-ui/core';
 import Modal from 'js/shared/components/Modal.js';
 import Button from 'js/shared/components/Button.js';
 import {VisibilityOff, Visibility} from '@material-ui/icons';
+import RegisterContainer from "./RegisterContainer";
 
 const FormsContainer = styled(Container)({
   width: '90%',
@@ -75,11 +75,11 @@ const PageSignin = (props) => {
 
   return (
     <PageContainer>
-      <RegistContainer type="signin">
+      <RegisterContainer type="signin">
         <Card
-          title="Login"
+          title="Đăng nhập"
           onButtonClick={handleButtonClick}
-          buttonTitle="Login"
+          buttonTitle="Đăng nhập"
           buttonDisabled={!account.email && !account.password}
         >
           <FormsContainer>
@@ -129,10 +129,10 @@ const PageSignin = (props) => {
 
           <RecaptchaContainer authService={ShopAuthService} />
         </Card>
-      </RegistContainer>
+      </RegisterContainer>
 
       <Modal title="" open={showWait} height={250}>
-        Login
+        Đăng nhập ...
       </Modal>
 
       <Modal title="" open={!!errorMessage} height={250}>

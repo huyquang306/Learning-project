@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\TTmpShop;
 use App\Repositories\Interfaces\TmpShopRepositoryInterface;
+use Carbon\Carbon;
 
 class TmpShopRepository extends BaseRepository implements TmpShopRepositoryInterface
 {

@@ -10,7 +10,7 @@ import { Card, Typography, Box } from '@material-ui/core';
 import { isEmpty, sortBy } from 'lodash';
 import {
   getTimerBySeconds,
-  momentJP,
+  momentVN,
   DATE_TIME_SECONDS_FORMAT,
   DAY_SECONDS,
 } from 'js/utils/helpers/timer';

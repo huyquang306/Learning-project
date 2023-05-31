@@ -3,7 +3,6 @@ import { styled } from '@material-ui/core/styles';
 
 // Components
 import PageContainer from 'js/shared/components/PageContainer.js';
-import RegistContainer from 'js/shop/components/RegistContainer';
 import Card from 'js/shared/components/Card';
 import { Box, Container, TextField } from '@material-ui/core';
 import Modal from 'js/shared/components/Modal.js';
@@ -19,6 +18,7 @@ import {
   MIN_NUMBER_CHARS_EMAIL,
   EMAIL_RULE,
 } from 'js/utils/helpers/emailHelper';
+import RegisterContainer from "./RegisterContainer";
 const FormsContainer = styled(Container)({
   width: '90%',
 });
@@ -68,7 +68,7 @@ const PageSendEmailToForgotPassword = () => {
 
   return (
     <PageContainer>
-      <RegistContainer type='forgot-password'>
+      <RegisterContainer type='forgot-password'>
         <Card
           title='メールアドレス認証'
           onButtonClick={handleButtonClick}
@@ -96,7 +96,7 @@ const PageSendEmailToForgotPassword = () => {
           )}
           {/* <RecaptchaContainer authService={ShopAuthService} /> */}
         </Card>
-      </RegistContainer>
+      </RegisterContainer>
 
       {/* Show error message */}
       <Modal title='' open={!!errorMessage}>

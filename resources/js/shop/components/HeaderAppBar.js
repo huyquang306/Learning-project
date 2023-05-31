@@ -1,5 +1,4 @@
 /*
- * Obento-R お弁当販売
  Header
  */
 
@@ -77,7 +76,6 @@ const HeaderAppBar = (props) => {
             return props.backButton ? (
               <IconButton onClick={handleBackClick}>
                 <ArrowBackIcon />
-                戻る
               </IconButton>
             ) : null;
           })(props)}
@@ -90,7 +88,6 @@ const HeaderAppBar = (props) => {
             return props.settingButton ? (
               <IconButton onClick={handleSettingClick}>
                 <SettingsIcon />
-                設定
               </IconButton>
             ) : null;
           })(props)}

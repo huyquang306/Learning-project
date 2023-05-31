@@ -3,9 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\MGenre;
+use App\Models\MItem;
+use App\Models\MMenu;
 use App\Models\MShop;
 use App\Models\MStaff;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class ShopRepository extends BaseRepository
@@ -20,9 +23,9 @@ class ShopRepository extends BaseRepository
      * Find Shop by User ID
      *
      * @param int $id
-     * @return MShop|null
+     * @return Collection
      */
-    public function findShopByUser(int $id): ?MShop
+    public function findShopByUser(int $id): Collection
     {
         return MStaff::find($id)->mShops()->get()
             ->load([
@@ -167,5 +170,120 @@ class ShopRepository extends BaseRepository
             }
         );
         return $m_shop;
+    }
+
+    /**
+     * @param MShop $shop
+     * @param string $name
+     * @param int $price
+     *
+     * @return mixed
+     */
+    public function createItem(MShop $shop, string $name, int $price)
+    {
+        $item_id = null;
+        \DB::transaction(
+            function () use ($shop, $name, $price, &$item_id) {
+                $item = new MItem();
+                $item->name = $name;
+                $item->price = $price;
+                $item->save();
+                $item->mShops()->attach($shop->id);
+                $item_id = $item->id;
+            }
+        );
+        if ($item_id) {
+            return MItem::find($item_id);
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $field_name
+     * @param string $value
+     * @return bool
+     */
+    public function itemDuplicateCheck(string $field_name, string $value): bool
+    {
+        return !MItem::where($field_name, $value)->count();
+    }
+
+    /**
+     * @param $request
+     * @param string $shop_id
+     * @param string $item_id
+     * @return mixed
+     */
+    public function updateItem($request, string $shop_id, string $item_id)
+    {
+        $m_item = MItem::find($item_id);
+
+        if ($m_item && $m_item->mShops()->find($shop_id)) {
+            \DB::transaction(function () use ($request, $m_item) {
+                $m_item->fill($request->all())->save();
+            });
+            return $m_item;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $shop_id
+     * @param string $id
+     * @param array $paths
+     * @param string $type
+     *
+     * @return MMenu|MItem
+     */
+    public function updateImagePaths(string $shop_id, string $id, array $paths, string $type)
+    {
+        $m_shop = MShop::where('hash_id', $shop_id)->first();
+
+        try {
+            if ($type === 'item') {
+                $col = $m_shop->mItems()->where('hash_id', $id)->first();
+            } elseif ($type === 'menu') {
+                $col = $m_shop->mMenus()->where('hash_id', $id)->first();
+            } elseif ($type === 'course_menu') {
+                $col = $m_shop->mCourses()->where('hash_id', $id)->first();
+            }
+
+            if ($col ?? false) {
+                \DB::transaction(function () use ($paths, $col) {
+                    $col->s_image_folder_path = $paths[0];
+                    $col->m_image_folder_path = $paths[1];
+                    $col->l_image_folder_path = $paths[2];
+                    $col->save();
+                });
+
+                return $col;
+            } else {
+                return false;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * @param string $m_shop_id
+     * @param string $m_item_id
+     * @return true|null
+     */
+    public function deleteItem(string $m_shop_id, string $m_item_id): ?bool
+    {
+        $m_item = MItem::find($m_item_id);
+
+        if ($m_item && $m_item->mShops()->find($m_shop_id)) {
+            \DB::transaction(function () use ($m_item) {
+                $m_item->delete(); // soft delete
+            });
+
+            return true;
+        }
+
+        return null;
     }
 }

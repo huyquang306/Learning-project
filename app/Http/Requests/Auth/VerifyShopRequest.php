@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Http\Requests\BaseAPIRequest;
+use App\Http\Requests\BaseApiRequest;
 
-class VerifyShopRequest extends BaseAPIRequest
+class VerifyShopRequest extends BaseApiRequest
 {
     /**
      * rulesPut

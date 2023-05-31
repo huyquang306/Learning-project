@@ -56,8 +56,8 @@ const Footer = (props) => {
       showLabels
       className={classes.root}
     >
-      <BottomNavigationAction label="お弁当の登録" icon={<ViewQuiltOutlinedIcon />} />
-      <BottomNavigationAction label="販売画面" icon={<StoreOutlinedIcon />} />
+      <BottomNavigationAction label="Đăng kí quán ăn" icon={<ViewQuiltOutlinedIcon />} />
+      <BottomNavigationAction label="Màn hình bán hàng" icon={<StoreOutlinedIcon />} />
     </BottomNavigation>
   );
 };

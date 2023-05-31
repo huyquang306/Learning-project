@@ -44,14 +44,14 @@ const PageLaunch = (_props) => {
         <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/orderr_logo.png`} alt="logo" />
 
         <Button
-          title="はじめて使う"
+          title="Register"
           onClick={() => {
             history.push('/register');
           }}
         />
 
         <Button
-          title="ログインする"
+          title="Sign-in"
           bgcolor="#F8B62D"
           onClick={() => {
             history.push('/signin');

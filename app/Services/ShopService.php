@@ -4,11 +4,13 @@ namespace App\Services;
 
 use App\Models\MShop;
 use App\Models\TTmpShop;
-use App\Repositories\Interfaces\StaffRepository;
+use App\Repositories\StaffRepository;
 use App\Repositories\Interfaces\TmpShopRepositoryInterface;
 use App\Repositories\ShopRepository;
 use App\Repositories\TableRepository;
 use App\Services\Auth\FirebaseService;
+use App\Services\GenreService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -20,19 +22,22 @@ class ShopService
     protected $shopRepository;
     protected $staffRepository;
     protected $tableRepository;
+    protected $genreService;
 
     public function __construct(
         ShopRepository $shopRepository,
         StaffRepository $staffRepository,
         TableRepository $tableRepository,
         TmpShopRepositoryInterface $tmpShopRepository,
-        FirebaseService $firebaseService
+        FirebaseService $firebaseService,
+        GenreService $genreService
     ) {
         $this->shopRepository = $shopRepository;
         $this->staffRepository = $staffRepository;
         $this->tableRepository = $tableRepository;
         $this->tmpShopRepository = $tmpShopRepository;
         $this->firebaseService = $firebaseService;
+        $this->genreService = $genreService;
     }
 
     /**
@@ -46,7 +51,6 @@ class ShopService
     {
         DB::beginTransaction();
         try {
-            Log::info(1);
             $type = TTmpShop::REGISTER_SHOP_TYPE;
             if ($request->is_active_shop) {
                 // Case 1: copy shop
@@ -75,11 +79,9 @@ class ShopService
                 ]);
             }
             $tmpShop = $this->tmpShopRepository->save($shopData, $type);
-            Log::info($shopData);
             $verifyLink = $this->generateVerifyLink(TTmpShop::REGISTER_LINK_TYPE, $tmpShop->hash_id);
             $this->firebaseService->sendRegisterVerifyLink($shopData['email'], $verifyLink);
             DB::commit();
-            Log::info($tmpShop);
 
             return $tmpShop;
         } catch (\Exception $exception) {
@@ -108,9 +110,9 @@ class ShopService
      * ユーザーIDから店舗情報を取得する
      *
      * @param int $id
-     * @return MShop|null
+     * @return Collection
      */
-    public function findByUser(int $id): ?MShop
+    public function findByUser(int $id): Collection
     {
         $shops = $this->shopRepository->findShopByUser($id);
         $shops->map(function ($shop) {
@@ -144,8 +146,7 @@ class ShopService
         // check code exist and hasn't expired
         $validCode = $this->tmpShopRepository->validCode($hashId);
         $shopTmp = $this->tmpShopRepository->findByHashId($hashId);
-        Log::info('shopTmp');
-        Log::info($shopTmp);
+
         $isRegisterType = $shopTmp && ($shopTmp->type === TTmpShop::COPY_DEACTIVATE_SHOP_TYPE
                 || $shopTmp->type === TTmpShop::REGISTER_SHOP_TYPE);
         if (!$validCode || !$shopTmp || !$isRegisterType) {
@@ -154,8 +155,7 @@ class ShopService
 
         $shopInfo = (array) json_decode($shopTmp->shop_info);
         $shopExisted = $this->shopRepository->findShopByEmail($shopInfo['email']);
-        Log::info('shopExisted');
-        Log::info($shopExisted);
+
         // Check shop existed
         if ($shopExisted) {
             throw new Exception('This store already exists');
@@ -209,6 +209,7 @@ class ShopService
 
             return $shop;
         } catch (Exception $e) {
+            Log::info($e);
             DB::rollBack();
 
             throw $e;
@@ -247,7 +248,6 @@ class ShopService
         ]);
 
         $shop = $this->shopRepository->create($data);
-        Log::info($shop);
 
         // Create data default
 //        $this->categoryRepository->createDefaultCategoryByShop($shop->id);

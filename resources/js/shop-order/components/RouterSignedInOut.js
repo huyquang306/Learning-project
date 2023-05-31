@@ -5,7 +5,7 @@ import { shopInfoDefault } from 'js/shop/components/ShopInfoContext';
 
 // Page Components
 import PageLaunch from 'js/shop-order/components/PageLaunch';
-import PageRegist from 'js/shop/components/PageRegist';
+import PageRegister from 'js/shop/components/PageRegister';
 import PageSignin from 'js/shop/components/PageSignin';
 import PageSendEmailToForgotPassword from 'js/shop/components/PageSendEmailToForgotPassword';
 import PageSetting from 'js/shop-order/components/setting/PageSetting';
@@ -42,7 +42,7 @@ import { checkAuthorityFunction } from 'js/utils/components/Payment/utils';
 
 const RouterBase = (props) => {
   return (
-    <Router basename={process.env.MIX_BASENAME_SHOP_ORDER}>
+    <Router basename={process.env.MIX_INDEX_PATH_SHOP_ORDER}>
       <Switch>{props.children}</Switch>
     </Router>
   );
@@ -133,7 +133,7 @@ const RouterSignedInOut = (props) => {
       </Route>
       {/* If user login by phoneNumber (forgotPassword feature) */}
       <Route path="/regist" exact>
-        {isAuthenticated && isRegistedShop ? <Redirect to="/table/list" /> : <PageRegist />}
+        {isAuthenticated && isRegistedShop ? <Redirect to="/table/list" /> : <PageRegister />}
       </Route>
       <Route exact path="/signin">
         {isAuthenticated && isRegistedShop ? <Redirect to="/table/list" /> : <PageSignin />}
