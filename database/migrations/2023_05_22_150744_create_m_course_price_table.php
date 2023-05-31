@@ -19,8 +19,8 @@ class CreateMCoursePriceTable extends Migration
                 ->nullable();
             $table->unsignedBigInteger('r_shop_course_id')
                 ->nullable();
-            $table-time('block_time_start');
-            $table-time('block_time_finish');
+            $table->time('block_time_start');
+            $table->time('block_time_finish');
             $table->integer('unit_price');
             $table->unsignedInteger('tax_value')
                 ->default(0);

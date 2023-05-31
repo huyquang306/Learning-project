@@ -30,4 +30,7 @@ return [
         'CHECKED_OUT' => 4,
         'CANCEL' => 9
     ],
+    'IMAGE_RESIZE_S' => [200, 200],
+    'IMAGE_RESIZE_M' => [500, 500],
+    'IMAGE_RESIZE_L' => [1000, 1000],
 ];

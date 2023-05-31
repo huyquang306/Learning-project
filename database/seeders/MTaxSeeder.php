@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use App\Models\MTax;
+use App\Models\MCountry;
 
 class MTaxSeeder extends Seeder
 {

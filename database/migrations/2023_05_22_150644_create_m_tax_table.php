@@ -15,19 +15,17 @@ class CreateMTaxTable extends Migration
     public function up()
     {
         Schema::create('m_tax', function (Blueprint $table) {
-            Schema::create('m_tax', function (Blueprint $table) {
-                $table->bigIncrements('id');
-                $table->unsignedBigInteger('m_country_id')->nullable(false);
-                $table->string('name');
-                $table->decimal('tax_rate', 10, 4)->default(0);
-                $table->timestamps();
-            });
-
-            Artisan::call('db:seed', [
-                '--class' => 'MTaxSeeder',
-                '--force' => true,
-            ]);
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('m_country_id')->nullable(false);
+            $table->string('name');
+            $table->decimal('tax_rate', 10, 4)->default(0);
+            $table->timestamps();
         });
+
+        Artisan::call('db:seed', [
+            '--class' => 'MTaxSeeder',
+            '--force' => true,
+        ]);
     }
 
     /**

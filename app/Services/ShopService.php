@@ -146,8 +146,7 @@ class ShopService
         // check code exist and hasn't expired
         $validCode = $this->tmpShopRepository->validCode($hashId);
         $shopTmp = $this->tmpShopRepository->findByHashId($hashId);
-        Log::info('shopTmp');
-        Log::info($shopTmp);
+
         $isRegisterType = $shopTmp && ($shopTmp->type === TTmpShop::COPY_DEACTIVATE_SHOP_TYPE
                 || $shopTmp->type === TTmpShop::REGISTER_SHOP_TYPE);
         if (!$validCode || !$shopTmp || !$isRegisterType) {
@@ -156,7 +155,7 @@ class ShopService
 
         $shopInfo = (array) json_decode($shopTmp->shop_info);
         $shopExisted = $this->shopRepository->findShopByEmail($shopInfo['email']);
-        Log::info($shopExisted);
+
         // Check shop existed
         if ($shopExisted) {
             throw new Exception('This store already exists');
@@ -249,8 +248,6 @@ class ShopService
         ]);
 
         $shop = $this->shopRepository->create($data);
-        Log::info('check shop has been register');
-        Log::info($shop);
 
         // Create data default
 //        $this->categoryRepository->createDefaultCategoryByShop($shop->id);

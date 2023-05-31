@@ -184,12 +184,12 @@ const PageItemRegist = (props) => {
   const cardList = [
     // === step 0 =========
     <Card
-      title="お弁当の写真"
+      title="Lựa chọn ảnh"
       key="photo"
       customButtons={(() => {
         return (
           <Box className={classes.linkBox}>
-            <Link to="/item/list">←登録画面に戻る</Link>
+            <Link to="/item/list">← Quay lại màn hình đăng ký</Link>
           </Box>
         );
       })()}
@@ -197,7 +197,7 @@ const PageItemRegist = (props) => {
       <Grid container>
         <Grid item xs={6} className={classes.buttonGrid}>
           <ButtonSquare
-            title="撮影する"
+            title="Chụp ảnh"
             bgcolor="#FFFFFF"
             fgcolor="#F8B62D"
             border="3px solid #F8B62D"
@@ -223,7 +223,7 @@ const PageItemRegist = (props) => {
         </Grid>
         <Grid item xs={6} className={classes.buttonGrid}>
           <ButtonSquare
-            title="写真を選ぶ"
+            title="Chọn ảnh"
             bgcolor="#FFFFFF"
             fgcolor="#F8B62D"
             border="3px solid #F8B62D"
@@ -251,7 +251,7 @@ const PageItemRegist = (props) => {
 
     // === step 1 =========
     <Card
-      title="お弁当の名前"
+      title="Tên quán ăn"
       key="name"
       customButtons={(() => {
         return (
@@ -265,7 +265,7 @@ const PageItemRegist = (props) => {
               variant="outlined"
             >
               <ArrowBackIcon fontSize="small" />
-              戻る
+              Trở lại
             </Button>
             <Button
               disabled={buttonDisabled}
@@ -274,7 +274,7 @@ const PageItemRegist = (props) => {
               }}
               bgcolor="#F8B62D"
             >
-              進む
+              Tiếp theo
               <ArrowForwardIcon fontSize="small" />
             </Button>
           </Box>
@@ -291,7 +291,7 @@ const PageItemRegist = (props) => {
           variant="outlined"
           value={itemName}
           onChange={handleInputChange}
-          placeholder="お弁当の名前を入力"
+          placeholder="Nhập tên quán"
           fullWidth
         />
       </FormsContainer>
@@ -299,7 +299,7 @@ const PageItemRegist = (props) => {
 
     // === step 2 =========
     <Card
-      title="お弁当の金額"
+      title="Số lượng"
       key="price"
       customButtons={(() => {
         return (
@@ -313,12 +313,12 @@ const PageItemRegist = (props) => {
               variant="outlined"
             >
               <ArrowBackIcon fontSize="small" />
-              戻る
+              Trờ lại
             </Button>
 
             <Button disabled={buttonDisabled} onClick={handleClickRegistButton} bgcolor="#F8B62D">
               <AddIcon fontSize="small" />
-              登録
+              Tiếp theo
             </Button>
           </Box>
         );
@@ -334,7 +334,7 @@ const PageItemRegist = (props) => {
           variant="outlined"
           value={itemPrice}
           onChange={handleInputChange}
-          placeholder="税込の金額を入力してください"
+          placeholder="Vui lòng nhập số tiền bao gồm thuế"
           fullWidth
         />
       </FormsContainer>
@@ -343,7 +343,7 @@ const PageItemRegist = (props) => {
 
   return (
     <PageContainer padding="0px">
-      <HeaderAppBar title="お弁当登録" />
+      <HeaderAppBar title="Đăng kí quán ăn" />
       {/* debug >>>>>> */}
       {/* <form */}
       {/*   method="POST" */}

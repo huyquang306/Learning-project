@@ -17,12 +17,6 @@ class AddColumnToMMenuTable extends Migration
             $table->unsignedBigInteger('main_image_id')
                 ->nullable()
                 ->after('image_file_name');
-            $table->decimal('tax_value', 10, 4)
-                ->default(0)
-                ->after('price');
-            $table->unsignedBigInteger('m_tax_id')
-                ->nullable(false)
-                ->after('tax_value');
             $table->tinyInteger('initial_order_flg')
                 ->after('is_course_only')
                 ->default(0);

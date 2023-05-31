@@ -13,7 +13,7 @@ class CreateTShopAnouncementTable extends Migration
      */
     public function up()
     {
-        Schema::create('t_shop_anouncement', function (Blueprint $table) {
+        Schema::create('t_shop_announcement', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('hash_id', 16);
             $table->unsignedBigInteger('m_shop_id')
@@ -36,6 +36,6 @@ class CreateTShopAnouncementTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('t_shop_anouncement');
+        Schema::dropIfExists('t_shop_announcement');
     }
 }

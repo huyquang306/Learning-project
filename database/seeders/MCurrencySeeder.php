@@ -3,6 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use App\Models\MCurrency;
+use App\Models\MCountry;
 
 class MCurrencySeeder extends Seeder
 {

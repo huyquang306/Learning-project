@@ -77,9 +77,9 @@ const PageSignin = (props) => {
     <PageContainer>
       <RegisterContainer type="signin">
         <Card
-          title="Login"
+          title="Đăng nhập"
           onButtonClick={handleButtonClick}
-          buttonTitle="Login"
+          buttonTitle="Đăng nhập"
           buttonDisabled={!account.email && !account.password}
         >
           <FormsContainer>
@@ -132,7 +132,7 @@ const PageSignin = (props) => {
       </RegisterContainer>
 
       <Modal title="" open={showWait} height={250}>
-        Login
+        Đăng nhập ...
       </Modal>
 
       <Modal title="" open={!!errorMessage} height={250}>

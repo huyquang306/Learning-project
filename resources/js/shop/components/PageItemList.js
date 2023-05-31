@@ -53,15 +53,15 @@ const PageItemList = (props) => {
   const handleClickRegistButton = () => {
     history.push(`/item/regist`);
   };
-
-  // 販売アイテム取得リクエスト
+  
+  // request to get sale item
   useEffect(() => {
     // console.debug('[PageItemList] effect shop', shop);
     setWait(true);
     ShopApiService.request(ENDPOINTS.GET_ITEMS, [shop.hashId], null).then((result) => {
       console.debug('[PageItemList] GET_ITEMS', result);
       setWait(false);
-      // 登録アイテムなければアイテム登録画面へ
+      // If there is no registered item, go to the item registration screen
       if (result.length === 0) {
         history.push('/item/regist');
       } else {
@@ -76,7 +76,7 @@ const PageItemList = (props) => {
 
   return (
     <PageContainer padding="0px">
-      <HeaderAppBar title="登録一覧" />
+      <HeaderAppBar title="Danh sách" />
       <PageInnerContainer backgroundColor="rgba(200,200,200,0.4)" padding="10px 5px 100px 5px">
         {items.map((item) => {
           return (
@@ -92,14 +92,14 @@ const PageItemList = (props) => {
                 }}
                 padding="8px 20px"
               >
-                <CreateOutlinedIcon /> 変更する
+                <CreateOutlinedIcon /> Sửa
               </Button>
             </ItemCard>
           );
         })}
         <Box className={classes.floatButtonContainer}>
           <Button
-            title="+ 登録"
+            title="+ Thêm mới"
             bgcolor="#86BE27"
             fgcolor="#F7FAEE"
             onClick={handleClickRegistButton}

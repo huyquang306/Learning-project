@@ -77,7 +77,7 @@ const PageOnsale = (_props) => {
 
   return (
     <PageContainer padding="0px">
-      <HeaderAppBar title="販売画面" />
+      <HeaderAppBar title="Giao diện bán hàng" />
 
       <PageInnerContainer backgroundColor="rgba(200,200,200,0.4)">
         {items.map((item) => {
@@ -89,7 +89,7 @@ const PageOnsale = (_props) => {
               itemPrice={Number(item.price)}
             >
               <ButtonOnSale
-                title="販売開始"
+                title="Bắt đầu bán"
                 bgcolor="#E35649"
                 fgcolor="#F8B62D"
                 border="2px solid #B53F35"
@@ -100,7 +100,7 @@ const PageOnsale = (_props) => {
               ></ButtonOnSale>
 
               <ButtonOnSale
-                title="販売停止"
+                title="Ngừng bán"
                 bgcolor="#97C633"
                 fgcolor="#F8B62D"
                 border="2px solid #739A1E"

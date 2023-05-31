@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\Shop;
 use App\Http\Controllers\Controller;
 use App\Services\OrderGroupService;
 use Illuminate\Http\Request;
+use App\Models\MShop;
+use App\Http\Resources\Shop\SummaryOrderGroupResource;
 
 class OrderGroupController extends Controller
 {

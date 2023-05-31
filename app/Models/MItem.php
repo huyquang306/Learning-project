@@ -33,7 +33,7 @@ class MItem extends Model
     {
         return $this->belongsToMany(
           MShop::class,
-          'm_shop_item',
+          'r_shop_item',
           'm_item_id',
           'm_shop_id'
         )->wherePivot('deleted_at', '=', null);
