@@ -32,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
             'TmpShopRepositoryInterface' => 'TmpShopRepository',
             'StaffRepositoryInterface' => 'StaffRepository',
             'MImageRepositoryInterface' => 'MImageRepository',
+            'CourseRepositoryInterface' => 'CourseRepository',
+            'AnnouncementRepositoryInterface' => 'AnnouncementRepository',
+            'ShopMetaRepositoryInterface' => 'ShopMetaRepository',
+            'CoursePriceRepositoryInterface' => 'CoursePriceRepository',
         ];
 
         foreach ($repositories as $key => $val) {

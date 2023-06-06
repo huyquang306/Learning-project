@@ -134,4 +134,12 @@ class MShop extends Model
     {
         return $this->belongsTo(MCountry::class, 'm_country_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function mShopPosSetting(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(MShopPosSetting::class, 'm_shop_id', 'id');
+    }
 }

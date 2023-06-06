@@ -19,7 +19,7 @@ import { ORDER_TYPE, ORDER_STATUS, ORDER_GROUP_STATUS } from 'js/utils/helpers/c
 // Library
 import Utils from 'js/shared/utils';
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -189,7 +189,7 @@ const TableCard = (props) => {
         const extendTimeBlock = !Utils.isEmpty(course?.list_child_courses)
           ? course?.list_child_courses[0].time_block_unit
           : 0;
-        const nowMomentJp = momentJP();
+        const nowMomentJp = momentVN();
         const startTime = moment(orderHasCourse?.ordered_at, DATE_TIME_SECONDS_FORMAT);
         const spendingTime = moment.duration(nowMomentJp.diff(startTime)).asSeconds();
         const timeOrder = course.time_block_unit * 60 + extendTimeBlock * numberExtendCourse * 60;
@@ -249,7 +249,7 @@ const TableCard = (props) => {
           spendingTime > course.time_block_unit * 60 &&
           numberExtendCourse > 0)
       ) {
-        result = `${getTimerBySeconds(course.time_block_unit * 60)} (延${getTimerBySeconds(
+        result = `${getTimerBySeconds(course.time_block_unit * 60)} (Thêm ${getTimerBySeconds(
           spendingTime - course.time_block_unit * 60
         )}) `;
       }
@@ -260,7 +260,7 @@ const TableCard = (props) => {
       if (spendingTime <= timeOrder && spendingTime <= course.time_block_unit * 60) {
         result = `${getTimerBySeconds(spendingTime)}`;
       } else {
-        result = `${getTimerBySeconds(course.time_block_unit * 60)} (オ${getTimerBySeconds(
+        result = `${getTimerBySeconds(course.time_block_unit * 60)} (${getTimerBySeconds(
           spendingTime - timeOrder
         )}) `;
       }
@@ -298,20 +298,20 @@ const TableCard = (props) => {
                   !isEmpty(ordergroup) &&
                   ordergroup?.status === ORDER_GROUP_STATUS.PRE_ORDER ||
                   ordergroup?.status === ORDER_GROUP_STATUS.ORDERING
-                    ? '来店中' : null
+                    ? 'Đang sử dụng' : null
                 }
                 {
                   !isEmpty(ordergroup) &&
                   ordergroup?.status === ORDER_GROUP_STATUS.REQUEST_CHECKOUT
-                    ? '会計依頼' : null
+                    ? 'Yêu cầu thanh toán' : null
                 }
                 {
                   !isEmpty(ordergroup) &&
                   ordergroup?.status === ORDER_GROUP_STATUS.WAITING_CHECKOUT
-                    ? '注文締切' : null
+                    ? 'Chờ thanh toán' : null
                 }
                 {
-                  isEmpty(ordergroup) ? '空席' : null
+                  isEmpty(ordergroup) ? 'Trống' : null
                 }
               </Box>
             </Box>
@@ -341,7 +341,7 @@ const TableCard = (props) => {
           </div>
           <div className={classes.cardFooter}>
             <div className={classes.cardFooterLeft}>
-              {!isEmpty(ordergroup) ? ordergroup.number_of_customers + '名' : ''}
+              {!isEmpty(ordergroup) ? ordergroup.number_of_customers + ' người' : ''}
             </div>
             <div className={classes.cardFooterRight}>
               {!isEmpty(ordergroup) ? ordergroup.time_create : ' '}

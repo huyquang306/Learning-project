@@ -22,3 +22,4 @@ yarn-error.log
 .composer
 .bash_history
 .cache/*
+/public/data
