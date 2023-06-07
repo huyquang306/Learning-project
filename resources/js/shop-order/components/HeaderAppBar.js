@@ -106,31 +106,31 @@ const useStyles = makeStyles({
 const menuList = [
   {
     url: '/table/list',
-    name: 'テーブル一覧',
+    name: 'Danh sách bàn',
   },
   {
     url: '/reserve/list',
-    name: 'デシャップ画面',
+    name: 'Màn hình điều khiển',
   },
   {
     url: '/order/list',
-    name: '注文履歴',
+    name: 'Lịch sử đơn hàng',
   },
   {
     url: '/users/history',
-    name: '顧客一覧',
+    name: 'Danh sách khách hàng',
   },
   {
     url: '/menus/setting',
-    name: '商品メニュー登録',
+    name: 'Danh sách món',
   },
   {
     url: '/setting',
-    name: '店舗設定',
+    name: 'Cài đặt',
   },
   {
     url: '/change-password',
-    name: 'パスワード変更',
+    name: 'Đỏi mật khẩu',
   },
 ];
 

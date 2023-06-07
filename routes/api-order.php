@@ -30,6 +30,12 @@ Route::prefix('v1')->group(
 
                 // Ordergroups
                 Route::get('/{shop}/ordergroupsummary', 'Api\Shop\OrderGroupController@getSummary');
+                Route::get('/{shop}/history/ordergroupsummary', 'Api\Shop\OrderGroupController@getOrdergroups');
+                Route::post('/{shop}/ordergroup', 'Api\Shop\OrderGroupController@create');
+//                    ->middleware('checkUsageQRCodeOver');
+
+                //Course menu master
+                Route::get('{shop}/master-courses', 'Api\Shop\CourseController@getMasterCourses');
             }
         );
     }

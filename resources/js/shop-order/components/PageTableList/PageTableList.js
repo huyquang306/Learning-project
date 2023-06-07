@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useReducer, useRef } from 'reac
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'moment-timezone';
-moment.locale('ja');
+moment.locale('vi');
 import { sortBy } from 'lodash';
 import PubSub from 'pubsub-js';
 import { isMobile } from 'react-device-detect';
@@ -84,7 +84,7 @@ const DetailTableSiderbarItem = (props) => {
       <Box className={classes.tableInfoContent}>
         <Box display='flex' className={classes.tableInfoDetail}>
           <Box flexGrow={1} className={classes.headerText}>
-            注文状況
+            Trạng thái
           </Box>
           {!showModal.order && (
             <Button
@@ -107,8 +107,8 @@ const DetailTableSiderbarItem = (props) => {
               {...rest}
             >
               {dataSidebar?.ordergroup?.status === ORDER_GROUP_STATUS.WAITING_CHECKOUT
-                ? '締切を取消'
-                : '追加・変更'}
+                ? 'Hủy thanh toán'
+                : 'Thay đổi'}
             </Button>
           )}
         </Box>
@@ -126,7 +126,7 @@ const DetailTableSiderbarItem = (props) => {
           >
             <Box width={'30%'}></Box>
             <Box width={'30%'} textAlign={'center'}>
-              合計
+              Tổng tiền
             </Box>
             <Box width={'40%'} textAlign={'right'}>
               {showModal?.order
@@ -178,7 +178,7 @@ const DetailTableSiderbarItem = (props) => {
                 onClick={handleChangeOrders}
                 style={{ padding: '3px 18px' }}
               >
-                注文を変更する
+                Hủy bàn
               </Button>
             </Box>
           )}
@@ -208,13 +208,13 @@ const TableInfoSiderbar = (props) => {
   return (
     <>
       <Box className={classes.hiddenMenu} onClick={() => handleShowMenu(false)}>
-        ＞＞閉じる＞＞
+        ＞＞Đóng＞＞
       </Box>
       <Box className={classes.tableInfo}>
         <Box className={classes.tableInfoContent}>
           <Box display='flex' className={classes.tableInfoDetail}>
             <Box flexGrow={1} className={classes.headerText}>
-              {`テーブル：${
+              {`Bàn: ${
                 Utils.isEmpty(state.ordergroup)
                   ? state.table.code || '?'
                   : state.ordergroup.code_tables
@@ -228,7 +228,7 @@ const TableInfoSiderbar = (props) => {
                   variant='contained'
                   {...rest}
                 >
-                  QRコード
+                  Mã QR
                 </Button>
               )}
           </Box>
@@ -237,12 +237,12 @@ const TableInfoSiderbar = (props) => {
               <Box
                 className={[classes.tableInfoDetail, classes.headerText].join(' ')}
                 style={{ paddingRight: '20px' }}
-              >{`人数：${state.ordergroup.number_of_customers}名`}</Box>
+              >{`Số lượng: ${state.ordergroup.number_of_customers} người`}</Box>
               <Box className={[classes.tableInfoDetail, classes.headerText].join(' ')}>
-                来店時間（経過） :{' '}
+                Thời gian đặt bàn: {' '}
                 <span>
-                  {moment(state.ordergroup.created_at_utc).format('HH:mm')}（
-                  {timeAgo ? `${timeAgo}分経過` : '●●分経過'}）
+                  {' ' + moment(state.ordergroup.created_at_utc).format('HH:mm')}
+                  {timeAgo ? ` ${timeAgo}` : ''}
                 </span>
               </Box>
             </>
@@ -521,14 +521,14 @@ const PageTableList = (props) => {
            * 'SHIPPING'       => '3'
            * 'SHIPPED'        => '4'
            */
-          // ShopOrderApiService.getOrderGroupSummary(shop.hashId, false, { status: '0,1,2,3,4' })
-          //   .then((result) => {
-          //     setOrdergroups(result);
-          //   })
-          //   .catch((error) => {
-          //     setToast({ isShow: true, status: 'error', message: error.message });
-          //     console.error('[PageTableList] getInit error', error);
-          //   });
+          ShopOrderApiService.getOrderGroupSummary(shop.hashId, false, { status: '0,1,2,3,4' })
+            .then((result) => {
+              setOrdergroups(result);
+            })
+            .catch((error) => {
+              setToast({ isShow: true, status: 'error', message: error.message });
+              console.error('[PageTableList] getInit error', error);
+            });
         }
       })
       .catch((error) => {
@@ -544,7 +544,7 @@ const PageTableList = (props) => {
 
   const handleTimeAgo = (date) => {
     if (date) {
-      let nowDateTime = moment().tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm:ss');
+      let nowDateTime = moment().tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
       let nowMomentJp = moment(nowDateTime, 'YYYY-MM-DD HH:mm:ss');
       setTimeAgo(
         Math.round(
@@ -567,9 +567,9 @@ const PageTableList = (props) => {
           key={table.hash_id}
           table={table}
           filterStatus={[0, 1, 2, 3, 4]}
-          onClick={(ordergroup, tableGroupName) =>
+          onClick={(ordergroup, tableGroupName) => {
             handleButtonSelectTableClick(ordergroup, tableGroupName, table)
-          }
+          }}
         />
       );
     });
@@ -642,16 +642,16 @@ const PageTableList = (props) => {
           order.status === ORDER_STATUS.STATUS_SHIPPING
         ) {
           status = 'preparing';
-          label = '未';
+          label = 'Chuẩn bị';
         } else if (
           order.status === ORDER_STATUS.STATUS_FINISH ||
           order.status === ORDER_STATUS.STATUS_SHIPPED
         ) {
           status = 'finished';
-          label = '済';
+          label = 'Đã xong';
         } else {
           status = 'cancelled';
-          label = '消';
+          label = 'Hủy';
         }
 
         return (
@@ -702,7 +702,7 @@ const PageTableList = (props) => {
         >
           <AssignmentOutlinedIcon></AssignmentOutlinedIcon>
           {
-            isShowOnlyIconButton() ? null : <span>今日のお知らせ</span>
+            isShowOnlyIconButton() ? null : <span>Tin tức</span>
           }
         </ButtonLink>
 
@@ -714,7 +714,7 @@ const PageTableList = (props) => {
               onClick={handleClick}
             >
               <HelpOutlineOutlinedIcon></HelpOutlineOutlinedIcon>
-              {isShowOnlyIconButton() ? null : <span>ご意見・問合せ</span>}
+              {isShowOnlyIconButton() ? null : <span>Phản hồi/Thắc mắc</span>}
             </button>
 
             {open ? (
@@ -728,7 +728,7 @@ const PageTableList = (props) => {
                     rel='noreferrer noopener'
                   >
                     <EmailOutlinedIcon></EmailOutlinedIcon>
-                    お問合せフォーム
+                    Email
                   </a>
                 </div>
 
@@ -743,7 +743,7 @@ const PageTableList = (props) => {
                     <div className={classes.iconArrow}>
                       <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/arrow.PNG`} />
                     </div>
-                    マニュアル
+                    Liên hệ
                   </a>
                 </div>
               </div>
@@ -833,7 +833,7 @@ const PageTableList = (props) => {
               <div className={`${classes.content} wrapperContent`}>
                 <Box className={classes.boxShowSideBar}>
                   <Box className={`${classes.showMenu} ${!disabledButtonOrder ? 'redText' : ''}`} onClick={() => handleShowMenu(true)}>
-                    {disabledButtonOrder ? '＜＜開く＜＜' : '＜＜注文確定'}
+                    {disabledButtonOrder ? '＜＜Mở＜＜' : '＜＜Xác nhận đặt món'}
                   </Box>
                 </Box>
 
@@ -855,7 +855,7 @@ const PageTableList = (props) => {
               <div className={`${classes.sideBar} ${isShowMenu ? classes.menuMobile : ''}`}>
                 <TableInfoSiderbar
                   type='register'
-                  title='来店登録'
+                  title='Chi tiết bàn'
                   state={state}
                   timeAgo={timeAgo}
                   disabled={state.ordergroup.code_tables === '?'}
@@ -868,8 +868,8 @@ const PageTableList = (props) => {
                   title={
                     state.ordergroup.status &&
                     state.ordergroup.status === ORDER_GROUP_STATUS.WAITING_CHECKOUT
-                      ? '代金を受け取る'
-                      : '注文を締め切る'
+                      ? 'Thanh toán'
+                      : 'Kết thúc'
                   }
                   dataSidebar={state}
                   onClickToOrder={handleModal('order', true)}

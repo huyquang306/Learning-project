@@ -379,7 +379,7 @@ const ModalRegisterCustomer = (props) => {
         if (!isUpdate) {
           // go to register/login screen after scan QR code success
           await QRCode.toDataURL(
-            `${result.smart_order_url}/shop-or/register?redirect_url=${linkOrder}`
+            `${result.smart_order_url}/shop-order/register?redirect_url=${linkOrder}`
           )
             .then((url) => {
               setShowQRCode({
@@ -395,17 +395,16 @@ const ModalRegisterCustomer = (props) => {
         const newDataShop = await getShopData();
         checkShowReachQRLimitPointsModal(newDataShop);
 
-        setToast({ isShow: true, status: 'success', message: '登録成功しました' });
+        setToast({ isShow: true, status: 'success', message: 'Thành công!' });
       })
       .catch((error) => {
         setWaiting(false);
         if (error.message === 'using_over_plan') {
           // Case registers over free plan
-          // TODO: translate
           setToast({
             isShow: true,
             status: 'error',
-            message: 'This shop was using over free plan, please register non-plan to continue',
+            message: 'Đã sử dụng quá số lượng QR giới hạn',
           });
           props.setRegisterMethodOpen(true);
 
@@ -415,10 +414,10 @@ const ModalRegisterCustomer = (props) => {
           setToast({
             isShow: true,
             status: 'error',
-            message: 'QR数上限を超えているため、来店登録ができません。',
+            message: 'Đã sử dụng quá số lượng QR giới hạn',
           });
         } else if (error.message === 'pdo_exception') {
-          setToast({ isShow: true, status: 'error', message: 'テーブルが存在しません。' });
+          setToast({ isShow: true, status: 'error', message: 'Lỗi máy chủ' });
         } else {
           setToast({ isShow: true, status: 'error', message: error.message });
         }
@@ -455,7 +454,7 @@ const ModalRegisterCustomer = (props) => {
       }
     }
     // go to register/login screen after scan QR code success
-    QRCode.toDataURL(`${smartOrderURL}/shop-or/register?redirect_url=${linkOrder}`)
+    QRCode.toDataURL(`${smartOrderURL}/shop-order/register?redirect_url=${linkOrder}`)
       .then((url) => {
         setShowQRCode({
           isShow: true,
@@ -471,7 +470,7 @@ const ModalRegisterCustomer = (props) => {
     const listSelectTable = selectTables.map((item, index) => (
       <Grid key={index} container spacing={3} alignItems='center'>
         <Grid item sm={4} xs={12} className={classes.inputLabel}>
-          テーブル
+          Bàn
         </Grid>
         <Grid item sm={7} xs={10} className={classes.inputSelect}>
           <CustomSelectorBase
@@ -504,7 +503,7 @@ const ModalRegisterCustomer = (props) => {
       <>
         <ButtonCustom
           customClass={classes.button}
-          title='戻る'
+          title='Thoát'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -513,7 +512,7 @@ const ModalRegisterCustomer = (props) => {
         />
         <ButtonCustom
           customClass={classes.button}
-          title='保存する'
+          title='Lưu'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'
@@ -618,7 +617,7 @@ const ModalRegisterCustomer = (props) => {
     }
 
     options.unshift({
-      label: '--- なし ---',
+      label: '--- Không có ---',
       value: NONE_COURSE_OPTION_VALUE,
     });
 
@@ -634,7 +633,7 @@ const ModalRegisterCustomer = (props) => {
     }
 
     // eslint-disable-next-line no-irregular-whitespace
-    let result = `累計QR数　${shopData.usageQRCodeInMonth}回`;
+    let result = `Số QR đã dùng　${shopData.usageQRCodeInMonth}`;
     const qrCondition = getPlanCondition(shopData.service_plan, FUNCTIONS_CODE.qr);
     const additionalPrice = Number(
       qrCondition?.m_function?.m_service_plan_options[0]?.additional_price
@@ -644,19 +643,19 @@ const ModalRegisterCustomer = (props) => {
 
     if (!isShowLimitQR) {
       // eslint-disable-next-line no-irregular-whitespace
-      result += `　（あと${getQrCodeRemainingNumber(shopData)}回無料）`;
+      result += `　（Còn lại ${getQrCodeRemainingNumber(shopData)} QR）`;
     }
 
     return result;
   };
 
   return (
-    <Modal open={props.open} title='来店登録・変更' actions={renderActions()}>
+    <Modal open={props.open} title='Chọn bàn' actions={renderActions()}>
       <div className={classes.modalContent}>
         <Box className={classes.boxRegister}>
           <ButtonCustom
             customClass={classes.button}
-            title='QRコード'
+            title='Mã QR'
             disabled={Utils.isEmpty(state.ordergroup)}
             borderRadius='28px'
             bgcolor='#F2C94C'
@@ -665,7 +664,7 @@ const ModalRegisterCustomer = (props) => {
           />
           <ButtonCustom
             customClass={classes.button}
-            title='来店登録を取り消す'
+            title='Hủy bàn'
             disabled={Utils.isEmpty(state.ordergroup)}
             borderRadius='28px'
             bgcolor='#F2C94C'
@@ -680,7 +679,7 @@ const ModalRegisterCustomer = (props) => {
           {/* customer number */}
           <Grid container spacing={3} alignItems='center'>
             <Grid item sm={4} xs={12} className={classes.inputLabel}>
-              人数
+              Số người
             </Grid>
 
             <Grid item sm={7} xs={10} className={classes.inputSelect}>
@@ -695,7 +694,6 @@ const ModalRegisterCustomer = (props) => {
                       ? classes.inputNumberWarning
                       : null,
                 }}
-                endAdornment={<InputAdornment position='end'>名</InputAdornment>}
                 labelWidth={0}
                 inputProps={{
                   min: DEFAULT_NUMBER_OF_CUSTOMERS,
@@ -711,7 +709,7 @@ const ModalRegisterCustomer = (props) => {
           {/* courses select */}
           <Grid container spacing={3} alignItems='center'>
             <Grid item sm={4} xs={12} className={classes.inputLabel}>
-              コース選択
+              Chọn set ăn
             </Grid>
 
             <Grid item sm={7} xs={10} className={classes.inputSelect}>
@@ -753,7 +751,7 @@ const ModalRegisterCustomer = (props) => {
       {isConfirmUpdateNumberCourse.isShow && (
         <ModalConfirmUpdate
           isOpen={isConfirmUpdateNumberCourse.isShow}
-          title='お知らせ'
+          title='Xác nhận'
           isModalConfirmUpdateCourse={true}
           onConfirm={() => createOrUpdateOrderGroup(true, false, PROPERTY_NAME_COURSE)}
           onCancel={() => createOrUpdateOrderGroup(false, false, PROPERTY_NAME_COURSE)}
@@ -761,8 +759,8 @@ const ModalRegisterCustomer = (props) => {
         >
           <Box>
             <Box textAlign='center' className={classes.boxContent}>
-              <Box>コース注文があります。</Box>
-              <Box>コースの注文数を変更しますか？</Box>
+              <Box>Bạn đang đặt một set ăn</Box>
+              <Box>Bạn có muốn thay đổi số lượng set ăn？</Box>
             </Box>
           </Box>
         </ModalConfirmUpdate>
@@ -770,7 +768,7 @@ const ModalRegisterCustomer = (props) => {
       {isConfirmUpdateInitOrder && (
         <ModalConfirmUpdate
           isOpen={isConfirmUpdateInitOrder}
-          title='お知らせ'
+          title='Xác nhận'
           isModalConfirmInitOrder={true}
           onConfirm={() => createOrUpdateOrderGroup(false, true, PROPERTY_NAME_INITAL_ORDER)}
           onCancel={() => createOrUpdateOrderGroup(false, false, PROPERTY_NAME_INITAL_ORDER)}
@@ -778,8 +776,8 @@ const ModalRegisterCustomer = (props) => {
         >
           <Box>
             <Box textAlign='center' className={classes.boxContent}>
-              <Box>必須商品があります。</Box>
-              <Box>商品の注文数を変更しますか？</Box>
+              <Box>Bạn đang đặt món</Box>
+              <Box>Bạn có muốn thay đổi số lượng món?</Box>
             </Box>
           </Box>
         </ModalConfirmUpdate>

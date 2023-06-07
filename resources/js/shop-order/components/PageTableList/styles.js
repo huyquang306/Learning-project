@@ -781,7 +781,7 @@ const useStylesRegisterCustomer = makeStyles(() => ({
   },
   inputNumber: {
     padding: '15px',
-    width: '146px',
+    width: '185px',
   },
   inputNumberWarning: {
     borderColor: 'red',
