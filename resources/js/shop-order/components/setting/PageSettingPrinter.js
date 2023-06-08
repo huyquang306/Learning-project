@@ -165,7 +165,7 @@ const PagePrinterSetting = (props) => {
       await ShopOrderApiService.deletePrinter(shop.hashId, printerDetailData.hash_id);
       setPrinterDetailData({});
       setShowModalDelete(false);
-      showSuccessMessage('削除しました。');
+      showSuccessMessage('Xóa thành công');
       getPrinters();
     } catch (error) {
       showWarningMessage(error.message);
@@ -191,7 +191,7 @@ const PagePrinterSetting = (props) => {
   const actionDeletePrinter = () => (
     <Box textAlign='center'>
       <ButtonCustom
-        title='いいえ'
+        title='Đóng'
         borderRadius='28px'
         bgcolor='#828282'
         borderColor='#828282'
@@ -202,7 +202,7 @@ const PagePrinterSetting = (props) => {
         }}
       />
       <ButtonCustom
-        title='はい'
+        title='Đồng ý'
         borderRadius='28px'
         bgcolor='#FFA04B'
         borderColor='#FFA04B'
@@ -232,7 +232,7 @@ const PagePrinterSetting = (props) => {
         printersClone[updatedPrinterIndex].status = newStatus;
       }
       setPrinterData(printersClone);
-      showSuccessMessage('更新しました。');
+      showSuccessMessage('Cập nhật thành công');
     } catch (error) {
       showWarningMessage(error.message);
     }
@@ -250,7 +250,7 @@ const PagePrinterSetting = (props) => {
 
   return (
     <PageContainer padding="0px">
-      <HeaderAppBar title="プリンター設定" />
+      <HeaderAppBar title="Cài đặt máy in" />
 
       <PageInnerWrap>
         <PageInnerContainer padding="20px">
@@ -266,7 +266,7 @@ const PagePrinterSetting = (props) => {
                         }}
                         align="center"
                       >
-                        利用中
+                        Trạng thái
                       </TableCell>
                       <TableCell
                         classes={{
@@ -274,7 +274,7 @@ const PagePrinterSetting = (props) => {
                         }}
                         align="center"
                       >
-                        番号
+                        Số hiệu
                       </TableCell>
                       <TableCell
                         classes={{
@@ -282,7 +282,7 @@ const PagePrinterSetting = (props) => {
                         }}
                         align="center"
                       >
-                        プリンター名
+                        Tên
                       </TableCell>
                       <TableCell
                         classes={{
@@ -290,7 +290,7 @@ const PagePrinterSetting = (props) => {
                         }}
                         align="center"
                       >
-                        IPアドレス
+                        Địa chỉ IP
                       </TableCell>
                       <TableCell
                         classes={{
@@ -298,7 +298,7 @@ const PagePrinterSetting = (props) => {
                         }}
                         align="center"
                       >
-                        Macアドレス
+                        Địa chỉ MAC
                       </TableCell>
                       <TableCell
                         classes={{
@@ -306,7 +306,7 @@ const PagePrinterSetting = (props) => {
                         }}
                         align="center"
                       >
-                        ポジション
+                        Vị trí
                       </TableCell>
                       <TableCell
                         classes={{
@@ -314,7 +314,7 @@ const PagePrinterSetting = (props) => {
                         }}
                         align="center"
                       >
-                        ステータスコード
+                        Trạng thái
                       </TableCell>
                       <TableCell
                         classes={{
@@ -322,7 +322,7 @@ const PagePrinterSetting = (props) => {
                         }}
                         align="center"
                       >
-                        操作
+                        Thao tác
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -404,13 +404,13 @@ const PagePrinterSetting = (props) => {
                                 className={classes.button}
                                 onClick={() => showDetailPrinter(printer)}
                               >
-                                詳細
+                                Chi tiết
                               </Button>
                               <Button
                                 className={`${classes.button} ${classes.buttonDelete}`}
                                 onClick={() => showConfirmModal(printer)}
                               >
-                                削除
+                                Xóa
                               </Button>
                             </Box>
                           </TableCell>
@@ -429,7 +429,7 @@ const PagePrinterSetting = (props) => {
                       onClick={() => history.push('/setting')}
                       className={`${classes.buttonController} + ' ' + ${classes.buttonBack}`}
                     >
-                      戻る
+                      Quay lại
                     </Button>
                   </Grid>
                   <Grid item>
@@ -440,7 +440,7 @@ const PagePrinterSetting = (props) => {
                       }}
                       className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                     >
-                      <Add /> 追加する
+                      <Add /> Thêm
                     </Button>
                   </Grid>
                 </Grid>
@@ -468,10 +468,10 @@ const PagePrinterSetting = (props) => {
           <Modal
             actions={actionDeletePrinter()}
             open={showModalDelete}
-            title='プリンター削除'
+            title='Xóa máy in'
           >
             <div className={classes.centerModal}>
-              <h2>本当に削除しますか。</h2>
+              <h2>Bạn có thực sự muốn xóa không?</h2>
             </div>
           </Modal>
           {/* END modal delete printer */}

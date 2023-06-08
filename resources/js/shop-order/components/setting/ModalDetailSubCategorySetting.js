@@ -142,7 +142,7 @@ const ModalDetailSubCategorySetting = (props) => {
 
   const validateParentCategory = (categoryDetail, errors) => {
     const parentCategoryValidate = {
-      requiredErrorMessage: '大カテゴリーを選択してください',
+      requiredErrorMessage: 'Hãy chọn danh mục chính trước!',
     };
 
     if (
@@ -156,9 +156,9 @@ const ModalDetailSubCategorySetting = (props) => {
 
   const validateName = (categoryDetail, errors) => {
     const nameValidate = {
-      requiredErrorMessage: '小カテゴリーを入力してください',
-      maxLength: 10,
-      maxLengthErrorMessage: '小カテゴリーは10文字を超えてはなりません',
+      requiredErrorMessage: 'Tên danh mục không được để trống',
+      maxLength: 50,
+      maxLengthErrorMessage: 'Tên danh mục quá dài',
     };
 
     if (!Utils.isNil(categoryDetail.name) && categoryDetail.name.trim() !== '') {
@@ -181,7 +181,7 @@ const ModalDetailSubCategorySetting = (props) => {
     let errors = [];
 
     if (categoryDetail.parentCategory.value === 0) {
-      props.showWarningMessage('大カテゴリーを選択してください');
+      props.showWarningMessage('Hãy chọn danh mục chính trước!');
       return;
     }
 
@@ -204,7 +204,7 @@ const ModalDetailSubCategorySetting = (props) => {
       if (props.categoryDetail.code) {
         ShopOrderApiService.updateCategory(shop.hashId, props.categoryDetail.code, saveCategoryData)
           .then(() => {
-            props.showSuccessMessage('更新しました');
+            props.showSuccessMessage('Cập nhật thành công');
             props.getSubCategories(props.parentCategories);
             props.onClose();
             setInProgress(false);
@@ -212,7 +212,7 @@ const ModalDetailSubCategorySetting = (props) => {
           .catch((error) => {
             setInProgress(false);
             if (error.result.errorCode === 'not_found') {
-              props.showWarningMessage('カテゴリーが存在しません');
+              props.showWarningMessage('Không tìm thấy');
               return;
             }
             props.showWarningMessage(error.message.replace('Error: ', ''))
@@ -220,7 +220,7 @@ const ModalDetailSubCategorySetting = (props) => {
       } else {
         ShopOrderApiService.createCategory(shop.hashId, saveCategoryData)
           .then(() => {
-            props.showSuccessMessage('作成しました');
+            props.showSuccessMessage('Tạo mới thành công');
             props.getSubCategories(props.parentCategories);
             resetCategoryData();
             props.onClose();
@@ -229,7 +229,7 @@ const ModalDetailSubCategorySetting = (props) => {
           .catch((error) => {
             setInProgress(false);
             if (error.result.errorCode === 'not_found') {
-              props.showWarningMessage('カテゴリーが存在しません');
+              props.showWarningMessage('Không tìm thấy');
               return;
             }
             props.showWarningMessage(error.message.replace('Error: ', ''))
@@ -242,19 +242,19 @@ const ModalDetailSubCategorySetting = (props) => {
     if (props.categoryDetail.code) {
       setShowDialog(true);
     } else {
-      props.showWarningMessage('失敗しました');
+      props.showWarningMessage('Xóa thành công');
     }
   };
 
   const execDeleteCategory = () => {
     setInProgress(true);
     if (props.categoryDetail.is_belong_to_menu && props.categoryDetail.is_belong_to_menu === 1) {
-      props.showWarningMessage('登録されているされているメニューがある為、削除できません');
+      props.showWarningMessage('Không thể xóa vì đã có thực đơn');
       setInProgress(false);
     } else {
       ShopOrderApiService.deleteCategory(shop.hashId, categoryDetail.code)
         .then(() => {
-          props.showSuccessMessage('削除しました');
+          props.showSuccessMessage('Xóa thành công');
           props.getSubCategories(props.parentCategories);
           props.onClose();
           setInProgress(false);
@@ -262,7 +262,7 @@ const ModalDetailSubCategorySetting = (props) => {
         .catch((error) => {
           setInProgress(false);
           if (error.result.errorCode === 'not_found') {
-            props.showWarningMessage('カテゴリーが存在しません');
+            props.showWarningMessage('Không tìm thấy');
             return;
           }
           props.showWarningMessage(error.message);
@@ -274,7 +274,7 @@ const ModalDetailSubCategorySetting = (props) => {
     return (
       <Box textAlign='center'>
         <ButtonCustom
-          title='戻る'
+          title='Quay lại'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -282,7 +282,7 @@ const ModalDetailSubCategorySetting = (props) => {
           onClick={() => { setCategoryDetail(categoryDetailOriginal); props.onClose();}}
         />
         <ButtonCustom
-          title='保存'
+          title='Lưu'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'
@@ -300,7 +300,7 @@ const ModalDetailSubCategorySetting = (props) => {
     <Modal
       actions={actionModal()}
       open={props.open}
-      title={categoryDetail.id ? '小カテゴリー編集' : '小カテゴリー新規追加'}
+      title={categoryDetail.id ? 'Cập nhật danh mục' : 'Thêm mới danh mục'}
       onClose={props.onClose}
     >
       <Box mt={2}>
@@ -320,14 +320,14 @@ const ModalDetailSubCategorySetting = (props) => {
                 whiteSpace: 'nowrap',
               }}
             >
-              削除
+              Xóa
             </Button>
           </Box>
         )}
 
         <Box mt={3} display={'flex'} alignItems={'center'}>
           <Box className={classes.left} width={'40%'} textAlign={'center'}>
-            大カテゴリー
+            Tên danh mục chính
           </Box>
           <Box width={'40%'} textAlign={'left'}>
             <CustomSelectorBase
@@ -344,7 +344,7 @@ const ModalDetailSubCategorySetting = (props) => {
 
         <Box mt={3} display={'flex'} alignItems={'center'}>
           <Box className={classes.left} width={'40%'} textAlign={'center'}>
-            小カテゴリー
+            Tên danh mục phụ
           </Box>
           <Box width={'40%'} textAlign={'left'}>
             <OutlinedInput
@@ -364,8 +364,8 @@ const ModalDetailSubCategorySetting = (props) => {
       <Dialog
         isOpen={showDialog}
         onClose={(isOpen) => setShowDialog(isOpen)}
-        title='削除'
-        message='このアイテムを削除しますか？'
+        title='Xóa danh mục'
+        message='Bạn có chắc bạn muốn xóa mục này?'
         onConfirm={() => execDeleteCategory()}
       />
     </Modal>

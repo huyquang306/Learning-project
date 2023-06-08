@@ -36,7 +36,7 @@ const ModalPreviewSNSLink = (props) => {
     return (
       <Box textAlign="center">
         <ButtonCustom
-          title="戻る"
+          title="Quay lại"
           borderRadius="28px"
           bgcolor="#828282"
           borderColor="#828282"

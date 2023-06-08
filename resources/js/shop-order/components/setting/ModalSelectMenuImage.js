@@ -117,7 +117,7 @@ const ModalSelectMenuImage = (props) => {
     return (
       <Box textAlign='center' className={classes.wrapButton}>
         <ButtonCustom
-          title='戻る'
+          title='Quay lại'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -131,7 +131,7 @@ const ModalSelectMenuImage = (props) => {
         />
         {!hiddenButtonUpload && (
           <ButtonCustom
-            title='アップロード'
+            title='Tải ảnh lên'
             borderRadius='28px'
             bgcolor='#FFA04B'
             borderColor='#FFA04B'
@@ -143,7 +143,7 @@ const ModalSelectMenuImage = (props) => {
         {hiddenButtonUpload && (
           <>
             <ButtonCustom
-              title='回転'
+              title='Chụp ảnh'
               borderRadius='28px'
               bgcolor='#FFF'
               fgcolor='#FFA04B'
@@ -154,7 +154,7 @@ const ModalSelectMenuImage = (props) => {
               onClick={handleRotate}
             />
             <ButtonCustom
-              title='保存'
+              title='Tải ảnh lên'
               borderRadius='28px'
               bgcolor='#FFA04B'
               borderColor='#FFA04B'
@@ -172,7 +172,7 @@ const ModalSelectMenuImage = (props) => {
     <Modal
       actions={actionModal()}
       open={props.open}
-      title={!hiddenButtonUpload ? '画像詳細' : '切り抜きと回転'}
+      title={!hiddenButtonUpload ? 'Chi tiết ảnh' : 'Chỉnh sửa ảnh'}
       onClose={() => {
         getCropData();
         props.onClose();
@@ -243,9 +243,7 @@ ModalSelectMenuImage.propTypes = {
 // defaultProps
 ModalSelectMenuImage.defaultProps = {
   open: false,
-  onClose: () => {
-    /*nop*/
-  },
+  onClose: () => {},
   setMenuFiles: () => {},
 };
 
