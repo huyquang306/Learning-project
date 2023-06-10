@@ -34,8 +34,14 @@ Route::prefix('v1')->group(
                 Route::post('/{shop}/ordergroup', 'Api\Shop\OrderGroupController@create');
 //                    ->middleware('checkUsageQRCodeOver');
 
-                //Course menu master
+                // Course menu master
                 Route::get('{shop}/master-courses', 'Api\Shop\CourseController@getMasterCourses');
+
+                // Category
+                Route::apiResource('{shop}/category', 'Api\Shop\CategoryController');
+
+                // Menu
+                Route::get('{shop}/master-menus', 'Api\Shop\MenuController@getMasterMenus');
             }
         );
     }
