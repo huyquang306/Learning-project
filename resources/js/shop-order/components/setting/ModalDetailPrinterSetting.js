@@ -163,7 +163,7 @@ const ModalDetailPrinterSetting = (props) => {
         ShopOrderApiService.createPrinter(shop.hashId, printerData)
           .then(() => {
             setInProgress(false);
-            props.showSuccessMessage('成功しました');
+            props.showSuccessMessage('Tạo mới thành công');
             props.getPrinters();
             props.onClose();
           })
@@ -186,7 +186,7 @@ const ModalDetailPrinterSetting = (props) => {
         )
           .then(() => {
             setInProgress(false);
-            props.showSuccessMessage('更新しました');
+            props.showSuccessMessage('Cập nhật thành công');
             props.getPrinters();
             props.onClose();
           })
@@ -200,7 +200,7 @@ const ModalDetailPrinterSetting = (props) => {
 
   const validatePrinterPosition = (printerData, errors) => {
     const printerPositionValidate = {
-      requiredErrorMessage: 'プリンター位置を入力してください',
+      requiredErrorMessage: 'Vị trí máy in không được để trống',
     };
 
     if (Utils.isNil(printerData.position) || printerData.position === '') {
@@ -211,9 +211,9 @@ const ModalDetailPrinterSetting = (props) => {
 
   const validateModel = (printerData, errors) => {
     const modelValidate = {
-      requiredErrorMessage: '番号を入力してください',
+      requiredErrorMessage: 'Vui lòng nhập số hiệu máy in',
       maxLength: 20,
-      maxLengthErrorMessage: '数は20文字を超えてはなりません',
+      maxLengthErrorMessage: 'Số hiệu máy in quá dài',
     };
 
     if (!Utils.isNil(printerData.model) && printerData.model.trim() !== '') {
@@ -228,9 +228,9 @@ const ModalDetailPrinterSetting = (props) => {
 
   const validateName = (printerData, errors) => {
     const nameValidate = {
-      requiredErrorMessage: 'プリンタ名を入力してください',
+      requiredErrorMessage: 'Vui lòng nhập tên máy in',
       maxLength: 40,
-      maxLengthErrorMessage: 'プリンタ名は40文字を超えてはなりません',
+      maxLengthErrorMessage: 'Tên máy in quá dài',
     };
 
     if (!Utils.isNil(printerData.name) && printerData.name.trim() !== '') {
@@ -245,10 +245,10 @@ const ModalDetailPrinterSetting = (props) => {
 
   const validateIp = (printerData, errors) => {
     const ipValidate = {
-      requiredErrorMessage: 'IPアドレスを入力してください',
-      patternErrorMessage: 'IPアドレスの形式が正しくありません',
+      requiredErrorMessage: 'Vui lòng nhập địa chỉ IP của bạn',
+      patternErrorMessage: 'Địa chỉ IP không đúng định dạng',
       maxLength: 20,
-      maxLengthErrorMessage: 'IPアドレスは20文字を超えてはなりません',
+      maxLengthErrorMessage: 'Địa chỉ IP không được vượt quá 20 ký tự',
     };
     const ipAddressRegex = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
@@ -267,9 +267,9 @@ const ModalDetailPrinterSetting = (props) => {
 
   const validateMacAdress = (printerData, errors) => {
     const addressValidate = {
-      requiredErrorMessage: 'プリンタ名を入力してください',
+      requiredErrorMessage: 'Vui lòng nhập tên máy in',
       maxLength: 20,
-      maxLengthErrorMessage: 'プリンタ名は20文字を超えてはなりません',
+      maxLengthErrorMessage: 'Tên máy in quá dài',
     };
 
     if (!Utils.isNil(printerData.address) && printerData.address.trim() !== '') {
@@ -286,7 +286,7 @@ const ModalDetailPrinterSetting = (props) => {
     return (
       <Box textAlign="center">
         <ButtonCustom
-          title="戻る"
+          title="Quay lại"
           borderRadius="28px"
           bgcolor="#828282"
           borderColor="#828282"
@@ -294,7 +294,7 @@ const ModalDetailPrinterSetting = (props) => {
           onClick={props.onClose}
         />
         <ButtonCustom
-          title="保存"
+          title="Lưu"
           borderRadius="28px"
           bgcolor="#FFA04B"
           borderColor="#FFA04B"
@@ -319,7 +319,7 @@ const ModalDetailPrinterSetting = (props) => {
   };
 
   return (
-    <Modal actions={actionModal()} open={props.open} title="プリンター詳細" onClose={props.onClose}>
+    <Modal actions={actionModal()} open={props.open} title="Cài đặt máy in" onClose={props.onClose}>
       <Box mt={8} mb={5}>
         <Box className={classes.printerData}>
           <Box className={classes.label}>

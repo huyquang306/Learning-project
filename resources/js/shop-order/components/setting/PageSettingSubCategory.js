@@ -139,7 +139,7 @@ const PageSettingSubCategory = (props) => {
       parentCategories.unshift({
         id: 0,
         value: 0,
-        label: '全て',
+        label: 'Tất cả',
       });
       setParentCategories(parentCategories);
 
@@ -201,7 +201,7 @@ const PageSettingSubCategory = (props) => {
 
   return (
     <PageContainer padding='0px'>
-      <HeaderAppBar title='小カテゴリー設定' />
+      <HeaderAppBar title='Danh mục thực đơn' />
 
       <PageInnerWrap>
         <PageInnerContainer className={classes.pageInner}>
@@ -227,7 +227,7 @@ const PageSettingSubCategory = (props) => {
                         }}
                         align='center'
                       >
-                        大カテゴリー
+                        Danh mục chính
                       </TableCell>
                       <TableCell
                         classes={{
@@ -235,7 +235,7 @@ const PageSettingSubCategory = (props) => {
                         }}
                         align='center'
                       >
-                        小カテゴリー
+                        Danh mục phụ
                       </TableCell>
                       <TableCell
                         classes={{
@@ -243,7 +243,6 @@ const PageSettingSubCategory = (props) => {
                         }}
                         align='center'
                       >
-                        表示
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -282,7 +281,7 @@ const PageSettingSubCategory = (props) => {
                                 setCategoryDetail(category);
                               }}
                             >
-                              詳細
+                              Chi tiết
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -312,7 +311,7 @@ const PageSettingSubCategory = (props) => {
                     onClick={() => history.push('/setting/category/list')}
                     className={`${classes.buttonController} + ' ' + ${classes.buttonBack}`}
                   >
-                    戻る
+                    Quay lại
                   </Button>
                 </Grid>
 
@@ -324,7 +323,7 @@ const PageSettingSubCategory = (props) => {
                     }}
                     className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                   >
-                    <Add /> 小カテゴリー追加
+                    <Add /> Thêm danh mục
                   </Button>
                 </Grid>
               </Grid>

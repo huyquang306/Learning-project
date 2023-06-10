@@ -101,7 +101,7 @@ const ModalDetailTableSetting = (props) => {
     setIsSave(false);
   }, [props.tableDetailData]);
 
-  // QRコード生成
+  // Generate QR code
   const generateQRCode = async (table) => {
     setIsLoading(true);
     try {
@@ -109,7 +109,6 @@ const ModalDetailTableSetting = (props) => {
       let linkTableQR = `${shop.hashId}&table=${table.hash_id}`;
       let imageData = `${process.env.MIX_ASSETS_PATH}/img/shop/defaultQR.png`;
 
-      // 新規作成時
       if(table.hash_id) {
         imageData = await QRCode.toDataURL(`${smartOrderURL}/shop-or/table-register?redirect_url=${linkTableQR}`);
       }
@@ -122,26 +121,20 @@ const ModalDetailTableSetting = (props) => {
     }
   }
 
-  // 再生成
   const regenerateTableQR = async (table) => {
     setInProgress(true);
     try {
-      // テーブルhash_id再発行
       const response = await ShopOrderApiService.regenerateTableHashId(shop.hashId, table.hash_id);
         if(response) {
           await setInProgress(false);
-          await props.showSuccessMessage('再生成しました');
+          await props.showSuccessMessage('Tạo QR thành công');
           await props.getTables();
           await setTableData(response);
 
-          // propsのhash_id変更
           props.tableDetailData.hash_id = await response.hash_id
 
-          // 画面上のQR更新
           await setInProgress(false);
           await generateQRCode(response)
-
-          // フッターを閉じるボタンへ
           await setIsSave(true)
         }
 
@@ -177,11 +170,10 @@ const ModalDetailTableSetting = (props) => {
         ShopOrderApiService.createTable(shop.hashId, tableData)
           .then((result) => {
             setInProgress(false);
-            props.showSuccessMessage('作成しました');
+            props.showSuccessMessage('Tạo bàn thành công');
             props.getTables();
             props.onClose();
 
-            // QRコード再描画
             generateQRCode(result)
             setIsSave(true);
           })
@@ -196,7 +188,7 @@ const ModalDetailTableSetting = (props) => {
 
         if (updateTableData.code === props.tableDetailData.code) {
           setInProgress(false);
-          props.showSuccessMessage('更新しました');
+          props.showSuccessMessage('Cập nhật thành công');
           props.getTables();
           setIsSave(true);
           props.onClose();
@@ -207,17 +199,17 @@ const ModalDetailTableSetting = (props) => {
         ShopOrderApiService.updateTable(shop.hashId, props.tableDetailData.hash_id, updateTableData)
           .then(() => {
             setInProgress(false);
-            props.showSuccessMessage('更新しました');
+            props.showSuccessMessage('Cập nhật thành công');
             props.getTables();
             props.onClose();
             setIsSave(true);
           })
           .catch((error) => {
             setInProgress(false);
-            if (error.message === 'Error: 存在しないパラメーター') {
-              props.showWarningMessage('テーブルが存在しません。');
+            if (error.result.errorCode === 'not_found') {
+              props.showWarningMessage('Bàn không tồn tại');
             } else {
-              props.showWarningMessage(error.message.replace('Error:', ''));
+              props.showWarningMessage('Đã có lỗi xảy ra');
             }
           });
       }
@@ -226,9 +218,9 @@ const ModalDetailTableSetting = (props) => {
 
   const validateCode = (tableData, errors) => {
     const codeValidate = {
-      requiredErrorMessage: 'テーブル番号を入力してください',
+      requiredErrorMessage: 'Tên bàn không được để trống',
       maxLength: 20,
-      maxLengthErrorMessage: 'テーブル番号は20文字を超えてはなりません',
+      maxLengthErrorMessage: 'Tên bàn quá dài',
     };
 
     if (!Utils.isNil(tableData.code) && tableData.code.trim() !== '') {
@@ -245,7 +237,7 @@ const ModalDetailTableSetting = (props) => {
     return (
       <Box textAlign="center">
         <ButtonCustom
-          title="戻る"
+          title="Quay lại"
           borderRadius="28px"
           bgcolor="#828282"
           borderColor="#828282"
@@ -256,7 +248,7 @@ const ModalDetailTableSetting = (props) => {
           }}
         />
         <ButtonCustom
-          title={Object.keys(props.tableDetailData).length === 0 ? '保存' : '更新'}
+          title={Object.keys(props.tableDetailData).length === 0 ? 'Lưu' : 'Lưu'}
           borderRadius="28px"
           bgcolor="#FFA04B"
           borderColor="#FFA04B"
@@ -272,7 +264,7 @@ const ModalDetailTableSetting = (props) => {
     return (
       <Box textAlign="center">
         <ButtonCustom
-          title="閉じる"
+          title="Đóng"
           borderRadius="28px"
           bgcolor="#828282"
           borderColor="#828282"
@@ -290,11 +282,11 @@ const ModalDetailTableSetting = (props) => {
   };
 
   return (
-    <Modal actions={isSave ? closeModal() : actionModal()} open={props.open} title="テーブル詳細" onClose={props.onClose}>
+    <Modal actions={isSave ? closeModal() : actionModal()} open={props.open} title="Chi tiết bàn" onClose={props.onClose}>
       <Box mt={8} mb={5}>
         <Box display={'flex'} alignItems={'center'}>
           <Box width={'60%'} textAlign={'center'}>
-            テーブル番号
+            Số bàn
           </Box>
           <Box width={'40%'} textAlign={'left'}>
             <OutlinedInput
@@ -325,7 +317,7 @@ const ModalDetailTableSetting = (props) => {
               onClick={()=> regenerateTableQR(tableData)}
               className={`${classes.buttonController} + ' ' + ${classes.buttonPrintQR}`}
             >
-            再生成
+              Tạo mã QR
             </Button>
           </Grid>
         </Box>
