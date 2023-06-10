@@ -80,7 +80,7 @@ const ModalShowDetailImage = (props) => {
     return (
       <Box textAlign='center' className={classes.wrapButton}>
         <ButtonCustom
-          title='戻る'
+          title='Quay lại'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -89,7 +89,7 @@ const ModalShowDetailImage = (props) => {
           onClick={props.onClose}
         />
         <ButtonCustom
-          title='削除する'
+          title='Xóa ảnh'
           borderRadius='28px'
           bgcolor='#FFF'
           borderColor='#ba000d'
@@ -114,7 +114,7 @@ const ModalShowDetailImage = (props) => {
             )
           }
         >
-          ダウンロード
+          Tải ảnh
         </ButtonCustom>
       </Box>
     );
@@ -124,7 +124,7 @@ const ModalShowDetailImage = (props) => {
     <Modal
       actions={actionModal()}
       open={props.open}
-      title='画像詳細'
+      title='Xem chi tiết'
       onClose={() => {
         props.onClose;
       }}
@@ -159,7 +159,7 @@ const ModalShowDetailImage = (props) => {
                 color='default'
               />
             }
-            label={<Box style={{ fontSize: 14 }}>メイン画像にする</Box>}
+            label={<Box style={{ fontSize: 14 }}>Chọn làm hình ảnh chính</Box>}
             onChange={props.setMainImage}
           />
         </Box>
@@ -167,8 +167,8 @@ const ModalShowDetailImage = (props) => {
       <Dialog
         isOpen={showDialog}
         onClose={(isOpen) => setShowDialog(isOpen)}
-        title='削除'
-        message='この画像を削除しますか？'
+        title='Xóa ảnh'
+        message='Bạn có chắc muốn xóa ảnh này không?'
         onConfirm={() => execDeleteMenu()}
       />
     </Modal>

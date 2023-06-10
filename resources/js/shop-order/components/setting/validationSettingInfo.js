@@ -25,9 +25,9 @@ const checkValidation = (shopData) => {
 
 const validateName = (shopData, errors) => {
   const nameValidate = {
-    requiredErrorMessage: '店舗名を入力してください',
-    maxLength: 30,
-    maxLengthErrorMessage: 'ストア名は30文字を超えてはなりません',
+    requiredErrorMessage: 'Vui lòng nhập tên cửa hàng',
+    maxLength: 100,
+    maxLengthErrorMessage: 'Tên cửa hàng không được vượt quá 100 ký tự',
   };
 
   if (!Utils.isNil(shopData.name) && shopData.name.trim() !== '') {
@@ -42,7 +42,7 @@ const validateName = (shopData, errors) => {
 
 const validateGenres = (shopData, errors) => {
   const genreValidate = {
-    requiredErrorMessage: 'ジャンル選んでください',
+    requiredErrorMessage: 'Vui lòng chọn một thể loại',
   };
 
   if (Utils.isNil(shopData.genreValue) || shopData.genreValue === '') {
@@ -53,9 +53,9 @@ const validateGenres = (shopData, errors) => {
 
 const validatePostalCode = (shopData, errors) => {
   const postalCodeValidate = {
-    requiredErrorMessage: '郵便番号を選択してください',
+    requiredErrorMessage: 'Vui lòng chọn một mã bưu chính',
     maxLength: 10,
-    maxLengthErrorMessage: '郵便番号は10文字を超えてはなりません',
+    maxLengthErrorMessage: 'Mã zip không được vượt quá 10 ký tự',
   };
 
   if (!Utils.isNil(shopData.postalCode) && shopData.postalCode.trim() !== '') {
@@ -70,9 +70,9 @@ const validatePostalCode = (shopData, errors) => {
 
 const validateAddress = (shopData, errors) => {
   const addressValidate = {
-    requiredErrorMessage: '住所を入力してください',
+    requiredErrorMessage: 'Vui lòng nhập địa chỉ của bạn',
     maxLength: 200,
-    maxLengthErrorMessage: '住所は200文字を超えることはできません',
+    maxLengthErrorMessage: 'Địa chỉ không được vượt quá 200 ký tự',
   };
 
   if (!Utils.isNil(shopData.address) && shopData.address.trim() !== '') {
@@ -87,10 +87,10 @@ const validateAddress = (shopData, errors) => {
 
 const validatePhoneNumber = (shopData, errors) => {
   const phoneNumberValidate = {
-    requiredErrorMessage: '電話番号を入力してください',
-    patternErrorMessage: '電話番号の形式が正しくありません',
-    maxLength: 15,
-    maxLengthErrorMessage: '電話番号は15文字を超えてはなりません',
+    requiredErrorMessage: 'Vui lòng nhập số điện thoại của bạn',
+    patternErrorMessage: 'Số điện thoại không đúng định dạng',
+    maxLength: 12,
+    maxLengthErrorMessage: 'Số điện thoại không được vượt quá 12 ký tự',
   };
   const phoneNumberRegex = /\d+/;
 
@@ -109,7 +109,7 @@ const validatePhoneNumber = (shopData, errors) => {
 
 const validateShopTime = (shopData, errors) => {
   const validationRules = {
-    requiredErrorMessage: '営業時間を入力してください',
+    requiredErrorMessage: 'Vui lòng nhập giờ làm việc',
   };
   const {start_time, end_time} = shopData;
   // start_time is required
@@ -129,7 +129,7 @@ const validateShopTime = (shopData, errors) => {
 const validateWifiName = (shopData, errors) => {
   const validateRules = {
     maxLength: 32,
-    maxLengthErrorMessage: 'ネットワック名は最大32文字です',
+    maxLengthErrorMessage: 'Tên wifi không thể vượt quá 32 ký tự',
   };
 
   if (!Utils.isNil(shopData.wifi_name) && shopData.wifi_name.trim() !== '') {
@@ -143,9 +143,9 @@ const validateWifiName = (shopData, errors) => {
 
 const validateWifiPass = (shopData, errors) => {
   const validateRules = {
-    wifiNameRequiredErrorMessage: 'ネットワック名の記入は必要です',
+    wifiNameRequiredErrorMessage: 'vui lòng nhập mật khẩu wifi',
     maxLength: 32,
-    maxLengthErrorMessage: 'パスワードは最大32文字です',
+    maxLengthErrorMessage: 'Mật khẩu wifi không thể vượt quá 32 ký tự',
   };
 
   if (!Utils.isNil(shopData.wifi_pass) && shopData.wifi_pass.trim() !== '') {
@@ -164,7 +164,7 @@ const validateWifiPass = (shopData, errors) => {
 const validateBusinesses = (shopData, errors) => {
   // TODO: translate
   const validationRules = {
-    timerErrorMessage: '営業時間帯は営業時間内に設定してください。',
+    timerErrorMessage: 'Vui lòng đặt khung giờ làm việc trong thời gian mở cửa',
   };
   const {businessHours = [], start_time, end_time} = shopData;
   if (businessHours.length === 0) return errors;
@@ -198,12 +198,12 @@ const validateBusinesses = (shopData, errors) => {
 
 const validateBusinessItem = (businessData, errors, isRequired = false) => {
   const validationRules = {
-    requiredNameErrorMessage: '営業時間帯を入力してください。',
-    requiredStartTimeErrorMessage: '開始時間を入力してください。',
-    requiredFinishTimeErrorMessage: '終了時間を入力してください。',
-    nameMaxLength: 32,
-    nameMaxLengthErrorMessage: '営業時間帯名が32文字以内に入力してください。',
-    startTimeEqualEndTime: '開始時刻と終了時刻は同じ時刻にはできません。',
+    requiredNameErrorMessage: 'Vui lòng nhập khung giờ làm việc',
+    requiredStartTimeErrorMessage: 'Vui lòng nhập thời gian bắt đầu',
+    requiredFinishTimeErrorMessage: 'Vui lòng nhập thời gian kết thúc',
+    nameMaxLength: 50,
+    nameMaxLengthErrorMessage: 'Tên khung giờ không thể vượt quá 50 ký tự',
+    startTimeEqualEndTime: 'Thời gian bắt đầu và thời gian kết thúc không được trùng nhau',
   };
 
   const {id, name, start_time, finish_time} = businessData;
@@ -246,15 +246,15 @@ const validateBusinessItem = (businessData, errors, isRequired = false) => {
 
 const validateSNSLink = (shopData, errors) => {
   const validationRules = {
-    nameRequiredMessage: 'リンク名が必須です。',
-    nameMax: 32,
-    nameMaxMessage: 'リンク名が32文字以内に入力してください。',
+    nameRequiredMessage: 'Vui lòng nhập tên liên kết',
+    nameMax: 50,
+    nameMaxMessage: 'Tên liên kết không thể vượt quá 50 kí tự',
     descriptionMax: 50,
-    descriptionMaxMessage: 'リンク説明は50文字以内に入力してください。',
-    linkRequiredMessage: 'リンクが必須です。',
-    linkFormatMessage: 'リンクのフォーマットが不正です。',
+    descriptionMaxMessage: 'Mô tả liên kết không thể vượt quá 50 kí tự',
+    linkRequiredMessage: 'Vui lòng nhập link liên kết',
+    linkFormatMessage: 'Định dạng liên kết không hợp lệ.',
     linkMax: 500,
-    linkMaxMessage: 'リンクは500文字以内に入力してください。',
+    linkMaxMessage: 'Link không thể vượt quá 500 kí tự',
   };
   shopData.sns_links.forEach(snsLink => {
     const {name, description, link } = snsLink;
@@ -301,20 +301,18 @@ const validateSNSLink = (shopData, errors) => {
 // Instagram validation
 const validateInstagramLink = (shopData, errors) => {
   const validationRules = {
-    linkRequiredMessage: 'リンクが必須です。',
-    linkFormatMessage: 'リンクのフォーマットが不正です。',
+    linkRequiredMessage: 'Vui lòng nhập link liên kết',
+    linkFormatMessage: 'Định dạng liên kết không hợp lệ',
     linkMax: 500,
-    linkMaxMessage: 'リンクは500文字以内に入力してください。',
-    linkInstagramFormatMessage:'正しいインスタグラムのリンクを入力してください',
+    linkMaxMessage: 'Liên kết không được vượt quá 500 ký tự.',
+    linkInstagramFormatMessage:'Vui lòng nhập đúng liên kết Instagram',
     commentMax: 50,
-    commentMaxMessage: '応援コメントは50文字以内に入力してください。',
+    commentMaxMessage: 'Mô tả không được vượt quá 50 ký tự',
     hashTagMax: 100,
-    hashTagMaxMessage: 'ハッシュタグは100文字以内に入力してください。',
+    hashTagMaxMessage: 'Hashtag không được vượt quá 100 kí tự',
   };
   shopData.instagram_link.forEach(instaLink => {
     const {name, link, comment, hash_tag} = instaLink;
-    // name はinstagram固定なのでチェックしない
-    // sns link empty
     if ((!link || link.trim() === '') && (!comment || comment.trim() === '') && (!hash_tag || hash_tag.trim() === '')) {
       return;
     }
@@ -373,7 +371,7 @@ const validateSuitableTime = (businesses, shopData) => {
 
 const validateOverlap = (businesses, errors) => {
   const validationRules = {
-    overlapErrorMessage: '重複の営業時間帯を選択しないでください。',
+    overlapErrorMessage: 'Không chọn khung giờ trùng nhau',
   };
   const businessesLength = businesses.length;
 

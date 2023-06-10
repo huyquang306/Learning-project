@@ -138,15 +138,15 @@ const PageTableSetting = (props) => {
     try {
       await ShopOrderApiService.deleteTable(shop.hashId, tableDetailData.hash_id);
       setInProgress(false);
-      showSuccessMessage('削除しました');
+      showSuccessMessage('xóa thành công');
       getTables();
       onClose();
     } catch (error) {
       setInProgress(false);
       if (error?.result?.errorCode == 'not_found') {
-        showWarningMessage('テーブルが存在しません。');
+        showWarningMessage('Không tìm thấy');
       } else {
-        showWarningMessage('このデータは利用中のため削除できません');
+        showWarningMessage('Bàn này đang được sử dụng và không thể xóa được');
       }
     }
   }
@@ -186,7 +186,7 @@ const PageTableSetting = (props) => {
     return (
       <Box textAlign="center">
         <ButtonCustom
-          title="いいえ"
+          title="Quay lại"
           borderRadius="28px"
           bgcolor="#828282"
           borderColor="#828282"
@@ -194,7 +194,7 @@ const PageTableSetting = (props) => {
           onClick={onClose}
         />
         <ButtonCustom
-          title="はい"
+          title="Đồng ý"
           borderRadius="28px"
           bgcolor="#FFA04B"
           borderColor="#FFA04B"
@@ -208,7 +208,7 @@ const PageTableSetting = (props) => {
 
   return (
     <PageContainer padding="0px">
-      <HeaderAppBar title="テーブル登録" />
+      <HeaderAppBar title="Danh sách bàn" />
 
       <PageInnerWrap>
         <PageInnerContainer padding={'20px'}>
@@ -224,7 +224,7 @@ const PageTableSetting = (props) => {
                         }}
                         align="center"
                       >
-                        番号
+                        Số bàn
                       </TableCell>
                       <TableCell
                         classes={{
@@ -232,7 +232,7 @@ const PageTableSetting = (props) => {
                         }}
                         align="center"
                       >
-                        テーブル
+                        Bàn
                       </TableCell>
                       <TableCell
                         classes={{
@@ -240,7 +240,7 @@ const PageTableSetting = (props) => {
                         }}
                         align="center"
                       >
-                        操作
+                        Thao tác
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -279,7 +279,7 @@ const PageTableSetting = (props) => {
                                 setTableDetailData(table);
                               }}
                             >
-                              詳細
+                              Chi tiết
                             </Button>
 
                             <Button
@@ -289,7 +289,7 @@ const PageTableSetting = (props) => {
                                 setTableDetailData(table);
                               }}
                             >
-                              削除
+                              Xóa
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -308,7 +308,7 @@ const PageTableSetting = (props) => {
                       onClick={()=> getTableQRPreview()}
                       className={`${classes.buttonController} + ' ' + ${classes.buttonPrintQR}`}
                     >
-                    テーブルＱＲ印刷
+                    Xem mã QR
                     </Button>
                   </Grid>
                   : ''
@@ -318,7 +318,7 @@ const PageTableSetting = (props) => {
                       onClick={() => history.push('/setting')}
                       className={`${classes.buttonController} + ' ' + ${classes.buttonBack}`}
                     >
-                      戻る
+                      Quay lại
                     </Button>
                   </Grid>
                   <Grid item>
@@ -329,7 +329,7 @@ const PageTableSetting = (props) => {
                       }}
                       className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                     >
-                      <Add /> 追加する
+                      <Add /> Thêm bàn
                     </Button>
                   </Grid>
                 </Grid>
@@ -348,12 +348,12 @@ const PageTableSetting = (props) => {
 
           <Modal actions={actionModal()}
             open={showModalDelete}
-            title="テーブル削除"
+            title="Xóa bàn"
           >
             <Box mt={8} mb={5}>
               <Box textAlign={'center'} marginTop={'25%'}>
                 <h2>
-                  本当に削除しますか。
+                  Bạn có chắc chắn muốn xóa bàn không?
                 </h2>
               </Box>
             </Box>

@@ -195,27 +195,27 @@ const PageCategorySetting = () => {
           await ShopOrderApiService.updateCategory(shop.hashId, categoryDetail.code, {
             ...categoryDetail,
           });
-          showSuccessMessage('更新しました');
+          showSuccessMessage('Cập nhật thành công');
           getCategories();
           handleCloseModal();
           setCategoryDetail(DEFAULT_CATEGORY);
         } catch (error) {
           showWarningMessage(error.message.replace('Error: ', ''));
           if (error.result.errorCode === 'not_found') {
-            showWarningMessage('カテゴリーが存在しません');
+            showWarningMessage('Không tìm thấy');
             return;
           }
         }
       } else {
         try {
           await ShopOrderApiService.createCategory(shop.hashId, saveCategoryData);
-          showSuccessMessage('作成しました');
+          showSuccessMessage('Tạo mới thành công');
           getCategories();
           handleCloseModal();
           setCategoryDetail(DEFAULT_CATEGORY);
         } catch (error) {
           if (error.result.errorCode === 'not_found') {
-            showWarningMessage('カテゴリーが存在しません');
+            showWarningMessage('Không tìm thấy');
             return;
           }
           showWarningMessage(error.message.replace('Error: ', ''));
@@ -226,18 +226,18 @@ const PageCategorySetting = () => {
 
   const handleDeleteLargeCategory = async () => {
     if (deleteCategory.childCategories.length > 0) {
-      showWarningMessage('登録されている小カテゴリーがある為、削除できません');
+      showWarningMessage('Không thể xóa vì đã có danh mục phụ');
     } else {
       try {
         await ShopOrderApiService.deleteCategory(shop.hashId, deleteCategory.code);
-        showSuccessMessage('削除しました');
+        showSuccessMessage('Xóa thành công');
         await getCategories();
         setDeleteCategory(null);
         setShowDialog(false);
         setShowModal(false);
       } catch (error) {
         if (error.result.errorCode === 'not_found') {
-          showWarningMessage('カテゴリーが存在しません');
+          showWarningMessage('Không tìm thấy');
           return;
         }
         showWarningMessage(error.message);
@@ -247,9 +247,9 @@ const PageCategorySetting = () => {
 
   const validateName = (categoryDetail, errors) => {
     const nameValidate = {
-      requiredErrorMessage: '大カテゴリーを入力してください',
-      maxLength: 10,
-      maxLengthErrorMessage: '大カテゴリーは10文字を超えてはなりません',
+      requiredErrorMessage: 'Vui lòng nhập tên danh mục chính',
+      maxLength: 50,
+      maxLengthErrorMessage: 'Tên danh mục chính quá dài',
     };
 
     if (!Utils.isNil(categoryDetail.name) && categoryDetail.name.trim() !== '') {
@@ -271,7 +271,7 @@ const PageCategorySetting = () => {
     return (
       <>
         <ButtonCustom
-          title='戻る'
+          title='Quay lại'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -279,7 +279,7 @@ const PageCategorySetting = () => {
           onClick={handleCloseModal}
         />
         <ButtonCustom
-          title='保存'
+          title='Lưu'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'
@@ -295,7 +295,7 @@ const PageCategorySetting = () => {
       {/* Change background color body */}
       <style>{'body { background-color: white}'}</style>
 
-      <HeaderAppBar title='大カテゴリー設定' />
+      <HeaderAppBar title='Danh mục thực đơn' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding='75px 20px' height='auto'>
           <Box>
@@ -308,7 +308,7 @@ const PageCategorySetting = () => {
                         root: classes.tableCellHead,
                       }}
                     >
-                      大カテゴリー
+                      Danh mục chính
                     </TableCell>
                     <TableCell
                       classes={{
@@ -316,7 +316,7 @@ const PageCategorySetting = () => {
                       }}
                       align='right'
                     >
-                      小カテゴリ
+                      Danh mục phụ
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -352,7 +352,7 @@ const PageCategorySetting = () => {
                               whiteSpace: 'nowrap',
                             }}
                           >
-                            編集
+                            Sửa
                           </Button>
                         </Box>
                       </TableCell>
@@ -366,7 +366,7 @@ const PageCategorySetting = () => {
                           <Box mr={2} whiteSpace='nowrap' width='65%' textOverflow='ellipsis' overflow='hidden' textAlign='left'>
                             {category.childCategories.length
                               ? showAllChildCategories(category.childCategories)
-                              : 'なし'}
+                              : 'Không có'}
                           </Box>
                           <Button
                             bgcolor='#FFA04B'
@@ -385,7 +385,7 @@ const PageCategorySetting = () => {
                               whiteSpace: 'nowrap',
                             }}
                           >
-                            表示
+                            Chi tiết
                           </Button>
                         </Box>
                       </TableCell>
@@ -405,7 +405,7 @@ const PageCategorySetting = () => {
                   onClick={() => history.push('/setting/menu/list')}
                   className={`${classes.buttonController} + ' ' + ${classes.buttonBack}`}
                 >
-                  戻る
+                  Quay lại
                 </Button>
               </Grid>
 
@@ -417,7 +417,7 @@ const PageCategorySetting = () => {
                   }}
                   className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                 >
-                  <Add /> 大カテゴリー追加
+                  <Add /> Thêm danh mục
                 </Button>
               </Grid>
             </Grid>
@@ -427,7 +427,7 @@ const PageCategorySetting = () => {
 
       <Modal
         open={showModal}
-        title={categoryDetail.id ? '大カテゴリー編集' : '大カテゴリー新規追加'}
+        title={categoryDetail.id ? 'Cập nhật danh mục' : 'Thêm mới danh mục'}
         actions={ModalActions()}
         onClose={handleCloseModal}
       >
@@ -449,7 +449,7 @@ const PageCategorySetting = () => {
                     setDeleteCategory(categoryDetail);
                   }}
                 >
-                  削除
+                  Xóa
                 </Button>
               </Box>
             )}
@@ -457,7 +457,7 @@ const PageCategorySetting = () => {
 
           <Box mt={3} display={'flex'} alignItems={'center'}>
             <Box className={classes.left} width={'40%'} textAlign={'center'} fontSize={18}>
-              大カテゴリー
+              Danh mục chính
             </Box>
             <Box width={'40%'} textAlign={'left'}>
               <OutlinedInput
@@ -482,8 +482,8 @@ const PageCategorySetting = () => {
       <Dialog
         isOpen={showDialog}
         onClose={(isOpen) => setShowDialog(isOpen)}
-        title='削除'
-        message='このアイテムを削除しますか？'
+        title='Xóa bỏ'
+        message='Bạn có chắc bạn muốn xóa mục này ?'
         onConfirm={() => handleDeleteLargeCategory()}
       />
     </PageContainer>

@@ -309,10 +309,10 @@ const DEFAULT_BUSINESS_HOUR = {
 };
 const MAX_BUSINESS_HOUR = 4;
 const DEFAULT_NAME_OPTIONS = [
-  'モーニング',
-  'ランチ',
-  'デイナー',
-  '深夜',
+  'Buổi sáng',
+  'Buổi trưa',
+  'Buổi tối',
+  'Đêm',
 ];
 const DEFAULT_SNS_LINK = {
   name: '',
@@ -320,7 +320,7 @@ const DEFAULT_SNS_LINK = {
   link: '',
 }
 const DEFAULT_INSTAGRAM_LINK = {
-  name: 'instagram', // 固定
+  name: 'instagram',
   link: '',
   comment: '',
   hash_tag: '',
@@ -365,7 +365,6 @@ const PageInfoSetting = (props) => {
     status: 'success',
   });
 
-  // 店舗情報リクエスト
   useEffect(() => {
     getGenre();
     getShop();
@@ -557,7 +556,7 @@ const PageInfoSetting = (props) => {
         const shopResponse = await ShopApiService.updateShop(shop.hashId, updateShopData);
         await ShopApiService.updateShopGenre(shop.hashId, updateShopGenreData);
 
-        showSuccessMessage('更新しました。');
+        showSuccessMessage('Caaph nhật thành công');
         setIsSubmit(false);
         updateShopInfoToContext(shopResponse);
       } catch (error) {
@@ -597,12 +596,12 @@ const PageInfoSetting = (props) => {
     <>
       {Object.keys(shopData).length > 0 && genreDataSelect.length > 0 ? (
         <PageContainer padding='0px'>
-          <HeaderAppBar title='店舗基本設定' />
+          <HeaderAppBar title='Cài đặt chung' />
           <PageInnerContainer padding='0px 0px 25px 0px'>
             <Box className={classes.container}>
               <React.Fragment>
                 <Box className={classes.inputData}>
-                  <Box className={classes.label}>店舗名</Box>
+                  <Box className={classes.label}>Tên cửa hàng</Box>
                   <Box className={classes.printerData}>
                     <OutlinedInput
                       id='name'
@@ -617,7 +616,7 @@ const PageInfoSetting = (props) => {
                 </Box>
 
                 <Box mt={2} className={classes.inputData}>
-                  <Box className={classes.label}>ジャンル</Box>
+                  <Box className={classes.label}>Loại cửa hàng</Box>
                   <Box className={classes.printerData}>
                     <CustomSelectorBase
                       id='genres'
@@ -631,7 +630,7 @@ const PageInfoSetting = (props) => {
                 </Box>
 
                 <Box mt={2} className={classes.inputData}>
-                  <Box className={classes.label}>郵便番号</Box>
+                  <Box className={classes.label}>Mã bưu điện</Box>
                   <Box className={classes.printerData}>
                     <OutlinedInput
                       id='postal-code'
@@ -648,7 +647,7 @@ const PageInfoSetting = (props) => {
                 </Box>
 
                 <Box mt={2} className={classes.inputData}>
-                  <Box className={classes.label}>住所</Box>
+                  <Box className={classes.label}>Địa chỉ</Box>
                   <Box className={classes.printerData}>
                     <OutlinedInput
                       id='address'
@@ -665,7 +664,7 @@ const PageInfoSetting = (props) => {
                 </Box>
 
                 <Box mt={2} className={classes.inputData}>
-                  <Box className={classes.label}>電話番号</Box>
+                  <Box className={classes.label}>Số điện thoại</Box>
                   <Box className={classes.printerData}>
                     <OutlinedInput
                       id='phone-number'
@@ -683,7 +682,7 @@ const PageInfoSetting = (props) => {
 
                 {/* Wifi */}
                 <Box mt={2} className={classes.inputData}>
-                  <Box className={classes.label}>Wifi名</Box>
+                  <Box className={classes.label}>Tên Wifi</Box>
                   <Box className={classes.printerData}>
                     <OutlinedInput
                       id='wifi-name'
@@ -698,7 +697,7 @@ const PageInfoSetting = (props) => {
                 </Box>
 
                 <Box mt={2} className={classes.inputData}>
-                  <Box className={classes.label}>Wifiパスワード</Box>
+                  <Box className={classes.label}>Mật khẩu Wifi</Box>
                   <Box className={classes.printerData}>
                     <OutlinedInput
                       id='wifi-pass'
@@ -715,7 +714,7 @@ const PageInfoSetting = (props) => {
 
                 {/* Business Hours */}
                 <Box className={classes.timeSetting} mt={2}>
-                  <Box className={classes.timeSettingText}>営業時間</Box>
+                  <Box className={classes.timeSettingText}>Giờ mở cửa</Box>
                   <Box className={classes.timeSelect}>
                     <TimeSelector
                       name='start_time'
@@ -735,7 +734,7 @@ const PageInfoSetting = (props) => {
                       className={classes.btnAddTime}
                       disabled={shopData.businessHours.length >= MAX_BUSINESS_HOUR}
                     >
-                      <Add style={styles.iconAdd}/> 時間帯を追加
+                      <Add style={styles.iconAdd}/> Thêm khung giờ
                     </Button>
                   </Box>
                 </Box>
@@ -743,7 +742,7 @@ const PageInfoSetting = (props) => {
                 {
                   shopData?.businessHours && shopData?.businessHours.length ? (
                     <Box mt={2} className={classes.businessHourSetting}>
-                      <Box className={classes.businessHourSettingText}>時間帯（例）ランチ・ディナー</Box>
+                      <Box className={classes.businessHourSettingText}>Khung giờ mở cửa</Box>
                       <Box className={classes.businessHourSettingBody} alignItems='center'>
                         {
                           shopData.businessHours.map((businessHour, businessHourIndex) => (
@@ -809,7 +808,7 @@ const PageInfoSetting = (props) => {
 
                 {/* SNS links */}
                 <Box mt={2} className={classes.snsSetting}>
-                  <Box className={classes.snsSettingText}>Instagram連携</Box>
+                  <Box className={classes.snsSettingText}>Tích hợp SNS</Box>
                   <Box className={classes.snsSettingBody}>
                     <Box>
                       <Box mb={2} className={classes.snsSettingFirstInput}>
@@ -818,7 +817,7 @@ const PageInfoSetting = (props) => {
                             id='name'
                             name='name'
                             className={classes.input}
-                            placeholder='instagram'
+                            placeholder='Instagram'
                             value={shopData.instagram_link[0].name}
                             labelWidth={0}
                             classes={{ input: classes.input }}
@@ -833,7 +832,7 @@ const PageInfoSetting = (props) => {
                             id='hash_tag'
                             name='hash_tag'
                             className={classes.input}
-                            placeholder='お店のハッシュタグ（#レストランオーダーアール）'
+                            placeholder='Hashtag'
                             value={shopData.instagram_link[0].hash_tag}
                             labelWidth={0}
                             onChange={e => handleChangeInstagram(e, 0)}
@@ -847,7 +846,7 @@ const PageInfoSetting = (props) => {
                             id='comment'
                             name='comment'
                             className={classes.input}
-                            placeholder='投稿応援コメント'
+                            placeholder='Mô tả'
                             value={shopData.instagram_link[0].comment}
                             labelWidth={0}
                             onChange={e => handleChangeInstagram(e, 0)}
@@ -862,7 +861,7 @@ const PageInfoSetting = (props) => {
                           id='link'
                           name='link'
                           className={classes.input}
-                          placeholder='アカウントURL（https://www.instagram.com/*******/）'
+                          placeholder='URL（https://www.instagram.com/*******/）'
                           value={shopData.instagram_link[0].link}
                           labelWidth={0}
                           onChange={e => handleChangeInstagram(e, 0)}
@@ -874,14 +873,14 @@ const PageInfoSetting = (props) => {
                           className={classes.snsLinkPreview}
                           disabled={!shopData.instagram_link[0].link || shopData.instagram_link[0].link.trim() === ''}
                           onClick={() => handleShowPreviewSNSLink(shopData.instagram_link[0])}
-                        >QRコードプレビュー</Button>
+                        >Xem trước mã QR</Button>
                       </Box>
                     </Box>
                   </Box>
                 </Box>
 
                 <Box mt={2} className={classes.snsSetting}>
-                  <Box className={classes.snsSettingText}>SNSアカウント1</Box>
+                  <Box className={classes.snsSettingText}>Tài khoản mạng xã hội khác</Box>
                   <Box className={classes.snsSettingBody}>
                     <Box>
                       <Box mb={2} className={classes.snsSettingFirstInput}>
@@ -890,7 +889,7 @@ const PageInfoSetting = (props) => {
                             id='name'
                             name='name'
                             className={classes.input}
-                            placeholder='リンク名'
+                            placeholder='Facebook'
                             value={shopData.sns_links[0].name}
                             labelWidth={0}
                             onChange={e => handleChangeSNS(e, 0)}
@@ -904,7 +903,7 @@ const PageInfoSetting = (props) => {
                             id='description'
                             name='description'
                             className={classes.input}
-                            placeholder='リンク説明'
+                            placeholder='Mô tả'
                             value={shopData.sns_links[0].description}
                             labelWidth={0}
                             onChange={e => handleChangeSNS(e, 0)}
@@ -920,7 +919,7 @@ const PageInfoSetting = (props) => {
                           id='link'
                           name='link'
                           className={classes.input}
-                          placeholder='リンク'
+                          placeholder='Link URL'
                           value={shopData.sns_links[0].link}
                           labelWidth={0}
                           onChange={e => handleChangeSNS(e, 0)}
@@ -932,7 +931,7 @@ const PageInfoSetting = (props) => {
                           className={classes.snsLinkPreview}
                           disabled={!shopData.sns_links[0].link || shopData.sns_links[0].link.trim() === ''}
                           onClick={() => handleShowPreviewSNSLink(shopData.sns_links[0])}
-                        >QRコードプレビュー</Button>
+                        >Xem trước mã QR</Button>
                       </Box>
                     </Box>
                   </Box>
@@ -948,7 +947,7 @@ const PageInfoSetting = (props) => {
                             id='name'
                             name='name'
                             className={classes.input}
-                            placeholder='リンク名'
+                            placeholder='Tiktok'
                             value={shopData.sns_links[1].name}
                             labelWidth={0}
                             onChange={e => handleChangeSNS(e, 1)}
@@ -962,7 +961,7 @@ const PageInfoSetting = (props) => {
                             id='description'
                             name='description'
                             className={classes.input}
-                            placeholder='リンク説明'
+                            placeholder='Mô tả'
                             value={shopData.sns_links[1].description}
                             labelWidth={0}
                             onChange={e => handleChangeSNS(e, 1)}
@@ -978,7 +977,7 @@ const PageInfoSetting = (props) => {
                           id='link'
                           name='link'
                           className={classes.input}
-                          placeholder='リンク'
+                          placeholder='Link URL'
                           value={shopData.sns_links[1].link}
                           labelWidth={0}
                           onChange={e => handleChangeSNS(e, 1)}
@@ -990,7 +989,7 @@ const PageInfoSetting = (props) => {
                           className={classes.snsLinkPreview}
                           disabled={!shopData.sns_links[1].link || shopData.sns_links[1].link.trim() === ''}
                           onClick={() => handleShowPreviewSNSLink(shopData.sns_links[1])}
-                        >QRコードプレビュー</Button>
+                        >Xem trước mã QR</Button>
                       </Box>
                     </Box>
                   </Box>
@@ -1005,7 +1004,7 @@ const PageInfoSetting = (props) => {
                       onClick={() => history.push('/setting')}
                       className={`${classes.buttonController} + ' ' + ${classes.buttonBack}`}
                     >
-                      戻る
+                      Quay lại
                     </Button>
                   </Grid>
 
@@ -1015,7 +1014,7 @@ const PageInfoSetting = (props) => {
                       className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                       disabled={isSubmit}
                     >
-                      保存する
+                      Lưu
                       {
                         isSubmit ? <CircularProgress  style={{ marginLeft: 10, width: 20, height: 20 }}/> : null
                       }

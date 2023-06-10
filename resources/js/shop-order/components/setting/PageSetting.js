@@ -53,31 +53,31 @@ const PageSetting = (props) => {
   const menuSettings = [
     {
       url: '/setting/info',
-      label: '店舗基本設定',
+      label: 'Cài đặt chung',
     },
     {
       url: '/setting/table/list',
-      label: 'テーブル登録',
+      label: 'Bàn ăn',
     },
     {
       url: '/staffs',
-      label: 'スタッフ設定',
+      label: 'Nhân viên',
     },
     {
       url: '/setting/cook-place/list',
-      label: '調理場設定',
+      label: 'Bếp',
     },
     {
       url: '/setting/printer/list',
-      label: 'プリンター設定',
+      label: 'Máy in',
     },
     {
       url: '/setting/tax',
-      label: '会計・税率設定',
+      label: 'Thuế',
     },
     {
       url: '/setting/current-plan',
-      label: 'プラン・請求',
+      label: 'Gói dịch vụ',
     },
   ];
 
@@ -85,7 +85,7 @@ const PageSetting = (props) => {
     <PageContainer padding="0px">
       <style>{'body { background-color: white}'}</style>
       <div className={classes.root}>
-        <HeaderAppBar title="店舗設定" />
+        <HeaderAppBar title="Cài đặt" />
         <PageInnerContainer>
           <Box className={classes.contentWrap}>
             <Grid
