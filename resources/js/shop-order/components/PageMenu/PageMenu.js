@@ -17,22 +17,22 @@ const PageSetting = (props) => {
   const menuSettings = [
     {
       url: '/setting/menu/list',
-      label: '商品登録',
+      label: 'Món ăn',
     },
     {
       url: '/menus/courses',
-      label: 'コース登録',
+      label: 'Set ăn',
     },
     {
       url: '/setting/recommend/list',
-      label: 'おすすめ設定',
+      label: 'Món ăn gợi ý',
     },
   ];
 
   return (
     <PageContainer padding="0px">
       <div className={ classes.root }>
-        <HeaderAppBar title="商品メニュー登録" />
+        <HeaderAppBar title="Danh sách thực đơn" />
         <PageInnerContainer>
           <Box className={ classes.contentWrap }>
             <Grid className={ classes.menuGridWrap } container spacing={ 4 } alignContent='center' alignItems='center'>

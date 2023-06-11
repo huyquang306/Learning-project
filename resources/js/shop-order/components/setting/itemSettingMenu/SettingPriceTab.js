@@ -35,7 +35,7 @@ const SettingPriceTab = (props) => {
               whiteSpace='nowrap'
               minWidth='25%'
             >
-              表示
+              In use
             </Box>
             <FormControlLabel
               control={
@@ -60,7 +60,7 @@ const SettingPriceTab = (props) => {
               whiteSpace='nowrap'
               minWidth='25%'
             >
-              時間帯
+              Khung giờ
             </Box>
 
             <Box>
@@ -75,7 +75,7 @@ const SettingPriceTab = (props) => {
               />
 
               {
-                businessHours.length === 0 && <Box className={classes.textDanger}>時間帯を設定してください</Box>
+                businessHours.length === 0 && <Box className={classes.textDanger}>Vui lòng chọn khung giờ</Box>
               }
             </Box>
           </Box>
@@ -89,7 +89,7 @@ const SettingPriceTab = (props) => {
                 textAlign={{ xs: 'left', sm: 'center' }}
                 minWidth='25%'
               >
-                価格
+                Giá
               </Box>
 
               <OutlinedInput
@@ -114,7 +114,7 @@ const SettingPriceTab = (props) => {
               className={classes.textShowTax}
               width={{ xs: '65%' }}
             >
-              {showtaxValue(taxValue, currencyName)}
+              {/*{showtaxValue(taxValue, currencyName)}*/}
             </Box>
           </Box>
         </Grid>
@@ -132,7 +132,7 @@ const SettingPriceTab = (props) => {
               onClick={() => props.addNewSettingPrice()}
               disabled={businessHours.length === 0}
             >
-              追加する
+              Thêm
             </Button>
           </Box>
         </Grid>

@@ -36,6 +36,8 @@ class AppServiceProvider extends ServiceProvider
             'AnnouncementRepositoryInterface' => 'AnnouncementRepository',
             'ShopMetaRepositoryInterface' => 'ShopMetaRepository',
             'CoursePriceRepositoryInterface' => 'CoursePriceRepository',
+            'ShopCookPlaceRepositoryInterface' => 'ShopCookPlaceRepository',
+            'ShopPosSettingRepositoryInterface' => 'ShopPosSettingRepository',
         ];
 
         foreach ($repositories as $key => $val) {

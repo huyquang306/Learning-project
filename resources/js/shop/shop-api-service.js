@@ -11,6 +11,9 @@ export const ENDPOINTS = {
   REGIST_ITEM_IMG: ['shop/$0/item/$1/images', METHOD.POST_FILE, true],
   UPDATE_ITEM: ['shop/$0/item/$1', METHOD.PUT, true],
   DELETE_ITEM: ['shop/$0/item/$1', METHOD.DELETE, true],
+  GET_SHOP_TAX_INFO: ['shop/$0/tax', METHOD.GET, true],
+  GET_TAX_OPTIONS: ['shop/$0/tax-options', METHOD.GET, true],
+  POST_SHOP_TAX_INFO: ['shop/$0/tax', METHOD.POST, true],
 }
 
 class ShopApiService extends ApiBase {
@@ -99,6 +102,18 @@ class ShopApiService extends ApiBase {
     }).then((result) => {
       return result.status;
     });
+  }
+  
+  async getShopTaxInfo(shopHash) {
+    return await this.request(ENDPOINTS.GET_SHOP_TAX_INFO, [shopHash], null);
+  }
+  
+  async getTaxOptions(shopHash) {
+    return await this.request(ENDPOINTS.GET_TAX_OPTIONS, [shopHash], null);
+  }
+  
+  async postShopTaxInfo(shopHash, data) {
+    return await this.request(ENDPOINTS.POST_SHOP_TAX_INFO, [shopHash], data);
   }
 }
 

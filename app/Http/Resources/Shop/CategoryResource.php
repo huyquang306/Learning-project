@@ -26,4 +26,18 @@ class CategoryResource extends JsonResource
             'is_belong_to_menu' => $this->is_belong_to_menu,
         ];
     }
+
+    /**
+     * Adding status and message to response.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return array
+     */
+    public function with($request)
+    {
+        return [
+            'status' => 'success',
+            'message' => ''
+        ];
+    }
 }

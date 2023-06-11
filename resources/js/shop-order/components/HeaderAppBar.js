@@ -198,15 +198,15 @@ const HeaderAppBar = (props) => {
           ))}
 
         <Box className={classes.drawerItem} onClick={() => setShowDialog(true)}>
-          ログアウト
+          Đăng xuất
         </Box>
       </Drawer>
 
       <Dialog
         isOpen={showDialog}
         onClose={(isOpen) => setShowDialog(isOpen)}
-        title="確認"
-        message="本当にログアウトしますか？"
+        title="Xác nhận"
+        message="Bạn chắc chắn muốn đăng xuất？"
         onConfirm={() => ShopAuthService.signOut()}
       />
     </>

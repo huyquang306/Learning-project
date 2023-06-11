@@ -143,7 +143,7 @@ const ModalSelectMenuImage = (props) => {
         {hiddenButtonUpload && (
           <>
             <ButtonCustom
-              title='Chụp ảnh'
+              title='Xoay ảnh'
               borderRadius='28px'
               bgcolor='#FFF'
               fgcolor='#FFA04B'

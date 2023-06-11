@@ -34,8 +34,23 @@ Route::prefix('v1')->group(
                 Route::post('/{shop}/ordergroup', 'Api\Shop\OrderGroupController@create');
 //                    ->middleware('checkUsageQRCodeOver');
 
-                //Course menu master
+                // Course menu master
                 Route::get('{shop}/master-courses', 'Api\Shop\CourseController@getMasterCourses');
+
+                // Category
+                Route::apiResource('{shop}/category', 'Api\Shop\CategoryController');
+
+                // Menu
+                Route::get('{shop}/master-menus', 'Api\Shop\MenuController@getMasterMenus');
+                Route::apiResource('{shop}/menu', 'Api\Shop\MenuController')
+                    ->except(['create', 'edit']);
+
+                // Cook place
+                Route::apiResource('{shop}/cook-places', 'Api\Shop\ShopCookPlaceController')
+                    ->except(['show', 'create', 'edit']);
+
+                // Upload image
+                Route::post('{shop}/upload-image', 'Api\Shop\ImageController@store');
             }
         );
     }

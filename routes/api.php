@@ -44,6 +44,11 @@ Route::prefix('v1')->group(
                 Route::post('{shop}/item/{item}/images', 'Api\ItemController@updateImages');
                 Route::put('{shop}/item/{item}', 'Api\ItemController@update');
                 Route::delete('{shop}/item/{item}', 'Api\ItemController@destroy');
+
+                // Tax
+                Route::get('{shop}/tax', 'Api\Shop\ShopPosController@show');
+                Route::post('{shop}/tax', 'Api\Shop\ShopPosController@update');
+                Route::get('{shop}/tax-options', 'Api\Shop\ShopPosController@getTaxOptions');
             }
         );
     }
