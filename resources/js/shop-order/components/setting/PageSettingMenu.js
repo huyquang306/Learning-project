@@ -197,12 +197,12 @@ const useStyles = makeStyles(() => ({
 const DEFAULT_CATEGORY_VALUE = -1;
 const DEFAULT_LARGE_CATEGORY = {
   value: DEFAULT_CATEGORY_VALUE,
-  label: '--- 大カテゴリ ---',
+  label: '--- Danh mục chính ---',
   smallCategories: [],
 };
 const DEFAULT_SMALL_CATEGORY = {
   value: DEFAULT_CATEGORY_VALUE,
-  label: '--- 小カテゴリ ---',
+  label: '--- Danh mục phụ ---',
 };
 
 const PageMenuSetting = (props) => {
@@ -415,7 +415,7 @@ const PageMenuSetting = (props) => {
       if (menusDataTrulyUpdate.length) {
         await ShopOrderApiService.updateMenus(shop.hashId, { menus: menusDataTrulyUpdate });
       }
-      showSuccessMessage('更新しました');
+      showSuccessMessage('Cập nhật thành công');
       setShowSettingAllMenus(false);
     } catch (error) {
       showWarningMessage(error.message);
@@ -430,7 +430,7 @@ const PageMenuSetting = (props) => {
       {/* Change background color body */}
       <style>{'body { background-color: white}'}</style>
 
-      <HeaderAppBar title='商品メニュー登録' />
+      <HeaderAppBar title='Danh sách món ăn' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding={'8px 16px'} height='auto'>
           <Box flex={1} className={classes.head}>
@@ -466,7 +466,7 @@ const PageMenuSetting = (props) => {
                 <OutlinedInput
                   id='name'
                   name='name'
-                  placeholder='自由ワード'
+                  placeholder='Nhập từ khóa'
                   value={filterMenu.name}
                   className={classes.input}
                   labelWidth={0}
@@ -474,7 +474,7 @@ const PageMenuSetting = (props) => {
                 />
                 <Box whiteSpace='nowrap' className={classes.wrapButton}>
                   <ButtonCustom
-                    title='検索する'
+                    title='Tìm kiếm'
                     bgcolor='#FFF'
                     borderColor={!showSettingAllMenus && '#FFA04B'}
                     fgcolor='#FFA04B'
@@ -488,7 +488,7 @@ const PageMenuSetting = (props) => {
               {!showSettingAllMenus && (
                 <Box whiteSpace='nowrap' className={classes.wrapButton}>
                   <ButtonCustom
-                    title='カテゴリー編集'
+                    title='Sửa danh mục món'
                     bgcolor='#FFF'
                     borderColor='#FFA04B'
                     fgcolor='#FFA04B'
@@ -515,35 +515,35 @@ const PageMenuSetting = (props) => {
                             root: classes.tableCell,
                           }}
                         >
-                          カテゴリ
+                          Danh mục
                         </TableCell>
                         <TableCell
                           classes={{
                             root: classes.tableCell,
                           }}
                         >
-                          商品名
+                          Tên món
                         </TableCell>
                         <TableCell
                           classes={{
                             root: `${classes.tableCell} ${classes.menuName}`,
                           }}
                         >
-                          価格 (税込)
+                          Giá
                         </TableCell>
                         <TableCell
                           classes={{
                             root: classes.tableCell,
                           }}
                         >
-                          写真
+                          Ảnh
                         </TableCell>
                         <TableCell
                           classes={{
                             root: classes.tableCell,
                           }}
                         >
-                          表示
+                          Thao tác
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -599,7 +599,7 @@ const PageMenuSetting = (props) => {
                                   )}
                                 />
                               ) : (
-                                '設定無し'
+                                'No setting'
                               )}
                             </TableCell>
                             <TableCell
@@ -614,7 +614,7 @@ const PageMenuSetting = (props) => {
                                   setMenuData(menu);
                                 }}
                               >
-                                詳細
+                                Chi tiết
                               </Button>
                             </TableCell>
                           </TableRow>
@@ -647,7 +647,7 @@ const PageMenuSetting = (props) => {
                         onClick={() => history.push('/menus/setting')}
                         className={`${classes.buttonController} ${classes.buttonBack}`}
                       >
-                        戻る
+                        Quay lại
                       </Button>
                     </Grid>
                     <Grid item>
@@ -658,7 +658,7 @@ const PageMenuSetting = (props) => {
                         }}
                         className={`${classes.buttonController} ${classes.buttonAdd}`}
                       >
-                        <Add /> 商品追加
+                        <Add /> Thêm món
                       </Button>
                     </Grid>
                     <Grid item>
@@ -669,7 +669,7 @@ const PageMenuSetting = (props) => {
                         }}
                         className={`${classes.buttonController} ${classes.buttonEditAll}`}
                       >
-                        一括編集
+                        Chỉnh sửa hàng loạt
                       </Button>
                     </Grid>
                   </Grid>
@@ -683,7 +683,7 @@ const PageMenuSetting = (props) => {
                         }}
                         className={`${classes.buttonController} ${classes.buttonBack}`}
                       >
-                        キャンセル
+                        Hủy bỏ
                       </Button>
                     </Grid>
                     <Grid item>
@@ -691,7 +691,7 @@ const PageMenuSetting = (props) => {
                         onClick={saveManyMenus}
                         className={`${classes.buttonController} ${classes.buttonAdd}`}
                       >
-                        一括保存
+                        Lưu hàng loạt
                       </Button>
                     </Grid>
                   </Grid>

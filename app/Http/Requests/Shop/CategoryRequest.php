@@ -37,7 +37,7 @@ class CategoryRequest extends FormRequest
                 $validate = [
                     'name' => [
                         'string',
-                        'max:10',
+                        'max:50',
                         new CategoryNameDuplicateRule($this->shop),
                     ],
                     'short_name' => ['nullable', 'string', 'max:10'],

@@ -42,6 +42,15 @@ Route::prefix('v1')->group(
 
                 // Menu
                 Route::get('{shop}/master-menus', 'Api\Shop\MenuController@getMasterMenus');
+                Route::apiResource('{shop}/menu', 'Api\Shop\MenuController')
+                    ->except(['create', 'edit']);
+
+                // Cook place
+                Route::apiResource('{shop}/cook-places', 'Api\Shop\ShopCookPlaceController')
+                    ->except(['show', 'create', 'edit']);
+
+                // Upload image
+                Route::post('{shop}/upload-image', 'Api\Shop\ImageController@store');
             }
         );
     }

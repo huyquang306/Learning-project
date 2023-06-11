@@ -8,6 +8,7 @@ use App\Repositories\ShopRepository;
 use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class ImageService
 {
@@ -27,6 +28,7 @@ class ImageService
      * @param string $id
      * @param UploadedFile $file
      * @param string $type
+     *
      * @return array
      */
     public function resizeImages(string $shop_id, string $id, UploadedFile $file, string $type): array
@@ -132,5 +134,27 @@ class ImageService
     public function updateImagePaths(string $shop_id, string $id, array $paths, string $type)
     {
         return $this->shopRepository->updateImagePaths($shop_id, $id, $paths, $type);
+    }
+
+    /**
+     * Upload image to S3 and create image in db
+     * @param MShop $shop
+     * @param $file
+     *
+     * @return string|false
+     */
+    public function uploadAndCreateImage(MShop $shop, $file)
+    {
+        $tmpDir = public_path() . '/storage';
+        if (!file_exists($tmpDir)) {
+            \File::makeDirectory($tmpDir, 0775, true);
+        }
+
+        $imageId = substr(hash('sha256', uniqid(now()->toDateTimeString(), true)), 5);
+        $localPath = $tmpDir . '/' . $shop->hash_id . '_' . $imageId;
+        Image::make($file)->orientate()
+            ->save($localPath);
+
+        return Storage::disk('s3')->putFileAs('img/' . $shop->hash_id, $localPath, $imageId);
     }
 }

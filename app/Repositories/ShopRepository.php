@@ -2,10 +2,14 @@
 
 namespace App\Repositories;
 
+use App\Models\MCountry;
+use App\Models\MCurrency;
 use App\Models\MGenre;
 use App\Models\MItem;
 use App\Models\MMenu;
+use App\Models\MPaymentMethod;
 use App\Models\MShop;
+use App\Models\MShopPosSetting;
 use App\Models\MStaff;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -285,5 +289,125 @@ class ShopRepository extends BaseRepository
         }
 
         return null;
+    }
+
+    /**
+     * Generate shop tax info
+     *
+     * @param MShop  $shop
+     * @param string $countryCode
+     * @return MShop
+     */
+    public function generateShopTaxInfo(MShop $shop, string $countryCode): MShop
+    {
+        $shop->load([
+            'mShopPosSetting.mCurrency',
+        ]);
+
+        $country = MCountry::where('code', $countryCode)->first();
+        if (!$country) {
+            return $shop;
+        }
+
+        DB::beginTransaction();
+        try {
+            if (!$shop->m_country_id) {
+                unset($shop->items);
+                unset($shop->genres);
+                $shop->m_country_id = $country->id;
+                $shop->save();
+            }
+
+            // Check generate shop tax info
+            if (!$shop->mShopPosSetting) {
+                $mCurrency = MCurrency::where('m_country_id', $country->id)->first();
+                /*
+                $paymentMethod = MPaymentMethod::where('m_country_id', $country->id)
+                    ->where('name', MPaymentMethod::CASH_NAME)
+                    ->first();
+                */
+                if ($mCurrency) {
+                    $shopPos = [
+                        'm_currency_id' => $mCurrency->id,
+                        'm_shop_id' => $shop->id,
+                    ];
+                    MShopPosSetting::create($shopPos);
+                    /*
+                    if ($paymentMethod) {
+                        $shop->mPaymentMethods()->sync([
+                            $paymentMethod->id => [
+                                'created_at' => now(),
+                                'updated_at' => now(),
+                            ]
+                        ]);
+                    }
+                    */
+                }
+            }
+            DB::commit();
+
+            return $shop->refresh();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+
+            return $shop;
+        }
+    }
+
+    /**
+     * Update Shop Country is VN
+     *
+     * @param MShop $shop
+     * @return MShop
+     */
+    public function updateShopCountryVN(MShop $shop): MShop
+    {
+        $countryCode = MShop::DEFAULT_COUNTRY_CODE;
+        $country = MCountry::where('code', $countryCode)->first();
+        if (!$country) {
+            return $shop;
+        }
+        $shop->load('MShopPosSetting');
+
+        if ($shop->m_country_id !== $country->id) {
+            DB::beginTransaction();
+            try {
+                unset($shop->items);
+                unset($shop->genres);
+                $shop->m_country_id = $country->id;
+                $shop->save();
+
+                $mCurrency = MCurrency::where('m_country_id', $country->id)->first();
+                if ($mCurrency) {
+                    MShopPosSetting::updateOrCreate([
+                        'id' => $shop->mShopPosSetting ? $shop->mShopPosSetting->id : null,
+                    ], [
+                        'm_currency_id' => $mCurrency->id,
+                        'm_shop_id' => $shop->id,
+                    ]);
+                }
+
+                /*
+                $paymentMethod = MPaymentMethod::where('m_country_id', $country->id)
+                    ->where('name', MPaymentMethod::CASH_NAME)
+                    ->first();
+                if ($paymentMethod) {
+                    $shop->mPaymentMethods()->sync([
+                        $paymentMethod->id => [
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]
+                    ]);
+                }
+                */
+                DB::commit();
+
+                return $shop->refresh();
+            } catch (\Exception $exception) {
+                DB::rollBack();
+            }
+        }
+
+        return $shop;
     }
 }

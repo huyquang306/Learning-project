@@ -27,6 +27,17 @@ class CategoryRepository
     }
 
     /**
+     * Create menu category
+     *
+     * @param array $attributes
+     * @return MMenuCategory|null
+     */
+    public function createCategory(array $attributes): ?MMenuCategory
+    {
+        return MMenuCategory::create($attributes);
+    }
+
+    /**
      * Get category list of shop that registered menu
      *
      * @param $shopId
@@ -57,5 +68,55 @@ class CategoryRepository
         }
 
         return $query->get();
+    }
+
+    /**
+     * Get menu category Detail
+     *
+     * @param $id
+     * @return MMenuCategory|null
+     */
+    public function getCategoryDetail($id): ?MMenuCategory
+    {
+        return MMenuCategory::find($id);
+    }
+
+    /**
+     * Check duplicate category code
+     *
+     * @param string $value
+     * @return boolean
+     */
+    public function isCodeDuplicated(string $value): bool
+    {
+        return (bool)MMenuCategory::where('code', $value)->count();
+    }
+
+    /**
+     * Update menu category
+     *
+     * @param array $attributes
+     * @param $id
+     * @return MMenuCategory|null
+     */
+    public function updateCategory(array $attributes, $id): ?MMenuCategory
+    {
+        $result = MMenuCategory::find($id)->update($attributes);
+        if ($result) {
+            return MMenuCategory::find($id);
+        }
+
+        return null;
+    }
+
+    /**
+     * Delete menu category
+     *
+     * @param $id
+     * @return boolean
+     */
+    public function deleteCategory($id): bool
+    {
+        return (bool)MMenuCategory::find($id)->delete();
     }
 }

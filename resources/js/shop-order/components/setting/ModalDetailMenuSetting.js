@@ -363,14 +363,14 @@ const ModalDetailMenuSetting = (props) => {
     try {
       if (Object.keys(props.menuData).length === 0 || isCopyData) {
         await ShopOrderApiService.createMenu(shop.hashId, updateMenuData);
-        props.showSuccessMessage('作成しました');
+        props.showSuccessMessage('Thêm món ăn thành công');
         setIsCopyData(false);
         if (!isCopyData) {
           resetMenuData();
         }
       } else {
         await ShopOrderApiService.updateMenu(shop.hashId, props.menuData.hash_id, updateMenuData);
-        props.showSuccessMessage('更新しました');
+        props.showSuccessMessage('Cập nhật thành công');
       }
       setInProgress(false);
       props.getFilterMenu();
@@ -388,7 +388,7 @@ const ModalDetailMenuSetting = (props) => {
 
   const copyData = () => {
     const newMenuData = cloneMenuData();
-    newMenuData.name = newMenuData.name + ` (のコピー)`;
+    newMenuData.name = newMenuData.name + ` (Copy)`;
     newMenuData.all_images = [];
     newMenuData.main_image_path = null;
     setMainImagePath(null);
@@ -400,7 +400,7 @@ const ModalDetailMenuSetting = (props) => {
     return (
       <Box textAlign='center'>
         <ButtonCustom
-          title='戻る'
+          title='Đóng'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -414,7 +414,7 @@ const ModalDetailMenuSetting = (props) => {
           }}
         />
         <ButtonCustom
-          title='保存する'
+          title='Lưu'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'
@@ -585,7 +585,7 @@ const ModalDetailMenuSetting = (props) => {
     if (Object.keys(props.menuData).length > 0) {
       setShowDialog(true);
     } else {
-      props.showWarningMessage('失敗しました');
+      props.showWarningMessage('Có lỗi xảy ra');
     }
   };
 
@@ -594,7 +594,7 @@ const ModalDetailMenuSetting = (props) => {
     ShopOrderApiService.deleteMenu(shop.hashId, props.menuData.hash_id)
       .then(() => {
         setInProgress(false);
-        props.showSuccessMessage('削除しました');
+        props.showSuccessMessage('Xóa thành công');
         props.getFilterMenu();
         props.onClose();
       })
@@ -652,7 +652,7 @@ const ModalDetailMenuSetting = (props) => {
     }
 
     if (!draftDataSettingPrice?.m_shop_business_hour) {
-      props.showWarningMessage('時間帯を選択してください。');
+      props.showWarningMessage('Vui lòng chọn khung giờ');
       return;
     }
 
@@ -660,7 +660,7 @@ const ModalDetailMenuSetting = (props) => {
       m_shop_business_hour_id: draftDataSettingPrice?.m_shop_business_hour?.id,
     });
     if (checkBusinessHourPrice) {
-      props.showWarningMessage('重複の時間帯を選択しないでください。');
+      props.showWarningMessage('Các khung giờ không được trùng nhau');
       return;
     }
     newMenuData['m_shop_business_hour_prices'] = [
@@ -728,7 +728,7 @@ const ModalDetailMenuSetting = (props) => {
         <Modal
           actions={actionModal()}
           open={props.open}
-          title='商品メニュー詳細'
+          title='Chi tiết món ăn'
           maxWidth={showModal || showModalDetail ? '850px' : '1000px'}
           maxHeight={showModal || showModalDetail ? '30vh' : '65vh'}
           minHeight='460px'
@@ -736,23 +736,25 @@ const ModalDetailMenuSetting = (props) => {
         >
           <Box mt={2} mr={2} className={classes.modalContent}>
             <Grid container justify={'flex-end'} spacing={2}>
-              <Grid item>
-                <Button
-                  className={classes.buttonHeader}
-                  onClick={() => {
-                    copyData(false);
-                  }}
-                >
-                  コピーして 新規作成
-                </Button>
-              </Grid>
+              
+              {/*<Grid item>*/}
+              {/*  <Button*/}
+              {/*    className={classes.buttonHeader}*/}
+              {/*    onClick={() => {*/}
+              {/*      copyData(false);*/}
+              {/*    }}*/}
+              {/*  >*/}
+              {/*    Tạo món mới*/}
+              {/*  </Button>*/}
+              {/*</Grid>*/}
+              
               <Grid item>
                 <Button
                   className={classes.buttonHeader}
                   onClick={deleteMenu}
                   disabled={inProgress || Object.keys(props.menuData).length === 0}
                 >
-                  削除
+                  Xóa
                 </Button>
               </Grid>
             </Grid>
@@ -763,7 +765,7 @@ const ModalDetailMenuSetting = (props) => {
               <Grid item md={9} sm={12} className='menu-common'>
                 <Grid container spacing={2}>
                   <Grid item sm={4} xs={12}>
-                    商品名
+                    Tên món
                   </Grid>
                   <Grid item sm={8} xs={12}>
                     <OutlinedInput
@@ -779,7 +781,7 @@ const ModalDetailMenuSetting = (props) => {
                 <Grid container spacing={2}>
                   <Grid item sm={4} xs={12}>
                     <Box mt={1} mb={-1}>
-                      カテゴリー(大＞小)
+                      Danh mục
                     </Box>
                   </Grid>
                   <Grid item sm={3} xs={12}>
@@ -812,7 +814,7 @@ const ModalDetailMenuSetting = (props) => {
                 <Grid container spacing={2}>
                   <Grid item sm={4} xs={12}>
                     <Box mt={1} mb={-1}>
-                      価格 (税込)
+                      Giá (Bao gồm thuế)
                     </Box>
                   </Grid>
                   <Grid item sm={3} xs={12}>
@@ -846,10 +848,10 @@ const ModalDetailMenuSetting = (props) => {
                         className={classes.textShowTax}
                         width='50%'
                       >
-                        {showtaxValue(
-                          hanldePriceFractionMode(Number(menuData?.tax_value), 0) || 0,
-                          shop?.mShopPosSetting?.m_currency?.name
-                        )}
+                        {/*{showtaxValue(*/}
+                        {/*  hanldePriceFractionMode(Number(menuData?.tax_value), 0) || 0,*/}
+                        {/*  shop?.mShopPosSetting?.m_currency?.name*/}
+                        {/*)}*/}
                       </Box>
                     </Box>
                   </Grid>
@@ -858,7 +860,7 @@ const ModalDetailMenuSetting = (props) => {
                 <Grid container spacing={2} className='public-status'>
                   <Grid item sm={4} xs={12}>
                     <Box mt={1} mb={-1}>
-                      公開状態
+                      Trạng thái
                     </Box>
                   </Grid>
                   <Grid item sm={8} xs={12}>
@@ -871,13 +873,13 @@ const ModalDetailMenuSetting = (props) => {
                         TabIndicatorProps={{ style: { display: 'none' } }}
                       >
                         <Tab
-                          label='公開中'
+                          label='On sale'
                           id='public'
                           value={MENU_STATUS.STATUS_ONSALE}
                           className={`${classes.customTab} ${classes.customTabLeft}`}
                         />
                         <Tab
-                          label='非公開'
+                          label='Off sale'
                           id='private'
                           value={MENU_STATUS.STATUS_OFFSALE}
                           className={`${classes.customTab} ${classes.customTabRight}`}
@@ -894,7 +896,7 @@ const ModalDetailMenuSetting = (props) => {
                             color='default'
                           />
                         }
-                        label={<Box style={{ fontSize: 14 }}>必須注文</Box>}
+                        label={<Box style={{ fontSize: 14 }}>Đặt gợi ý</Box>}
                         onChange={onChangeCheckBox}
                       />
                     </Box>
@@ -920,9 +922,9 @@ const ModalDetailMenuSetting = (props) => {
                 aria-label='simple tabs example'
                 TabIndicatorProps={{ style: { display: 'none' } }}
               >
-                <Tab label='時間別価格設定' id='price-tab' value={SETTING_PRICE_TAB} />
-                <Tab label='調理・在庫設定' id='place-tab' value={SETTING_PLACE_TAB} />
-                <Tab label='画像設定' id='image-tab' value={SETTING_IMAGE_TAB} />
+                <Tab label='Giá theo giờ' id='price-tab' value={SETTING_PRICE_TAB} />
+                <Tab label='Nơi thực hiện' id='place-tab' value={SETTING_PLACE_TAB} />
+                <Tab label='Hình ảnh' id='image-tab' value={SETTING_IMAGE_TAB} />
               </Tabs>
             </Box>
             <Divider className={classes.horizontalLines} />
@@ -934,7 +936,7 @@ const ModalDetailMenuSetting = (props) => {
                     <Grid md={9} sm={12}>
                       <Grid container spacing={2}>
                         <Grid item sm={4} xs={12}>
-                          調理目安時間
+                          Thời gian thực hiện
                         </Grid>
                         <Grid item sm={3} xs={11}>
                           <OutlinedInput
@@ -951,14 +953,14 @@ const ModalDetailMenuSetting = (props) => {
                         </Grid>
                         <Grid item sm={1} xs={1}>
                           <Box mt={1} fontWeight='400'>
-                            分
+                            phút
                           </Box>
                         </Grid>
                         <Grid item sm={4} xs={12}></Grid>
                       </Grid>
                       <Grid container spacing={2}>
                         <Grid item sm={4} xs={12}>
-                          調理場所
+                          Bếp thực hiện
                         </Grid>
                         <Grid item sm={3} xs={12}>
                           <CustomSelectorBase
@@ -997,7 +999,7 @@ const ModalDetailMenuSetting = (props) => {
                   <Grid container spacing={2}>
                     <Grid item sm={3} xs={12}>
                       <Box height='100%' display='flex' alignItems='center'>
-                        メイン画像
+                        Hình ảnh chính
                       </Box>
                     </Grid>
                     <Grid item sm={9} xs={12} className='wrap-content-images'>
@@ -1030,7 +1032,7 @@ const ModalDetailMenuSetting = (props) => {
                                   color='#FFF'
                                   style={{ background: '#5de48b' }}
                                 >
-                                  メイン
+                                  Đặt làm ảnh chính
                                 </Box>
                               )}
                             </Box>
@@ -1048,7 +1050,7 @@ const ModalDetailMenuSetting = (props) => {
                           onClick={() => setShowModal(true)}
                           disabled={menuData?.all_images?.length >= 5}
                         >
-                          +追加
+                          +Thêm
                         </ButtonCustom>
                       </Box>
                     </Grid>
@@ -1069,8 +1071,8 @@ const ModalDetailMenuSetting = (props) => {
             onClose={() => setShowModalDetails(false)}
             files={menuData?.all_images}
             mainImage={menuData?.main_image_path}
-            showSuccessMessage={() => props.showSuccessMessage('削除しました')}
-            showWarningMessage={() => props.showWarningMessage('ダウンロードエラー')}
+            showSuccessMessage={() => props.showSuccessMessage('Xóa thành công')}
+            showWarningMessage={() => props.showWarningMessage('Lỗi tải xuống')}
             indexImageClicked={indexImageClicked}
             setMainImage={setMainImage}
             execDeleteImage={execDeleteImage}
@@ -1079,15 +1081,15 @@ const ModalDetailMenuSetting = (props) => {
           <Dialog
             isOpen={showDialog}
             onClose={(isOpen) => setShowDialog(isOpen)}
-            title='削除'
-            message='このメニューを削除しますか？'
+            title='Xóa món ăn'
+            message='Bạn có chắc chắn muốn xóa món này không?'
             onConfirm={() => execDeleteMenu()}
           />
           <Dialog
             isOpen={confirmOffSale}
             onClose={(isOpen) => setConfirmOffSale(isOpen)}
-            title='確認'
-            message='おすすめ設定から削除しますか？'
+            title='Xác nhận'
+            message='Bạn có chắc chắn muốn xóa món khỏi danh sách món được phục vụ không?'
             onConfirm={handleConfirmOffSale}
           />
         </Modal>

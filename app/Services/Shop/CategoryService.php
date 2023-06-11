@@ -3,6 +3,7 @@
 namespace App\Services\Shop;
 
 use App\Http\Requests\Shop\CategoryRequest;
+use App\Models\MMenuCategory;
 use App\Models\MShop;
 use App\Repositories\CategoryRepository;
 
@@ -42,5 +43,64 @@ class CategoryService
         }
 
         return $listCategories;
+    }
+
+    /**
+     * Show detail menu category service
+     *
+     * @param MMenuCategory $category
+     * @return MMenuCategory|null
+     */
+    public function detailCategory(MMenuCategory $category): ?MMenuCategory
+    {
+        return $this->categoryRepository->getCategoryDetail($category->id);
+    }
+
+    /**
+     * Create menu category service
+     *
+     * @param CategoryRequest $request
+     * @param MShop           $shop
+     * @return MMenuCategory|null
+     */
+    public function createCategory(CategoryRequest $request, MShop $shop): ?MMenuCategory
+    {
+        while (true) {
+            $code = makeHash();
+            if (!$this->categoryRepository->isCodeDuplicated('code', $code)) {
+                break;
+            }
+        }
+        $new_category = $request->only(['name', 'short_name', 'parent_id', 'tier_number']);
+        $new_category['code'] = $code;
+        $new_category['m_shop_id'] = $shop->id;
+
+        return $this->categoryRepository->createCategory($new_category);
+    }
+
+    /**
+     * Update menu category service
+     *
+     * @param CategoryRequest $request
+     * @param MShop           $shop
+     * @param MMenuCategory   $category
+     * @return MMenuCategory|null
+     */
+    public function updateCategory(CategoryRequest $request, MShop $shop, MMenuCategory $category): ?MMenuCategory
+    {
+        $update_category = $request->only(['name', 'short_name', 'parent_id', 'tier_number']);
+
+        return $this->categoryRepository->updateCategory($update_category, $category->id);
+    }
+
+    /**
+     * Delete menu category service
+     *
+     * @param MMenuCategory $category
+     * @return bool
+     */
+    public function deleteCategory(MMenuCategory $category): bool
+    {
+        return $this->categoryRepository->deleteCategory($category->id);
     }
 }

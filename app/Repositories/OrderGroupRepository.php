@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\MShop;
 use App\Models\MTable;
 use App\Models\TOrderGroup;
+use Illuminate\Support\Collection;
 
 class OrderGroupRepository
 {
@@ -340,5 +341,19 @@ class OrderGroupRepository
         }
 
         return $query->paginate(config('const.pagination.ORDER_HISTORY_PAGINATION'));
+    }
+
+    /**
+     * Get order-groups not checked-out of shop
+     *
+     * @param MShop $shop
+     *
+     * @return Collection
+     */
+    public function getOrderGroupsNotCheckedOut(MShop $shop): Collection
+    {
+        return TOrderGroup::where('m_shop_id', '=', $shop->id)
+            ->where('status', '!=', config('const.STATUS_ORDERGROUP.CHECKED_OUT'))
+            ->get();
     }
 }

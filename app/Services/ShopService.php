@@ -256,4 +256,24 @@ class ShopService
 
         return $shop;
     }
+
+    /**
+     * Generate shop tax info when create shop if not created
+     *
+     * @param MShop $shop
+     * @return MShop
+     */
+    public function generateShopTaxInfo(MShop $shop): MShop
+    {
+        $this->registerDefaultServicePlan($shop);
+
+        // Default, when create a new shop, setting country of shop is JP.
+        // If developing features for countries, it needs to be fixed here
+        $countryCode = MShop::DEFAULT_COUNTRY_CODE;
+        $this->shopRepository->generateShopTaxInfo($shop, $countryCode);
+
+        $this->shopRepository->updateShopCountryJP($shop);
+
+        return $shop->load('mShopPosSetting.mCurrency');
+    }
 }

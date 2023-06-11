@@ -10,6 +10,12 @@ class MShop extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const MUST_PAY_STATUS = true;
+    const NO_NEED_PAY_STATUS = false;
+    const OVERDAY_FLAG_ON = 1;
+    const OVERDAY_FLAG_OFF = 0;
+    const DEFAULT_COUNTRY_CODE = 'VN';
+
     protected $table = 'm_shop';
     protected $hidden = ['id', 'created_at', 'updated_at', 'deleted_at', 'modified_by'];
     protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
