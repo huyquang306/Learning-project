@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Auth\VerifyShopRequest;
+use App\Http\Requests\ShopRequest;
 use App\Http\Requests\TmpShopRequest;
 use App\Http\Resources\Shop\ShopResource;
 use App\Models\MShop;
@@ -38,6 +39,7 @@ class ShopController extends BaseApiController
             return $this->responseApi(ShopResource::collection($shops));
         }
 
+        $this->shopService->generateShopTaxInfo($shop);
         $shop = $this->shopService->getShopData($shop);
 
         return $this->responseApi(ShopResource::collection([$shop]));
@@ -79,7 +81,7 @@ class ShopController extends BaseApiController
     {
         try {
             $response = $this->shopService->verifyShopRegister($request->token);
-//            $this->shopService->generateShopTaxInfo($response);
+            $this->shopService->generateShopTaxInfo($response);
 
             return $this->responseApi($response);
         } catch (\PDOException $e) {
@@ -91,5 +93,20 @@ class ShopController extends BaseApiController
                 'result'  => ['fields'=>'','errorCode'=>'exception','errorMessage' => $e->getMessage()]
             ];
         }
+    }
+
+    public function update(ShopRequest $request, MShop $shop)
+    {
+        $request->merge(
+            array(
+                'hash_id' => $shop->hash_id
+            )
+        );
+
+        $shop = $this->shopService->update($request);
+        $this->businessHourService->updateBusinesses($request->businessHours, $shop);
+        $shop = $this->shopService->getShopData($shop);
+
+        return $this->responseApi(new ShopResource($shop));
     }
 }

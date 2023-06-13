@@ -148,4 +148,20 @@ class MShop extends Model
     {
         return $this->hasOne(MShopPosSetting::class, 'm_shop_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function mBusinessHours(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(MShopBusinessHour::class, 'm_shop_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function mShopMetas(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(MShopMeta::class, 'm_shop_id', 'id');
+    }
 }

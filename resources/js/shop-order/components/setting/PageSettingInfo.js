@@ -556,7 +556,7 @@ const PageInfoSetting = (props) => {
         const shopResponse = await ShopApiService.updateShop(shop.hashId, updateShopData);
         await ShopApiService.updateShopGenre(shop.hashId, updateShopGenreData);
 
-        showSuccessMessage('Caaph nhật thành công');
+        showSuccessMessage('Cập nhật thành công');
         setIsSubmit(false);
         updateShopInfoToContext(shopResponse);
       } catch (error) {

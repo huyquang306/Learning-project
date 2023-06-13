@@ -14,6 +14,10 @@ export const ENDPOINTS = {
   GET_SHOP_TAX_INFO: ['shop/$0/tax', METHOD.GET, true],
   GET_TAX_OPTIONS: ['shop/$0/tax-options', METHOD.GET, true],
   POST_SHOP_TAX_INFO: ['shop/$0/tax', METHOD.POST, true],
+  GET_GENRE: ['genre/', METHOD.GET, false],
+  REGIST_SHOPGENRE: ['shop/$0/genre', METHOD.POST, true],
+  UPDATE_SHOPGENRE: ['shop/$0/genre', METHOD.PUT, true],
+  UPDATE_SHOP: ['shop/$0', METHOD.PUT, true],
 }
 
 class ShopApiService extends ApiBase {
@@ -114,6 +118,36 @@ class ShopApiService extends ApiBase {
   
   async postShopTaxInfo(shopHash, data) {
     return await this.request(ENDPOINTS.POST_SHOP_TAX_INFO, [shopHash], data);
+  }
+
+  getGenre() {
+    return this.request(ENDPOINTS.GET_GENRE)
+    .then((result) => {
+      return result;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+  }
+
+  updateShopGenre(shopHash, data) {
+    return this.request(ENDPOINTS.UPDATE_SHOPGENRE, [shopHash], data)
+    .then((result) => {
+      return result;
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
+  }
+
+  updateShop(shopHash, data) {
+    return this.request(ENDPOINTS.UPDATE_SHOP, [shopHash], data)
+    .then(result => {
+      return shopInfoMapper.fromDB(result);
+    })
+    .catch((error) => {
+      throw new Error(error);
+    });
   }
 }
 
