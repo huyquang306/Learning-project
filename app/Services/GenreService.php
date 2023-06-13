@@ -15,10 +15,8 @@ class GenreService
     }
 
     /**
-     * ジャンル取得
-     *
      * @param string $code
-     * @return MGenre|all|null
+     * @return mixed
      */
     public function getGenre(string $code=null)
     {
@@ -26,15 +24,12 @@ class GenreService
     }
 
     /**
-     * 店舗にジャンル登録・変更
-     *
      * @param MShop $m_shop
      * @param array $genre_codes
      * @return MShop
      */
     public function saveGenre(MShop $m_shop, array $genre_codes): MShop
     {
-
         return $this->shopRepository->saveGenre($m_shop, $genre_codes);
     }
 }

@@ -34,9 +34,11 @@ Route::prefix('v1')->group(
 
         Route::group(['prefix' => 'shop', 'middleware' => ['guest:api']],
             function () {
+                // Shop
                 Route::get('/{shop?}', 'Api\ShopController@show');
                 Route::post('/', 'Api\ShopController@createTmpShop');
                 Route::post('/verify', 'Api\ShopController@verifyShopRegister');
+                Route::put('/{shop}', 'Api\ShopController@update');
 
                 // Item
                 Route::get('{shop}/item', 'Api\ItemController@index');
@@ -49,6 +51,18 @@ Route::prefix('v1')->group(
                 Route::get('{shop}/tax', 'Api\Shop\ShopPosController@show');
                 Route::post('{shop}/tax', 'Api\Shop\ShopPosController@update');
                 Route::get('{shop}/tax-options', 'Api\Shop\ShopPosController@getTaxOptions');
+
+                // genre
+                Route::post('/{shop}/genre', 'Api\GenreController@store');
+                Route::get('/{shop}/genre', 'Api\GenreController@show');
+                Route::put('/{shop}/genre', 'Api\GenreController@update');
+            }
+        );
+
+        Route::group(
+            ['prefix' => 'genre', 'middleware' => ['guest:api']],
+            function () {
+                Route::get('/{id?}', 'Api\GenreController@index');
             }
         );
     }

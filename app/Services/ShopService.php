@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\MShop;
+use App\Models\MShopMeta;
 use App\Models\TTmpShop;
 use App\Repositories\StaffRepository;
 use App\Repositories\Interfaces\TmpShopRepositoryInterface;
@@ -265,15 +266,35 @@ class ShopService
      */
     public function generateShopTaxInfo(MShop $shop): MShop
     {
-        $this->registerDefaultServicePlan($shop);
+        //$this->registerDefaultServicePlan($shop);
 
-        // Default, when create a new shop, setting country of shop is JP.
+        // Default, when create a new shop, setting country of shop is VN.
         // If developing features for countries, it needs to be fixed here
         $countryCode = MShop::DEFAULT_COUNTRY_CODE;
         $this->shopRepository->generateShopTaxInfo($shop, $countryCode);
 
-        $this->shopRepository->updateShopCountryJP($shop);
+        $this->shopRepository->updateShopCountryVN($shop);
 
         return $shop->load('mShopPosSetting.mCurrency');
+    }
+
+    public function find(string $id)
+    {
+        return $this->shopRepository->findShopsByHashId($id);
+    }
+
+    /**
+     * Update shop basic info
+     *
+     * @param ShopRequest $request
+     * @return MShop
+     */
+    public function update($request)
+    {
+        $shop = $this->shopRepository->save($request);
+        $this->shopMetaRepository->updateShopMetaByKey($shop->id, MShopMeta::SNS_LINK_TYPE, $request->sns_links);
+        $this->shopMetaRepository->updateShopMetaByKey($shop->id, MShopMeta::INSTAGRAM_LINK_TYPE, $request->instagram_link);
+
+        return $shop;
     }
 }
