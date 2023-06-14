@@ -382,9 +382,9 @@ const PageInfoSetting = (props) => {
         });
         setGenreDataSelect(convertGenreDataSelect);
 
-        if (result.length === 0) {
-          history.push('/searchmap/');
-        }
+        // if (result.length === 0) {
+        //   history.push('/searchmap/');
+        // }
       })
       .catch((error) => {
         showWarningMessage(error.message);

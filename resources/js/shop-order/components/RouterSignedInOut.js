@@ -132,7 +132,7 @@ const RouterSignedInOut = (props) => {
         )}
       </Route>
       {/* If user login by phoneNumber (forgotPassword feature) */}
-      <Route path="/regist" exact>
+      <Route path="/register" exact>
         {isAuthenticated && isRegistedShop ? <Redirect to="/table/list" /> : <PageRegister />}
       </Route>
       <Route exact path="/signin">
