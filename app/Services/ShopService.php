@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\MShop;
 use App\Models\MShopMeta;
 use App\Models\TTmpShop;
+use App\Repositories\ShopMetaRepository;
 use App\Repositories\StaffRepository;
 use App\Repositories\Interfaces\TmpShopRepositoryInterface;
 use App\Repositories\ShopRepository;
@@ -23,6 +24,7 @@ class ShopService
     protected $shopRepository;
     protected $staffRepository;
     protected $tableRepository;
+    protected $shopMetaRepository;
     protected $genreService;
 
     public function __construct(
@@ -30,6 +32,7 @@ class ShopService
         StaffRepository $staffRepository,
         TableRepository $tableRepository,
         TmpShopRepositoryInterface $tmpShopRepository,
+        ShopMetaRepository $shopMetaRepository,
         FirebaseService $firebaseService,
         GenreService $genreService
     ) {
@@ -37,6 +40,7 @@ class ShopService
         $this->staffRepository = $staffRepository;
         $this->tableRepository = $tableRepository;
         $this->tmpShopRepository = $tmpShopRepository;
+        $this->shopMetaRepository = $shopMetaRepository;
         $this->firebaseService = $firebaseService;
         $this->genreService = $genreService;
     }
@@ -129,6 +133,7 @@ class ShopService
     public function getShopData(MShop $shop): MShop
     {
         $shop = $this->shopRepository->getShopData($shop);
+        \Log::info($shop);
         $shop->items = $shop->mItems;
         $shop->genres = $shop->mGenres;
 

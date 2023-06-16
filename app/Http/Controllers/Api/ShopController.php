@@ -8,6 +8,7 @@ use App\Http\Requests\ShopRequest;
 use App\Http\Requests\TmpShopRequest;
 use App\Http\Resources\Shop\ShopResource;
 use App\Models\MShop;
+use App\Services\Shop\BusinessHourService;
 use App\Services\ShopService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,10 +17,14 @@ use Illuminate\Support\Facades\Auth;
 class ShopController extends BaseApiController
 {
     protected $shopService;
+    protected $businessHourService;
 
-    public function __construct(ShopService $shopService)
-    {
+    public function __construct(
+        ShopService $shopService,
+        BusinessHourService $businessHourService
+    ) {
         $this->shopService = $shopService;
+        $this->businessHourService = $businessHourService;
     }
 
     /**
@@ -95,7 +100,7 @@ class ShopController extends BaseApiController
         }
     }
 
-    public function update(ShopRequest $request, MShop $shop)
+    public function update(ShopRequest $request, MShop $shop): JsonResponse
     {
         $request->merge(
             array(
