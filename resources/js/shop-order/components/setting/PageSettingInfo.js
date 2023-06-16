@@ -43,7 +43,6 @@ const useStyles = makeStyles(() => ({
     height: '40px',
     borderRadius: '4px',
     textAlign: 'left',
-    paddingLeft: '15px',
     fontWeight: 600,
     '& .MuiInputBase-formControl': {
       paddingTop: '1px',
@@ -59,7 +58,7 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     height: '40px',
     color: '#000',
-    textAlign: 'right',
+    textAlign: 'left',
     fontWeight: 600,
   },
   buttonController: {
@@ -186,7 +185,7 @@ const useStyles = makeStyles(() => ({
       },
     },
     '& input': {
-      padding: '0px'
+      padding: '0px 14px'
     }
   },
   snsButtonPreview: {

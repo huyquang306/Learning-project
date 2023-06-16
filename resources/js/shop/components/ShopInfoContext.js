@@ -23,7 +23,10 @@ export const shopInfoMapper = {
     hashId: mShop.hash_id,
     name: mShop.name,
     genres: mShop.genres,
+    start_time: mShop.start_time,
+    end_time: mShop.end_time,
     phoneNumber: mShop.phone_number,
+    postalCode: mShop.postal_code,
     prefecture: mShop.prefecture,
     city: mShop.city,
     address: mShop.address,
@@ -38,6 +41,7 @@ export const shopInfoMapper = {
     email: mShop.email,
     m_country: mShop.m_country,
     m_business_hours: mShop.m_business_hours,
+    mShopPosSetting: mShop.mShopPosSetting,
   }),
   
   toDB: (shopInfo) => ({

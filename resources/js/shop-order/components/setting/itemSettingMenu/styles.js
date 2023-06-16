@@ -52,7 +52,7 @@ const useStylesSettingMenu = makeStyles(() => ({
       fontWeight: 400,
     },
     '& .menu-common .select-tax-options': {
-      width: '50%',
+      width: '100%',
       fontSize: 18,
       '@media (max-width: 1110px)': {
         width: '100%',

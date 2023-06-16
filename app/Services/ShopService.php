@@ -133,7 +133,6 @@ class ShopService
     public function getShopData(MShop $shop): MShop
     {
         $shop = $this->shopRepository->getShopData($shop);
-        \Log::info($shop);
         $shop->items = $shop->mItems;
         $shop->genres = $shop->mGenres;
 

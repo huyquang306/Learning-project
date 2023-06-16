@@ -124,6 +124,34 @@ class MenuController extends BaseApiController
     }
 
     /**
+     * @param MenuRequest $request
+     * @param MShop $shop
+     * @param MMenu $menu
+     * @return array
+     */
+    public function updateMenuResource(MenuRequest $request, MShop $shop, MMenu $menu)
+    {
+        try {
+            $menu = $this->menuService->updateMenu($request, $shop, $menu);
+            $menu->shop_id = $shop->id;
+
+            return [
+                'status' => 'success',
+                'message' => '',
+                'data' => new MenuResource($menu),
+            ];
+        } catch (\PDOException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            return [
+                'status'  => 'failure',
+                'message' => 'exception',
+                'result'  => $e->getMessage(),
+            ];
+        }
+    }
+
+    /**
      * Delete a menu
      * @param MShop $shop
      * @param MMenu $menu

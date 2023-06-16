@@ -52,6 +52,7 @@ import {
   validatePrice,
   validateCookTime,
 } from './itemSettingMenu/validationSettingMenu';
+import {ArrowRight} from "@material-ui/icons";
 
 const SETTING_PRICE_TAB = 0;
 const SETTING_PLACE_TAB = 1;
@@ -795,8 +796,8 @@ const ModalDetailMenuSetting = (props) => {
                     />
                   </Grid>
                   <Grid item sm={2} xs={12}>
-                    <Box alignSelf='center' textAlign='center' height='100%'>
-                      ＞
+                    <Box alignSelf='center' textAlign='center' height='100%' paddingTop='10px'>
+                     <ArrowRight />
                     </Box>
                   </Grid>
                   <Grid item sm={3} xs={12}>
@@ -841,18 +842,18 @@ const ModalDetailMenuSetting = (props) => {
                         name='tax-type'
                         onChange={(event) => taxTypeChanged(event)}
                       />
-                      <Box
-                        mt={1}
-                        ml={1}
-                        whiteSpace='nowrap'
-                        className={classes.textShowTax}
-                        width='50%'
-                      >
+                      {/*<Box*/}
+                      {/*  mt={1}*/}
+                      {/*  ml={1}*/}
+                      {/*  whiteSpace='nowrap'*/}
+                      {/*  className={classes.textShowTax}*/}
+                      {/*  width='50%'*/}
+                      {/*>*/}
                         {/*{showtaxValue(*/}
                         {/*  hanldePriceFractionMode(Number(menuData?.tax_value), 0) || 0,*/}
                         {/*  shop?.mShopPosSetting?.m_currency?.name*/}
                         {/*)}*/}
-                      </Box>
+                      {/*</Box>*/}
                     </Box>
                   </Grid>
                 </Grid>

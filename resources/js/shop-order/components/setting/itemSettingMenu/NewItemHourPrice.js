@@ -19,7 +19,7 @@ const NewItemHourPrice = (props) => {
         + businessHourPrice?.m_shop_business_hour?.finish_time?.slice(0, 5);
     }
 
-    return '設定なし';
+    return 'Không cài đặt';
   };
 
   return (
@@ -56,7 +56,7 @@ const NewItemHourPrice = (props) => {
             style={{ color: '#d32f2f', border: '2px solid rgba(211, 47, 47, 1)' }}
             onClick={() => props.handleRemoveSettingPrice(key)}
           >
-            削除する
+            Xóa
           </Button>
         </Box>
       </Grid>

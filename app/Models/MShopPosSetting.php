@@ -13,6 +13,7 @@ class MShopPosSetting extends Model
     protected $fillable = [
         'm_shop_id',
         'm_currency_id',
+        'm_country_id',
         'price_fraction_mode',
         'total_amount_fraction_mode',
         'price_display_mode',
