@@ -36,6 +36,9 @@ Route::prefix('v1')->group(
 
                 // Course menu master
                 Route::get('{shop}/master-courses', 'Api\Shop\CourseController@getMasterCourses');
+                Route::get('{shop}/course', 'Api\Shop\CourseController@index');
+                Route::get('{shop}/course/{course}', 'Api\Shop\CourseController@show');
+                Route::post('{shop}/course', 'Api\Shop\CourseController@create');
 
                 // Category
                 Route::apiResource('{shop}/category', 'Api\Shop\CategoryController');

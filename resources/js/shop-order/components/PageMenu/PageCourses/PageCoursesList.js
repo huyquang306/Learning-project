@@ -96,7 +96,7 @@ const PageCoursesList = (props) => {
       newCoursesClone.push(response);
       setCourses(newCoursesClone);
 
-      showSuccessMessage('コースのコピーが成功しました');
+      showSuccessMessage('Đã sao chép thành công');
     } catch (error) {
       showWarningMessage(error.message);
     }
@@ -115,7 +115,7 @@ const PageCoursesList = (props) => {
       );
 
       setCourses(newCoursesClone);
-      showSuccessMessage('コースステータスの更新が成功しました');
+      showSuccessMessage('Cập nhật thành công');
     } catch (error) {
       showWarningMessage(error.message);
     }
@@ -134,7 +134,7 @@ const PageCoursesList = (props) => {
       );
 
       setCourses(newCoursesClone);
-      showSuccessMessage('コースの初期提案の更新が成功しました');
+      showSuccessMessage('Cập nhật thành công');
     } catch (error) {
       showWarningMessage(error.message);
     }
@@ -145,7 +145,7 @@ const PageCoursesList = (props) => {
       {/* Change background color body and unset minHeight */}
       <style>{'body { background-color: white }'}</style>
 
-      <HeaderAppBar title='コース登録'/>
+      <HeaderAppBar title='Danh sách set ăn'/>
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding={ '8px 16px' } height='auto'>
           <Box flex={ 1 } className={ classes.head }>
@@ -160,7 +160,7 @@ const PageCoursesList = (props) => {
                         align="center"
                         style={{ minWidth: '120px' }}
                       >
-                        利用中
+                        Trạng thái
                       </TableCell>
 
                       {/* initial_propose_flg */}
@@ -169,7 +169,7 @@ const PageCoursesList = (props) => {
                         align="center"
                         style={{ minWidth: '120px' }}
                       >
-                        初期提案
+                        Đề xuất
                       </TableCell>
 
                       {/* name */}
@@ -177,7 +177,7 @@ const PageCoursesList = (props) => {
                         classes={{ root: classes.tableCell }}
                         align="center"
                       >
-                        商品名
+                        Tên
                       </TableCell>
 
                       {/* time */}
@@ -186,7 +186,7 @@ const PageCoursesList = (props) => {
                         align="center"
                         style={{ minWidth: '160px' }}
                       >
-                        時間
+                        Thời gian
                       </TableCell>
 
                       {/* image */}
@@ -195,7 +195,7 @@ const PageCoursesList = (props) => {
                         align="center"
                         style={{ minWidth: '160px' }}
                       >
-                        写真
+                        Ảnh
                       </TableCell>
 
                       {/* action */}
@@ -204,7 +204,7 @@ const PageCoursesList = (props) => {
                         align="center"
                         style={{ minWidth: '160px' }}
                       >
-                        アクション
+                        Thao tác
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -275,7 +275,7 @@ const PageCoursesList = (props) => {
                                     className={ classes.imageCourse }
                                     src={ renderUrlImageS3(course.s_image_folder_path) }
                                   />
-                                ) : <u>設定無し</u>
+                                ) : <u>No setting</u>
                               }
                             </Link>
                           </TableCell>
@@ -286,19 +286,19 @@ const PageCoursesList = (props) => {
                             scope="row"
                           >
                             {/* button copy */}
-                            <Button
-                              className={ `${classes.button} ${classes.buttonCopy}` }
-                              onClick={ () => onClickCopy(course) }
-                            >
-                              コピー
-                            </Button>
+                            {/*<Button*/}
+                            {/*  className={ `${classes.button} ${classes.buttonCopy}` }*/}
+                            {/*  onClick={ () => onClickCopy(course) }*/}
+                            {/*>*/}
+                            {/*  コピー*/}
+                            {/*</Button>*/}
 
                             {/* button detail */}
                             <Button
                               className={ `${classes.button} ${classes.buttonDetail}` }
                               onClick={ () => history.push(`/menus/courses/${course.hash_id}`) }
                             >
-                              詳細
+                              Chi tiết
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -318,7 +318,7 @@ const PageCoursesList = (props) => {
                     onClick={() => history.push('/menus/setting')}
                     className={`${classes.buttonController} + ' ' + ${classes.buttonBack}`}
                   >
-                    戻る
+                    Quay lại
                   </Button>
                 </Grid>
                 <Grid item>
@@ -326,7 +326,7 @@ const PageCoursesList = (props) => {
                     onClick={() => history.push('/menus/courses/add')}
                     className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                   >
-                    <Add /> 追加する
+                    <Add /> Thêm mới
                   </Button>
                 </Grid>
               </Grid>

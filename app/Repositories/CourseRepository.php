@@ -130,4 +130,77 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
     {
         return $this->model::where('hash_id', $courseHashId)->first();
     }
+
+    /**
+     * Get list of courses
+     *
+     * @param integer $shopId
+     * @param MCourse $courseId
+     *
+     * @return MCourse|null
+     */
+    public function showDetail(int $shopId, MCourse $course)
+    {
+        // Get relationship
+        return $course->load([
+            'rShopCourse' => function ($query) use ($shopId) {
+                $query->where('r_shop_course.m_shop_id', $shopId)->with([
+                    'mCoursePrices' => function ($mCoursePriceQuery) {
+                        $mCoursePriceQuery->with([
+                            'mTax',
+                        ])->withTrashed();
+                    },
+                ])->withTrashed();
+            },
+            'mMenus.rShopMenu.mMenuCategory' => function ($mMenuCategory) {
+                $mMenuCategory->with([
+                    'childCategories',
+                ])->orderBy('tier_number', 'DESC');
+            },
+        ])->load([
+            'childCourses.rShopCourse.mCoursePrices.mTax',
+            'mMenus.mBusinessHourPrices.mShopBusinessHour',
+            'mMenus.mImages',
+            'mMenus.mainImage',
+            'mMenus.rShopMenu',
+        ]);
+    }
+
+    /**
+     * Create course data m_course and attach data table r_shop_course
+     *
+     * @param array $attributes
+     * @param integer $shopId
+     *
+     * @return mixed
+     */
+    public function createCourse(array $attributes, int $shopId)
+    {
+        $course = $this->model::create($attributes);
+        $course->mShops()->attach($shopId, ['status' => $attributes['status']]);
+
+        return $course;
+    }
+
+    /**
+     * @param string $hashId
+     * @return bool
+     */
+    public function isCourseHashIdDuplicated(string $hashId)
+    {
+        return MCourse::where('hash_id', $hashId)->count() ? false : true;
+    }
+
+    /**
+     * Add menu into course
+     *
+     * @param MCourse $course
+     * @param array $courseMenus
+     *
+     * @return mixed
+     */
+    public function courseAttachMenus(MCourse $course, array $courseMenus)
+    {
+        return $course->mMenus()->attach($courseMenus);
+    }
 }

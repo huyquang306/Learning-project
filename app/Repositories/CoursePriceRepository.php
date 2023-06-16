@@ -13,4 +13,15 @@ class CoursePriceRepository extends BaseRepository implements CoursePriceReposit
         return MCoursePrice::class;
     }
 
+    /**
+     * Insert time blocks and prices in course
+     *
+     * @param array $mCoursePrices
+     *
+     * @return mixed
+     */
+    public function insertCoursePrices(array $mCoursePrices)
+    {
+        return $this->model::insert($mCoursePrices);
+    }
 }

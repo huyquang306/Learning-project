@@ -702,25 +702,25 @@ const PageAddCourse = (props) => {
       {/* Change background color body and unset minHeight */}
       <style>{'body { background-color: white }'}</style>
 
-      <HeaderAppBar title='コース詳細' />
+      <HeaderAppBar title='Chi tiết set ăn' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding={'8px 16px'} height='auto'>
           {courseHashId && !newCourse ? (
-            <p>コースが見つかりません</p>
+            <p>Không tìm thấy set ăn</p>
           ) : (
             <>
               <Box flex={1} className={classes.head}>
                 <Grid spacing={5} container>
                   <Grid item xs={12} sm={6}>
                     <Box mt={2} display='flex' alignItems='center'>
-                      <Box width='20%'>コース名</Box>
+                      <Box width='20%'>Tên</Box>
                       <Box width='80%'>
                         <OutlinedInput
                           type='text'
                           name='name'
                           value={newCourse.name}
                           labelWidth={0}
-                          placeholder='コース名'
+                          placeholder=''
                           className={classes.inputHead}
                           onChange={onChangeInput}
                         />
@@ -728,7 +728,7 @@ const PageAddCourse = (props) => {
                     </Box>
 
                     <Box mt={2} display='flex' alignItems='center'>
-                      <Box width='20%'>時間</Box>
+                      <Box width='20%'>Thời gian</Box>
                       <Box width='80%'>
                         <OutlinedInput
                           type='number'
@@ -737,7 +737,7 @@ const PageAddCourse = (props) => {
                             min: 0,
                             step: 10,
                           }}
-                          endAdornment='分'
+                          endAdornment='phút'
                           name='time_block_unit'
                           value={newCourse.time_block_unit}
                           labelWidth={0}
@@ -757,7 +757,7 @@ const PageAddCourse = (props) => {
                         className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                         onClick={() => setIsShowChooseImage(true)}
                       >
-                        カバー画像
+                        Hình ảnh
                       </Button>
                       <Box className={classes.previewImg}>
                         {fileUpload.filePreview ? (
@@ -780,14 +780,14 @@ const PageAddCourse = (props) => {
                               className={classes.deleteButton}
                               onClick={() => setIsShowDeleteCourse(true)}
                             >
-                              削除
+                              Xóa
                             </Button>
                           </Box>
                         ) : null}
                       </Box>
                     </Box>
 
-                    {/* 終了5分前確認 */}
+                    {/* Xác nhận 5 phút trước khi kết thúc */}
                     <Box mt={2} display='flex' alignItems='center'>
                       <Box className={classes.switchBox}>
                         <IOSSwitch
@@ -800,7 +800,7 @@ const PageAddCourse = (props) => {
                           }
                           onChange={(e) => onChangeEndTimeAlertFlg(e)}
                         />
-                        <Box>終了5分前確認</Box>
+                        <Box>Thông báo 5 phút trước khi kết thúc</Box>
                       </Box>
                       <Box className={classes.options}>
                         <Box style={{ padding: '0 20px ' }}>（</Box>
@@ -820,7 +820,7 @@ const PageAddCourse = (props) => {
                                     value={newCourse.user_end_time_alert_flg}
                                   />
                                 }
-                                label='顧客'
+                                label='Thông báo cho khách hàng'
                               />
                               <FormControlLabel
                                 control={
