@@ -7,7 +7,7 @@ const ESTIMATED_TIME = {
 };
 const validateParentCategory = (menuData, errors) => {
   const parentCategoryValidate = {
-    requiredErrorMessage: '大カテゴリーを選んでください',
+    requiredErrorMessage: 'Vui lòng chọn danh mục chính',
   };
 
   if (Utils.isNil(menuData.parentCategory.value) || menuData.parentCategory.value === '') {
@@ -18,7 +18,7 @@ const validateParentCategory = (menuData, errors) => {
 
 const validateChildCategory = (menuData, errors) => {
   const childCategoryValidate = {
-    requiredErrorMessage: '小カテゴリーを選んでください。',
+    requiredErrorMessage: 'Vui lòng chọn danh mục phụ',
   };
 
   if (Utils.isNil(menuData.childCategory.value) || menuData.childCategory.value === '') {
@@ -29,9 +29,9 @@ const validateChildCategory = (menuData, errors) => {
 
 const validateName = (menuData, errors) => {
   const nameValidate = {
-    requiredErrorMessage: '商品名を入力してください。',
-    maxLength: 30,
-    maxLengthErrorMessage: '商品名を30文字以内で入力してください。',
+    requiredErrorMessage: 'Vui lòng nhập tên món ăn',
+    maxLength: 100,
+    maxLengthErrorMessage: 'Vui lòng nhập tên sản phẩm không quá 100 ký tự.',
   };
 
   if (!Utils.isNil(menuData.name) && menuData.name.trim() !== '') {
@@ -46,8 +46,8 @@ const validateName = (menuData, errors) => {
 
 const validatePrice = (menuData, errors) => {
   const priceValidate = {
-    requiredErrorMessage: '価格を選んでください',
-    patternErrorMessage: '価格形式が正しくありません',
+    requiredErrorMessage: 'Vui lòng chọn một mức giá',
+    patternErrorMessage: 'Định dạng không chính xác',
   };
   const priceRegex =/^\d+(\\d{0,2})?$/;
 
@@ -63,8 +63,8 @@ const validatePrice = (menuData, errors) => {
 
 const validateCookTime = (menuData, errors) => {
   const cookTimeValidate = {
-    patternErrorMessage: '提供時刻は数値で入力してください',
-    minOrMaxErrorMessage: '提供時刻は0より大きいで、60より小さいのは必要です',
+    patternErrorMessage: 'Vui lòng nhập một giá trị số cho thời gian thực hiện',
+    minOrMaxErrorMessage: 'Thời gian thực hiện phải lớn hơn 0 và nhỏ hơn 60 phút',
   };
 
   if (menuData?.estimated_preparation_time) {

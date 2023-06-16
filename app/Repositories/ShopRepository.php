@@ -347,6 +347,7 @@ class ShopRepository extends BaseRepository
                 if ($mCurrency) {
                     $shopPos = [
                         'm_currency_id' => $mCurrency->id,
+                        'm_country_id' => $country->id,
                         'm_shop_id' => $shop->id,
                     ];
                     MShopPosSetting::create($shopPos);

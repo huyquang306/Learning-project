@@ -581,7 +581,7 @@ const PageMenuSetting = (props) => {
                               }}
                               align='left'
                             >
-                              {menu.price}
+                              {menu.price} &nbsp;
                               {shop?.mShopPosSetting?.m_currency?.name}
                             </TableCell>
                             <TableCell

@@ -132,8 +132,8 @@ export const makeRandomId = (length) => {
 export const showtaxValue = (value, currencyName, isShowAttachText = true) => {
     
     return isShowAttachText
-      ? `(Consumption tax amount ${value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}${currencyName})`
-      : `${value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}${currencyName}`;
+      ? `(${value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} ${currencyName})`
+      : `${value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')} ${currencyName}`;
 };
 
 export const formatPriceWhileTyping = (num) => {

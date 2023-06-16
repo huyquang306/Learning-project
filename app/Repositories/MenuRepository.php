@@ -6,6 +6,7 @@ use App\Models\MCourse;
 use App\Models\MImage;
 use App\Models\MMenu;
 use App\Models\MShop;
+use App\Models\MShopBusinessHourPrice;
 use App\Models\RShopMenu;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -411,6 +412,59 @@ class MenuRepository
             DB::rollBack();
 
             return false;
+        }
+    }
+
+    /**
+     * Update a menu
+     * @param array $attributes
+     * @param MShop $shop
+     * @param MMenu $menu
+     *
+     * @return MMenu
+     * @throws Exception
+     */
+    public function update(array $attributes, MShop $shop, MMenu $menu)
+    {
+        DB::beginTransaction();
+        try {
+            $attributes['is_recommend'] = array_key_exists('is_recommend', $attributes) && $attributes['is_recommend']
+                ? $attributes['is_recommend']
+                : 0;
+            $menu->update($attributes);
+            $rShopMenu = $menu->rShopMenu()->where('m_shop_id', $shop->id)->first();
+            if ($rShopMenu) {
+                if (isset($attributes['m_menu_category_ids'])) {
+                    // Update category relations
+                    $rShopMenu->mMenuCategory()->sync($attributes['m_menu_category_ids']);
+                }
+
+                // Update mShopBusinessHourPrices relations
+                $businessHourPrices = array_key_exists('m_shop_business_hour_prices', $attributes)
+                    ? $attributes['m_shop_business_hour_prices']
+                    : [];
+                $menuPriceIds = [];
+                foreach ($businessHourPrices as $mMenuPrice) {
+                    $mMenuPrice['r_shop_menu_id'] = $rShopMenu->id;
+                    $updateMenuPrice = MShopBusinessHourPrice::updateOrCreate([
+                        'id' => array_key_exists('id', $mMenuPrice) ? $mMenuPrice['id'] : null,
+                    ], $mMenuPrice);
+                    array_push($menuPriceIds, $updateMenuPrice->id);
+                }
+                $menuPriceInDB = MShopBusinessHourPrice::where('r_shop_menu_id', $rShopMenu->id)->get()
+                    ->pluck('id')
+                    ->toArray();
+                $removeMenuPriceIds = array_diff($menuPriceInDB, $menuPriceIds);
+                MShopBusinessHourPrice::whereIn('id', $removeMenuPriceIds)->delete();
+            }
+            DB::commit();
+
+            return $menu;
+        } catch (\Exception $exception) {
+            \Log::error($exception);
+            Db::rollBack();
+
+            throw $exception;
         }
     }
 }

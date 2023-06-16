@@ -98,4 +98,12 @@ class MMenu extends Model
     {
         return $this->hasOne(MImage::class, 'id', 'main_image_id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function menuCookPlace()
+    {
+        return $this->belongsTo(MShopCookPlace::class, 'shop_cook_place_id', 'id');
+    }
 }

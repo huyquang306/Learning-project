@@ -369,4 +369,49 @@ class MenuService
 
         return true;
     }
+
+    /**
+     * Update a menu and menu resource
+     * @param Request $request
+     * @param MShop   $shop
+     * @param MMenu   $menu
+     *
+     * @return MMenu
+     * @throws \Exception
+     */
+    public function updateMenu(Request $request, MShop $shop, MMenu $menu)
+    {
+        $attributes = $request->only([
+            'name',
+            'price',
+            'tax_value',
+            'status',
+            'm_menu_category_ids',
+            'is_recommend',
+            'is_promotion',
+            'estimated_preparation_time',
+            'shop_cook_place_id',
+            'm_shop_business_hour_prices',
+            'm_tax_id',
+        ]);
+        $menu = $this->menuRepository->update($attributes, $shop, $menu);
+        if ($request->add_images && count($request->add_images)) {
+            $this->menuRepository->saveNewMenuImages($menu, $request->add_images);
+        }
+        if ($request->delete_images && count($request->delete_images)) {
+            $this->deleteSpecifiedImagesMenu($menu, $request->delete_images);
+        }
+        $this->menuRepository->changeMainMenuImage($menu, $request->main_image_path);
+        $this->updateOlderImageDataToMImage($menu);
+
+        $menu->load([
+            'mBusinessHourPrices.mShopBusinessHour',
+            'menuCookPlace',
+            'mTax',
+        ]);
+        $currentPrice = getMenuPriceHelper($menu);
+        $menu->current_price = $currentPrice;
+
+        return $menu->refresh();
+    }
 }

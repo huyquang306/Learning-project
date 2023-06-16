@@ -44,6 +44,7 @@ Route::prefix('v1')->group(
                 Route::get('{shop}/master-menus', 'Api\Shop\MenuController@getMasterMenus');
                 Route::apiResource('{shop}/menu', 'Api\Shop\MenuController')
                     ->except(['create', 'edit']);
+                Route::post('{shop}/menu-update/{menu}', 'Api\Shop\MenuController@updateMenuResource');
 
                 // Cook place
                 Route::apiResource('{shop}/cook-places', 'Api\Shop\ShopCookPlaceController')

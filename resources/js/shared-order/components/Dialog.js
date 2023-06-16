@@ -108,11 +108,11 @@ AlertDialog.propTypes = {
 
 AlertDialog.defaultProps = {
   isOpen: false,
-  title: 'お知らせ',
+  title: 'Xác nhận',
   message: '',
   color: '#FFA04B',
-  confirmText: 'はい',
-  cancelText: 'いいえ',
+  confirmText: 'Đồng ý',
+  cancelText: 'Hủy',
   onClose: () => {},
   onConfirm: () => {},
   isSubmitLoading: false
