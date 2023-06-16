@@ -38,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
             'CoursePriceRepositoryInterface' => 'CoursePriceRepository',
             'ShopCookPlaceRepositoryInterface' => 'ShopCookPlaceRepository',
             'ShopPosSettingRepositoryInterface' => 'ShopPosSettingRepository',
+            'BusinessHourRepositoryInterface' => 'BusinessHourRepository',
         ];
 
         foreach ($repositories as $key => $val) {

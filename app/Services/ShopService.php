@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Models\MShop;
+use App\Models\MShopMeta;
 use App\Models\TTmpShop;
+use App\Repositories\ShopMetaRepository;
 use App\Repositories\StaffRepository;
 use App\Repositories\Interfaces\TmpShopRepositoryInterface;
 use App\Repositories\ShopRepository;
@@ -22,6 +24,7 @@ class ShopService
     protected $shopRepository;
     protected $staffRepository;
     protected $tableRepository;
+    protected $shopMetaRepository;
     protected $genreService;
 
     public function __construct(
@@ -29,6 +32,7 @@ class ShopService
         StaffRepository $staffRepository,
         TableRepository $tableRepository,
         TmpShopRepositoryInterface $tmpShopRepository,
+        ShopMetaRepository $shopMetaRepository,
         FirebaseService $firebaseService,
         GenreService $genreService
     ) {
@@ -36,6 +40,7 @@ class ShopService
         $this->staffRepository = $staffRepository;
         $this->tableRepository = $tableRepository;
         $this->tmpShopRepository = $tmpShopRepository;
+        $this->shopMetaRepository = $shopMetaRepository;
         $this->firebaseService = $firebaseService;
         $this->genreService = $genreService;
     }
@@ -128,6 +133,7 @@ class ShopService
     public function getShopData(MShop $shop): MShop
     {
         $shop = $this->shopRepository->getShopData($shop);
+        \Log::info($shop);
         $shop->items = $shop->mItems;
         $shop->genres = $shop->mGenres;
 
@@ -265,15 +271,35 @@ class ShopService
      */
     public function generateShopTaxInfo(MShop $shop): MShop
     {
-        $this->registerDefaultServicePlan($shop);
+        //$this->registerDefaultServicePlan($shop);
 
-        // Default, when create a new shop, setting country of shop is JP.
+        // Default, when create a new shop, setting country of shop is VN.
         // If developing features for countries, it needs to be fixed here
         $countryCode = MShop::DEFAULT_COUNTRY_CODE;
         $this->shopRepository->generateShopTaxInfo($shop, $countryCode);
 
-        $this->shopRepository->updateShopCountryJP($shop);
+        $this->shopRepository->updateShopCountryVN($shop);
 
         return $shop->load('mShopPosSetting.mCurrency');
+    }
+
+    public function find(string $id)
+    {
+        return $this->shopRepository->findShopsByHashId($id);
+    }
+
+    /**
+     * Update shop basic info
+     *
+     * @param ShopRequest $request
+     * @return MShop
+     */
+    public function update($request)
+    {
+        $shop = $this->shopRepository->save($request);
+        $this->shopMetaRepository->updateShopMetaByKey($shop->id, MShopMeta::SNS_LINK_TYPE, $request->sns_links);
+        $this->shopMetaRepository->updateShopMetaByKey($shop->id, MShopMeta::INSTAGRAM_LINK_TYPE, $request->instagram_link);
+
+        return $shop;
     }
 }

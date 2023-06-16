@@ -42,8 +42,8 @@ const useStyles = makeStyles(() => ({
     fontSize: '16px',
     height: '40px',
     borderRadius: '4px',
-    textAlign: 'right',
-    paddingRight: '15px',
+    textAlign: 'left',
+    paddingLeft: '15px',
     fontWeight: 600,
     '& .MuiInputBase-formControl': {
       paddingTop: '1px',
@@ -368,6 +368,7 @@ const PageInfoSetting = (props) => {
   useEffect(() => {
     getGenre();
     getShop();
+    console.log(classes);
 
     return () => {
       console.debug('[PageInfoSetting] unmount(shop)');
@@ -394,7 +395,7 @@ const PageInfoSetting = (props) => {
   const getShop = async () => {
     ShopApiService.getShop(shop.hashId)
       .then(shop => {
-        // 店舗情報がなければ地図画面へ
+        console.log(shop);
         if (!shop) {
           history.push('/searchmap/');
         } else {
@@ -511,7 +512,7 @@ const PageInfoSetting = (props) => {
   };
 
   const makeBusinessUpdate = () => shopData.businessHours
-    .filter(businessTmp => businessTmp?.name
+    ?.filter(businessTmp => businessTmp?.name
       && businessTmp.name.trim() !== ''
       && businessTmp.start_time && businessTmp.finish_time
     );
@@ -554,9 +555,11 @@ const PageInfoSetting = (props) => {
       };
       try {
         const shopResponse = await ShopApiService.updateShop(shop.hashId, updateShopData);
+        console.log(shopResponse);
         await ShopApiService.updateShopGenre(shop.hashId, updateShopGenreData);
+        console.log(isSubmit);
 
-        showSuccessMessage('Caaph nhật thành công');
+        showSuccessMessage('Cập nhật thành công');
         setIsSubmit(false);
         updateShopInfoToContext(shopResponse);
       } catch (error) {
@@ -575,13 +578,15 @@ const PageInfoSetting = (props) => {
 
   const handleAddBusinessHour = () => {
     let cloneShopData = Utils.cloneDeep(shopData);
-    cloneShopData.businessHours.push({...DEFAULT_BUSINESS_HOUR});
+    console.log('before', cloneShopData);
+    cloneShopData.businessHours?.push({...DEFAULT_BUSINESS_HOUR});
+    console.log('after', cloneShopData);
     setShopData(cloneShopData);
   };
 
   const handleDeleteBusiness = (businessIndex) => {
     let cloneShopData = Utils.cloneDeep(shopData);
-    cloneShopData.businessHours.splice(businessIndex, 1);
+    cloneShopData.businessHours?.splice(businessIndex, 1);
     setShopData(cloneShopData);
   };
 
@@ -732,7 +737,7 @@ const PageInfoSetting = (props) => {
                     <Button
                       onClick={handleAddBusinessHour}
                       className={classes.btnAddTime}
-                      disabled={shopData.businessHours.length >= MAX_BUSINESS_HOUR}
+                      disabled={shopData.businessHours?.length >= MAX_BUSINESS_HOUR}
                     >
                       <Add style={styles.iconAdd}/> Thêm khung giờ
                     </Button>
@@ -745,7 +750,7 @@ const PageInfoSetting = (props) => {
                       <Box className={classes.businessHourSettingText}>Khung giờ mở cửa</Box>
                       <Box className={classes.businessHourSettingBody} alignItems='center'>
                         {
-                          shopData.businessHours.map((businessHour, businessHourIndex) => (
+                          shopData.businessHours?.map((businessHour, businessHourIndex) => (
                             <Box key={businessHourIndex} mb={2} display='flex' alignItems='center'>
                               <Box display='flex' alignItems='center' className={classes.addTime}>
                                 <Box display={'flex'} className={classes.timeSelectBlock}>
@@ -873,14 +878,14 @@ const PageInfoSetting = (props) => {
                           className={classes.snsLinkPreview}
                           disabled={!shopData.instagram_link[0].link || shopData.instagram_link[0].link.trim() === ''}
                           onClick={() => handleShowPreviewSNSLink(shopData.instagram_link[0])}
-                        >Xem trước mã QR</Button>
+                        >Mã QR</Button>
                       </Box>
                     </Box>
                   </Box>
                 </Box>
 
                 <Box mt={2} className={classes.snsSetting}>
-                  <Box className={classes.snsSettingText}>Tài khoản mạng xã hội khác</Box>
+                  <Box className={classes.snsSettingText}>Tài khoản mạng xã hội</Box>
                   <Box className={classes.snsSettingBody}>
                     <Box>
                       <Box mb={2} className={classes.snsSettingFirstInput}>
@@ -931,14 +936,14 @@ const PageInfoSetting = (props) => {
                           className={classes.snsLinkPreview}
                           disabled={!shopData.sns_links[0].link || shopData.sns_links[0].link.trim() === ''}
                           onClick={() => handleShowPreviewSNSLink(shopData.sns_links[0])}
-                        >Xem trước mã QR</Button>
+                        >Mã QR</Button>
                       </Box>
                     </Box>
                   </Box>
                 </Box>
 
                 <Box mt={2} className={classes.snsSetting}>
-                  <Box className={classes.snsSettingText}>SNSアカウント2</Box>
+                  <Box className={classes.snsSettingText}>Tài khoản mạng xã hội</Box>
                   <Box className={classes.snsSettingBody}>
                     <Box>
                       <Box mb={2} className={classes.snsSettingFirstInput}>
@@ -989,7 +994,7 @@ const PageInfoSetting = (props) => {
                           className={classes.snsLinkPreview}
                           disabled={!shopData.sns_links[1].link || shopData.sns_links[1].link.trim() === ''}
                           onClick={() => handleShowPreviewSNSLink(shopData.sns_links[1])}
-                        >Xem trước mã QR</Button>
+                        >Mã QR</Button>
                       </Box>
                     </Box>
                   </Box>

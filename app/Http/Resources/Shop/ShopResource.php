@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Shop;
 
+use App\Models\MShopMeta;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ShopResource extends JsonResource
@@ -34,6 +35,20 @@ class ShopResource extends JsonResource
             'end_time' => $this->end_time,
             'items' => $this->items,
             'genres' => $this->genres,
+            'm_business_hours' => $this->mBusinessHours,
+            'm_shop_metas' => $this->mShopMetas,
+            'sns_links' => $this->getShopMetaByKey($this, MShopMeta::SNS_LINK_TYPE),
+            'instagram_link' => $this->getShopMetaByKey($this, MShopMeta::INSTAGRAM_LINK_TYPE),
+            'mShopPosSetting' => $this->mShopPosSetting,
+            'm_country' => $this->mCountry,
+            'is_active' => $this->is_active,
         ];
+    }
+
+    public function getShopMetaByKey($shop, $type)
+    {
+        $record = $shop->mShopMetas->where('type', $type)->first();
+
+        return $record ? json_decode($record->value) : null;
     }
 }

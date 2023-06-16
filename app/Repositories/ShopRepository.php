@@ -40,9 +40,27 @@ class ShopRepository extends BaseRepository
 
     public function getShopData(MShop $shop): MShop
     {
+        $firstDayInMonth = now()->startOfMonth();
+        $lastDayInMonth = now()->lastOfMonth();
+        $startDayInMonth = config('const.PAYMENT.START_DAY_PAYMENT_IN_MONTH');
+        if ($startDayInMonth) {
+            $firstDayInMonth->setDay($startDayInMonth);
+            $lastDayInMonth = $firstDayInMonth->copy()->addMonth()->subDay();
+        }
+
         return $shop->load([
             'mItems',
             'mGenres',
+            'mBusinessHours',
+            'mShopMetas',
+            'mCountry',
+            'mShopPosSetting.mCurrency',
+        ])->load([
+            'tOrderGroups' => function ($orderGroupQuery) use ($firstDayInMonth, $lastDayInMonth) {
+                $orderGroupQuery->whereDate('created_at', '>=', $firstDayInMonth)
+                    ->whereDate('created_at', '<=', $lastDayInMonth)
+                    ->withTrashed();
+            },
         ]);
     }
 
@@ -409,5 +427,34 @@ class ShopRepository extends BaseRepository
         }
 
         return $shop;
+    }
+
+    /**
+     * Update shop basic info
+     *
+     * @param ShopRequest $request
+     * @return MShop|null
+     */
+    public function save($request): ?MShop
+    {
+        $m_shop = new MShop;
+
+        if ($request->id) {
+            $m_shop = MShop::find($request->id);
+        } elseif ($request->hash_id) {
+            $m_shop = MShop::where('hash_id', $request->hash_id)->first();
+        }
+
+        // Update overday_flg
+        $startTime = Carbon::parse($request->start_time)->format('H:i:s');
+        $endTime = Carbon::parse($request->end_time)->format('H:i:s');
+        $request->merge([
+            'overday_flg' => ($startTime > $endTime) ? $this->model::OVERDAY_FLAG_ON : $this->model::OVERDAY_FLAG_OFF,
+        ]);
+        DB::transaction(function () use ($request, $m_shop) {
+            $m_shop->fill($request->all())->save();
+        });
+
+        return $m_shop;
     }
 }
