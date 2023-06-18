@@ -256,7 +256,7 @@ const PageCoursesList = (props) => {
                               className={ classes.linkWithoutUnder }
                               to={ `/menus/courses/${course.hash_id}` }
                             >
-                              { course.time_block_unit }分
+                              { course.time_block_unit } phút
                             </Link>
                           </TableCell>
 

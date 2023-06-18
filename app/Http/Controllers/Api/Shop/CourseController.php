@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Api\Shop;
 
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Shop\CourseRequest;
+use App\Http\Requests\Shop\CourseUpdateRequest;
+use App\Http\Requests\Shop\MenuInCourseRequest;
 use App\Http\Resources\Shop\CourseResource;
 use App\Models\MCourse;
+use App\Models\MMenu;
 use App\Models\MShop;
 use App\Services\Shop\CourseService;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -48,7 +52,7 @@ class CourseController extends BaseApiController
      * @param MCourse $course
      * @return JsonResponse
      */
-    public function show(MShop $shop, MCourse $course)
+    public function show(MShop $shop, MCourse $course): JsonResponse
     {
         $course = $this->courseService->showDetail($shop, $course);
 
@@ -58,13 +62,86 @@ class CourseController extends BaseApiController
     /**
      * Create course and setting time block in course
      * @param CourseRequest $request
-     * @param MShop         $shop
+     * @param MShop $shop
      * @return JsonResponse
+     * @throws Exception
      */
-    public function create(CourseRequest $request, MShop $shop)
+    public function create(CourseRequest $request, MShop $shop): JsonResponse
     {
         $course = $this->courseService->create($request, $shop);
 
         return $this->responseApi(new CourseResource($course));
+    }
+
+    /**
+     * Update course menu
+     * @param CourseUpdateRequest $request
+     * @param MShop $shop
+     * @param MCourse $course
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function update(CourseUpdateRequest $request, MShop $shop, MCourse $course): JsonResponse
+    {
+        $course = $this->courseService->updateCourse($request, $shop, $course);
+
+        return $this->responseApi(new CourseResource($course));
+    }
+
+    /**
+     * Update menu in course
+     * @param CourseUpdateRequest $request
+     * @param MShop               $shop
+     * @param MCourse             $course
+     * @return JsonResponse
+     */
+    public function updateMenuCourse(CourseUpdateRequest $request, MShop $shop, MCourse $course): JsonResponse
+    {
+        $menuCourse = $this->courseService->updateMenuInCourse($request, $shop, $course);
+
+        return $this->responseApi(new CourseResource($menuCourse));
+    }
+
+    /**
+     * Delete course
+     *
+     * @param MShop   $shop
+     * @param MCourse $course
+     * @return JsonResponse
+     */
+    public function delete(MShop $shop, MCourse $course): JsonResponse
+    {
+        return $this->responseApi($this->courseService->deleteCourse($course));
+    }
+
+    /**
+     * Add menu into a course
+     * @param MenuInCourseRequest $request
+     * @param MShop $shop
+     * @param MCourse $course
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function addMenuCourse(MenuInCourseRequest $request, MShop $shop, MCourse $course): JsonResponse
+    {
+        $menuCourse = $this->courseService->addMenuToCourse($request, $course);
+
+        return $this->responseApi(new CourseResource($menuCourse));
+    }
+
+    /**
+     * Delete menu in course
+     *
+     * @param MShop $shop
+     * @param MCourse $course
+     * @param Mmenu $menu
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function deleteMenuCourse(MShop $shop, MCourse $course, Mmenu $menu): JsonResponse
+    {
+        $menuCourse = $this->courseService->deleteMenuInCourse($course, $menu);
+
+        return $this->responseApi(new CourseResource($menuCourse));
     }
 }

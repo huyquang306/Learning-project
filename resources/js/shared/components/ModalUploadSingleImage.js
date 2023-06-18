@@ -84,7 +84,7 @@ const ModalUploadSingleImage = (props) => {
     return (
       <Box textAlign="center">
         <ButtonCustom
-          title="Back"
+          title="Quay lại"
           borderRadius="28px"
           bgcolor="#828282"
           borderColor="#828282"
@@ -93,7 +93,7 @@ const ModalUploadSingleImage = (props) => {
           onClick={ onCloseModal }
         />
         <ButtonCustom
-          title="Take with camera"
+          title="Chụp ảnh"
           borderRadius="28px"
           bgcolor="#FFA04B"
           borderColor="#FFA04B"
@@ -102,7 +102,7 @@ const ModalUploadSingleImage = (props) => {
           onClick={ takeWithCamera }
         />
         <ButtonCustom
-          title="Choose a photo"
+          title="Tải ảnh lên"
           borderRadius="28px"
           bgcolor="#FFA04B"
           borderColor="#FFA04B"

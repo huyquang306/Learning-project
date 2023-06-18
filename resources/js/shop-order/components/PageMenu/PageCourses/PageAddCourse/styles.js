@@ -247,7 +247,7 @@ const useStylesModalMenuList = makeStyles(() => ({
     alignItems: 'center',
   },
   container: {
-    maxHeight: 250,
+    maxHeight: 2000,
     borderRadius: 0,
   },
   tableHead: {
