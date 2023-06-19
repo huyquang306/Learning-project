@@ -178,7 +178,7 @@ const DetailTableSiderbarItem = (props) => {
                 onClick={handleChangeOrders}
                 style={{ padding: '3px 18px' }}
               >
-                Hủy bàn
+                Gọi thêm món
               </Button>
             </Box>
           )}
@@ -664,12 +664,12 @@ const PageTableList = (props) => {
           >
             <div className={classes.menuItemRight}>
               <div className={`${classes.labelStatus} ${status}`}>
-                <span>{label}</span>
+                {/*<span>{label}</span>*/}
               </div>
               <div className={classes.orderName}>{order.name}</div>
             </div>
             <div className={classes.orderInfo}>
-              <div className={classes.quantityItem}>{order.quantity}個</div>
+              <div className={classes.quantityItem}>{order.quantity}</div>
               <div className={classes.amountItem}>
                 {order.amount}
                 {shop?.mShopPosSetting?.m_currency?.name}

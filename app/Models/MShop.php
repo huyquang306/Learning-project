@@ -120,6 +120,12 @@ class MShop extends Model
             ->whereDate('created_at', '<=', $lastDayInLastMonth);
     }
 
+    public function mMenus()
+    {
+        return $this->belongsToMany('App\Models\MMenu', 'r_shop_menu', 'm_shop_id', 'm_menu_id')
+            ->wherePivot('deleted_at', null)->withPivot('id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

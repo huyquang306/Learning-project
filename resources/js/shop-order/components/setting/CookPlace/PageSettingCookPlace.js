@@ -101,7 +101,7 @@ const PageSettingCookPlace = (props) => {
   const actionDeleteCookPlace = () => (
     <Box textAlign="center">
       <ButtonCustom
-        title="いいえ"
+        title="Hủy"
         borderRadius="28px"
         bgcolor="#828282"
         borderColor="#828282"
@@ -112,7 +112,7 @@ const PageSettingCookPlace = (props) => {
         }}
       />
       <ButtonCustom
-        title="はい"
+        title="Đồng ý"
         borderRadius="28px"
         bgcolor="#FFA04B"
         borderColor="#FFA04B"

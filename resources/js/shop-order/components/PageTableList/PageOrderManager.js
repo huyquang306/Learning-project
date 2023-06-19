@@ -135,12 +135,12 @@ const PageOrderManager = forwardRef((props, ref) => {
     setLoading(true);
     const listCategories = [
       {
-        name: 'おすすめ',
+        name: 'Gợi ý',
         short_name: 'recommend',
         tier_number: 1,
       },
       {
-        name: 'コース',
+        name: 'Set ăn',
         short_name: 'courses',
         tier_number: 1,
       },
@@ -684,7 +684,7 @@ const PageOrderManager = forwardRef((props, ref) => {
       >
         <Box whiteSpace='nowrap'>
           <ButtonCustom
-            title='＜＜テーブル一覧に戻る'
+            title='＜＜ Quay lại'
             borderRadius='4px'
             bgcolor='#FFF'
             fgcolor='#000'
@@ -696,10 +696,10 @@ const PageOrderManager = forwardRef((props, ref) => {
             onClick={() => props.backtoTableList()}
           />
         </Box>
-        <Box my={{ xs: 1, md: 0 }} mr={1}>テーブル: {state?.ordergroup?.code_tables}</Box>
+        <Box my={{ xs: 1, md: 0 }} mr={1}>Bàn: {state?.ordergroup?.code_tables}</Box>
         <Box whiteSpace='nowrap'>
           <ButtonCustom
-            title='商品なし入力'
+            title='Gọi thêm món'
             borderRadius='4px'
             bgcolor='#FFF'
             fgcolor='#86be27'
@@ -881,9 +881,9 @@ const PageOrderManager = forwardRef((props, ref) => {
           </ButtonCore>
           <Box display='flex' alignItems='baseline' fontSize={50} fontWeight='fontWeightBold'>
             {orderDetail.data.quantity}
-            <Box fontSize={23} fontWeight='fontWeightRegular'>
-              {orderDetail?.data?.is_course ? '名' : '個'}
-            </Box>
+            {/*<Box fontSize={23} fontWeight='fontWeightRegular'>*/}
+            {/*  {orderDetail?.data?.is_course ? '' : ''}*/}
+            {/*</Box>*/}
           </Box>
           <ButtonCore
             padding='0'

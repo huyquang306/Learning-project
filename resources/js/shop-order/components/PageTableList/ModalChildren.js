@@ -130,10 +130,10 @@ ModalQRCode.propTypes = {
 
 ModalQRCode.defaultProps = {
   isOpen: false,
-  title: 'お知らせ',
+  title: 'Thông báo',
   color: '#FFA04B',
-  confirmText: 'はい',
-  cancelText: 'いいえ',
+  confirmText: 'Thêm',
+  cancelText: 'Hủy',
   isModalConfirmUpdateCourse: false,
   isModalChangePaymentPackage: false,
   isModalConfirmInitOrder: false,
