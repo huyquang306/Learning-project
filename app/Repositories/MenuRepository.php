@@ -14,6 +14,18 @@ use Illuminate\Support\Facades\DB;
 class MenuRepository
 {
     /**
+     * Get menu by hash_id
+     *
+     * @param string $menuHashId
+     *
+     * @return MMenu|null
+     */
+    public function getMenuByHashId(string $menuHashId): ?MMenu
+    {
+        return MMenu::where('hash_id', $menuHashId)->first();
+    }
+
+    /**
      * @param $shop_id
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */

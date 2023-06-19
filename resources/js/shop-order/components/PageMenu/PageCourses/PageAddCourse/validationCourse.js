@@ -54,11 +54,11 @@ const validateTimeBlockUnit = (courseData, errors) => {
     ? courseData.alert_notification_time
     : DEFAULT_END_TIME;
   const validate = {
-    requiredErrorMessage: 'タイムブロック単位 は必須です',
+    requiredErrorMessage: 'Vui lòng chọn một khung thời gian',
     max: 1000,
-    maxErrorMessage: '1000より小さいのは必要です',
+    maxErrorMessage: 'Thời gian không được lớn hơn 1000 phút',
     min: minTimeBlockUnit,
-    minErrorMessage: `コース設定時間は${minTimeBlockUnit}より大きで`,
+    minErrorMessage: `Thời gian phait lớn hơn ${minTimeBlockUnit} phút`,
   };
 
   if (!Utils.isNil(courseData.time_block_unit)) {
@@ -76,18 +76,18 @@ const validateTimeBlockUnit = (courseData, errors) => {
 
 const validateCoursePrice = (courseData, errors) => {
   const validate = {
-    requiredErrorMessage: '単価は必須です',
-    requiredPriceUnitMessage: '受付可能時間の単価の記入が必要です',
-    requiredUnitPriceMessage: '単価の記入が必要です',
-    priceUnitMax: 100000,
-    priceUnitMaxErrorMessage: '単価は0より大きで、100000より小さいのは必要です',
-    priceUnitMin: 0,
-    priceUnitMinErrorMessage: '単価は0より大きで、100000より小さいのは必要です',
+    requiredErrorMessage: 'Vui lòng nhập giá',
+    requiredPriceUnitMessage: 'Vui lòng nhập giá cơ bản',
+    requiredUnitPriceMessage: 'Vui lòng nhập giá cơ bản',
+    priceUnitMax: 100000000,
+    priceUnitMaxErrorMessage: 'Giá cơ bản không được vượt quá 100000000',
+    priceUnitMin: 1000,
+    priceUnitMinErrorMessage: 'Giá cơ bản không được nhỏ hơn 1000',
     timeRegex: '/^((([0-1][0-9]|2[0-3]):([0-5][0-9])))$/',
-    timeRegexErrorMessage: '時間はHH：MM でなければなりません',
-    timeFinishIsEqualTimeStart: '開始時刻と終了時刻は同じ時刻にはできません',
-    timeFormatErrorMessage: '時間はHH：MM でなければなりません',
-    startAndFinishTimeRequiredMessage: '利用中の基本料金が少なくとも１つ必要です。',
+    timeRegexErrorMessage: 'Định dạng thời gian không chính xác',
+    timeFinishIsEqualTimeStart: 'Thời gian bắt đầu và thời gian kết thúc không được trùng nhau',
+    timeFormatErrorMessage: 'Định dạng thời gian không chính xác',
+    startAndFinishTimeRequiredMessage: 'Vui lòng chọn một khung giờ',
   };
   courseData.list_course_prices.forEach((time_block) => {
     if (time_block.status === BLOCK_STATUS_ACTIVE) {
@@ -146,7 +146,7 @@ const validateCoursePrice = (courseData, errors) => {
 
 const validateCoursePriceFirstItem = (courseData, errors) => {
   const validate = {
-    requiredErrorMessage: '利用中の基本料金が少なくとも１つ必要です。',
+    requiredErrorMessage: 'Vui lòng chọn một khung giờ',
   };
 
   let activeStatusTimeBlock = courseData.list_course_prices.find(
@@ -164,10 +164,10 @@ const validateCoursePriceFirstItem = (courseData, errors) => {
 const validateExtendTimeBlock = (courseData, errors) => {
   const validate = {
     max: 1000,
-    maxErrorMessage: '延長時間は0より大きで、1000より小さいのは必要です',
+    maxErrorMessage: 'Thời gian không được vượt quá 1000 phút',
     min: 0,
-    minErrorMessage: '延長時間は0より大きで、1000より小さいのは必要です',
-    extendUnitPriceNullError: '延長時間の単価の記入が必要です',
+    minErrorMessage: 'Thời gian không được nhở hơn 0',
+    extendUnitPriceNullError: 'Vui lòng nhập giá',
   };
 
   courseData.list_child_courses.forEach((childCourse) => {
@@ -189,11 +189,11 @@ const validateExtendTimeBlock = (courseData, errors) => {
 
 const validateExtendUnitPrice = (courseData, errors) => {
   const validate = {
-    max: 100000,
-    maxErrorMessage: '延長時間単価は0より大きで、100000より小さいのは必要です',
-    min: 0,
-    minErrorMessage: '延長時間単価は0より大きで、100000より小さいのは必要です',
-    extendTimeBlockNullError: '延長時間の記入が必要です',
+    max: 100000000,
+    maxErrorMessage: 'Giá không được vượt quá 100000000',
+    min: 1000,
+    minErrorMessage: 'Giá không được thấp hơn 1000',
+    extendTimeBlockNullError: 'Vui lòng chọn thời gian',
   };
 
   courseData.list_child_courses.forEach((childCourse) => {
@@ -216,11 +216,11 @@ const validateExtendUnitPrice = (courseData, errors) => {
 const validateAlertNotificationTime = (courseData, errors) => {
   const validate = {
     max: 1000,
-    maxErrorMessage: `アーラム通知時間は${DEFAULT_END_TIME + 1}分以上で設定してください`,
+    maxErrorMessage: `Thời gian thông bảo phải lớn hơn 5 phút`,
     min: DEFAULT_END_TIME,
-    minErrorMessage: `アーラム通知時間は${DEFAULT_END_TIME + 1}分以上で設定してください`,
+    minErrorMessage: `Thời gian thông bảo phải lớn hơn 5 phút`,
     alertTimeMoreThanTimeBlockUnit:
-      'アラート通知時間は、コース時間単位よりも短くする必要があります',
+      'Thời gian thông báo phải nhỏ hơn thời gian set ăn',
   };
 
   if (courseData.alert_notification_time) {
@@ -240,7 +240,7 @@ const validateAlertNotificationTime = (courseData, errors) => {
 
 const validateTimeInBlockOverlap = (courseData, errors) => {
   const validate = {
-    overlapErrorMessage: '受付可能時間は重複してはなりません',
+    overlapErrorMessage: 'Các khung giờ không được trùng nhau',
   };
 
   let activeBlocks = courseData.list_course_prices.filter(
@@ -315,7 +315,7 @@ const checkTwoTimeBlockIsOverlap = (firstBlock, secondBlock) => {
 
 const validateStartTimeEndTimeInBlock = (courseData, errors, shop) => {
   const validate = {
-    timeStartAfterTimeFinish: '終了時刻は開始時刻より後でなければなりません',
+    timeStartAfterTimeFinish: 'Thời gian kết thúc phải sau thời gian bắt đầu',
   };
   const shopStartTime = shop?.start_time ? new Date('1/1/1999 ' + shop.start_time) : null;
   const shopEndTime = shop?.end_time ? new Date('1/1/1999 ' + shop.end_time) : null;
@@ -358,7 +358,7 @@ const validateStartTimeEndTimeInBlock = (courseData, errors, shop) => {
 
 const validateTimeInBlockOverWorkTime = (courseData, errors, shop) => {
   const validate = {
-    overWorkTimeErrorMessage: '受付可能時間は営業時間内に設定して下さい',
+    overWorkTimeErrorMessage: 'Thời gian set ăn phải nằm trong thời gian mở cửa của shop',
   };
 
   let activeBlocks = courseData.list_course_prices.filter(

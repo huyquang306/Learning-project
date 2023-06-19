@@ -26,6 +26,7 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useStylesModalMenuList } from './styles';
 import { Search } from '@material-ui/icons';
@@ -38,7 +39,7 @@ const DEFAULT_NONE_CATEGORY_VALUE = -1;
 const DEFAULT_INITIAL_ORDER_FLAG = 0;
 const DEFAULT_NONE_CATEGORY_OPTION = {
   value: DEFAULT_NONE_CATEGORY_VALUE,
-  label: '商品検索',
+  label: 'Danh mục',
 };
 
 const filterMenuDefault = {
@@ -161,10 +162,10 @@ const ModalMenusList = (props) => {
           onClick={onCloseChooseMenus}
           className={`${classes.buttonController} ${classes.buttonBack}`}
         >
-          戻る
+          Quay lại
         </Button>
         <Button className={`${classes.buttonController} ${classes.buttonAdd}`} onClick={onAddMenus}>
-          ＋選択する
+          <Add /> Thêm
         </Button>
       </Box>
     );
@@ -256,9 +257,9 @@ const ModalMenusList = (props) => {
       <Modal
         actions={actionModal()}
         open={props.open}
-        maxWidth='1000px'
-        maxHeight='700'
-        title='コースメニュー設定'
+        maxWidth='2500px'
+        maxHeight='2000px'
+        title='Danh sách món ăn'
         onClose={props.onClose}
       >
         <Box m={2} mb={0} className={classes.headerActions}>
@@ -279,7 +280,7 @@ const ModalMenusList = (props) => {
               disableUnderline={true}
               classes={{ root: classes.rootDate }}
               onChange={onChangeInput}
-              placeholder='商品検索'
+              placeholder='Tên món ăn'
             />
             <Search className={classes.search} onClick={handleSearch} />
           </Box>
@@ -296,7 +297,7 @@ const ModalMenusList = (props) => {
                     align='center'
                     style={{ minWidth: '120px' }}
                   >
-                    選択
+                  
                   </TableCell>
 
                   {/* category */}
@@ -305,7 +306,7 @@ const ModalMenusList = (props) => {
                     align='center'
                     style={{ minWidth: '160px' }}
                   >
-                    カテゴリ
+                    Danh mục
                   </TableCell>
 
                   {/* name */}
@@ -314,7 +315,7 @@ const ModalMenusList = (props) => {
                     align='center'
                     style={{ minWidth: '160px' }}
                   >
-                    商品名
+                    Tên món
                   </TableCell>
 
                   {/* cost */}
@@ -323,7 +324,7 @@ const ModalMenusList = (props) => {
                     align='center'
                     style={{ minWidth: '120px' }}
                   >
-                    価格
+                    Giá
                   </TableCell>
 
                   {/* image */}
@@ -332,7 +333,7 @@ const ModalMenusList = (props) => {
                     align='center'
                     style={{ minWidth: '160px' }}
                   >
-                    写真
+                    Ảnh
                   </TableCell>
 
                   {/* action */}
@@ -341,7 +342,7 @@ const ModalMenusList = (props) => {
                     align='center'
                     style={{ minWidth: '160px' }}
                   >
-                    表示
+                  
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -382,7 +383,7 @@ const ModalMenusList = (props) => {
                               className={classes.imageMenu}
                             />
                           ) : (
-                            <u>設定無し</u>
+                            <u>No setting</u>
                           )}
                         </TableCell>
 
@@ -391,7 +392,7 @@ const ModalMenusList = (props) => {
                             className={`${classes.button} ${classes.buttonDetail}`}
                             onClick={() => onClickShowDetailMenu(menu)}
                           >
-                            詳細
+                            Chi tiết
                           </Button>
                         </TableCell>
                       </TableRow>

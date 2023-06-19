@@ -4,7 +4,9 @@ namespace App\Repositories;
 
 use App\Models\MCourse;
 use App\Models\MCoursePrice;
+use App\Models\RShopCourse;
 use App\Repositories\Interfaces\CourseRepositoryInterface;
+use Illuminate\Support\Facades\DB;
 
 class CourseRepository extends BaseRepository implements CourseRepositoryInterface
 {
@@ -18,9 +20,9 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
      *
      * @param $shopId
      * @param $status
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection|null
      */
-    public function getList($shopId, $status = null)
+    public function getList($shopId, $status = null): ?\Illuminate\Support\Collection
     {
         $query = $this->model->query();
         // Get relationship
@@ -129,5 +131,200 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
     public function getCourseByHashId(string $courseHashId): ?MCourse
     {
         return $this->model::where('hash_id', $courseHashId)->first();
+    }
+
+    /**
+     * Get list of courses
+     *
+     * @param integer $shopId
+     * @param MCourse $courseId
+     *
+     * @return MCourse|null
+     */
+    public function showDetail(int $shopId, MCourse $course): ?MCourse
+    {
+        // Get relationship
+        return $course->load([
+            'rShopCourse' => function ($query) use ($shopId) {
+                $query->where('r_shop_course.m_shop_id', $shopId)->with([
+                    'mCoursePrices' => function ($mCoursePriceQuery) {
+                        $mCoursePriceQuery->with([
+                            'mTax',
+                        ])->withTrashed();
+                    },
+                ])->withTrashed();
+            },
+            'mMenus.rShopMenu.mMenuCategory' => function ($mMenuCategory) {
+                $mMenuCategory->with([
+                    'childCategories',
+                ])->orderBy('tier_number', 'DESC');
+            },
+        ])->load([
+            'childCourses.rShopCourse.mCoursePrices.mTax',
+            'mMenus.mBusinessHourPrices.mShopBusinessHour',
+            'mMenus.mImages',
+            'mMenus.mainImage',
+            'mMenus.rShopMenu',
+        ]);
+    }
+
+    /**
+     * Create course data m_course and attach data table r_shop_course
+     *
+     * @param array $attributes
+     * @param integer $shopId
+     *
+     * @return mixed
+     */
+    public function createCourse(array $attributes, int $shopId)
+    {
+        $course = $this->model->create($attributes);
+        $course->mShops()->attach($shopId, ['status' => $attributes['status']]);
+
+        return $course;
+    }
+
+    /**
+     * @param string $hashId
+     * @return bool
+     */
+    public function isCourseHashIdDuplicated(string $hashId): bool
+    {
+        return !MCourse::where('hash_id', $hashId)->count();
+    }
+
+    /**
+     * Add menu into course
+     *
+     * @param MCourse $course
+     * @param array $courseMenus
+     *
+     * @return mixed
+     */
+    public function courseAttachMenus(MCourse $course, array $courseMenus)
+    {
+        return $course->mMenus()->attach($courseMenus);
+    }
+
+
+    /**
+     * Update course
+     *
+     * @param MCourse $course
+     * @param array $attributes: [name, name_kana, time_block_unit, alert_notification_time]
+     *
+     * @return mixed
+     */
+    public function updateCourse(MCourse $course, array $attributes): MCourse
+    {
+        $course->fill($attributes)->save();
+
+        return $course;
+    }
+
+    /**
+     * Update status of course
+     *
+     * @param MCourse $course
+     * @param integer $shopId
+     * @param string $status
+     *
+     * @return mixed
+     */
+    public function updateStatusCourse(MCourse $course, int $shopId, string $status)
+    {
+        return $course->mShops()->updateExistingPivot($shopId, [
+            'status' => $status,
+            'updated_at' => now(),
+        ]);
+    }
+
+    /**
+     * Update menu in course
+     *
+     * @param MCourse $course
+     * @param integer $menuId
+     * @param string $status
+     *
+     * @return mixed
+     */
+    public function updateMenuInCourse(MCourse $course, int $menuId, string $status)
+    {
+        return $course->mMenus()->updateExistingPivot($menuId, [
+            'status' => $status,
+            'updated_at' => now(),
+        ]);
+    }
+
+    /**
+     * Remove course image in db
+     *
+     * @param MCourse $course
+     *
+     * @return boolean
+     */
+    public function removeCourseImage(MCourse $course): bool
+    {
+        if ($course->s_image_folder_path || $course->m_image_folder_path || $course->l_image_folder_path) {
+            $course->s_image_folder_path = null;
+            $course->m_image_folder_path = null;
+            $course->l_image_folder_path = null;
+            $course->save();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Delete course
+     *
+     * @param MCourse $course
+     *
+     * @return mixed
+     */
+    public function deleteCourse(MCourse $course)
+    {
+        RShopCourse::where('m_course_id', $course->id)->delete();
+        $course->delete();
+
+        return true;
+    }
+
+    /**
+     * Delete menu in course
+     *
+     * @param MCourse $course
+     * @param integer $menuId
+     *
+     * @return MCourse
+     */
+    public function deleteMenuInCourse(MCourse $course, int $menuId): MCourse
+    {
+        $course->mMenus()->detach($menuId);
+
+        return $course->load([
+            'rShopCourse' => function ($query) {
+                $query->with([
+                    'mCoursePrices' => function ($mCoursePriceQuery) {
+                        $mCoursePriceQuery->with([
+                            'mTax',
+                        ])->withTrashed();
+                    },
+                ])->withTrashed();
+            },
+            'mMenus.rShopMenu.mMenuCategory' => function ($mMenuCategory) {
+                $mMenuCategory->with([
+                    'childCategories',
+                ])->orderBy('tier_number', 'DESC');
+            },
+        ])->load([
+            'childCourses.rShopCourse.mCoursePrices.mTax',
+            'mMenus.mBusinessHourPrices.mShopBusinessHour',
+            'mMenus.mImages',
+            'mMenus.mainImage',
+            'mMenus.rShopMenu',
+        ]);
     }
 }

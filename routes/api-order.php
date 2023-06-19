@@ -36,6 +36,18 @@ Route::prefix('v1')->group(
 
                 // Course menu master
                 Route::get('{shop}/master-courses', 'Api\Shop\CourseController@getMasterCourses');
+                Route::get('{shop}/course', 'Api\Shop\CourseController@index');
+                Route::get('{shop}/course/{course}', 'Api\Shop\CourseController@show');
+                Route::post('{shop}/course', 'Api\Shop\CourseController@create');
+                Route::post('{shop}/course-update/{course}', 'Api\Shop\CourseController@update');
+                // Delete course
+                Route::delete('{shop}/course/{course}', 'Api\Shop\CourseController@delete');
+                // Add menu to course
+                Route::post('{shop}/course/{course}/menu', 'Api\Shop\CourseController@addMenuCourse');
+                // Update menu course
+                Route::post('{shop}/course/{course}/menu-update', 'Api\Shop\CourseController@updateMenuCourse');
+                // Delete menu course
+                Route::delete('{shop}/course/{course}/menu/{menu}', 'Api\Shop\CourseController@deleteMenuCourse');
 
                 // Category
                 Route::apiResource('{shop}/category', 'Api\Shop\CategoryController');

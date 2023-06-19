@@ -208,7 +208,7 @@ const PageAddCourse = (props) => {
       setNewCourse(response);
     } catch (error) {
       setNewCourse(null);
-      showWarningMessage('コースが見つかりません。');
+      showWarningMessage('Không tìm thấy set ăn');
     }
   };
 
@@ -232,7 +232,7 @@ const PageAddCourse = (props) => {
   const showWarningMessage = (message) => {
     let newMessage = message;
     if (message === 'Error: Not Found') {
-      newMessage = 'コースが見つかりません。';
+      newMessage = 'Không tìm thấy';
     }
 
     setToast({
@@ -486,7 +486,7 @@ const PageAddCourse = (props) => {
         await ShopOrderApiService.addMenusToCourse(shop.hashId, newCourse.hash_id, submitMenus);
         setIsSubmitLoading(false);
   
-        showSuccessMessage('成功しました。');
+        showSuccessMessage('Thêm món ăn thành công');
       } catch (error) {
         setIsSubmitLoading(false);
       }
@@ -546,7 +546,7 @@ const PageAddCourse = (props) => {
         setNewCourse(newCourseClone);
         setIsSubmitLoading(false);
 
-        showSuccessMessage('更新しました。');
+        showSuccessMessage('Cập nhật thành công');
       } catch (error) {
         setIsSubmitLoading(false);
         showWarningMessage(error.message);
@@ -576,7 +576,7 @@ const PageAddCourse = (props) => {
       setNewCourse(newCourseClone);
       setIsSubmitLoading(false);
 
-      showSuccessMessage('作成しました。');
+      showSuccessMessage('Tạo set ăn thành công');
     } catch (error) {
       setIsSubmitLoading(false);
       showWarningMessage(error.message);
@@ -588,7 +588,7 @@ const PageAddCourse = (props) => {
       await ShopOrderApiService.deleteCourse(shop.hashId, newCourse.hash_id);
 
       setIsShowDeleteCourse(false);
-      showSuccessMessage('削除しました。');
+      showSuccessMessage('Xóa set ăn thành công');
       setTimeout(() => {
         history.push('/menus/courses');
       }, 1500);
@@ -601,7 +601,7 @@ const PageAddCourse = (props) => {
     return (
       <Box textAlign='center'>
         <ButtonCustom
-          title='いいえ'
+          title='Không'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -609,7 +609,7 @@ const PageAddCourse = (props) => {
           onClick={() => setIsShowDeleteCourse(false)}
         />
         <ButtonCustom
-          title='はい'
+          title='Đồng ý'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'
@@ -668,7 +668,7 @@ const PageAddCourse = (props) => {
     return (
       <Box textAlign='center'>
         <ButtonCustom
-          title='いいえ'
+          title='Không'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -676,7 +676,7 @@ const PageAddCourse = (props) => {
           onClick={onCancelDeleteMenu}
         />
         <ButtonCustom
-          title='はい'
+          title='Đồng ý'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'
@@ -702,25 +702,25 @@ const PageAddCourse = (props) => {
       {/* Change background color body and unset minHeight */}
       <style>{'body { background-color: white }'}</style>
 
-      <HeaderAppBar title='コース詳細' />
+      <HeaderAppBar title='Chi tiết set ăn' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding={'8px 16px'} height='auto'>
           {courseHashId && !newCourse ? (
-            <p>コースが見つかりません</p>
+            <p>Không tìm thấy set ăn</p>
           ) : (
             <>
               <Box flex={1} className={classes.head}>
                 <Grid spacing={5} container>
                   <Grid item xs={12} sm={6}>
                     <Box mt={2} display='flex' alignItems='center'>
-                      <Box width='20%'>コース名</Box>
+                      <Box width='20%'>Tên</Box>
                       <Box width='80%'>
                         <OutlinedInput
                           type='text'
                           name='name'
                           value={newCourse.name}
                           labelWidth={0}
-                          placeholder='コース名'
+                          placeholder=''
                           className={classes.inputHead}
                           onChange={onChangeInput}
                         />
@@ -728,7 +728,7 @@ const PageAddCourse = (props) => {
                     </Box>
 
                     <Box mt={2} display='flex' alignItems='center'>
-                      <Box width='20%'>時間</Box>
+                      <Box width='20%'>Thời gian</Box>
                       <Box width='80%'>
                         <OutlinedInput
                           type='number'
@@ -737,7 +737,7 @@ const PageAddCourse = (props) => {
                             min: 0,
                             step: 10,
                           }}
-                          endAdornment='分'
+                          endAdornment='phút'
                           name='time_block_unit'
                           value={newCourse.time_block_unit}
                           labelWidth={0}
@@ -757,7 +757,7 @@ const PageAddCourse = (props) => {
                         className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                         onClick={() => setIsShowChooseImage(true)}
                       >
-                        カバー画像
+                        Hình ảnh
                       </Button>
                       <Box className={classes.previewImg}>
                         {fileUpload.filePreview ? (
@@ -780,14 +780,14 @@ const PageAddCourse = (props) => {
                               className={classes.deleteButton}
                               onClick={() => setIsShowDeleteCourse(true)}
                             >
-                              削除
+                              Xóa
                             </Button>
                           </Box>
                         ) : null}
                       </Box>
                     </Box>
 
-                    {/* 終了5分前確認 */}
+                    {/* Xác nhận 5 phút trước khi kết thúc */}
                     <Box mt={2} display='flex' alignItems='center'>
                       <Box className={classes.switchBox}>
                         <IOSSwitch
@@ -800,7 +800,7 @@ const PageAddCourse = (props) => {
                           }
                           onChange={(e) => onChangeEndTimeAlertFlg(e)}
                         />
-                        <Box>終了5分前確認</Box>
+                        <Box>Thông báo 5 phút trước khi kết thúc</Box>
                       </Box>
                       <Box className={classes.options}>
                         <Box style={{ padding: '0 20px ' }}>（</Box>
@@ -820,7 +820,7 @@ const PageAddCourse = (props) => {
                                     value={newCourse.user_end_time_alert_flg}
                                   />
                                 }
-                                label='顧客'
+                                label='Báo cho khách hàng'
                               />
                               <FormControlLabel
                                 control={
@@ -831,7 +831,7 @@ const PageAddCourse = (props) => {
                                     value={newCourse.shop_end_time_alert_flg}
                                   />
                                 }
-                                label='店舗'
+                                label='Báo cho cửa hàng'
                               />
                             </Grid>
                           </Grid>
@@ -851,13 +851,13 @@ const PageAddCourse = (props) => {
                   TabIndicatorProps={{ style: { display: 'none' } }}
                 >
                   <Tab
-                    label='基本設定'
+                    label='Thời gian'
                     id='blocks-tab'
                     value={TIME_BLOCK_TAB_KEY}
                     className={`${classes.customTab} ${classes.customTabLeft}`}
                   />
                   <Tab
-                    label='コース商品設定'
+                    label='Món ăn'
                     id='menus-tab'
                     value={MENU_TAB_KEY}
                     className={`${classes.customTab} ${classes.customTabRight}`}
@@ -874,29 +874,29 @@ const PageAddCourse = (props) => {
                           <TableRow classes={{ root: classes.tableHead }}>
                             {/* status */}
                             <TableCell classes={{ root: classes.tableCell }} width='10%'>
-                              利用中
+                              Trạng thái
                             </TableCell>
 
                             {/* name */}
                             <TableCell classes={{ root: classes.tableCell }} width='15%'>
-                              内容
+                              Tên
                             </TableCell>
 
                             {/* time */}
                             <TableCell classes={{ root: classes.tableCell }} width='30%'>
-                              注文受付時間
+                              Thời gian
                             </TableCell>
 
                             {/* cost */}
                             <TableCell classes={{ root: classes.tableCell }} width='15%'>
-                              単価(税込)
+                              Giá (Bao gồm thuế)
                             </TableCell>
                             <TableCell classes={{ root: classes.tableCell }} width='15%'>
-                              <Box textAlign='center'>税率</Box>
+                              <Box textAlign='center'>Thuế</Box>
                             </TableCell>
                             <TableCell classes={{ root: classes.tableCell }} width='20%'>
                               <Box whiteSpace='nowrap' textAlign='center'>
-                                消費税額
+                                Tiền thuế
                               </Box>
                             </TableCell>
 
@@ -904,7 +904,6 @@ const PageAddCourse = (props) => {
                               classes={{ root: classes.tableCell }}
                               width="10%"
                             >
-                              操作
                             </TableCell>
                           </TableRow>
                         </TableHead>
@@ -926,7 +925,7 @@ const PageAddCourse = (props) => {
                                     scope='row'
                                     style={{ minWidth: '160px' }}
                                   >
-                                    基本料金{indexBlock + 1}
+                                    Giá cơ bản {indexBlock + 1}
                                   </TableCell>
 
                                   <TableCell component='th' scope='row'>
@@ -977,7 +976,7 @@ const PageAddCourse = (props) => {
                                         classes={{
                                           input: classes.inputBlockCostInput,
                                         }}
-                                        placeholder='2990'
+                                        placeholder='0'
                                         disabled={block.status !== STATUS_ACTIVE}
                                         name='unit_price'
                                         onChange={(e) =>
@@ -1006,7 +1005,7 @@ const PageAddCourse = (props) => {
                                   </TableCell>
                                   <TableCell component='th' scope='row'>
                                     <Box textAlign='center'>
-                                      {block.tax_value || 0}
+                                      {block.tax_value || 0} &nbsp;
                                       {currencyName}
                                     </Box>
                                   </TableCell>
@@ -1017,7 +1016,7 @@ const PageAddCourse = (props) => {
                                       className={classes.deleteButton}
                                       onClick={() => onSelectDeleteCoursePrice(block.hash_id, indexBlock)}
                                     >
-                                      クリア
+                                      Xóa
                                     </Button>
                                   </TableCell>
                                 </TableRow>
@@ -1034,7 +1033,7 @@ const PageAddCourse = (props) => {
                                   <TableCell component='th' scope='row'></TableCell>
 
                                   <TableCell component='th' scope='row'>
-                                    延長料金
+                                    Phí gia hạn
                                   </TableCell>
 
                                   <TableCell component='th' scope='row'>
@@ -1059,7 +1058,7 @@ const PageAddCourse = (props) => {
                                           )
                                         }
                                       />
-                                      <Box style={{ margin: 'auto 0' }}>分間</Box>
+                                      <Box style={{ margin: 'auto 0' }}>phút</Box>
                                     </Box>
                                   </TableCell>
 
@@ -1070,7 +1069,7 @@ const PageAddCourse = (props) => {
                                         name='unit_price'
                                         labelWidth={0}
                                         className={classes.inputBlockCost}
-                                        placeholder='2990'
+                                        placeholder='0'
                                         inputProps={{
                                           max: 99999,
                                           min: 1,
@@ -1131,7 +1130,7 @@ const PageAddCourse = (props) => {
                             <TableCell component='th' scope='row'></TableCell>
 
                             <TableCell component='th' scope='row'>
-                              アラーム
+                              Thông báo
                             </TableCell>
 
                             <TableCell component='th' scope='row'>
@@ -1150,7 +1149,7 @@ const PageAddCourse = (props) => {
                                   value={newCourse.alert_notification_time}
                                   onChange={onChangeInput}
                                 />
-                                <Box style={{ margin: 'auto 0' }}>分前に完了を通知する</Box>
+                                <Box style={{ margin: 'auto 0' }}>Thông báo trước khi kết thúc</Box>
                               </Box>
                             </TableCell>
                             <TableCell component='th' scope='row'>
@@ -1165,7 +1164,7 @@ const PageAddCourse = (props) => {
                                         value={newCourse.user_alert_flg}
                                       />
                                     }
-                                    label='顧客'
+                                    label='Báo cho khách hàng'
                                   />
                                   <FormControlLabel
                                     control={
@@ -1176,7 +1175,7 @@ const PageAddCourse = (props) => {
                                         value={newCourse.shop_alert_flg}
                                       />
                                     }
-                                    label='店舗'
+                                    label='Báo cho cửa hàng'
                                   />
                                 </Grid>
                               </Grid>
@@ -1198,7 +1197,7 @@ const PageAddCourse = (props) => {
                               classes={{ root: classes.tableCell }}
                               style={{ minWidth: '120px' }}
                             >
-                              利用中
+                              Trạng thái
                             </TableCell>
 
                             {/* name */}
@@ -1206,7 +1205,7 @@ const PageAddCourse = (props) => {
                               classes={{ root: classes.tableCell }}
                               style={{ minWidth: '120px' }}
                             >
-                              カテゴリ
+                              Tên
                             </TableCell>
 
                             {/* time */}
@@ -1214,7 +1213,7 @@ const PageAddCourse = (props) => {
                               classes={{ root: classes.tableCell }}
                               style={{ minWidth: '160px' }}
                             >
-                              商品
+                              Thời gian
                             </TableCell>
 
                             {/* image */}
@@ -1222,7 +1221,7 @@ const PageAddCourse = (props) => {
                               classes={{ root: classes.tableCell }}
                               style={{ minWidth: '160px' }}
                             >
-                              写真
+                              Ảnh
                             </TableCell>
 
                             {/* action */}
@@ -1230,7 +1229,7 @@ const PageAddCourse = (props) => {
                               classes={{ root: classes.tableCell }}
                               style={{ minWidth: '160px' }}
                             >
-                              アクション
+                              Thao tác
                             </TableCell>
                           </TableRow>
                         </TableHead>
@@ -1265,7 +1264,7 @@ const PageAddCourse = (props) => {
                                         className={classes.imageMenuItem}
                                       />
                                     ) : (
-                                      <u>設定無し</u>
+                                      <u>No setting</u>
                                     )}
                                   </TableCell>
 
@@ -1279,7 +1278,7 @@ const PageAddCourse = (props) => {
                                         });
                                       }}
                                     >
-                                      削除
+                                      Xóa
                                     </Button>
                                   </TableCell>
                                 </TableRow>
@@ -1300,7 +1299,7 @@ const PageAddCourse = (props) => {
                         onClick={() => history.push('/menus/courses')}
                         className={`${classes.buttonController} ${classes.buttonBack}`}
                       >
-                        戻る
+                        Quay lại
                       </Button>
                     </Grid>
                     <Grid item>
@@ -1315,7 +1314,7 @@ const PageAddCourse = (props) => {
                           ) || isSubmitLoading
                         }
                       >
-                        保存する
+                        Lưu
                         {isSubmitLoading ? (
                           <CircularProgress style={{ marginLeft: 10, width: 20, height: 20 }} />
                         ) : null}
@@ -1327,7 +1326,7 @@ const PageAddCourse = (props) => {
                           className={`${classes.buttonController} ${classes.buttonAdd}`}
                           onClick={() => setIsShowChooseMenus(true)}
                         >
-                          <Add /> 追加する
+                          <Add /> Thêm
                         </Button>
                       </Grid>
                     ) : null}
@@ -1347,11 +1346,11 @@ const PageAddCourse = (props) => {
               <Modal
                 actions={actionModalDeleteCourse()}
                 open={isShowDeleteCourse}
-                title='コース削除'
+                title='Xóa set ăn'
                 onClose={() => setIsShowDeleteCourse(false)}
               >
                 <div className={classes.centerModal}>
-                  <h2>このコースを完全に削除しますか？</h2>
+                  <h2>Bạn có chắc chắn muốn xóa set ăn này không?</h2>
                 </div>
               </Modal>
 
@@ -1359,16 +1358,16 @@ const PageAddCourse = (props) => {
               <Modal
                 actions={actionModalDeleteMenu()}
                 open={selectedMenu.isShow}
-                title='アイテム削除'
+                title='Xóa món ăn trong set'
                 onClose={onCancelDeleteMenu}
               >
                 <div className={classes.centerModal}>
-                  <h2>このアイテムを削除しますか？</h2>
+                  <h2>Bạn có chắc chắn muốn xóa món này khỏi set ăn？</h2>
                 </div>
               </Modal>
 
               <ModalUploadSingleImage
-                title='コース画像設定'
+                title='Hình ảnh'
                 open={isShowChooseImage}
                 onClose={() => setIsShowChooseImage(false)}
                 onChangeFile={(image) => onChangeImageCourse(image)}
