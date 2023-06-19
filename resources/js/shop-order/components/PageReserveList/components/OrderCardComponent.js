@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'moment-timezone';
-moment.locale('ja');
+moment.locale('vi');
 
 // Components(Material-UI)
 import {
@@ -93,7 +93,7 @@ const OrderCardComponent = (props) => {
     if (order) {
       const orderedTime = moment(order.ordered_at, DATE_TIME_SECONDS_FORMAT)
         .add(CONST_NEW_ORDER_TIMES, 'minutes');
-      const now = momentJP();
+      const now = momentVN();
       if (order.status === ORDER_STATUS.STATUS_ORDER && orderedTime >= now) {
         setIsNew(true);
       } else {
@@ -129,15 +129,15 @@ const OrderCardComponent = (props) => {
           <Grid item xs={4}>
             {
               order.status === ORDER_STATUS.STATUS_CANCEL
-                ? <span className={classes.textDangerCancel}>【取消】</span>
+                ? <span className={classes.textDangerCancel}>【Đã hủy】</span>
                 : getOrderedAtTime()
             }
           </Grid>
-          <Grid item xs={8} className={classes.orderItemTextRight}>テーブル番号: {order.table_codes}</Grid>
+          <Grid item xs={8} className={classes.orderItemTextRight}>Số bàn: {order.table_codes}</Grid>
         </Grid>
         <Grid container className={classes.orderItemContent}>
-          <Grid item xs={4}>{order.is_first_order ? '○新規○' : '○追加○'}</Grid>
-          <Grid item xs={8} className={classes.orderItemTextRight}>数量</Grid>
+          <Grid item xs={4}>{order.is_first_order ? 'Mới' : 'Thay đổi'}</Grid>
+          <Grid item xs={8} className={classes.orderItemTextRight}>Số lượng</Grid>
         </Grid>
         <Box className={classes.orderItemDotLine}/>
         <Grid container className={classes.orderItemContent}>

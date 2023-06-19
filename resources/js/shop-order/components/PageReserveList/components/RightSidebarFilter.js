@@ -11,7 +11,7 @@ import {Box} from '@material-ui/core';
 // Utils
 import moment from 'moment';
 import PropTypes from 'prop-types';
-moment.locale('ja');
+moment.locale('vi');
 
 const RightSidebarFilter = (props) => {
   const classes = useStyles(props);

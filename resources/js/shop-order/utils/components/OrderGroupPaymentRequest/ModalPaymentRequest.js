@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 import { isEmpty } from 'lodash';
 import PubSub from 'pubsub-js';
 

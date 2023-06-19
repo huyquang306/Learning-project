@@ -30,7 +30,7 @@ const MainOrdersComponents = (props) => {
 
   return (
     <Grid item xs={filter.isShipping ? 6 : 12} sm={filter.isShipping ? 6 : 12} md={filter.isShipping ? 7 : 12} className={classes.mainOrders}>
-      <Box className={classes.mainOrdersTitle}>調理中</Box>
+      <Box className={classes.mainOrdersTitle}>Đang thực hiện</Box>
       <Box className={classes.mainsOrdersLeftContent}>
         {
           mainOrders.map((order, index) => (

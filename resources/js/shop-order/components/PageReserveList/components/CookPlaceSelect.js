@@ -23,7 +23,7 @@ const CookPlaceSelect = (props) => {
         value={ALL_COOK_PLACE_VALUE}
         control={<Radio color='default'/>}
         classes={{ label: classes.headerCookPlaceRadioLabel }}
-        label='すべて表示'
+        label='Hiển thị tất cả'
         onChange={() => props.handleChangeFilter('cook_place', ALL_COOK_PLACE_VALUE)}
         checked={props.filter.cook_place === ALL_COOK_PLACE_VALUE}
       />

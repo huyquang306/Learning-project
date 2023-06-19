@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\Shop;
 
 use App\Http\Controllers\BaseApiController;
 use App\Http\Requests\Shop\OrderRequest;
+use App\Http\Requests\Shop\OrderUpdateRequest;
+use App\Http\Resources\Shop\OrderGroupResource;
 use App\Http\Resources\Shop\OrderResource;
 use App\Models\MShop;
 use App\Models\TOrder;
@@ -84,4 +86,20 @@ class OrderController extends BaseApiController
             ];
         }
     }
+
+    /**
+     * Create|Update|Cancel menu orders
+     *
+     * @param OrderUpdateRequest $request
+     * @param MShop $shop
+     * @param TOrderGroup $ordergroup
+     * @return OrderGroupResource
+     */
+    public function menuUpdate(OrderUpdateRequest $request, MShop $shop, TOrdergroup $ordergroup): OrderGroupResource
+    {
+        $ordergroup = $this->orderService->updateMenu($request, $shop, $ordergroup);
+
+        return new OrderGroupResource($ordergroup);
+    }
+
 }

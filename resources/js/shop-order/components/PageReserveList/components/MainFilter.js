@@ -29,27 +29,27 @@ const MainFilter = (props) => {
           onClick={() => props.handleChangeFilter('sortBy', props.filter.sortBy === FILTER_SORT_BY_TABLE_CODE ? FILTER_SORT_BY_CREATED_AT : FILTER_SORT_BY_TABLE_CODE)}
         >
           {
-            props.filter.sortBy === FILTER_SORT_BY_TABLE_CODE ? '注文順' : 'テーブル順'
+            props.filter.sortBy === FILTER_SORT_BY_TABLE_CODE ? 'Order' : 'Bàn'
           }
         </Button>
       </Grid>
 
-      <Grid item xs={6} md={12}>
-        <FormControlLabel
-          className={classes.sideBarFilterBox}
-          control={<Checkbox color='default'/>}
-          label='初回注文優先'
-          classes={{label: classes.sideBarFilterBoxLabel}}
-          onChange={() => props.handleChangeFilter('isPriorityFirstOrder', !props.filter.isPriorityFirstOrder)}
-          checked={props.filter.isPriorityFirstOrder}
-        />
-      </Grid>
+      {/*<Grid item xs={6} md={12}>*/}
+      {/*  <FormControlLabel*/}
+      {/*    className={classes.sideBarFilterBox}*/}
+      {/*    control={<Checkbox color='default'/>}*/}
+      {/*    label='Xếp theo thứ tự order'*/}
+      {/*    classes={{label: classes.sideBarFilterBoxLabel}}*/}
+      {/*    onChange={() => props.handleChangeFilter('isPriorityFirstOrder', !props.filter.isPriorityFirstOrder)}*/}
+      {/*    checked={props.filter.isPriorityFirstOrder}*/}
+      {/*  />*/}
+      {/*</Grid>*/}
 
       <Grid item xs={6} md={12}>
         <FormControlLabel
           className={classes.sideBarFilterBox}
           control={<Checkbox color='default'/>}
-          label='キャンセル表示'
+          label='Đã hủy'
           classes={{label: classes.sideBarFilterBoxLabel}}
           onChange={() => props.handleChangeFilter('isCanceled', !props.filter.isCanceled)}
           checked={props.filter.isCanceled}
@@ -60,7 +60,7 @@ const MainFilter = (props) => {
         <FormControlLabel
           className={classes.sideBarFilterBox}
           control={<Checkbox color='default'/>}
-          label='提供済表示'
+          label='Đã phục vụ'
           classes={{label: classes.sideBarFilterBoxLabel}}
           onChange={() => props.handleChangeFilter('isShipped', !props.filter.isShipped)}
           checked={props.filter.isShipped}
@@ -71,7 +71,7 @@ const MainFilter = (props) => {
         <FormControlLabel
           className={classes.sideBarFilterBox}
           control={<Checkbox color='default'/>}
-          label='提供中モード'
+          label='Đang thực hiện'
           classes={{label: classes.sideBarFilterBoxLabel}}
           onChange={() => props.handleChangeFilter('isShipping', !props.filter.isShipping)}
           checked={props.filter.isShipping}

@@ -17,7 +17,7 @@ import SyncIcon from '@material-ui/icons/Sync';
 
 // Library
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 
 const REFRESH_IN_SECONDS = 10;
 
@@ -46,7 +46,7 @@ const TimeAndCookPlacesFilter = (props) => {
             >
               <SyncIcon style={{ color: '#DADADA', fontSize: 30 }} />
               <Box>
-                <p style={{ color: '#4F4F4F', fontSize: 12 }}>最終更新時間</p>
+                <p style={{ color: '#4F4F4F', fontSize: 12 }}>Cập nhật lần cuối</p>
                 <p style={{ color: '#4F4F4F', fontSize: 17 }}>
                   {moment(props.refresh.refreshAt).format('HH:mm:ss')}
                 </p>
@@ -67,7 +67,7 @@ const TimeAndCookPlacesFilter = (props) => {
             <Button
               className={classes.buttonDrawerSidebar}
               onClick={() => props.setIsDrawerRight(true)}
-            >＜＜開く＜＜</Button>
+            >＜＜ Mở ＜＜</Button>
           </Box>
           {/* Hidden mobile*/}
         </Grid>

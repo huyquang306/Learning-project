@@ -1,7 +1,7 @@
 import Utils from 'js/shared/utils';
 import moment from 'moment';
 import 'moment-timezone';
-moment.locale('ja');
+moment.locale('vi');
 
 const FIRST_DATE = '1/1/1999';
 const NEXT_FIRST_DATE = '1/2/1999';

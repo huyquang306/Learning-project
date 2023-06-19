@@ -16,7 +16,7 @@ const StaffsSelect = (props) => {
     const {staffs} = props;
     let results = [
       {
-        label: '全員',
+        label: 'Tất cả',
         value: ALL_STAFFS_VALUE,
       }
     ];

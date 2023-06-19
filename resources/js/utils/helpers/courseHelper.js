@@ -1,6 +1,6 @@
 import { DATE_TIME_SECONDS_FORMAT, TIME_SECONDS_FORMAT, momentVN } from './timer';
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 import Utils from 'js/shared/utils';
 
 const COURSE_STATUS_ACTIVE = 'active';

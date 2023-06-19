@@ -13,7 +13,7 @@ import { Box } from '@material-ui/core';
 import Modal from 'js/shared-order/components/Modal';
 import ButtonCustom from 'js/shared-order/components/Button';
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 import { ORDER_STATUS } from 'js/utils/helpers/courseHelper';
 
 const ModalWaittingPaymentRequest = (props) => {

@@ -1,7 +1,7 @@
 import Utils from 'js/shared/utils';
 import moment from 'moment';
 import 'moment-timezone';
-moment.locale('ja');
+moment.locale('vi');
 
 const checkValidation = (staffData) => {
   let errors = [];

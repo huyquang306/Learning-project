@@ -40,7 +40,7 @@ import { ORDER_HISTORY_PAGINATION, S3_URL } from 'js/utils/helpers/const';
 
 import { isEmpty } from 'lodash';
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 
 // Utils
 import { ORDER_TYPE, ORDER_GROUP_STATUS } from 'js/utils/helpers/courseHelper';

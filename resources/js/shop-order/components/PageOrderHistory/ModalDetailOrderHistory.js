@@ -25,7 +25,7 @@ import {
 
 // Library
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 
 const MIN_NUMBER_OF_QUANTITY = 1;
 

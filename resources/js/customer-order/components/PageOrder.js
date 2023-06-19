@@ -40,7 +40,7 @@ import { onSendNotifyCustomerRequestCheckout, onConnectWebSocket } from 'js/util
 
 // Library
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 
 // Style
 const useStyles = makeStyles({
