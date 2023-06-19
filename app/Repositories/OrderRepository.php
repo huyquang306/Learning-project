@@ -10,6 +10,8 @@ use App\Models\MShopPosSetting;
 use App\Models\MUser;
 use App\Models\TOrder;
 use App\Models\TOrderGroup;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class OrderRepository extends BaseRepository
 {
@@ -92,6 +94,7 @@ class OrderRepository extends BaseRepository
                 $newOrderStatus = config('const.STATUS_FINISH');
             }
 
+            \Log::info($shop->mMenus);
             $r_shop_menu = $menu ? $shop->mMenus->find($menu->id) : null;
             if ($r_shop_menu != null || $course != null) {
                 $new_order = new TOrder();
@@ -116,6 +119,38 @@ class OrderRepository extends BaseRepository
 
         $ordergroup->fill(['status' => config('const.STATUS_ORDERGROUP.ORDERING')])->save();
         DB::commit();
+
+        return $orders;
+    }
+
+    /**
+     * Add orders that is not menu
+     * @param TOrderGroup $orderGroup
+     * @param array       $addCustomMenus
+     * @return Collection
+     */
+    public function addOrdersWithoutMenu(TOrderGroup $orderGroup, array $addCustomMenus)
+    {
+        $orders = new Collection();
+        foreach ($addCustomMenus as $menu) {
+            $menuPrice = $menu['price'] ?? 0;
+            $menuQuantity = $menu['quantity'] ?? 0;
+            $order = [
+                't_ordergroup_id' => $orderGroup->id,
+                'r_shop_menu_id' => 0,
+                'r_shop_course_id' => null,
+                'menu_name' => $menu['menu_name'],
+                'price_unit' => $menuPrice,
+                'quantity' => $menuQuantity,
+                'amount' => $menuPrice * $menuQuantity,
+                'tax_rate' => $menu['tax_rate'] ?? 0,
+                'tax_value' => $menu['tax_value'] ?? 0,
+                'order_type' => config('const.ORDER_TYPE.ORDER_WITHOUT_MENU'),
+                'ordered_at' => now(),
+            ];
+            $order = TOrder::create($order);
+            $orders->add($order);
+        }
 
         return $orders;
     }

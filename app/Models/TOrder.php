@@ -53,4 +53,20 @@ class TOrder extends Model
             'm_staff_id'
         );
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function rShopCourse(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne('App\Models\RShopCourse', 'id', 'r_shop_course_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function mUser(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(MUser::class, 'm_user_id', 'id');
+    }
 }

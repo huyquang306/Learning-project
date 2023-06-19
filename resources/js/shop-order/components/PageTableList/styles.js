@@ -231,10 +231,15 @@ const useStylesPageTableList = makeStyles(() => ({
       color: '#FFFFFF',
       border: '1px solid #FFA04B',
     },
+    '&.finished': {
+      backgroundColor: '#05f244',
+      color: '#FFFFFF',
+      border: '1px solid #FFFFFF',
+    },
     '&.cancelled': {
-      backgroundColor: '#FFFFFF',
-      color: 'red',
-      border: '1px solid red',
+      backgroundColor: '#f22105',
+      color: '#FFFFFF',
+      border: '1px solid #FFFFFF',
     },
   },
   orderName: {

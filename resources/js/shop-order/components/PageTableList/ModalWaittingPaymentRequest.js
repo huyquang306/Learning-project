@@ -82,7 +82,7 @@ const ModalWaittingPaymentRequest = (props) => {
           <div key={index} className={classes.menuItem}>
             <div className={classes.menuName}>
               <div className={`${classes.labelStatus} ${'preparing'}`}>
-                <span>未</span>
+                {/*<span>未</span>*/}
               </div>
               <div className={classes.orderName}>{order.name}</div>
             </div>
@@ -104,7 +104,7 @@ const ModalWaittingPaymentRequest = (props) => {
       <Box className={classes.boxButton}>
         <ButtonCustom
           customClass={classes.button}
-          title='キャンセル'
+          title='Quay lại'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -114,7 +114,7 @@ const ModalWaittingPaymentRequest = (props) => {
         />
         <ButtonCustom
           customClass={classes.button}
-          title='提供済にして締め切る'
+          title='Kết thúc'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'
@@ -130,7 +130,7 @@ const ModalWaittingPaymentRequest = (props) => {
     <Modal open={props.open} onClose={props.onClose} actions={renderFooterActions()}>
       <div className={classes.modalContent}>
         <Box className={classes.messageWarning}>
-          未提供の商品がありますが、注文締切してよろしいですか？
+          Có món ăn chưa được phục vụ, bạn có chắc chắn muốn kết thúc không?
         </Box>
         <div className={classes.menuBody}>{renderListOrdersNotFinished()}</div>
       </div>
