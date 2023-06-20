@@ -35,7 +35,7 @@ import {
 
 // Library
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 
 const PageCurrentPlan = (props) => {
   const classes = useStylesPageCurrentPlan(props);

@@ -5,7 +5,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import PubSub from 'pubsub-js';
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 import { orderBy } from 'lodash';
 
 // Styles
@@ -30,7 +30,7 @@ import FlashMessage from 'js/shared-order/components/FlashMessage';
 import CookPlaceSelect from 'js/shop-order/components/PageReserveList/components/CookPlaceSelect';
 
 // Common AWS WebSocket components
-import { onConnectWebSocket } from 'js/utils/helpers/socket';
+// import { onConnectWebSocket } from 'js/utils/helpers/socket';
 
 // Components(Material-UI)
 import {
@@ -55,21 +55,21 @@ import { ORDER_TYPE, ORDER_STATUS } from 'js/utils/helpers/courseHelper';
 
 const SORT_OPTIONS = [
   {
-    label: '注文順（新→古）',
+    label: 'Mới -> Cũ',
     value: 1,
   },
   {
-    label: '注文順（古→新）',
+    label: 'Cũ -> Mới',
     value: 2,
   },
-  {
-    label: 'テーブル順（新→古）',
-    value: 3,
-  },
-  {
-    label: 'テーブル順（古→新）',
-    value: 4,
-  },
+  // {
+  //   label: 'Thứ tự bàn (Mới -> Cũ)',
+  //   value: 3,
+  // },
+  // {
+  //   label: 'Thứ tự bàn (Cũ -> Mới)',
+  //   value: 4,
+  // },
 ];
 const DEFAULT_SORT_OPTION = 1;
 const DEFAULT_FILTER = {
@@ -147,7 +147,7 @@ const PageReserveList = (props) => {
 
   // Connect to endpoint API Gateway
   useEffect(() => {
-    onConnectWebSocket(shop.hashId);
+    // onConnectWebSocket(shop.hashId);
   }, []);
 
   // Refresh data after has new order
@@ -223,7 +223,7 @@ const PageReserveList = (props) => {
 
     ShopOrderApiService.order(shop.hashId, ordergroupHashId, data, isUpdate)
       .then(() => {
-        setToast({ isShow: true, status: 'success', message: 'Update order success!' });
+        setToast({ isShow: true, status: 'success', message: 'Cập nhật thành công' });
         setRefresh({ refreshAt: new Date() });
       })
       .catch((error) => {
@@ -238,7 +238,7 @@ const PageReserveList = (props) => {
   const elementStatusNew = () => {
     return (
       <div className={classes.statusBox}>
-        <p className={classes.status}>新規</p>
+        <p className={classes.status}>Mới</p>
       </div>
     );
   };
@@ -291,7 +291,7 @@ const PageReserveList = (props) => {
                     name='checked'
                   />
                 }
-                label='取消を表示'
+                label='Đã hủy'
               />
             </Box>
             {/* filter table order courses */}
@@ -305,7 +305,7 @@ const PageReserveList = (props) => {
                     name='checked'
                   />
                 }
-                label='コースのみ表示'
+                label='Hiển thị set ăn'
               />
             </Box>
             <Box className={classes.filterBox} whiteSpace='nowrap'>
@@ -317,7 +317,7 @@ const PageReserveList = (props) => {
                     name='checked'
                   />
                 }
-                label='提供済も表示'
+                label='Hiển thị món ăn'
               />
             </Box>
             <Box
@@ -331,7 +331,7 @@ const PageReserveList = (props) => {
             >
               <SyncIcon style={{ color: '#DADADA', fontSize: 30 }} />
               <Box textAlign='center'>
-                <p style={{ color: '#4F4F4F', fontSize: 12 }}>最終更新時間</p>
+                <p style={{ color: '#4F4F4F', fontSize: 12 }}>Cập nhật lần cuối</p>
                 <p style={{ color: '#4F4F4F', fontSize: 20 }}>
                   {moment(refresh.refreshAt).format('HH:mm:ss')}
                 </p>
@@ -344,7 +344,7 @@ const PageReserveList = (props) => {
   };
 
   const headerRightContent = () => {
-    return <Link to='/reserve/list/new'>パネルビュー</Link>;
+    return <Link to='/reserve/list/new'>Điều hành</Link>;
   };
 
   const sortData = (data) => {
@@ -410,7 +410,7 @@ const PageReserveList = (props) => {
       value={{ refresh, setRefresh, orderGroup, setOrderGroup, setWaiting, setToast }}
     >
       <PageContainer padding='0px'>
-        <HeaderAppBar title='注文状況' headerRightContent={headerRightContent()} />
+        <HeaderAppBar title='Thực đơn cần phục vụ' headerRightContent={headerRightContent()} />
         <PageInnerContainer padding={'8px 16px'}>
           {elementHeaderActions()}
           <TableContainer component={Paper}>
@@ -423,9 +423,9 @@ const PageReserveList = (props) => {
                 <TableRow>
                   <TableCell style={styles.cellHeader}></TableCell>
                   <TableCell style={styles.cellHeader}></TableCell>
-                  <TableCell style={styles.cellHeader}>商品名</TableCell>
-                  <TableCell style={styles.cellHeader}>テーブル（人数）</TableCell>
-                  <TableCell style={styles.cellHeader}>注文時間</TableCell>
+                  <TableCell style={styles.cellHeader}>Tên món</TableCell>
+                  <TableCell style={styles.cellHeader}>Bàn (số người)</TableCell>
+                  <TableCell style={styles.cellHeader}>Thời gian phục vụ</TableCell>
                   <TableCell style={styles.cellHeader}></TableCell>
                   <TableCell style={styles.cellHeader}></TableCell>
                 </TableRow>
@@ -458,7 +458,7 @@ const PageReserveList = (props) => {
                       </TableCell>
                       <TableCell component='th' scope='row' padding='none'>
                         <Box className={classes.tableCustomer}>
-                          {row.table_codes}（{row.info_table.number_of_customers}名）
+                          {row.table_codes}（{row.info_table.number_of_customers} người）
                         </Box>
                       </TableCell>
                       <TableCell component='th' align='left' width={150}>
@@ -474,7 +474,7 @@ const PageReserveList = (props) => {
                             row.status === ORDER_STATUS.STATUS_CANCEL ||
                             row.status === ORDER_STATUS.STATUS_SHIPPED
                           }
-                          title='提供OK'
+                          title='OK'
                           borderRadius='12px'
                           bgcolor='#FFA04B'
                           width='100px'
@@ -486,7 +486,7 @@ const PageReserveList = (props) => {
                       </TableCell>
                       <TableCell align='right' width={120} size='small'>
                         <ButtonCustom
-                          title='他操作'
+                          title='Chi tiết'
                           borderRadius='12px'
                           bgcolor='#FFA04B'
                           width='100px'

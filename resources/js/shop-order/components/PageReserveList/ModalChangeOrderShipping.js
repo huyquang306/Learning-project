@@ -78,7 +78,7 @@ const ModalChangeOrderShipping = (props) => {
 
   const changeOrderStatus = (status, staffHashId = null) => {
     if (status === ORDER_STATUS.STATUS_SHIPPING && !staffHashId) {
-      setToast({ isShow: true, status: 'warning', message: 'スタッフが選択されていません。' });
+      setToast({ isShow: true, status: 'warning', message: 'Chưa có nhân viên nào được chọn' });
 
       return;
     }
@@ -94,7 +94,7 @@ const ModalChangeOrderShipping = (props) => {
     return (
       <React.Fragment>
         <ButtonCustom
-          title='戻る'
+          title='Quay lại'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -102,7 +102,7 @@ const ModalChangeOrderShipping = (props) => {
           onClick={onClose}
         />
         <ButtonCustom
-          title='保存する'
+          title='Đồng ý'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'
@@ -117,7 +117,7 @@ const ModalChangeOrderShipping = (props) => {
   return (
     <Modal
       open={open}
-      title='スタッフ指定'
+      title='Chọn nhân viên'
       actions={footerActions()}
       minHeight='auto'
       maxHeight='auto'
@@ -125,7 +125,7 @@ const ModalChangeOrderShipping = (props) => {
       <div className={classes.modalContent}>
         <Box className={classes.headerBox}>
           <ButtonCustom
-            title='注文キャンセル'
+            title='Hủy món'
             margin='0px'
             borderRadius='28px'
             bgcolor='#FFFFFF'
@@ -137,7 +137,7 @@ const ModalChangeOrderShipping = (props) => {
         </Box>
 
         <Box className={classes.contentText}>
-          担当を選んで、提供しますか？
+          Bạn có muốn chọn nhân viên này để phục vụ?
         </Box>
 
         <Box className={classes.staffsBox}>

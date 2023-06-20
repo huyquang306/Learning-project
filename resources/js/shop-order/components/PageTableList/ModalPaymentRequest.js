@@ -19,7 +19,7 @@ import ButtonCustom from 'js/shared-order/components/Button';
 import ButtonCore from 'js/shared/components/Button';
 import ModalOrderDetail from './ModalChildren';
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 
 const DEFAULT_QUANTITY_ORDER = 1;
 const DEFAULT_NUMBER_OF_SERVE = 0;

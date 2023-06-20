@@ -3,7 +3,12 @@ import moment from "moment";
 import {currencyFormat} from "./number";
 
 export const PUB_SUB_KEY = {
-    INACTIVE_SHOP: 'inactive_shop',
+    DEACTIVE_SHOP: 'deactive_shop',
+    RING_ALARM: 'RING_ALARM',
+    // Refresh orderGroups data
+    KEY_FRESH_UPDATE_ORDER: 'publishKeyFreshUpdatedOrders',
+    KEY_FRESH_NEW_ORDER: 'publishKeyFreshNewOrderData',
+    KEY_FRESH_PAYMENT_ORDERGROUP: 'publishKeyFreshPaymentData',
 };
 
 export const IS_ACTIVE_SHOP_KEY = 'is-active-shop';

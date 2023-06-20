@@ -21,7 +21,7 @@ import { Box } from '@material-ui/core';
 // Library
 import moment from 'moment';
 import 'moment-timezone';
-moment.locale('ja');
+moment.locale('vi');
 
 // Style
 import 'css/style.css';

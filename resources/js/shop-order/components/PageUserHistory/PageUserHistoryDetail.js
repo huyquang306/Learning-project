@@ -34,7 +34,7 @@ import {
 } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 
 // Styles
 import { userManagementStyles as useStyles, stylesOrderHistory as styles } from './styles';

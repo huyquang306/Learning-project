@@ -19,7 +19,7 @@ const HiddenRightSidebarFilter = (props) => {
         <Box
           className={classes.hiddenButton}
           onClick={() => props.setIsDrawerRight(false)}
-        >＞＞閉じる＞＞</Box>
+        >＞＞Đóng＞＞</Box>
 
         <CookPlaceSelect
           filter={props.filter}

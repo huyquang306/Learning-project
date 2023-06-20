@@ -16,7 +16,7 @@ import Utils from 'js/shared/utils';
 import moment from 'moment';
 import 'moment-timezone';
 import { isSuccessOrderMenu, removeSuccessOrderMenu } from 'js/customer-order/utils/ordermenu';
-moment.locale('ja');
+moment.locale('vi');
 import { setCookie } from 'js/utils/components/cookie/cookie.js';
 
 // Component

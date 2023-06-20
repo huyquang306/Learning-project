@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import { sortBy } from 'lodash';
 import PubSub from 'pubsub-js';
 import moment from 'moment';
-moment.locale('ja');
+moment.locale('vi');
 
 // Components(Material-UI)
 import {
@@ -106,7 +106,7 @@ const PageReserveListNew = (props) => {
 
   // Connect to endpoint API Gateway
   useEffect(() => {
-    onConnectWebSocket(shop.hashId);
+    // onConnectWebSocket(shop.hashId);
   }, [shop.hashId]);
 
   // Refresh data order after customer create a new order
@@ -198,7 +198,7 @@ const PageReserveListNew = (props) => {
 
   const handleChangeOrderStatus = async (status, staffHashId = null) => {
     if (status === ORDER_STATUS.STATUS_SHIPPING && !staffHashId) {
-      setToast({ isShow: true, status: 'warning', message: 'スタッフが選択されていません。' });
+      setToast({ isShow: true, status: 'warning', message: 'Không có nhân viên nào được chọn' });
 
       return;
     }
@@ -216,7 +216,7 @@ const PageReserveListNew = (props) => {
         setIsChangeShipping(false);
         setIsShowOrderStatus(false);
 
-        setToast({ isShow: true, status: 'success', message: '注文ステータスの更新が成功しました。' });
+        setToast({ isShow: true, status: 'success', message: 'Cập nhật trạng thái thành công' });
       } catch (error) {
         setToast({ isShow: true, status: 'error', message: error.message });
         console.error('[PageDishUpNew] changeShipOrderStatus error', error);
@@ -226,7 +226,7 @@ const PageReserveListNew = (props) => {
 
   const headerRightContent = () => {
     return (
-      <Link to='/reserve/list'>一覧ビュー</Link>
+      <Link to='/reserve/list'>Danh sách</Link>
     );
   };
 

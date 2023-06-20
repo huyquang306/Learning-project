@@ -154,4 +154,133 @@ class OrderRepository extends BaseRepository
 
         return $orders;
     }
+
+    /**
+     * @param $add_menu
+     * @param $shop
+     * @param $orderGroup
+     * @return Collection
+     */
+    public function addMenus($add_menu, $shop, $orderGroup): Collection
+    {
+        $orders = new Collection();
+
+        foreach ($add_menu as $item) {
+            $menu = MMenu::where('hash_id', $item['menu_hash_id'])
+                ->with('mTax')
+                ->first();
+            $course = array_key_exists('course_hash_id', $item)
+                ? MCourse::where('hash_id', $item['course_hash_id'])->first()
+                : null;
+            if ($menu) {
+                $menuCurrentPrice = getMenuPriceHelper(
+                    $menu,
+                    config('const.function_helper.menu_price.menu_type'),
+                    $course
+                );
+
+                $shop->load('mShopPosSetting');
+                $taxOption = $shop->mShopPosSetting;
+                $priceFractionMode = $taxOption
+                    ? $taxOption->price_fraction_mode
+                    : MShopPosSetting::ROUND_DOWN_PRICE_FRACTION_MODE;
+
+                $r_shop_menu_id = $menu->rShopMenu($shop->id)->first();
+
+                $item['t_ordergroup_id'] = $orderGroup->id;
+                $item['r_shop_menu_id'] = $r_shop_menu_id->id;
+                $item['r_shop_course_id'] = null;
+                $item['price_unit'] = $menuCurrentPrice['price_unit_with_tax'];
+                $item['amount'] = $item['quantity'] * $menuCurrentPrice['price_unit_with_tax'];
+                $item['tax_rate'] = $menuCurrentPrice['tax_rate'];
+                $item['tax_value'] = roundPrice($priceFractionMode, $menuCurrentPrice['tax_value']);
+                $item['order_type'] = config('const.ORDER_TYPE.ORDER_MENU');
+                $item['ordered_at'] = now();
+
+                $order = new TOrder();
+                $order->fill($item)->save();
+                $orders->add($order);
+            }
+        }
+
+        return $orders;
+    }
+
+    /**
+     * @param $cancel_orders
+     * @return Collection
+     */
+    public function cancelMenus($cancel_orders): Collection
+    {
+        $orders = new Collection();
+        foreach ($cancel_orders as $order) {
+            $order = TOrder::where('id', $order)->first();
+            if ($order->order_type == config('const.ORDER_TYPE.ORDER_COURSE')) {
+                // Cancel course -> Cancel extend course
+                $orderExtendCourses = TOrder::where([
+                    't_ordergroup_id' => $order->t_ordergroup_id,
+                    'order_type' => config('const.ORDER_TYPE.ORDER_EXTEND_COURSE'),
+                ])->get();
+
+                if (!empty($orderExtendCourses)) {
+                    foreach ($orderExtendCourses as $orderExtendCourse) {
+                        $orderExtend = TOrder::where('id', $orderExtendCourse->id)->first();
+                        $orderExtend->status = config('const.STATUS_CANCEL');
+                        $orderExtend->amount = 0;
+                        $orderExtend->save();
+                        $orders->add($orderExtend);
+                    }
+                }
+            }
+
+            $order->status = config('const.STATUS_CANCEL');
+            $order->amount = 0;
+            $order->save();
+            $orders->add($order);
+        }
+
+        return $orders;
+    }
+
+    /**
+     * @param $orders
+     * @return mixed
+     */
+    public function getOrderQuantityOld($orders)
+    {
+        return TOrder::whereIn('id', $orders)->get();
+    }
+
+    /**
+     * Update some menus in ordergroup
+     * @param $updateOrders
+     * @return Collection
+     */
+    public function updateMenus($updateOrders): Collection
+    {
+        $orders = new Collection();
+        foreach ($updateOrders as $updateOrder) {
+            $data['quantity'] = $updateOrder['quantity'];
+            $order = TOrder::where('id', $updateOrder['id'])->first();
+            $priceUnit = $order->price_unit ?? 0;
+            $data['amount'] = $data['quantity'] * $priceUnit;
+
+            // Check order status, if cancel then amount is 0
+            if (isset($updateOrder['status'])) {
+                // Case: update order status to cancel
+                $data['status'] = $updateOrder['status'];
+                if ($data['status'] == config('const.STATUS_CANCEL')) {
+                    $data['amount'] = 0;
+                }
+            } elseif ($order->status == config('const.STATUS_CANCEL')) {
+                // Case: Current order status is cancelled
+                $data['amount'] = 0;
+            }
+
+            $order->fill($data)->save();
+            $orders->add($order);
+        }
+
+        return $orders;
+    }
 }

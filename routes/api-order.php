@@ -36,6 +36,7 @@ Route::prefix('v1')->group(
 
                 // Order
                 Route::post('/{shop}/ordergroup/{ordergroup}/order', 'Api\Shop\OrderController@create');
+                Route::put('/{shop}/ordergroup/{ordergroup}/menu', 'Api\Shop\OrderController@menuUpdate');
 
                 // Course menu master
                 Route::get('{shop}/master-courses', 'Api\Shop\CourseController@getMasterCourses');
@@ -67,6 +68,10 @@ Route::prefix('v1')->group(
 
                 // Upload image
                 Route::post('{shop}/upload-image', 'Api\Shop\ImageController@store');
+
+                // Staff
+                Route::apiResource('{shop}/staffs', 'Api\Shop\StaffController')
+                    ->except(['show', 'create', 'edit']);
             }
         );
     }

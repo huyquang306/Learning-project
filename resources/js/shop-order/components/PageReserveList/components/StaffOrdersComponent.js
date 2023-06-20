@@ -82,7 +82,7 @@ const StaffOrdersComponent = (props) => {
 
   return (
     <Grid item xs={6} sm={6} md={4} className={classes.mainStaffOrders}>
-      <Box className={classes.staffOrdersTitle}>提供中</Box>
+      <Box className={classes.staffOrdersTitle}>Đã phục vụ</Box>
 
       <Box>
         {

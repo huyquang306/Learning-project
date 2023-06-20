@@ -15,7 +15,7 @@ import { momentVN } from 'js/utils/helpers/timer';
 import { ORDER_GROUP_STATUS, ORDER_TYPE, ORDER_STATUS } from 'js/utils/helpers/courseHelper';
 import moment from 'moment';
 import 'moment-timezone';
-moment.locale('ja');
+moment.locale('vi');
 import PubSub from 'pubsub-js';
 
 // Helper
