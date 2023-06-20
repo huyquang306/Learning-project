@@ -24,6 +24,7 @@ class TOrder extends Model
     const COURSE_EXTEND_ORDER_TYPE_VALUE = 2;
     const SERVICE_FEE_TYPE_VALUE = 3;
     const ORDER_WITHOUT_MENU_TYPE_VALUE = 4;
+    const SERVICE_FEE_TAX_RATE = 0.1;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -204,4 +204,16 @@ class OrderGroupService
 
         return $this->orderGroupRepository->getOrdergroups($dataFilter, $shop);
     }
+
+    /**
+     * Update Bill Pdf FilePath
+     *
+     * @param TOrderGroup $ordergroup
+     * @param string $s3_path
+     * @return TOrderGroup|mixed
+     */
+    public function updateBillPdfFilePath(TOrdergroup $ordergroup, string $s3_path)
+    {
+        return $this->orderGroupRepository->updateOrderGroupBillPdfFilePath($ordergroup, $s3_path);
+    }
 }

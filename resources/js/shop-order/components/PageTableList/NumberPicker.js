@@ -532,7 +532,7 @@ const NumberPicker = (props) => {
                       justifyContent={'space-between'}
                       className={classes.changeMoney}
                     >
-                      <Box>おつり</Box>
+                      <Box>Trả lại</Box>
                       <Box>
                         {formatAmount(paymentRequest?.t_payment?.change_value)}
                         {currencyName}

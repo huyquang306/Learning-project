@@ -47,4 +47,12 @@ class TOrderGroup extends Model
     {
         return $this->belongsTo(MShop::class, 'm_shop_id', 'id');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function tPayment(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(TPayment::class, 't_ordergroup_id', 'id');
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\MShop;
 use App\Models\MTable;
 use App\Models\TOrderGroup;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class OrderGroupRepository
 {
@@ -380,7 +381,7 @@ class OrderGroupRepository
      * @param TOrderGroup $orderGroup
      * @return TOrderGroup
      */
-    public function getOrderGroupCalculateData(TOrdergroup $orderGroup)
+    public function getOrderGroupCalculateData(TOrdergroup $orderGroup): ?TOrderGroup
     {
         return $orderGroup->load([
             'mShop',
@@ -398,5 +399,23 @@ class OrderGroupRepository
                 ]);
             },
         ]);
+    }
+
+    /**
+     * @param TOrderGroup $ordergroup
+     * @param string $file_path
+     * @return TOrderGroup|null
+     */
+    public function updateOrderGroupBillPdfFilePath(TOrderGroup $ordergroup, string $file_path): ?TOrderGroup
+    {
+        if ($ordergroup) {
+            DB::transaction(function () use ($ordergroup, $file_path) {
+                $ordergroup->file_path = $file_path;
+                $ordergroup->save();
+            });
+            return $ordergroup;
+        }
+
+        return null;
     }
 }

@@ -96,7 +96,8 @@ const ModalSubmitPaymentRequest = (props) => {
         fontWeight={600}
       >
         <Box fontSize={{ xs: 20, sm: 25 }} mr={1}>
-          Tiền khách trả
+          
+          Tổng số tiền
         </Box>{' '}
         <Box fontSize={{ xs: 35, sm: 45 }}>
           {props?.infoPayment?.totalAmount}

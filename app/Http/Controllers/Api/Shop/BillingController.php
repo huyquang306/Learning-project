@@ -149,4 +149,65 @@ class BillingController extends BaseApiController
             ];
         }
     }
+
+    /**
+     * @param Request     $request
+     * @param MShop       $shop
+     * @param TOrderGroup $ordergroup
+     * @return array
+     */
+    public function payment(Request $request, MShop $shop, TOrdergroup $ordergroup): array
+    {
+        try {
+            $ordergroup = $this->billingService->payment($shop, $request, $ordergroup);
+            $orders = $ordergroup && $ordergroup->tOrders ? $ordergroup->tOrders : [];
+            foreach ($orders as $order) {
+                $currentPrice = getMenuPriceHelper($order, config('const.function_helper.menu_price.order_type'));
+                $order->current_price = $currentPrice;
+                $order->price_unit = $currentPrice['price_unit_with_tax'];
+            }
+
+            $position = config('const.PRINTER_POSITIONS.FRONT.value');
+            // Print Bill Detail for Customer
+            $outputFileCustomer = $this->printerService->createDetailBillForCustomer($shop, $ordergroup, $orders);
+            // Print Bill for Shop
+            $outputFileShop = $this->printerService->createBillForShop($shop, $ordergroup, $orders);
+            // Insert to Job Queue
+            //$this->printerService->insertJobQueue($shop->id, $outputFileCustomer, $position);
+            //$this->printerService->insertJobQueue($shop->id, $outputFileShop, $position);
+
+            [$outputPdfFileCustomer, $file_name] = $this->printerService->createDetailBillPdfForCustomer($shop, $ordergroup, $orders);
+
+            // S3 url of invoice
+            $s3_path = $this->image_service->s3UploadPdf($shop->id, $outputPdfFileCustomer, $file_name);
+
+            // \File::delete();
+
+            if ($ordergroup) {
+                $path = $this->orderGroupService->updateBillPdfFilePath($ordergroup, $s3_path);
+            }
+
+            if (!$path) {
+                throw new \Exception("Error DB Save For Bill Pdf File Path");
+            }
+
+            return [
+                'status' => 'success',
+                'message' => '',
+                'data' => new BillingOrdergroupResource($ordergroup),
+            ];
+        } catch (\PDOException $e) {
+            return [
+                'status'  => 'failure',
+                'message' => 'pdo_exception',
+                'result'  => ['fields' => '', 'errorCode' => 'pdo_exception', 'errorMessage' => ''],
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status'  => 'failure',
+                'message' => 'exception',
+                'result'  => ['fields' => '', 'errorCode' => 'exception', 'errorMessage' => $e->getMessage()]
+            ];
+        }
+    }
 }
