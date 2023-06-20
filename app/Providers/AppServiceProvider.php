@@ -39,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
             'ShopCookPlaceRepositoryInterface' => 'ShopCookPlaceRepository',
             'ShopPosSettingRepositoryInterface' => 'ShopPosSettingRepository',
             'BusinessHourRepositoryInterface' => 'BusinessHourRepository',
+            'PaymentMethodForCusRepositoryInterface' => 'PaymentMethodForCusRepository',
         ];
 
         foreach ($repositories as $key => $val) {

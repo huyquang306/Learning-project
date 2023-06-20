@@ -97,7 +97,7 @@ const DetailTableSiderbarItem = (props) => {
                 }`}
               variant='contained'
               onClick={() => {
-                if (dataSidebar?.ordergroup?.status === ORDER_GROUP_STATUS.WAITING_CHECKOUT) {
+                if (parseInt(dataSidebar?.ordergroup?.status) === ORDER_GROUP_STATUS.WAITING_CHECKOUT) {
                   return onClickToRemoveWaittingPayment();
                 } else {
                   handleShowMenu(false)
@@ -106,7 +106,7 @@ const DetailTableSiderbarItem = (props) => {
               }}
               {...rest}
             >
-              {dataSidebar?.ordergroup?.status === ORDER_GROUP_STATUS.WAITING_CHECKOUT
+              {parseInt(dataSidebar?.ordergroup?.status) == ORDER_GROUP_STATUS.WAITING_CHECKOUT
                 ? 'Hủy thanh toán'
                 : 'Thay đổi'}
             </Button>
@@ -149,7 +149,7 @@ const DetailTableSiderbarItem = (props) => {
                     : ' '
                 }`}
                 onClick={() => {
-                  if (dataSidebar?.ordergroup?.status === ORDER_GROUP_STATUS.WAITING_CHECKOUT) {
+                  if (parseInt(dataSidebar?.ordergroup?.status) === ORDER_GROUP_STATUS.WAITING_CHECKOUT) {
                     return onClickToPayment();
                   } else {
                     return onClickToWaittingPayment();
@@ -397,7 +397,7 @@ const PageTableList = (props) => {
 
   //get shop tax info
   useEffect(() => {
-    // getShopTaxInfo();
+    getShopTaxInfo();
   }, []);
 
   const getShopTaxInfo = async () => {
@@ -610,7 +610,7 @@ const PageTableList = (props) => {
       );
       if (response) {
         setWaiting(false);
-        setToast({ isShow: true, status: 'success', message: 'update successfully!' });
+        setToast({ isShow: true, status: 'success', message: 'Cập nhật thành công' });
         dispatch({ type: 'REFRESH' });
       }
     } catch (error) {
@@ -867,7 +867,7 @@ const PageTableList = (props) => {
                 <DetailTableSiderbarItem
                   title={
                     state.ordergroup.status &&
-                    state.ordergroup.status === ORDER_GROUP_STATUS.WAITING_CHECKOUT
+                    parseInt(state.ordergroup.status) === ORDER_GROUP_STATUS.WAITING_CHECKOUT
                       ? 'Thanh toán'
                       : 'Kết thúc'
                   }

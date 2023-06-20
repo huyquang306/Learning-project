@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Shop;
 
 use App\Http\Requests\Shop\OrderGroupRequest;
-use App\Repositories\MenuRepository;
-use App\Repositories\OrderRepository;
-use Carbon\Carbon;
 use App\Models\MShop;
 use App\Models\TOrderGroup;
+use App\Repositories\MenuRepository;
 use App\Repositories\OrderGroupRepository;
+use App\Repositories\OrderRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

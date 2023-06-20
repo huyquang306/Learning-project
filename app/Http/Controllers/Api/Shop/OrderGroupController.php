@@ -6,13 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Shop\OrderGroupRequest;
 use App\Http\Resources\Shop\HistorySummaryOrderGroupResource;
 use App\Http\Resources\Shop\OrderGroupResource;
+use App\Http\Resources\Shop\SummaryOrderGroupResource;
 use App\Models\MShop;
 use App\Models\TOrder;
-use App\Services\OrderGroupService;
 use App\Services\PrinterService;
-use Illuminate\Http\Request;
-use App\Http\Resources\Shop\SummaryOrderGroupResource;
+use App\Services\Shop\OrderGroupService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 

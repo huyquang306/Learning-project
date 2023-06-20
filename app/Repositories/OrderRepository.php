@@ -94,7 +94,6 @@ class OrderRepository extends BaseRepository
                 $newOrderStatus = config('const.STATUS_FINISH');
             }
 
-            \Log::info($shop->mMenus);
             $r_shop_menu = $menu ? $shop->mMenus->find($menu->id) : null;
             if ($r_shop_menu != null || $course != null) {
                 $new_order = new TOrder();
@@ -282,5 +281,94 @@ class OrderRepository extends BaseRepository
         }
 
         return $orders;
+    }
+
+    /**
+     * Calculate extend course time
+     *
+     * @param TOrdergroup $ordergroup
+     * @return Collection
+     */
+    public function calculateExtendCourseTimes(TOrdergroup $ordergroup)
+    {
+        DB::beginTransaction();
+
+        $orders = $ordergroup->tOrders;
+        $mainCourse = null;
+        $startTimeOfMainCourse = null;
+        $extendCountNumber = 0;
+        $quantity = 0;
+        $newOrders = new Collection();
+
+        foreach ($orders as $order) {
+            // OrderGroup has main course
+            if ($order->r_shop_course_id
+                && $order->order_type === config('const.ORDER_TYPE.ORDER_COURSE')
+                && $order->status != config('const.STATUS_CANCEL')
+            ) {
+                // Get main course
+                $mainCourse = $order->rShopCourse->mCourse->load(['childCourses']);
+                $startTimeOfMainCourse = $order->ordered_at;
+                $quantity = $order->quantity;
+            }
+            // OrderGroup has extending course
+            if ($order->r_shop_course_id
+                && $order->order_type === config('const.ORDER_TYPE.ORDER_EXTEND_COURSE')
+                && $order->status != config('const.STATUS_CANCEL')
+            ) {
+                // Get extend course of the main course
+                $extendCountNumber = $extendCountNumber + 1;
+            }
+        }
+
+        if ($mainCourse && $startTimeOfMainCourse) {
+            $childCourses = $mainCourse->childCourses;
+            $extendCourse = !empty($childCourses[0]) ? $childCourses[0] : null;
+            $rShopCourseId = $extendCourse ? $extendCourse->rShopCourse->id : null;
+            $extendCourseTimeBlock = $extendCourse ? $extendCourse->time_block_unit : 0;
+            $extendCoursePrice = $extendCourse
+                ? $extendCourse->rShopCourse->mCoursePrices()->withTrashed()->first()
+                : null;
+            $extendCoursePriceUnit = $extendCoursePrice ? $extendCoursePrice->unit_price : 0;
+            $courseTime = $mainCourse->time_block_unit;
+
+            // Check time order course
+            $now = Carbon::now();
+
+            // Get total time has inserted in the database
+            $totalTimeCourseInDB = $courseTime + $extendCountNumber * $extendCourseTimeBlock;
+            $totalRealSpendingTime = $now->diffInMinutes(Carbon::parse($startTimeOfMainCourse)->startOfMinute());
+
+            // Get lack of time which need to insert more
+            $additionalExtendCourseNumbers = $extendCourseTimeBlock
+                ? ceil(($totalRealSpendingTime - $totalTimeCourseInDB) / $extendCourseTimeBlock)
+                : 0;
+
+            // Insert additional extend course times to t_order
+            for ($i = 0; $i < $additionalExtendCourseNumbers; $i++) {
+                $timeExtend = Carbon::parse($startTimeOfMainCourse)
+                    ->addMinutes($totalTimeCourseInDB)
+                    ->addMinutes($i * $extendCourseTimeBlock);
+
+                // Create additional extend course
+                $newOrder = new TOrder();
+                $newOrder->t_ordergroup_id = $ordergroup->id;
+                $newOrder->r_shop_menu_id = null;
+                $newOrder->r_shop_course_id = $rShopCourseId;
+                $newOrder->m_user_id = null;
+                $newOrder->order_type = config('const.ORDER_TYPE.ORDER_EXTEND_COURSE');
+                $newOrder->status = 0;
+                $newOrder->price_unit = $extendCoursePriceUnit;
+                $newOrder->quantity = $quantity;
+                $newOrder->amount = $quantity * $extendCoursePriceUnit;
+                $newOrder->ordered_at = $timeExtend->format('Y/m/d H:i:s');
+                $newOrder->save();
+                $newOrders->add($newOrder);
+            }
+        }
+
+        DB::commit();
+
+        return $newOrders;
     }
 }

@@ -356,4 +356,47 @@ class OrderGroupRepository
             ->where('status', '!=', config('const.STATUS_ORDERGROUP.CHECKED_OUT'))
             ->get();
     }
+
+    /**
+     * Update order group
+     *
+     * @param $id
+     * @param $attributes
+     * @return mixed
+     */
+    public function updateOrderGroup($id, $attributes)
+    {
+        $tOrderGroup = TOrderGroup::find($id);
+        if ($tOrderGroup) {
+            $tOrderGroup->update($attributes);
+
+            return $tOrderGroup;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param TOrderGroup $orderGroup
+     * @return TOrderGroup
+     */
+    public function getOrderGroupCalculateData(TOrdergroup $orderGroup)
+    {
+        return $orderGroup->load([
+            'mShop',
+        ])->load([
+            'tOrders' => function ($tOrdersQuery) {
+                $tOrdersQuery->with([
+                    'rShopCourse.mCourse.childCourses' => function ($childCoursesQuery) {
+                        $childCoursesQuery->orderBy('m_course.id', 'DESC')
+                            ->with([
+                                'rShopCourse.mCoursePrices' => function ($mCoursePricesQuery) {
+                                    $mCoursePricesQuery->orderBy('m_course_price.id', 'DESC');
+                                },
+                            ]);
+                    },
+                ]);
+            },
+        ]);
+    }
 }

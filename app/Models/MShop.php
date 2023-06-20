@@ -170,4 +170,14 @@ class MShop extends Model
     {
         return $this->hasMany(MShopMeta::class, 'm_shop_id', 'id');
     }
+
+    public function mPaymentMethods()
+    {
+        return $this->belongsToMany(
+            MPaymentMethod::class,
+            RShopPaymentMethod::class,
+            'm_shop_id',
+            'm_payment_method_id'
+        );
+    }
 }

@@ -7,11 +7,12 @@ use App\Models\MShopMeta;
 use App\Models\TOrder;
 use App\Repositories\Interfaces\AnnouncementRepositoryInterface;
 use App\Repositories\Interfaces\ShopMetaRepositoryInterface;
+use App\Repositories\MenuRepository;
 use App\Repositories\OrderGroupRepository;
 use App\Repositories\OrderRepository;
 use App\Repositories\PrinterRepository;
 use App\Repositories\ShopRepository;
-use App\Repositories\MenuRepository;
+use App\Services\Shop\OrderGroupService;
 use Illuminate\Support\Carbon;
 
 class PrinterService
