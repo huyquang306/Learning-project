@@ -51,7 +51,7 @@ const ModalSubmitPaymentRequest = (props) => {
                   padding='4px 40px'
                   margin='16px 26px'
                 >
-                  戻る
+                  Quay lại
                 </ButtonCustom>
               </Box>
             </Grid>
@@ -67,8 +67,9 @@ const ModalSubmitPaymentRequest = (props) => {
                   disabled={buttonDisabled}
                   onClick={() => setSubmited(true)}
                 >
+                  Thanh toán &nbsp;
+                  {props?.infoPayment?.totalAmount}
                   {currencyCode}
-                  {props?.infoPayment?.totalAmount}で会計する
                 </ButtonCustom>
               </Box>
             </Grid>
@@ -81,7 +82,7 @@ const ModalSubmitPaymentRequest = (props) => {
   return (
     <Modal
       open={props.open}
-      title='会計2/2'
+      title='Thanh toán'
       maxWidth='850px'
       maxHeight='80vh'
       actions={renderFooterActions()}
@@ -95,7 +96,8 @@ const ModalSubmitPaymentRequest = (props) => {
         fontWeight={600}
       >
         <Box fontSize={{ xs: 20, sm: 25 }} mr={1}>
-          お支払い
+          
+          Tổng số tiền
         </Box>{' '}
         <Box fontSize={{ xs: 35, sm: 45 }}>
           {props?.infoPayment?.totalAmount}

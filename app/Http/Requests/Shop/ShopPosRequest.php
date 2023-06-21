@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Shop;
 
-use App\Http\Requests\BaseAPIRequest;
+use App\Http\Requests\BaseApiRequest;
 
-class ShopPosRequest extends BaseAPIRequest
+class ShopPosRequest extends BaseApiRequest
 {
     /**
      * rulesPost

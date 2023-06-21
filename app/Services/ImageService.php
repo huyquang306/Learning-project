@@ -157,4 +157,17 @@ class ImageService
 
         return Storage::disk('s3')->putFileAs('img/' . $shop->hash_id, $localPath, $imageId);
     }
+
+    /**
+     * S3にpdfを保存する
+     *
+     * @param string $shop_id
+     * @param string $pdf_path
+     * @param string $file_name
+     * @return mixed
+     */
+    public function s3UploadPdf(string $shop_id, string $pdf_path, string $file_name)
+    {
+        return \Storage::disk('s3')->putFileAs('pdf/' . $shop_id, $pdf_path, $file_name);
+    }
 }

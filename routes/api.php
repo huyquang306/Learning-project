@@ -56,6 +56,8 @@ Route::prefix('v1')->group(
                 Route::post('/{shop}/genre', 'Api\GenreController@store');
                 Route::get('/{shop}/genre', 'Api\GenreController@show');
                 Route::put('/{shop}/genre', 'Api\GenreController@update');
+
+                Route::get('{shop}/payment-methods-for-cus', 'Api\Shop\PaymentMethodForCusController@index');
             }
         );
 

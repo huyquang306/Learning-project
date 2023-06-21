@@ -56,20 +56,35 @@ const ModalPaymentRequest = (props) => {
   const getDataInfoPayment = () => {
     const infoPaymentClone = Utils.cloneDeep(infoPayment);
     const priceFractionMode = props?.shopTaxInfo?.price_fraction_mode;
+    console.log(props?.shopTaxInfo);
+    console.log('priceFractionMode');
+    console.log(priceFractionMode);
     const serveRate = Number(infoPayment.serve_charge_rate);
+    console.log('serveRate');
+    console.log(serveRate);
     const ordersFilter = state?.ordergroup?.orders?.filter((item) => item?.status !== 2);
+    console.log('ordersFilter');
+    console.log(ordersFilter);
     const totalTax = hanldePriceFractionMode(
       ordersFilter?.reduce((total, item) => total + item?.tax_value * item?.quantity, 0),
       0,
       priceFractionMode
     );
+    console.log('totalTax');
+    console.log(totalTax);
     const totalGrossServeFee = Number(serveRate) * (state?.totalAmount - totalTax)
+    console.log('totalGrossServeFee');
+    console.log(totalGrossServeFee);
     const totalAmountFractionMode = props?.shopTaxInfo?.total_amount_fraction_mode;
+    console.log('totalAmountFractionMode');
+    console.log(totalAmountFractionMode);
     const totalAmount = hanldePriceFractionMode(
       state?.totalAmount + totalGrossServeFee + totalGrossServeFee * 0.1,
       0,
       priceFractionMode
     );
+    console.log('totalAmount');
+    console.log(totalAmount);
     infoPaymentClone.totalServeFee = formatAmount(
       hanldePriceFractionMode(totalGrossServeFee * 0.1 + totalGrossServeFee, 0, priceFractionMode)
     );
@@ -87,6 +102,7 @@ const ModalPaymentRequest = (props) => {
         priceFractionMode
       )
     );
+    console.log(infoPaymentClone);
     setInfoPayment(infoPaymentClone);
     setFractionMode(priceFractionMode);
   };
@@ -106,11 +122,11 @@ const ModalPaymentRequest = (props) => {
       .then(() => {
         setWaiting(false);
         dispatch({ type: 'REFRESH' });
-        setToast({ isShow: true, status: 'success', message: '更新しました。' });
+        setToast({ isShow: true, status: 'success', message: 'Cập nhật thành công' });
       })
       .catch(() => {
         setWaiting(false);
-        setToast({ isShow: true, status: 'error', message: '数量が必須です。' });
+        setToast({ isShow: true, status: 'error', message: 'Vui lòng nhập số lượng' });
       });
   };
 
@@ -157,7 +173,7 @@ const ModalPaymentRequest = (props) => {
             >
               {item.status === 2 && (
                 <Box className={classes.cancelOrder} whiteSpace='nowrap'>
-                  【取消】
+                  【Hủy bàn】
                 </Box>
               )}
               <Box className={classes.firstColumn}>{item.name}</Box>
@@ -220,7 +236,7 @@ const ModalPaymentRequest = (props) => {
                     padding='1px 35px'
                     margin='0'
                   >
-                    変更
+                    Thay đổi
                   </ButtonCustom>
                 )}
               </Box>
@@ -240,7 +256,7 @@ const ModalPaymentRequest = (props) => {
             <Box mt={3}>
               <Grid container>
                 <Grid item sm={3} xs={3}>
-                  <Box textAlign='center'>確定金額</Box>
+                  <Box textAlign='center'>Số tiền</Box>
                 </Grid>
                 <Grid item sm={3} xs={1}>
                   <Box textAlign='center'></Box>
@@ -252,7 +268,7 @@ const ModalPaymentRequest = (props) => {
                       {currencyName}
                     </Box>
                     <Box alignSelf='center'>
-                      (内消費税額 {infoPayment?.totalTax}
+                      (Tiến thuế {infoPayment?.totalTax}
                       {currencyName})
                     </Box>
                   </Box>
@@ -271,7 +287,7 @@ const ModalPaymentRequest = (props) => {
                   borderColor='#828282'
                   padding='4px 40px'
                 >
-                  戻る
+                  Quay lại
                 </ButtonCustom>
               </Box>
             </Grid>
@@ -286,7 +302,7 @@ const ModalPaymentRequest = (props) => {
                   width='90%'
                   onClick={handleNextModalPayment}
                 >
-                  お支払へ
+                  Thanh toán
                 </ButtonCustom>
               </Box>
             </Grid>
@@ -300,7 +316,7 @@ const ModalPaymentRequest = (props) => {
   return (
     <Modal
       open={props.open}
-      title='会計1/2'
+      title='Thanh toán'
       onClose={props.onClose}
       actions={renderFooterActions()}
       maxWidth='850px'
@@ -309,16 +325,16 @@ const ModalPaymentRequest = (props) => {
       <Box className={classes.modalContent}>
         <Grid container>
           <Grid item xs={3} className='firstHeading'>
-            <Box ml={{ xs: 1, sm: '45%' }}>商品</Box>
+            <Box ml={{ xs: 1, sm: '45%' }}>Món</Box>
           </Grid>
           <Grid item xs={1} className='heading'>
-            <Box>数量</Box>
+            <Box>Số lượng</Box>
           </Grid>
           <Grid item xs={3} className='heading'>
-            <Box>消費税</Box>
+            <Box>Thuế</Box>
           </Grid>
           <Grid item xs={5} className='heading' style={{ justifyContent: 'start' }}>
-            <Box>金額(内消費税額)</Box>
+            <Box>Số tiền(gồm thuế)</Box>
           </Grid>
         </Grid>
         {renderListOrder()}
@@ -332,7 +348,7 @@ const ModalPaymentRequest = (props) => {
                 height='100%'
                 display='flex'
               >
-                サービス料 ({Number(infoPayment.serve_charge_rate * 100)}%)
+                Phí dịch vụ ({Number(infoPayment.serve_charge_rate * 100)}%)
               </Box>
             </Grid>
             <Grid item xs={1}>
@@ -340,7 +356,7 @@ const ModalPaymentRequest = (props) => {
             </Grid>
             <Grid item xs={3}>
               <Box justifyContent='center' alignItems='center' height='100%' display='flex'>
-                標準課税
+                Thuế
               </Box>
             </Grid>
             <Grid item xs={5}>
@@ -378,7 +394,7 @@ const ModalPaymentRequest = (props) => {
                     padding='1px 35px'
                     margin='0'
                   >
-                    変更
+                    Thay đổi
                   </ButtonCustom>
                 </Box>
               </Box>
@@ -414,7 +430,7 @@ const ModalPaymentRequest = (props) => {
           <Box display='flex' alignItems='baseline' fontSize={50} fontWeight='fontWeightBold'>
             {order?.quantity}
             <Box fontSize={23} fontWeight='fontWeightRegular'>
-              個
+
             </Box>
           </Box>
           <ButtonCore
@@ -432,7 +448,7 @@ const ModalPaymentRequest = (props) => {
 
       <ModalOrderDetail
         isOpen={showModalChangeServe}
-        title='サービス料'
+        title='Phí dịch vụ'
         onClose={() => {
           setShowModalChangeServe(false);
           setDraftTaxRate(infoPayment.serve_charge_rate*100);

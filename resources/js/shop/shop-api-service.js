@@ -18,6 +18,7 @@ export const ENDPOINTS = {
   REGIST_SHOPGENRE: ['shop/$0/genre', METHOD.POST, true],
   UPDATE_SHOPGENRE: ['shop/$0/genre', METHOD.PUT, true],
   UPDATE_SHOP: ['shop/$0', METHOD.PUT, true],
+  GET_PAYMENT_METHODS: ['shop/$0/payment-methods-for-cus', METHOD.GET, true],
 }
 
 class ShopApiService extends ApiBase {
@@ -148,6 +149,10 @@ class ShopApiService extends ApiBase {
     .catch((error) => {
       throw new Error(error);
     });
+  }
+
+  async getPaymentMethods(shopHash) {
+    return await this.request(ENDPOINTS.GET_PAYMENT_METHODS, [shopHash], null);
   }
 }
 

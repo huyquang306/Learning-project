@@ -72,6 +72,13 @@ Route::prefix('v1')->group(
                 // Staff
                 Route::apiResource('{shop}/staffs', 'Api\Shop\StaffController')
                     ->except(['show', 'create', 'edit']);
+
+                // Billing
+                Route::post('/{shop}/billing/payrequest/ordergroup/{ordergroup}', 'Api\Shop\BillingController@create');
+                Route::get('{shop}/billing/calc/{ordergroup}', 'Api\Shop\BillingController@calculate');
+                Route::put('/{shop}/billing/paying/ordergroup/{ordergroup}', 'Api\Shop\BillingController@paying');
+                Route::put('/{shop}/billing/close/ordergroup/{ordergroup}', 'Api\Shop\BillingController@close');
+                Route::put('/{shop}/billing/payment/ordergroup/{ordergroup}', 'Api\Shop\BillingController@payment');
             }
         );
     }

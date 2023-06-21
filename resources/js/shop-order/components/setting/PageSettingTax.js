@@ -212,7 +212,9 @@ const PageSettingTax = (props) => {
   const getShopData = async () => {
     try {
       const paymentMethodsRes = await ShopApiService.getPaymentMethods(shop?.hashId);
+      console.log(paymentMethodsRes);
       let shopDataInfo = await ShopApiService.getShopTaxInfo(shop?.hashId);
+      console.log(paymentMethodsRes);
       shopDataInfo['serve_charge_rate'] = (
         parseFloat(shopDataInfo?.serve_charge_rate) * 100
       )?.toFixed(1);
@@ -251,23 +253,23 @@ const PageSettingTax = (props) => {
     ).toFixed(4);
 
     if (shopData?.serve_charge_in_use === 1 && parseFloat(shopData?.serve_charge_rate) == 0) {
-      showWarningMessage('サービス料を入力してください。');
+      showWarningMessage('Vui lòng nhập phí dịch vụ');
       return;
     }
 
-    if (parseFloat(shopData?.serve_charge_rate) > 100) {
-      showWarningMessage('サービス料を100以下で入力してください。');
-      return;
-    }
+    // if (parseFloat(shopData?.serve_charge_rate) > 100) {
+    //   showWarningMessage('Vui lòng nhập phí dịch vụ từ 100 trở xuống');
+    //   return;
+    // }
 
     if (shopData?.payment_method_ids.length === 0) {
-      showWarningMessage('支払方法を選択してください。');
+      showWarningMessage('Vui lòng chọn một phương thức thanh toán');
       return;
     }
 
     try {
       await ShopApiService.postShopTaxInfo(shop?.hashId, newShopDataClone);
-      showSuccessMessage('更新しました。');
+      showSuccessMessage('Cập nhật thành công');
       setIsSubmit(false);
     } catch (error) {
       showWarningMessage(error?.result[0]?.errorCode);
@@ -348,19 +350,19 @@ const PageSettingTax = (props) => {
   return (
     <>
       <PageContainer padding='0px'>
-        <HeaderAppBar title='会計・税率設定' />
+        <HeaderAppBar title='Cài đặt thuế' />
         {!waiting ? (
           <PageInnerContainer padding='0px 0px 25px 0px'>
             <Box className={classes.container}>
               <Box>
                 <Box className={classes.wrapContentRow}>
-                  <Box className={classes.label}>通貨単位</Box>
+                  <Box className={classes.label}>Đơn vị tiền tệ</Box>
                   <Box className={classes.label}>
                     {`${shop?.m_country?.name} ${shop?.mShopPosSetting?.m_currency?.name} (${shop?.mShopPosSetting?.m_currency?.code})`}
                   </Box>
                 </Box>
                 <Box mt={2} className={classes.wrapContentRow}>
-                  <Box className={classes.label}>金額表示</Box>
+                  <Box className={classes.label}>Hiển thị số tiền</Box>
                   <Box flex={1} className={classes.wrapTabs}>
                     <Tabs
                       value={shopData?.price_display_mode}
@@ -370,13 +372,13 @@ const PageSettingTax = (props) => {
                       name='tabs'
                     >
                       <Tab
-                        label='税込み表示'
+                        label='Hiển thị cả tiền thuế'
                         id='show-tax'
                         value={INCLUDE_TAX}
                         className={`${classes.customTab} ${classes.customTabLeft}`}
                       />
                       <Tab
-                        label='税抜き表示'
+                        label='Không hiển thị tiền thuế'
                         id='hide-tax'
                         value={NOT_INCLUDE_TAX}
                         className={`${classes.customTab} ${classes.customTabRight}`}
@@ -385,7 +387,7 @@ const PageSettingTax = (props) => {
                   </Box>
                 </Box>
                 <Box mt={2} className={classes.wrapContentRow}>
-                  <Box className={classes.label}>税額端数</Box>
+                  <Box className={classes.label}>Làm tròn tiền thuế</Box>
                   <Box flex={1} className={classes.wrapTabs}>
                     <Tabs
                       value={shopData?.price_fraction_mode}
@@ -394,51 +396,51 @@ const PageSettingTax = (props) => {
                       TabIndicatorProps={{ style: { display: 'none' } }}
                     >
                       <Tab
-                        label='切り捨て'
+                        label='Làm tròn xuống'
                         id='round-down'
                         value={ROUND_DOWN}
                         className={`${classes.customTab} ${classes.customTabLeft}`}
                       />
                       <Tab
-                        label='切り上げ'
+                        label='Làm tròn lên'
                         id='round-up'
                         value={ROUND_UP}
                         className={`${classes.customTab} ${classes.customTabMiddle}`}
                       />
                       <Tab
-                        label='四捨五入'
+                        label='Làm tròn số'
                         id='round-normal'
                         value={ROUND_NORMAL}
                         className={`${classes.customTab} ${classes.customTabRight}`}
                       />
                     </Tabs>
                     <Box className={classes.textHanldeTax}>
-                      商品価格の税額端数 (0.1~0.9{shop?.mShopPosSetting?.m_currency?.name}
-                      )の処理方法
+                      {/*商品価格の税額端数 (0.1~0.9{shop?.mShopPosSetting?.m_currency?.name}*/}
+                      {/*)の処理方法*/}
                     </Box>
                   </Box>
                 </Box>
+                {/*<Box mt={2} className={classes.wrapContentRow}>*/}
+                {/*  <Box className={classes.label}>合計額端数</Box>*/}
+                {/*  <FormControlLabel*/}
+                {/*    control={*/}
+                {/*      <Checkbox*/}
+                {/*        checked={shopData?.total_amount_fraction_mode === 1 ? true : false}*/}
+                {/*        name='total_amount_fraction_mode'*/}
+                {/*        value={shopData?.total_amount_fraction_mode}*/}
+                {/*        color='default'*/}
+                {/*      />*/}
+                {/*    }*/}
+                {/*    label={*/}
+                {/*      <Box style={{ fontSize: 14 }}>*/}
+                {/*        レシート合計の1~9{shop?.mShopPosSetting?.m_currency?.name}は切り捨てする*/}
+                {/*      </Box>*/}
+                {/*    }*/}
+                {/*    onChange={(event) => onChangeCheckBox(event)}*/}
+                {/*  />*/}
+                {/*</Box>*/}
                 <Box mt={2} className={classes.wrapContentRow}>
-                  <Box className={classes.label}>合計額端数</Box>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={shopData?.total_amount_fraction_mode === 1 ? true : false}
-                        name='total_amount_fraction_mode'
-                        value={shopData?.total_amount_fraction_mode}
-                        color='default'
-                      />
-                    }
-                    label={
-                      <Box style={{ fontSize: 14 }}>
-                        レシート合計の1~9{shop?.mShopPosSetting?.m_currency?.name}は切り捨てする
-                      </Box>
-                    }
-                    onChange={(event) => onChangeCheckBox(event)}
-                  />
-                </Box>
-                <Box mt={2} className={classes.wrapContentRow}>
-                  <Box className={classes.label}>サービス料</Box>
+                  <Box className={classes.label}>Phí dịch vụ</Box>
                   <Box display={{ sm: 'flex' }}>
                     <Box
                       display='flex'
@@ -472,13 +474,13 @@ const PageSettingTax = (props) => {
                           color='default'
                         />
                       }
-                      label={<Box className={classes.labelCheckbox}>利用なし</Box>}
+                      label={<Box className={classes.labelCheckbox}>Không sử dụng</Box>}
                       onChange={(event) => onChangeCheckBox(event)}
                     />
                   </Box>
                 </Box>
                 <Box mt={2} mb={4} className={classes.wrapContentRow}>
-                  <Box className={classes.label}>支払方法</Box>
+                  <Box className={classes.label}>Phương thức thanh toán</Box>
                   <Box>
                     <Grid container spacing={0}>
                       {paymentMethods &&
@@ -527,7 +529,7 @@ const PageSettingTax = (props) => {
                       onClick={() => history.push('/setting')}
                       className={`${classes.buttonController} + ' ' + ${classes.buttonBack}`}
                     >
-                      戻る
+                      Quay lại
                     </Button>
                   </Grid>
 
@@ -537,7 +539,7 @@ const PageSettingTax = (props) => {
                       className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                       disabled={isSubmit}
                     >
-                      保存する
+                      Lưu
                       {isSubmit ? (
                         <CircularProgress style={{ marginLeft: 10, width: 20, height: 20 }} />
                       ) : null}

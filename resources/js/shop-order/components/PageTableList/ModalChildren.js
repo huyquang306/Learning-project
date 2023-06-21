@@ -132,7 +132,7 @@ ModalQRCode.defaultProps = {
   isOpen: false,
   title: 'Thông báo',
   color: '#FFA04B',
-  confirmText: 'Thêm',
+  confirmText: 'OK',
   cancelText: 'Hủy',
   isModalConfirmUpdateCourse: false,
   isModalChangePaymentPackage: false,
