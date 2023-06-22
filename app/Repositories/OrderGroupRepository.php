@@ -418,4 +418,43 @@ class OrderGroupRepository
 
         return null;
     }
+
+    /**
+     * @param TOrderGroup $ordergroup
+     * @param $totalBilling
+     * @return TOrderGroup|null
+     */
+    public function updateRequestCheckout(TOrdergroup $ordergroup, $totalBilling): ?TOrderGroup
+    {
+        if ($ordergroup) {
+            DB::transaction(function () use ($ordergroup, $totalBilling) {
+                $ordergroup->status = config('const.STATUS_ORDERGROUP.REQUEST_CHECKOUT');
+                $ordergroup->total_billing = $totalBilling;
+                $ordergroup->payment_request_time = now();
+                $ordergroup->save();
+            });
+
+            return $ordergroup;
+        }
+
+        return null;
+    }
+
+    /**
+     * Check order group is available or not
+     *
+     * @param $id
+     * @return bool
+     */
+    public function checkOrderGroupAvailable($id): bool
+    {
+        $order_group = TOrderGroup::where('hash_id', $id)->first();
+
+        return $order_group && in_array($order_group->status, [
+                config('const.STATUS_ORDERGROUP.PRE_ORDER'),
+                config('const.STATUS_ORDERGROUP.ORDERING'),
+                config('const.STATUS_ORDERGROUP.REQUEST_CHECKOUT'),
+                config('const.STATUS_ORDERGROUP.WAITING_CHECKOUT'),
+            ]);
+    }
 }

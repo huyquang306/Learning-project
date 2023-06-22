@@ -414,7 +414,7 @@ const NumberPicker = (props) => {
         },
       });
       PubSub.publish(KEY_UPDATE_CHECKED_OUT_ORDERGROUP, state.ordergroup);
-      setToast({ isShow: true, status: 'success', message: '支払いが完了しました!' });
+      setToast({ isShow: true, status: 'success', message: 'Thanh toán thành công!' });
       // Remove course had show end time
       let orderGroupsShowEndedTime =
         JSON.parse(localStorage.getItem(ORDER_GROUP_SHOW_ENDED_TIME)) || [];

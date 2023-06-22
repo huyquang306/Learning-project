@@ -65,7 +65,7 @@ const StyledAppContainer = styled.div`
 //
 const RouterBase = (props) => {
   return (
-    <Router basename={process.env.MIX_BASENAME_CUSTOMER_ORDER}>
+    <Router basename={process.env.MIX_INDEX_PATH_CUSTOMER_ORDER}>
       <Switch>{props.children}</Switch>
     </Router>
   );
@@ -84,7 +84,6 @@ const RouterSignedInOut = () => {
       </style>
 
       <RouterBase>
-        {/* 新規登録・サインイン */}
         <Route path="/table-register" exact component={PageTableSignin} />
         <Route path="/register" exact component={PageSignin} />
         <Route path="/welcome" exact component={PageWelcome} />
@@ -177,18 +176,18 @@ const AppContainer = () => {
     deleteCookie(CUSTOMER_AUTH_KEY);
     deleteCookie('userHashId');
     setShowModalExpired(false);
-    window.location.href = `/shop-or/register`;
+    window.location.href = `/customer-order/register`;
   };
   
   // Connect to endpoint API Gateway
   useEffect(() => {
-    onConnectWebSocket(shopHashId);
+    // onConnectWebSocket(shopHashId);
   }, [shopHashId]);
 
   const renderActions = () => (
     <>
       <Button onClick={handleLogout} bgcolor="#FFA04B" borderRadius="28px" borderColor="#828282">
-        ログアウトする
+        Đăng xuất
       </Button>
     </>
   );
@@ -355,15 +354,15 @@ const AppContainer = () => {
         userGroupName={ON_BOARDING_CONFIG.USER_GROUP_NAME.CUSTOMER}
       />
       
-      {window.location.pathname !== '/shop-or/register' && <Modal
+      {window.location.pathname !== '/customer-order/register' && <Modal
         open={showModalExpired}
-        title="お知らせ"
+        title="Chú ý"
         actions={renderActions()}
         maxHeight="auto"
         minHeight="120px"
       >
         <Box textAlign="center" fontWeight={600} mt={8}>
-          この店舗は無効です。
+          Cửa hàng này đã bị khóa!
         </Box>
       </Modal>}
     </UserInfoContext.Provider>

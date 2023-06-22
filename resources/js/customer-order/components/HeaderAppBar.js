@@ -146,7 +146,7 @@ const HeaderAppBar = (props) => {
           className={classes.menuItem}
           onClick={handleLogin}
         >
-          登録/ログイン
+          Đăng nhập/Đăng kí
         </Link>
       );
 
@@ -167,7 +167,7 @@ const HeaderAppBar = (props) => {
           className={classes.menuItem}
           onClick={handleLogout}
         >
-          ログアウト
+          Đăng xuất
         </Link>
       );
 
@@ -209,7 +209,7 @@ const HeaderAppBar = (props) => {
       >
         <Box px={1} className={classes.menu}>
           <Box py={2} fontWeight={600}>
-            卓番号：{table_code}
+            Bàn：{table_code}
           </Box>
 
           <Box>
@@ -218,26 +218,26 @@ const HeaderAppBar = (props) => {
               to={'/' + shop_hash_id}
               onClick={() => setShowDivider(false)}
             >
-              TOPへ
+              Màn hình chính
             </Link>
             <Link
               className={classes.menuItem}
               to={'/' + shop_hash_id + '/pre_order/list'}
               onClick={() => setShowDivider(false)}
             >
-              未注文リスト
+              Các món đang gọi
             </Link>
             <Link
               className={classes.menuItem}
               to={'/' + shop_hash_id + '/order/list'}
               onClick={() => setShowDivider(false)}
             >
-              注文履歴
+              Các món đã gọi
             </Link>
           </Box>
 
           <Box pb={1} pt={5} fontWeight={600}>
-            商品
+            Cừa hàng
           </Box>
 
           <Box>
@@ -246,7 +246,7 @@ const HeaderAppBar = (props) => {
               to={'/' + shop_hash_id + '/recommend/menu/list'}
               onClick={() => setShowDivider(false)}
             >
-              おすすめ
+              Các món gợi ý
             </Link>
             {categories &&
               categories.map((item, index) => (
@@ -262,7 +262,7 @@ const HeaderAppBar = (props) => {
           </Box>
 
           <Box pb={1} pt={5} fontWeight={600}>
-            ユーザー
+            Người dùng
           </Box>
 
           <Box>
