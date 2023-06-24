@@ -81,5 +81,48 @@ Route::prefix('v1')->group(
                 Route::put('/{shop}/billing/payment/ordergroup/{ordergroup}', 'Api\Shop\BillingController@payment');
             }
         );
+
+        Route::group(
+            [
+                'prefix' => 'user',
+                'middleware' => 'guest:api'
+            ],
+            function () {
+                // customer update information
+                Route::get('/search-user', 'Api\User\UserController@listUserByPhoneNumber');
+                Route::get('/{user?}', 'Api\User\UserController@show');
+                Route::put('{user}', 'Api\User\UserController@update');
+                Route::post('/', 'Api\User\UserController@create');
+
+                // Order group
+                Route::get('/{shop}/ordergroup/{ordergroup}', 'Api\User\OrderGroupController@show');
+                Route::get('{shop}/billing/calc/{ordergroup}', 'Api\User\BillingController@calculate');
+
+                // Category
+                Route::get('{shop}/category', 'Api\User\CategoryController@index');
+                Route::get('{shop}/category/{category}', 'Api\User\CategoryController@show');
+
+                // Menu
+                Route::get('{shop}/menu-recommend', 'Api\User\MenuController@getMenuCategoryRecommend');
+
+                // Course order
+                Route::get('{shop}/course', 'Api\User\CourseController@index');
+                Route::get('{shop}/course/{course}', 'Api\User\CourseController@show');
+                Route::put('{shop}/course-order/{ordergroup}', 'Api\User\CourseController@update');
+
+                // Routes need to authenticate
+                Route::group(['middleware' => 'customer-order.auth'], function () {
+                    // Order
+                    Route::post('/{shop}/order/{odergroup}', 'Api\User\OrderController@create');
+                    Route::put('/{shop}/order/{ordergroup}', 'Api\User\OrderController@update');
+                    Route::delete('/{shop}/order/{menu}/{ordergroup}', 'Api\User\OrderController@delete');
+                    // Billing
+                    Route::post('{shop}/billing/payrequest/{ordergroup}', 'Api\User\BillingController@payRequest');
+                });
+
+                // Tax options
+                Route::get('{shop}/tax-info', 'Api\User\ShopController@getTaxInfo');
+            }
+        );
     }
 );

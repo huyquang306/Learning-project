@@ -61,6 +61,7 @@ class CustomerOrderApiService extends ApiBase {
   async getCustomers(phoneNumber) {
     return await this.request(ENDPOINTS.GET_USERS_BY_PHONE_NUMBER, [], {phone_number: phoneNumber});
   }
+
   async createCustomer(phoneNumber, nickName) {
     return await this.request(ENDPOINTS.POST_USER, [], {
       phone_number: phoneNumber,

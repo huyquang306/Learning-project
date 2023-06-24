@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\MCourse;
 use App\Models\MCoursePrice;
+use App\Models\MTax;
 use App\Models\RShopCourse;
 use App\Repositories\Interfaces\CourseRepositoryInterface;
 use Illuminate\Support\Facades\DB;
@@ -326,5 +327,74 @@ class CourseRepository extends BaseRepository implements CourseRepositoryInterfa
             'mMenus.mainImage',
             'mMenus.rShopMenu',
         ]);
+    }
+
+    /**
+     * Get list of courses for customer
+     *
+     * @param integer $shopId
+     * @param Carbon $orderCourseTime
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getListCourseForCustomer($shopId, $orderCourseTime): \Illuminate\Support\Collection
+    {
+        $query = $this->model->query();
+        // query data
+        $query->join('r_shop_course', function ($join) {
+            $join->on('m_course.id', '=', 'r_shop_course.m_course_id');
+        })->join('m_course_price', function ($join) {
+            $join->on('m_course_price.r_shop_course_id', '=', 'r_shop_course.id');
+        })
+            ->with('mMenus')
+            ->whereHas('mShops', function ($mShopQuery) use ($shopId) {
+                $mShopQuery->where('m_shop.id', $shopId);
+            })
+            ->where('r_shop_course.status', MCourse::ACTIVE_STATUS)
+            ->where('m_course_price.status', MCoursePrice::ACTIVE_STATUS)
+            ->where(function ($query) use ($orderCourseTime) {
+                $query->where(function ($subQuery) use ($orderCourseTime) {
+                    $subQuery->whereRaw('m_course_price.block_time_start < m_course_price.block_time_finish')
+                        ->where('m_course_price.block_time_start', '<=', $orderCourseTime)
+                        ->where('m_course_price.block_time_finish', '>', $orderCourseTime);
+                })->orWhere(function ($subQuery) use ($orderCourseTime) {
+                    $subQuery->whereRaw('m_course_price.block_time_start > m_course_price.block_time_finish')
+                        ->where('m_course_price.block_time_start', '<=', $orderCourseTime);
+                })->orWhere(function ($subQuery) use ($orderCourseTime) {
+                    $subQuery->whereRaw('m_course_price.block_time_start > m_course_price.block_time_finish')
+                        ->where('m_course_price.block_time_finish', '>=', $orderCourseTime);
+                });
+            })
+            ->whereNull('parent_id')
+            ->selectRaw(
+                'm_course.hash_id,
+                m_course.name,
+                m_course.time_block_unit,
+                m_course.s_image_folder_path,
+                m_course.m_image_folder_path,
+                m_course.l_image_folder_path,
+                m_course.image_file_name,
+                r_shop_course.status,
+                m_course.alert_notification_time,
+                m_course_price.hash_id as block_hash_id,
+                m_course_price.block_time_start,
+                m_course_price.block_time_finish,
+                m_course_price.unit_price,
+                m_course_price.tax_value,
+                m_course_price.m_tax_id'
+            )
+            ->groupBy('m_course.id');
+
+        $courses = $query->get();
+        foreach ($courses as $course) {
+            $course->m_tax = MTax::where('id', $course->m_tax_id)->first();
+            $course->current_price = getMenuPriceHelper(
+                null,
+                config('const.function_helper.menu_price.course_price_type'),
+                $course
+            );
+        }
+
+        return $courses;
     }
 }

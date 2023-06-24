@@ -122,6 +122,11 @@ export default class ApiBase
           message = errorCode || errorMessage;
         }
 
+      if (error.result.errorCode === 'deactive_shop') {
+        PubSub.publish(PUB_SUB_KEY.DEACTIVE_SHOP, null);
+        throw CustomError('deactive_shop', error.result);
+      }
+
         throw CustomError(message, error.data);
       })
   }
@@ -181,7 +186,14 @@ export default class ApiBase
       options.body = JSON.stringify(data);
     }
 
+    // Don't need to authenticate
     if (typeof needAuth === 'boolean' && !needAuth) {
+      return Promise.resolve(options);
+    }
+    
+    // User authentication
+    if (typeof needAuth === 'string' && needAuth === 'user') {
+      options.headers['OrderGroupId'] = localStorage.getItem('ordergroupHash');
       return Promise.resolve(options);
     }
 
@@ -189,6 +201,7 @@ export default class ApiBase
       return Promise.resolve(options);
     }
 
+    // Shop authentication (using firebase)
     return this.authService.getIdToken().then((token) => {
       options.headers['Authorization'] = 'Bearer ' + token;
 

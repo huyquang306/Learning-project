@@ -41,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
             'BusinessHourRepositoryInterface' => 'BusinessHourRepository',
             'PaymentMethodForCusRepositoryInterface' => 'PaymentMethodForCusRepository',
             'TPaymentRepositoryInterface' => 'TPaymentRepository',
+            'UserRepositoryInterface' => 'UserRepository',
         ];
 
         foreach ($repositories as $key => $val) {

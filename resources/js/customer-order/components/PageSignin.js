@@ -130,10 +130,13 @@ const PageSignin = (_props) => {
     let errors = [];
     // Validate Nickname
     if (!nickName) {
-      errors.push('ニックネームを入力してください');
+      errors.push('Vui lòng nhập tên tài khoản');
     }
-    if (!Utils.validatePattern('MOBILE_JP', authPhoneNUmber)) {
-      errors.push('携帯番号を入力してください');
+    // if (!Utils.validatePattern('MOBILE_JP', authPhoneNUmber)) {
+    //   errors.push('Vui lòng nhập số điện thoại di động của bạn');
+    // }
+    if (authPhoneNUmber === '') {
+      errors.push('Vui lòng nhập số điện thoại di động của bạn');
     }
 
     return errors;
@@ -187,7 +190,7 @@ const PageSignin = (_props) => {
         history.push(checkoutLink);
       }
     } catch (error) {
-      if (error.message === 'Error: この店舗は無効です。') {
+      if (error.message === 'Error: deactive_shop') {
         setErrorMessage(null);
         return;
       }
@@ -203,7 +206,7 @@ const PageSignin = (_props) => {
     <PageContainer>
       <RegisterContainer>
         <Card
-          title='利用者様の登録'
+          title='Đăng kí tài khoản'
           customButtons={<></>}
         >
           <FormsContainer>
@@ -212,7 +215,7 @@ const PageSignin = (_props) => {
               variant='outlined'
               value={nickName}
               onChange={handleChangeNickName}
-              placeholder='ニックネーム・グループ名'
+              placeholder='Tên tài khoản'
               fullWidth
               inputProps={{
                 maxLength: 50,
@@ -226,7 +229,7 @@ const PageSignin = (_props) => {
                 variant='outlined'
                 value={authPhoneNUmber}
                 onChange={handleChange}
-                placeholder='携帯電話番号（ハイフンなし）'
+                placeholder='Số điện thoại'
                 fullWidth
                 inputProps={{
                   maxLength: 15,
@@ -236,18 +239,15 @@ const PageSignin = (_props) => {
             </Box>
           </FormsContainer>
 
-          <Box textAlign={'left'} paddingTop={'15px'} paddingLeft={'6%'}>
-            【個人情報の利用目的】
-            <br />
-            ・登録された電話番号はコロナ発生時などの緊急連絡時
-            <br />
-            ・次回お店への予約時の確認などに利用します
-          </Box>
+          {/*<Box textAlign={'left'} paddingTop={'15px'} paddingLeft={'6%'}>*/}
+          {/*  <br />*/}
+          {/*  <br />*/}
+          {/*</Box>*/}
 
           <Box>
             <Box mt={1}>
               <Button
-                title='登録して進む'
+                title='Đăng ký'
                 bgcolor='#86BE27'
                 fgcolor='#F7FAEE'
                 onClick={handleSubmit}
@@ -255,7 +255,7 @@ const PageSignin = (_props) => {
               ></Button>
             </Box>
             <Box className={classes.underlineText} mt={1}>
-              <p onClick={handleButtonSkipClick}>登録なしで利用する</p>
+              <p onClick={handleButtonSkipClick}>Bỏ qua đăng ký</p>
             </Box>
           </Box>
         </Card>
@@ -265,7 +265,7 @@ const PageSignin = (_props) => {
       <Modal title='' open={!!errorMessage}>
         <Box>{errorMessage}</Box>
         <br />
-        <Button onClick={handleErrorModalButtonClick}>確認</Button>
+        <Button onClick={handleErrorModalButtonClick}>OK</Button>
       </Modal>
     </PageContainer>
   );

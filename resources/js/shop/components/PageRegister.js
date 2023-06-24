@@ -232,7 +232,6 @@ const PageRegister = (props) => {
   };
   
   const createShopTemp = async (isResend = false) => {
-    console.log(isResend);
     isResend && setShowWait(true);
     setButtonResendDisabled(true);
     if (!infoAccountTypeModelRobot) {
@@ -320,10 +319,10 @@ const PageRegister = (props) => {
         setShowWait(false);
         setHaveError(true);
         if (error.code !== 'auth/email-already-in-use') {
-          showWarningMessage(`エラー(${error.code})。もう一度お試しください。`);
+          showWarningMessage(`Lỗi (${error.code}), vui lòng thử lại sau`);
           return;
         } else {
-          showWarningMessage(`このメールアドレスは既に登録済みです。`);
+          showWarningMessage(`Địa chỉ email này đã được đăng ký`);
           return;
         }
       }

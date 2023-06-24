@@ -217,9 +217,8 @@ const PageShopTop = () => {
     return total;
   };
 
-  // SNS情報取得
   useEffect(() => {
-    getInstagramLink();
+    // getInstagramLink();
   }, []);
 
 
@@ -306,7 +305,6 @@ const PageShopTop = () => {
     }
   };
 
-  // SNS情報の取得
   const getInstagramLink = async () => {
     try{
       const response = await CustomerOrderApiService.getInstagramLink(shop_hash_id)
@@ -367,7 +365,7 @@ const PageShopTop = () => {
   document.body.style = 'background: #FFF;';
   return (
     <PageContainer padding="0" height='auto'>
-      <HeaderAppBar title="店舗トップ" />
+      <HeaderAppBar title="" />
       <PageInnerContainer padding="0px 0px 0px 0px" height='calc(100% - 43px)'>
         <Box id="shop-or-header" className={ classes.sticky }>
           {/* Banner shop name */}
@@ -383,24 +381,20 @@ const PageShopTop = () => {
             <Box flex="1" className={classes.boxButtonTop}>
             { instagramLink && instagramLink.link
               ? <Link to={'/' + shop_hash_id + '/order/list'} className={classes.btnWhite}>
-                  注文履歴
                   <br />
-                  会計
                 </Link>
               : <Link to={'/' + shop_hash_id + '/order/list'} className={classes.btnWhite}>
-                  注文履歴・会計
+                  Các món đã gọi
                 </Link>
             }
             </Box>
             <Box flex="1" position="relative" className={classes.boxButtonTop} style={{ borderLeft: 'none'}}>
             { instagramLink && instagramLink.link
               ? <Link to={'/' + shop_hash_id + '/pre_order/list'} className={classes.btnSecond}>
-                未注文
                 <br />
-                リスト
               </Link>
               : <Link to={'/' + shop_hash_id + '/pre_order/list'} className={classes.btnSecond}>
-                未注文リスト
+                Các món đang chọn
             </Link>
           }
             {getOrdersNumber() > 0 && (
@@ -432,7 +426,7 @@ const PageShopTop = () => {
           <Grid container spacing={2} style={{ width: '100%', margin: '0px' }}>
             <Grid item xs={6} className={classes.categoryItem}>
               <Link to={'/' + shop_hash_id + '/recommend/menu/list'} className={classes.gridItem}>
-                おすすめ
+                Gợi ý của cửa hàng
               </Link>
             </Grid>
             {/* Order Course */}
@@ -470,7 +464,7 @@ const PageShopTop = () => {
                     to={'/' + shop_hash_id + '/course/list'}
                     className={classes.gridItem}
                   >
-                    コースメニュー
+                    Các set ăn
                   </Link>
                 </Grid>
               ) : (<div></div>))

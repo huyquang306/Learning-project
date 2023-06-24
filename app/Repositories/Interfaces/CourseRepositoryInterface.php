@@ -122,4 +122,14 @@ interface CourseRepositoryInterface extends BaseRepositoryInterface
      * @return MCourse
      */
     public function deleteMenuInCourse(MCourse $course, int $menuId): MCourse;
+
+    /**
+     * Get list of courses for customer
+     *
+     * @param integer $shopId
+     * @param Carbon $orderCourseTime
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getListCourseForCustomer($shopId, $orderCourseTime): \Illuminate\Support\Collection;
 }

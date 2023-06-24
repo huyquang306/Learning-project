@@ -379,7 +379,7 @@ const ModalRegisterCustomer = (props) => {
         if (!isUpdate) {
           // go to register/login screen after scan QR code success
           await QRCode.toDataURL(
-            `${result.smart_order_url}/shop-order/register?redirect_url=${linkOrder}`
+            `${result.smart_order_url}/customer-order/register?redirect_url=${linkOrder}`
           )
             .then((url) => {
               setShowQRCode({
@@ -454,7 +454,7 @@ const ModalRegisterCustomer = (props) => {
       }
     }
     // go to register/login screen after scan QR code success
-    QRCode.toDataURL(`${smartOrderURL}/shop-order/register?redirect_url=${linkOrder}`)
+    QRCode.toDataURL(`${smartOrderURL}/customer-order/register?redirect_url=${linkOrder}`)
       .then((url) => {
         setShowQRCode({
           isShow: true,

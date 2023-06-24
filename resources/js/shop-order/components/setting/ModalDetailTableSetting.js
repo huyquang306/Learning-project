@@ -110,7 +110,7 @@ const ModalDetailTableSetting = (props) => {
       let imageData = `${process.env.MIX_ASSETS_PATH}/img/shop/defaultQR.png`;
 
       if(table.hash_id) {
-        imageData = await QRCode.toDataURL(`${smartOrderURL}/shop-or/table-register?redirect_url=${linkTableQR}`);
+        imageData = await QRCode.toDataURL(`${smartOrderURL}/customer-order/table-register?redirect_url=${linkTableQR}`);
       }
 
       setQRData(imageData);

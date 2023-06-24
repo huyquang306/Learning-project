@@ -185,7 +185,7 @@ const AppContainer = () => {
               minHeight="120px"
             >
               <Box textAlign="center" fontWeight={600} mt={8}>
-                この店舗は無効です。
+                Của hàng này đã bị khóa
               </Box>
             </Modal>
           </ShopInfoContext.Provider>

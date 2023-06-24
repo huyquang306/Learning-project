@@ -353,7 +353,7 @@ const PageTableList = (props) => {
 
   const refreshDataAfterPayment = (msg, data) => {
     if (msg === PUB_SUB_KEY.KEY_FRESH_PAYMENT_ORDERGROUP && !Utils.isEmpty(data)) {
-      setToast({ isShow: true, status: 'success', message: '支払いが完了しました!' });
+      setToast({ isShow: true, status: 'success', message: 'Thanh toán thành công!' });
       dispatch({
         type: 'UPDATE',
         payload: {

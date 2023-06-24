@@ -65,7 +65,7 @@ class PrinterService
         $m_table_code = implode(',', $m_table_code->toArray());
 
         $smartOrderUrl = env('SMART_ORDER_APP_URL', '');
-        $customerUrl = $smartOrderUrl . '/shop-order/register?redirect_url=' . $shop->hash_id
+        $customerUrl = $smartOrderUrl . '/customer-order/register?redirect_url=' . $shop->hash_id
             . '&ordergroup_hash_id=' . $order_group->hash_id
             . '&shop_name=' . urlencode($shop->name)
             . '&table_code=' . urlencode($m_table_code);

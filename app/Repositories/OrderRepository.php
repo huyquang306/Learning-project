@@ -371,4 +371,78 @@ class OrderRepository extends BaseRepository
 
         return $newOrders;
     }
+
+    /**
+     * ordergroup update
+     *
+     * @param $request
+     * @param MShop $shop
+     * @param TOrderGroup $ordergroup
+     * @return Collection
+     */
+    public function updateOrder($request, MShop $shop, TOrdergroup $ordergroup): Collection
+    {
+        $datas = $request->get('orders');
+        $orders = new Collection();
+
+        try {
+            DB::beginTransaction();
+            foreach ($datas as $value) {
+                $r_shop_menu_id = null;
+                $menu = MMenu::where('hash_id', $value['menu_hash_id'])->first();
+                $r_shop_menu_id = $shop->mMenus->find($menu->id)->pivot->id;
+                if ($r_shop_menu_id) {
+                    $order = TOrder::where(['t_ordergroup_id' => $ordergroup->id, 'r_shop_menu_id' => $r_shop_menu_id])->first();
+                    $order->status = $value['status'];
+                    $order->quantity = $value['quantity'];
+                    $order->amount = $value['quantity'] * $order->price_unit;
+                    $order->save();
+                    $orders->add($order);
+                }
+            }
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollBack();
+            \Log::error($exception->getMessage());
+        }
+
+
+        return $orders;
+    }
+
+    /**
+     * Order Delete
+     *
+     * @param MShop $shop
+     * @param MMenu $menu
+     * @param TOrdergroup $ordergroup
+     * @return TOrder|null
+     */
+    public function deleteOrder(MShop $shop, MMenu $menu, TOrdergroup $ordergroup): ?TOrder
+    {
+        $order_id = null;
+        $r_shop_menu_id = $shop->mMenus->find($menu->id)->pivot->id;
+        $order = TOrder::where([
+            't_ordergroup_id' => $ordergroup->id,
+            'r_shop_menu_id' => $r_shop_menu_id,
+            'status' => config('const.STATUS_ORDER')]
+        )->first();
+
+        if ($r_shop_menu_id && $order) {
+            \DB::transaction(
+                function () use ($order, &$order_id) {
+                    $order->status = config('const.STATUS_CANCEL');
+                    $order->amount = 0;
+                    $order->save();
+                    $order_id = $order->id;
+                }
+            );
+
+            if ($order_id) {
+                return TOrder::find($order_id);
+            }
+        }
+
+        return null;
+    }
 }
