@@ -84,7 +84,7 @@ const PageCheckout = () => {
 
   return (
     <PageContainer padding='0'>
-      <HeaderAppBar title='お会計' />
+      <HeaderAppBar title='Xin cảm ơn' />
       <PageInnerWrap>
         <PageInnerContainer>
           <Box textAlign='center' fontWeight={600}>
@@ -96,20 +96,20 @@ const PageCheckout = () => {
               </Box>
             </Box>
 
-            <Box fontSize={24}>レジにて画面をお見せください</Box>
+            <Box fontSize={24}>Vui lòng thanh toán tại quầy thu ngân</Box>
 
             <Box pt={5} fontSize={24}>
-              卓番号
+              Bàn
             </Box>
             <Box fontSize={36} className={classes.textUnderline}>
               {table_code}
             </Box>
 
             <Box pt={4} className={classes.textGray}>
-              ※本システムを通していない
+              ※Không thanh toán thông qua hệ thống này
             </Box>
-            <Box className={classes.textGray}>ご注文・サービスがある場合、</Box>
-            <Box className={classes.textGray}>お会計金額が変わる可能性があります</Box>
+            {/*<Box className={classes.textGray}>ご注文・サービスがある場合、</Box>*/}
+            {/*<Box className={classes.textGray}>お会計金額が変わる可能性があります</Box>*/}
           </Box>
         </PageInnerContainer>
       </PageInnerWrap>

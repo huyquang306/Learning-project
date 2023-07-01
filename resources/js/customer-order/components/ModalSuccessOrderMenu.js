@@ -47,7 +47,7 @@ const ModalSuccessOrderMenu = (props) => {
         style={ styles.footerButton }
         onClick={() => props.onClose() }
       >
-        はい
+        OK
       </Button>
     );
   };
@@ -55,7 +55,7 @@ const ModalSuccessOrderMenu = (props) => {
   return (
     <Modal
       open={ props.open }
-      title='注文完了しました'
+      title='Thành công'
       onClose={ props.onClose }
       actions={ renderModalActions() }
       maxWidth='450px'
@@ -63,7 +63,7 @@ const ModalSuccessOrderMenu = (props) => {
       <div className={ classes.modalContent }>
         <Box textAlign='right'>
           <Box className={ classes.lineDetail }>
-            <Box width='100%' textAlign='center'>注文完了しました</Box>
+            <Box width='100%' textAlign='center'>Gọi thêm món thành công</Box>
           </Box>
         </Box>
       </div>

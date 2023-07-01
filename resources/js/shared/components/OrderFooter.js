@@ -97,7 +97,7 @@ const OrderFooter = (props) => {
             }}
             onClick={() => props.buttonBack()}
           >
-            Back to Menu
+            Quay lại
           </Button>
         </Box>
         
@@ -118,7 +118,7 @@ const OrderFooter = (props) => {
               }}
               onClick={() => confirmOrder()}
             >
-              Order
+              Gọi món
             </Button>
           </Box>
         )}

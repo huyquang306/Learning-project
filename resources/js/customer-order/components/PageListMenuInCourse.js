@@ -123,7 +123,7 @@ const PageListMenuInCourse = () => {
 
   // Connect to endpoint API Gateway
   useEffect(() => {
-    onConnectWebSocket(shopHashId);
+    // onConnectWebSocket(shopHashId);
   }, []);
 
   const getMenuInCourse = async () => {
