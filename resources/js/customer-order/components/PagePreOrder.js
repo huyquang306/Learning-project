@@ -97,7 +97,7 @@ const PagePreOrder = () => {
 
   // Connect to endpoint API Gateway
   useEffect(() => {
-    onConnectWebSocket(shop_hash_id);
+    // onConnectWebSocket(shop_hash_id);
   }, []);
 
   const getShopTaxInfo = async () => {
@@ -204,7 +204,7 @@ const PagePreOrder = () => {
 
   return (
     <PageContainer padding='0' height='auto' minHeight='auto'>
-      <HeaderAppBar title='未注文リスト' />
+      <HeaderAppBar title='Các món gọi thêm' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding='0px 0px 60px 0px'>
           {orderList &&
@@ -248,7 +248,6 @@ const PagePreOrder = () => {
                   >
                     {item.quantity}
                     <Box fontSize={13} fontWeight='fontWeightRegular'>
-                      個
                     </Box>
                   </Box>
                   <Button

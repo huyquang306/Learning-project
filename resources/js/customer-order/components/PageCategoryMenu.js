@@ -9,7 +9,7 @@ import CustomerOrderApiService from 'js/customer-order/customer-or-api-service';
 import Utils from 'js/shared/utils';
 
 // Material UI component
-import { Box } from '@material-ui/core';
+import {Box, Grid} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Component
@@ -85,6 +85,7 @@ const useStyles = makeStyles({
   prodItem: {
     position: 'relative',
     border: '1px solid #BDBDBD',
+    // width: '33.333%',
 
     '&:before': {
       content: '""',
@@ -158,6 +159,10 @@ const styles = {
   footerButton: {
     width: '100%',
   },
+  container: {
+    marginTop: '5px',
+    marginLeft: '3px',
+  }
 };
 
 const DEFAULT_QUANTITY_ORDER = 1;
@@ -199,7 +204,7 @@ const PageCategoryMenu = () => {
 
   // Connect to endpoint API Gateway
   useEffect(() => {
-    onConnectWebSocket(shop_hash_id);
+    // onConnectWebSocket(shop_hash_id);
   }, []);
 
   useEffect(() => {
@@ -440,7 +445,7 @@ const PageCategoryMenu = () => {
           style={styles.footerButton}
           onClick={() => setIsShowModal(false)}
         >
-          戻る
+          Quay lại
         </Button>
         <Button
           bgcolor='#f2994b'
@@ -450,7 +455,7 @@ const PageCategoryMenu = () => {
           style={styles.footerButton}
           onClick={handleSavePreOrderList}
         >
-          追加する
+          OK
         </Button>
       </Box>
     );
@@ -466,7 +471,7 @@ const PageCategoryMenu = () => {
               {priceDisplayMode === 1
                 ? product.current_price.price_unit_without_tax
                 : product.price}{' '}
-              <Box fontSize={16}>{currencyName}</Box> <Box ml={1}>{(priceDisplayMode === 1 &&  product.price > 0) && '(税抜き)'}</Box>
+              <Box fontSize={16}>{currencyName}</Box> <Box ml={1}>{(priceDisplayMode === 1 &&  product.price > 0) && '(chưa thuế)'}</Box>
             </Box>
           </Fragment>
         );
@@ -485,7 +490,7 @@ const PageCategoryMenu = () => {
         <Fragment>
           <Box className='prodPrice'>
             {priceDisplayMode === 1 ? product.current_price.price_unit_without_tax : product.price}
-            <Box fontSize={16}>{currencyName}</Box> <Box ml={1}>{(priceDisplayMode === 1 &&  product.price > 0) && '(税抜き)'}</Box>
+            <Box fontSize={16}>{currencyName}</Box> <Box ml={1}>{(priceDisplayMode === 1 &&  product.price > 0) && '(chưa thuế)'}</Box>
           </Box>
         </Fragment>
       );
@@ -516,12 +521,18 @@ const PageCategoryMenu = () => {
             </Box>
 
             <Box flex={1} className={classes.pageRight}>
-              <Box>
+              {/*<Box>*/}
+              <Grid container style={styles.container}>
                 {productList &&
                   productList
                     .filter((item) => item.status === MENU_STATUS.STATUS_ONSALE)
                     .map((product, index) => (
-                      <Box
+                      <Grid
+                        item
+                        xs={12}
+                        sm={6}
+                        md={4}
+                        lg={3}
                         key={index}
                         className={classes.prodItem}
                         onClick={() => handleSelectProduct(product)}
@@ -539,9 +550,10 @@ const PageCategoryMenu = () => {
                         )}
                         {/* display price of menu */}
                         <Box className='menuInfo'>{displayPriceOfMenu(product)}</Box>
-                      </Box>
+                      </Grid>
                     ))}
-              </Box>
+              </Grid>
+              {/*</Box>*/}
             </Box>
           </Box>
 
@@ -567,7 +579,7 @@ const PageCategoryMenu = () => {
         {/* Modal product  */}
         {isShowModal && (
           <Modal
-            title='詳細'
+            title='Chi tiết'
             open={isShowModal}
             actions={ModalActions()}
             maxHeight='456px'
@@ -602,7 +614,6 @@ const PageCategoryMenu = () => {
               <Box display='flex' alignItems='baseline' fontSize={55} fontWeight='fontWeightBold'>
                 {productSelected.quantity}
                 <Box fontSize={23} fontWeight='fontWeightRegular'>
-                  個
                 </Box>
               </Box>
               <Button

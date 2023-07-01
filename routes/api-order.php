@@ -103,6 +103,8 @@ Route::prefix('v1')->group(
                 Route::get('{shop}/category/{category}', 'Api\User\CategoryController@show');
 
                 // Menu
+                Route::get('{shop}/menu', 'Api\User\MenuController@index');
+                Route::get('{shop}/menu/{menu}', 'Api\User\MenuController@show');
                 Route::get('{shop}/menu-recommend', 'Api\User\MenuController@getMenuCategoryRecommend');
 
                 // Course order

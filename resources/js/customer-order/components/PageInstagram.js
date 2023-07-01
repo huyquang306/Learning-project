@@ -111,7 +111,7 @@ const PageInstagram = () => {
 
   // Connect to endpoint API Gateway
   useEffect(() => {
-    onConnectWebSocket(shop_hash_id);
+    // onConnectWebSocket(shop_hash_id);
   }, []);
 
   const backToMenu = () => {

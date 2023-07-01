@@ -85,14 +85,14 @@ const PageThanksForCustomer = () => {
 
   return (
     <PageContainer padding="0">
-      <HeaderAppBar title="お会計" />
+      <HeaderAppBar title="Hóa đơn" />
       <PageInnerWrap>
         <PageInnerContainer>
           <Box height="10%" textAlign="center" display="flex" alignItems="center"/>
           <Box height="30%" textAlign="center" alignItems="center" fontWeight={600} fontSize={'20px'}>
-            ご来店ありがとうございました。
+            Cảm ơn vì đã đến
             <br></br>
-            またのお越しをお待ちしております。
+            Hẹn gặp lại quý khách
           </Box>
           <Box height="30%" textAlign="center" alignItems="center">
           { file_path ?
@@ -100,7 +100,7 @@ const PageThanksForCustomer = () => {
                 className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                 onClick={()=> window.open(S3_URL + file_path, "_blank")}
               >
-                レシートを表示
+                Xem hóa đơn
               </Button>
             : ''
             }

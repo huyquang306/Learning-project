@@ -3,10 +3,10 @@
 namespace App\Http\Requests\User;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Request;
 
-class OrderRequest extends FormRequest
+class MenuRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,51 +21,33 @@ class OrderRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @param Request $request
      * @return array
      */
     public function rules(Request $request): array
     {
         $validate = [];
-        switch ($request->method())
-        {
-            case 'POST':
-                $validate = [
-                    'orders.*.menu_hash_id' => ['required', 'exists:m_menu,hash_id'],
-                    'orders.*.quantity' => ['required', 'numeric'],
-                ];
-                break;
-
-            case 'PUT':
-                $validate = [
-                    'orders.*.menu_hash_id' => ['required', 'exists:m_menu,hash_id'],
-                    'orders.*.quantity' => ['required', 'numeric'],
-                    'orders.*.status' => ['required', 'numeric'],
-                ];
-                break;
-
+        switch ($request->method()) {
             default:
                 $validate = [];
                 break;
         }
-
         return $validate;
     }
 
+    /**
+     * @return array
+     */
     public function messages(): array
     {
-        return [
-            'orders.*.menu_hash_id.required' => 'required',
-            'orders.*.menu_hash_id.exists' => 'not_exists',
-            'orders.*.quantity.required' => 'required',
-            'orders.*.quantity.numeric' => 'not_numeric',
-            'orders.*.status.required' => 'required',
-            'orders.*.status.numeric' => 'not_numeric',
-        ];
+        return [];
     }
 
+    /**
+     * @param Validator $validator
+     */
     protected function failedValidation(Validator $validator)
     {
+
         $message = $validator->errors()->messages();
         $key = key($message);
 
@@ -77,11 +59,15 @@ class OrderRequest extends FormRequest
                     'fields'=> $key,
                     'errorCode' => $message[$key][0]
                 ]
-            ], 400
+            ],
+            400
         );
         throw new HttpResponseException($res);
     }
 
+    /**
+     * @param Validator $validator
+     */
     public function withValidator(Validator $validator)
     {
     }

@@ -55,7 +55,7 @@ const ModalConfirmOrder = (props) => {
           style={styles.footerButton}
           onClick={props.onClose}
         >
-          追加で選ぶ
+          Quay lại
         </Button>
         <Button
           bgcolor='#f2994b'
@@ -67,7 +67,7 @@ const ModalConfirmOrder = (props) => {
           disabled={props.isSubmitLoading}
           isSubmitLoading={props.isSubmitLoading}
         >
-          注文する
+          OK
         </Button>
       </Box>
     );
@@ -78,7 +78,7 @@ const ModalConfirmOrder = (props) => {
   return (
     <Modal
       open={props.open}
-      title='注文する'
+      title='Gọi món'
       onClose={props.onClose}
       actions={ModalActions()}
       maxWidth='450px'
@@ -87,7 +87,7 @@ const ModalConfirmOrder = (props) => {
         <Box textAlign='right'>
           <Box className={classes.lineDetail}>
             <Box width={'100%'} textAlign={'center'}>
-              {menusQuantity()}件の商品の注文しますか？
+              Bạn có muốn gọi thêm những món đã chọn？
             </Box>
           </Box>
         </Box>

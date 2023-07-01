@@ -220,37 +220,37 @@ const PageOrder = () => {
   const hanldeShowTaxNotIncluded = (value) => {
     if (priceDisplayMode === 1) {
       if (!value.price <= 0)
-        return '(税抜き)';
+        return '(Miễn thuế)';
     }
   };
 
   return (
     <PageContainer padding='0' height='auto' minHeight='auto'>
-      <HeaderAppBar title='注文履歴' />
+      <HeaderAppBar title='Lịch sử gọi món' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding='0px 0px 80px 0px'>
           <Box p={1}>
             <Fragment>
-              {tableName && <Box className={classes.orderInfoCommon}>テーブル: {tableName}</Box>}
+              {tableName && <Box className={classes.orderInfoCommon}>Bàn: {tableName}</Box>}
               {numberOfCustomer && (
-                <Box className={classes.orderInfoCommon}>人数: {numberOfCustomer}名</Box>
+                <Box className={classes.orderInfoCommon}>Số người: {numberOfCustomer}</Box>
               )}
               {invoiceCode && (
-                <Box className={classes.orderInfoCommon}>伝票番号: {invoiceCode}</Box>
+                <Box className={classes.orderInfoCommon}>Mã HĐ: {invoiceCode}</Box>
               )}
               <Box className={classes.orderInfoCommon}>
-                合計: <span>{getTotalPrice().toLocaleString('en-US')}</span> {currencyName}
-                {(priceDisplayMode === 1 && getTotalPrice() > 0)&& '(税抜き)'}
+                Tổng tiền: <span>{getTotalPrice().toLocaleString('en-US')}</span> {currencyName}
+                {(priceDisplayMode === 1 && getTotalPrice() > 0)&& '(Miễn thuế)'}
               </Box>
               {courseHashId && courseInfo && getOrderCourse() && (
                 <Fragment>
-                  <Box className={classes.orderInfoCommon}>コース名: {courseInfo.name}</Box>
+                  <Box className={classes.orderInfoCommon}>Tên: {courseInfo.name}</Box>
                   <Box className={classes.orderInfoCommon}>
-                    コース時間: {courseInfo.time_block_unit}分
+                    Thời gian set ăn: {courseInfo.time_block_unit}分
                   </Box>
                   <Box className={classes.orderInfoCommon}>
-                    スタート時間:
-                    {moment(getOrderCourse().ordered_at).format('YYYY年MM月DD日 (ddd) HH時mm分')}
+                    Thời gian bắt đầu:
+                    {moment(getOrderCourse().ordered_at).format('HH:mm DD/MM/YYYY')}
                   </Box>
                 </Fragment>
               )}
@@ -264,29 +264,41 @@ const PageOrder = () => {
               <Table aria-label='customized table'>
                 <TableHead>
                   <TableRow>
-                    <StyledTableCell align='center'>商品名</StyledTableCell>
-                    <StyledTableCell align='right'>価格</StyledTableCell>
-                    <StyledTableCell align='right'>個数</StyledTableCell>
-                    <StyledTableCell align='right'>小計</StyledTableCell>
+                    <StyledTableCell align='center'>Món</StyledTableCell>
+                    <StyledTableCell align='right'>Đơn giá</StyledTableCell>
+                    <StyledTableCell align='right'>Số lượng</StyledTableCell>
+                    <StyledTableCell align='right'>Giá</StyledTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {orderList.map((item, index) => (
                     <Fragment key={index + 1}>
+                      {/*<TableRow>*/}
+                      {/*  {item.status === 2 ? (*/}
+                      {/*    <StyledTableCell component='th' scope='row' colSpan={4}>*/}
+                      {/*      ・<span className={classes.cancelOrder}>【Hủy】</span>*/}
+                      {/*      {item.name}*/}
+                      {/*    </StyledTableCell>*/}
+                      {/*  ) : (*/}
+                      {/*    <StyledTableCell component='th' scope='row' colSpan={4}>*/}
+                      {/*      ・{item.name}*/}
+                      {/*    </StyledTableCell>*/}
+                      {/*  )}*/}
+                      {/*</TableRow>*/}
                       <TableRow>
+                        <>
                         {item.status === 2 ? (
-                          <StyledTableCell component='th' scope='row' colSpan={4}>
-                            ・<span className={classes.cancelOrder}>【取消】</span>
+                          <StyledTableCell>
+                            ・<span className={classes.cancelOrder}>【Hủy】</span>
                             {item.name}
                           </StyledTableCell>
                         ) : (
-                          <StyledTableCell component='th' scope='row' colSpan={4}>
+                          <StyledTableCell>
                             ・{item.name}
                           </StyledTableCell>
                         )}
-                      </TableRow>
-                      <TableRow>
-                        <StyledTableCell component='th' scope='row' />
+                        </>
+                        {/*<StyledTableCell component='th' scope='row' />*/}
                         <StyledTableCell align='right'>
                           <Box display='flex' justifyContent='flex-end' alignItems='baseline'>
                             {priceDisplayMode === 1
@@ -298,7 +310,7 @@ const PageOrder = () => {
                         <StyledTableCell align='right'>
                           <Box display='flex' justifyContent='flex-end' alignItems='baseline'>
                             {item.quantity}
-                            <Box fontSize={10}>個</Box>
+                            <Box fontSize={10}></Box>
                           </Box>
                         </StyledTableCell>
                         <StyledTableCell align='right'>
@@ -337,7 +349,7 @@ const PageOrder = () => {
                 borderStyle: 'none',
               }}
             >
-              <Link to={`/${shop_hash_id}`}>メニューに戻る</Link>
+              <Link to={`/${shop_hash_id}`}>Quay lại</Link>
             </Button>
             <Box>
               {statusOrder &&
@@ -354,7 +366,7 @@ const PageOrder = () => {
                   }}
                   onClick={() => setIsShowModal(true)}
                 >
-                  会計中
+                  Thanh toán
                 </Button>
               ) : (
                 <Button
@@ -368,7 +380,7 @@ const PageOrder = () => {
                   }}
                   onClick={() => setShowDialog(true)}
                 >
-                  会計する
+                  Thanh toán
                 </Button>
               )}
             </Box>
@@ -376,8 +388,8 @@ const PageOrder = () => {
             <Dialog
               isOpen={showDialog}
               onClose={(isOpen) => setShowDialog(isOpen)}
-              title='確認'
-              message='テーブルの注文を締め切りますが、よろしいでしょうか？'
+              title='Xác nhận'
+              message='Bạn chắc chắn muốn kết thúc？'
               onConfirm={() => goToCheckout()}
               isSubmitLoading={isSubmitLoading}
             />
@@ -387,13 +399,13 @@ const PageOrder = () => {
         {isShowModal && (
           <Modal
             open={isShowModal}
-            title='お知らせ'
+            title='Thông báo'
             maxWidth='450px'
             minHeight='320px'
             maxHeight='520px'
           >
             <div style={{ marginTop: '35%' }}>
-              <Box textAlign='center'>只今会計中です。少々お待ち下さい。</Box>
+              <Box textAlign='center'>Đang thực hiện thanh toán, vui lòng chờ trong giây lát</Box>
 
               <div
                 style={{
@@ -402,7 +414,7 @@ const PageOrder = () => {
                 }}
               >
                 <Button
-                  title='戻る'
+                  title='Quay lại'
                   borderRadius='28px'
                   bgcolor='#828282'
                   borderColor='#828282'

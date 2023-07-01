@@ -297,7 +297,7 @@ const PageOrderHistory = (props) => {
       value={{ refresh, setRefresh, orderGroup, setOrderGroup, setWaiting, setToast }}
     >
       <PageContainer padding='0px'>
-        <HeaderAppBar title='注文履歴' />
+        <HeaderAppBar title='Lịch sử gọi món' />
         <PageInnerContainer padding={'8px 16px'}>
           {elementHeaderActions()}
           {orderGroupPagination?.total >= ORDER_HISTORY_PAGINATION && (
@@ -320,18 +320,18 @@ const PageOrderHistory = (props) => {
                         <span style={styles.cellTitle}>{item.created_at}</span>
                       </TableCell>
                       <TableCell colSpan={1} style={styles.cellHeader}>
-                        <span style={styles.cellTitle}>席:&nbsp;{item.code_tables}</span>
+                        <span style={styles.cellTitle}>Bàn:&nbsp;{item.code_tables}</span>
                       </TableCell>
                       <TableCell colSpan={1} style={styles.cellHeader}>
                         <span style={styles.cellTitle}>{renderTotalAmountOrderGroup(item)}{shop?.mShopPosSetting?.m_currency?.name}</span>
                       </TableCell>
                       <TableCell colSpan={1} style={styles.cellHeader}>
-                        <span style={styles.cellTitle}>伝票番号:&nbsp;{item.invoice_code}</span>
+                        <span style={styles.cellTitle}>Mã HĐ:&nbsp;{item.invoice_code}</span>
                       </TableCell>
                       <TableCell colSpan={1} style={styles.cellHeader}>
                         {item.file_path ?
                         <ButtonCustom
-                          title="レシート出力"
+                          title="Hóa đơn"
                           borderRadius="20px"
                           bgcolor="#FFFFFF"
                           fgcolor="#FFA04B"
@@ -404,7 +404,7 @@ const PageOrderHistory = (props) => {
                           <TableCell align='right' width={120} size='small'>
                             {row.order_type === ORDER_TYPE.SERVE_SERVICE_TYPE ? null : (
                               <ButtonCustom
-                                title='他操作'
+                                title='Dịch vụ khác'
                                 borderRadius='12px'
                                 bgcolor='#FFA04B'
                                 width='100px'
