@@ -123,7 +123,7 @@ const PageSignin = (props) => {
             />
 
             <Box className={`${classes.labelInput} ${classes.labelInputTop}`}>
-              <Link to="/verify-forgot-password">Forgot Password</Link>
+              <Link to="/verify-forgot-password">Quên mật khẩu</Link>
             </Box>
           </FormsContainer>
 

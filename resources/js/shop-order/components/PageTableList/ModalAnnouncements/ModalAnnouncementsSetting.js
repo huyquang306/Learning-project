@@ -82,7 +82,7 @@ const ModalAnnouncementsSetting = (props) => {
       try {
         await ShopOrderApiService.updateAnnouncement(shop.hashId, {announcements});
         setIsLoadingSubmit(false);
-        setToast({ isShow: true, status: 'success', message: 'お知らせの設定が更新されました。' });
+        setToast({ isShow: true, status: 'success', message: 'Tin tức đã được cập nhật' });
       } catch (error) {
         setToast({ isShow: true, status: 'error', message: error.message });
         setIsLoadingSubmit(false);
@@ -147,7 +147,7 @@ const ModalAnnouncementsSetting = (props) => {
         !isLoadingContent && (
           <>
             <ButtonCustom
-              title="戻る"
+              title="Quay lại"
               borderRadius="28px"
               bgcolor="#828282"
               borderColor="#828282"
@@ -162,7 +162,7 @@ const ModalAnnouncementsSetting = (props) => {
               onClick={handleSubmit}
               disabled={isLoadingSubmit}
             >
-              保存する
+              Lưu
               {
                 isLoadingSubmit ? <CircularProgress  style={{ marginLeft: 10, width: 20, height: 20 }}/> : null
               }
@@ -174,7 +174,7 @@ const ModalAnnouncementsSetting = (props) => {
   );
 
   return (
-    <Modal open={props.open} title="お知らせ設定" actions={renderActions()}>
+    <Modal open={props.open} title="Tin tức" actions={renderActions()}>
       <div className={classes.modalContent}>
         {
           isLoadingContent ? (
@@ -192,14 +192,14 @@ const ModalAnnouncementsSetting = (props) => {
                           className={classes.itemInput}
                           name='content'
                           onChange={(e) => handleChange(e, announcementIndex)}
-                          placeholder='お知らせ内容を入力してください'
+                          placeholder='Nội dung'
                           value={announcement.content}
                         />
                       </Box>
 
                       <Box className={classes.itemBottomBox}>
                         <Grid container spacing={2} alignContent='center' alignItems='center' style={{ margin: 0 }}>
-                          <Grid item xs={12} sm={2} className={classes.itemBottomBoxTitle}>掲載時間帯</Grid>
+                          <Grid item xs={12} sm={2} className={classes.itemBottomBoxTitle}>Thời gian đăng</Grid>
 
                           <Grid item xs={10} sm={8} className={classes.itemBottomBoxOptions}>
                             {
@@ -233,7 +233,7 @@ const ModalAnnouncementsSetting = (props) => {
                             <Button
                               className={classes.itemBottomBoxButtonDelete}
                               onClick={() => handleDeleteAnnouncement(announcementIndex)}
-                            >削除</Button>
+                            > Xóa </Button>
                           </Grid>
                         </Grid>
                       </Box>
@@ -246,7 +246,7 @@ const ModalAnnouncementsSetting = (props) => {
                     className={classes.addButtonBoxInput}
                     onClick={handleNewAnnouncement}
                     disabled={getBusinessesUnSelected().length === 0 || businessHours.length <= announcements.length}
-                  ><Add /> 追加する</Button>
+                  ><Add /> Thêm </Button>
                 </Box>
               </Box>
             </Box>

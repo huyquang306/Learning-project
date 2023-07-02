@@ -73,4 +73,19 @@ class MUser extends Model implements Authenticatable
     {
         throw new \Exception('Not available');
     }
+
+    public function tOrders(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TOrder::class, 'm_user_id', 'id');
+    }
+
+    public function tServiceBillings(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
+        return $this->morphOne(TServiceBilling::class, 'buyer');
+    }
+
+    public function tStripeCustomer(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
+        return $this->morphOne(TStripeCustomer::class, 'customer');
+    }
 }

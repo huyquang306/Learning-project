@@ -8,10 +8,14 @@ use App\Models\MGenre;
 use App\Models\MItem;
 use App\Models\MMenu;
 use App\Models\MPaymentMethod;
+use App\Models\MServicePlan;
 use App\Models\MShop;
 use App\Models\MShopPosSetting;
 use App\Models\MStaff;
+use App\Models\RShopServicePlan;
+use App\Models\SAccount;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -457,5 +461,244 @@ class ShopRepository extends BaseRepository
         });
 
         return $m_shop;
+    }
+
+    /**
+     * Reopen a shop
+     * @param MShop $shop
+     *
+     * @return MShop
+     * @throws Exception
+     */
+    public function reopenShop(MShop $shop)
+    {
+        try {
+            DB::beginTransaction();
+
+            $shop->is_active = true;
+            $shop->contract_cancel_date = null;
+            $shop->save();
+
+            $nowStartOfMonth = Carbon::now()->startOfMonth();
+            $rShopPlanLastInMonth = RShopServicePlan::where('m_shop_id', $shop->id)
+                ->where('end_date', '>=', $nowStartOfMonth)
+                ->latest()
+                ->first();
+            // Check shop reopen at the same cancel month
+            if ($rShopPlanLastInMonth) {
+                $rShopPlanLastInMonth->status = RShopServicePlan::ACTIVE_STATUS;
+                $rShopPlanLastInMonth->end_date = null;
+                $rShopPlanLastInMonth->save();
+            } else {
+                // Create a new free plan for shop
+                $freeServicePlan = MServicePlan::where('price', 0)->first();
+
+                if ($freeServicePlan) {
+                    $shop->mServicePlans()->attach($freeServicePlan->id, [
+                        'status' => RShopServicePlan::ACTIVE_STATUS,
+                        'applied_date' => $nowStartOfMonth,
+                        'registered_date' => now(),
+                    ]);
+                }
+            }
+
+            DB::commit();
+
+            return $this->getShopData($shop);
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            throw $exception;
+        }
+    }
+
+    /**
+     * Cancel a shop
+     * @param MShop $shop
+     *
+     * @return MShop
+     * @throws Exception
+     */
+    public function cancelShop(MShop $shop)
+    {
+        try {
+            DB::beginTransaction();
+
+            // Save shop cancel info
+            $shop->is_active = false;
+            $shop->contract_cancel_date = now();
+            $shop->save();
+
+            // Save service plan cancel date
+            RShopServicePlan::where('m_shop_id', $shop->id)
+                ->where('status', RShopServicePlan::ACTIVE_STATUS)
+                ->update([
+                    'status' => RShopServicePlan::CANCEL_STATUS,
+                ]);
+            // Update end_date to now when upgrade other plans
+            RShopServicePlan::where('m_shop_id', $shop->id)
+                ->whereNull('end_date')
+                ->update([
+                    'end_date' => now()->endOfMonth(),
+                ]);
+            DB::commit();
+
+            return $this->getShopData($shop);
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            throw $exception;
+        }
+    }
+
+    public function getShopDataAdmin(MShop $shop)
+    {
+        $firstDayInMonth = now()->startOfMonth();
+        $lastDayInMonth = now()->lastOfMonth();
+        $startDayInMonth = config('const.PAYMENT.START_DAY_PAYMENT_IN_MONTH');
+        if ($startDayInMonth) {
+            $firstDayInMonth->setDay($startDayInMonth);
+            $lastDayInMonth = $firstDayInMonth->copy()->addMonth()->subDay();
+        }
+
+        $shop = $shop->load([
+            'mItems',
+            'mGenres',
+            'mBusinessHours',
+            'mShopMetas',
+            'mStaffsCanPay.tStripeCustomer',
+        ])->load([
+            'tOrderGroups' => function ($orderGroupQuery) use ($firstDayInMonth, $lastDayInMonth) {
+                $orderGroupQuery->with('tOrders')
+                    ->whereDate('created_at', '>=', $firstDayInMonth)
+                    ->whereDate('created_at', '<=', $lastDayInMonth)
+                    ->withTrashed();
+            },
+        ])->load([
+            'tServiceBillings' => function ($billingQuery) use ($firstDayInMonth, $lastDayInMonth) {
+                $billingQuery
+                    ->whereDate('target_month', '>=', $firstDayInMonth)
+                    ->whereDate('target_month', '<=', $lastDayInMonth);
+            }
+        ])->load('tOrderGroupsInLastMonth.tOrders');
+        $shop->mServicePlans = collect([
+            $this->getCurrentApplyServicePlan($shop),
+        ]);
+
+        return $shop;
+    }
+
+    public function getCurrentApplyServicePlan(MShop $shop)
+    {
+        $currentRServicePlan = RShopServicePlan::where('m_shop_id', $shop->id)
+            ->where('status', RShopServicePlan::ACTIVE_STATUS)
+            ->with('mServicePlan')
+            ->first();
+
+        // If have not plan active, check cancelled plan in current month
+        if (!$currentRServicePlan) {
+            $currentRServicePlan = RShopServicePlan::where('m_shop_id', $shop->id)
+                ->where('end_date', '>=', Carbon::now()->startOfMonth())
+                ->with('mServicePlan')
+                ->latest()
+                ->first();
+        }
+
+        // If have not cancelled plan, get free plan
+        if (!$currentRServicePlan || !$currentRServicePlan->mServicePlan) {
+            $currentPlan = MServicePlan::where('price', 0)->first();
+        } else {
+            $currentPlan = $currentRServicePlan->mServicePlan;
+        }
+
+        return $currentPlan->load([
+            'rFunctionConditions.mConditionType',
+        ])->load([
+            'rFunctionConditions.mFunction.mServicePlanOptions' => function (
+                $mServicePlanOptionQuery
+            ) use ($currentPlan) {
+                $mServicePlanOptionQuery->where('m_service_plan_id', $currentPlan->id);
+            },
+        ]);
+    }
+
+    /**
+     * Get firebase uid of shops in db
+     *
+     * @return array
+     */
+    public function getAllShopFirebaseUid()
+    {
+        $allShops = $this->getAll()->load('mStaffs.sAccount');
+        $allShopStaffs = $allShops->pluck('mStaffs')->flatten()->unique()->values();
+        $allShopSAccounts = $allShopStaffs->pluck('sAccount')->flatten()->unique()->values();
+
+        return $allShopSAccounts->pluck('firebase_uid')->flatten()->unique()->filter(function ($value) {
+            return $value != null;
+        })->values()->toArray();
+    }
+
+    public function getShopsDataAdmin(array $firebaseActiveUIds, $from, $to)
+    {
+        $activeShopIds = SAccount::whereIn('firebase_uid', $firebaseActiveUIds)
+            ->with('mStaff.mShops')
+            ->get()->pluck('mStaff.mShops')
+            ->flatten()->pluck('id')
+            ->toArray();
+        $shops = MShop::whereIn('id', $activeShopIds)
+            ->whereNull('contract_cancel_date')
+            ->orWhereDate('contract_cancel_date', '>=', $from)
+            ->withCount([
+                'tOrderGroups' => function ($orderGroupQuery) use ($from, $to) {
+                    $orderGroupQuery->whereDate('created_at', '>=', $from)
+                        ->whereDate('created_at', '<=', $to)
+                        ->withTrashed();
+                },
+            ])->with([
+                'tServiceBillings' => function ($serviceBillingQuery) use ($from, $to) {
+                    $serviceBillingQuery
+                        ->with('tServiceBillingDetails.service')
+                        ->whereDate('target_month', '>=', $from)
+                        ->whereDate('target_month', '<=', $to);
+                },
+                'mServicePlans' => function ($servicePlanQuery) use ($from) {
+                    $servicePlanQuery->wherePivot('status', RShopServicePlan::ACTIVE_STATUS)
+                        ->orWherePivot('end_date', '>=', $from)
+                        ->orderBy('r_shop_service_plan.created_at');
+                },
+            ])->with('mStaffsCanPay.tStripeCustomer')
+            ->whereDate('created_at', '<=', Carbon::parse($to));
+
+        $shopList = $shops->paginate(config('const.pagination.admin.shops_pagination'));
+
+        // Load shop's service plans
+        foreach ($shopList->items() as $shop) {
+            foreach ($shop->mServicePlans as $servicePlan) {
+                $servicePlan->load([
+                    'rFunctionConditions.mConditionType',
+                ])->load([
+                    'rFunctionConditions.mFunction.mServicePlanOptions' => function (
+                        $mServicePlanOptionQuery
+                    ) use ($servicePlan) {
+                        $mServicePlanOptionQuery->where('m_service_plan_id', $servicePlan->id);
+                    },
+                ]);
+            }
+        }
+
+        return $shopList;
+    }
+
+    /**
+     * get staff that was authorised payment for shop
+     * @param MShop $shop
+     *
+     * @return mixed
+     */
+    public function getStaffAuthorisePayment(MShop $shop)
+    {
+        $shop->load('mStaffsCanPay.tStripeCustomer');
+
+        return $shop->mStaffsCanPay->first();
     }
 }

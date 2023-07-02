@@ -42,6 +42,10 @@ class AppServiceProvider extends ServiceProvider
             'PaymentMethodForCusRepositoryInterface' => 'PaymentMethodForCusRepository',
             'TPaymentRepositoryInterface' => 'TPaymentRepository',
             'UserRepositoryInterface' => 'UserRepository',
+            'ServiceBillingRepositoryInterface' => 'ServiceBillingRepository',
+            'FunctionRepositoryInterface' => 'FunctionRepository',
+            'ServicePlanRepositoryInterface' => 'ServicePlanRepository',
+            'RFunctionConditionRepositoryInterface' => 'RFunctionConditionRepository',
         ];
 
         foreach ($repositories as $key => $val) {
