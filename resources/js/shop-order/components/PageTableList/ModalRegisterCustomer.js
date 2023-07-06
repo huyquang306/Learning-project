@@ -218,7 +218,7 @@ const ModalRegisterCustomer = (props) => {
           },
         });
         PubSub.publish(KEY_UPDATE_DELETED_ORDERGROUP, state.ordergroup);
-        setToast({ isShow: true, status: 'success', message: 'Delete order sucess!' });
+        setToast({ isShow: true, status: 'success', message: 'Đã hủy bàn thành công!' });
         // Remove course had show end time
         let orderGroupsShowEndedTime =
           JSON.parse(localStorage.getItem(ORDER_GROUP_SHOW_ENDED_TIME)) || [];
@@ -395,7 +395,7 @@ const ModalRegisterCustomer = (props) => {
         const newDataShop = await getShopData();
         checkShowReachQRLimitPointsModal(newDataShop);
 
-        setToast({ isShow: true, status: 'success', message: 'Thành công!' });
+        setToast({ isShow: true, status: 'success', message: 'Đặt bàn thành công!' });
       })
       .catch((error) => {
         setWaiting(false);

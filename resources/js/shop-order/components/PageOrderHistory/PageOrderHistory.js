@@ -93,8 +93,8 @@ const PageOrderHistory = (props) => {
     },
   });
 
-  const [tables, setTables] = useState([{ value: 0, label: 'テーブル' }]);
-  const [categorys, setCategorys] = useState([{ value: 0, label: 'カテゴリ' }]);
+  const [tables, setTables] = useState([{ value: 0, label: 'Bàn' }]);
+  const [categorys, setCategorys] = useState([{ value: 0, label: 'Danh mục' }]);
   const [filter, setFilter] = useState({
     tableId: 0,
     categoryId: 0,
@@ -113,7 +113,7 @@ const PageOrderHistory = (props) => {
               label,
               ...rest,
             }));
-            listTable.unshift({ value: 0, label: 'テーブル' });
+            listTable.unshift({ value: 0, label: 'Bàn' });
             setTables(listTable);
           }
         })
@@ -129,7 +129,7 @@ const PageOrderHistory = (props) => {
               label,
               ...rest,
             }));
-            listCategory.unshift({ value: 0, label: 'カテゴリ' });
+            listCategory.unshift({ value: 0, label: 'Danh mục' });
             setCategorys(listCategory);
           }
         })
@@ -169,6 +169,7 @@ const PageOrderHistory = (props) => {
         dataFilter
       );
       if (response) {
+        console.log(response.data);
         setWaiting(false);
         setOrderGroupSummany(response.data);
         setOrderGroupPagination(response.pagination);
@@ -274,7 +275,7 @@ const PageOrderHistory = (props) => {
         >
           <SyncIcon style={{ color: '#DADADA', fontSize: 30 }} />
           <Box textAlign='center'>
-            <p style={{ color: '#4F4F4F', fontSize: 12 }}>最終更新時間</p>
+            <p style={{ color: '#4F4F4F', fontSize: 12 }}>Cập nhật lần cuối</p>
             <p style={{ color: '#4F4F4F', fontSize: 20 }}>
               {moment(refresh.refreshAt).format('HH:mm:ss')}
             </p>
@@ -377,7 +378,7 @@ const PageOrderHistory = (props) => {
                             size='small'
                             style={{ minWidth: '160px' }}
                           >
-                            <p style={styles.cellContent}>{row.quantity} 個</p>
+                            <p style={styles.cellContent}>{row.quantity} </p>
                           </TableCell>
                           <TableCell
                             align='left'
@@ -404,7 +405,7 @@ const PageOrderHistory = (props) => {
                           <TableCell align='right' width={120} size='small'>
                             {row.order_type === ORDER_TYPE.SERVE_SERVICE_TYPE ? null : (
                               <ButtonCustom
-                                title='Dịch vụ khác'
+                                title='Chi tiết'
                                 borderRadius='12px'
                                 bgcolor='#FFA04B'
                                 width='100px'

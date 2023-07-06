@@ -179,7 +179,7 @@ const ConfirmPassword = (props) => {
       {isChangePassword && (
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
-            <Box className={classes.label}>Current password</Box>
+            <Box className={classes.label}>Mật khẩu hiện tại</Box>
           </Grid>
           <Grid item xs={12} sm={10}>
             <TextField
@@ -273,7 +273,7 @@ const ConfirmPassword = (props) => {
       {/* Password Confirmation */}
       <Grid container spacing={4}>
         <Grid item xs={12} sm={2}>
-          <Box className={classes.label}>Password Confirmation</Box>
+          <Box className={classes.label}>Nhập lại mật khẩu mới</Box>
         </Grid>
         <Grid item xs={12} sm={10}>
           <TextField

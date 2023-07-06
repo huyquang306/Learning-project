@@ -168,7 +168,7 @@ const PageRecommendationSetting = () => {
     try {
       let recommendationsRes = await ShopOrderApiService.getMasterMenus(shop.hashId, { is_recommend: 1 });
       recommendationsRes.push({
-        name: '設定なし',
+        name: 'No setting',
         status: MENU_STATUS.STATUS_ONSALE,
       });
       recommendationsRes = transformMenu(recommendationsRes);
@@ -342,7 +342,7 @@ const PageRecommendationSetting = () => {
 
   const markMenuAsRecommend = async () => {
     if (Utils.isNil(recommendationDetail.menu.id)) {
-      showWarningMessage('メニューを選択してください');
+      showWarningMessage('Vui lòng chọn một món ăn');
     } else {
       let updateMenuData = {
         name: recommendationDetail.menu.name,
@@ -364,7 +364,7 @@ const PageRecommendationSetting = () => {
           updateMenuData
         );
         setInProgress(false);
-        showSuccessMessage('更新しました');
+        showSuccessMessage('Cập nhật thành công');
         getRecommendations();
         handleCloseModal();
       } catch (error) {
@@ -376,7 +376,7 @@ const PageRecommendationSetting = () => {
 
   const removeMenuRecommend = () => {
     if (Utils.isNil(recommendationDetail.menu.id)) {
-      showWarningMessage('このメニューのおすすめを削除することはできません');
+      showWarningMessage('Bạn không thể xóa đề xuất cho món ăn này');
     } else {
       setShowDialog(true);
     }
@@ -399,7 +399,7 @@ const PageRecommendationSetting = () => {
     ShopOrderApiService.updateMenu(shop.hashId, recommendationDetail.menu.hash_id, updateMenuData)
       .then(() => {
         setInProgress(false);
-        showSuccessMessage('更新しました');
+        showSuccessMessage('Cập nhật thành công');
         getRecommendations();
         handleCloseModal();
       })
@@ -485,7 +485,7 @@ const PageRecommendationSetting = () => {
               fullWidth
               onClick={handleCloseModal}
             >
-              戻る
+              Quay lại
             </Button>
           </Box>
         </Grid>
@@ -499,7 +499,7 @@ const PageRecommendationSetting = () => {
               onClick={markMenuAsRecommend}
               disabled={inProgress}
             >
-              保存
+              Lưu
             </Button>
           </Box>
         </Grid>
@@ -509,7 +509,7 @@ const PageRecommendationSetting = () => {
 
   return (
     <PageContainer padding='0'>
-      <HeaderAppBar title='オススメ設定' />
+      <HeaderAppBar title='Món ăn đề xuất' />
       <PageInnerWrap className={classes.pageInnerWrap}>
         <PageInnerContainer padding='30px'>
           <Grid
@@ -530,7 +530,7 @@ const PageRecommendationSetting = () => {
                         }}
                       >
                         <CardContent className={classes.cardContentRoot}>
-                          <Typography className={classes.typographyRoot}>{`オススメ ${
+                          <Typography className={classes.typographyRoot}>{`Đề xuất ${
                             index + 1
                           }`}</Typography>
 
@@ -560,7 +560,7 @@ const PageRecommendationSetting = () => {
                             padding='8px 20px'
                             fullWidth
                           >
-                            変更する
+                            Lưu
                           </Button>
                         </CardActions>
                       </Card>
@@ -578,7 +578,7 @@ const PageRecommendationSetting = () => {
                 style={{ fontSize: '18px', minWidth: '200px' }}
                 onClick={() => history.push('/menus/setting')}
               >
-                戻る
+                Quay lại
               </Button>
             </Box>
           </Footer>
@@ -587,7 +587,7 @@ const PageRecommendationSetting = () => {
 
       <Modal
         open={modalDetail}
-        title='オススメ設定　詳細'
+        title='Chi tiết'
         actions={ActionsModal()}
         onClose={handleCloseModal}
       >
@@ -602,7 +602,7 @@ const PageRecommendationSetting = () => {
                     value={searchMenu.name}
                     className={classes.input}
                     labelWidth={0}
-                    placeholder='商品名を検索'
+                    placeholder=''
                     onChange={(event) => searchNameMenuChanged(event)}
                     fullWidth
                   />
@@ -618,7 +618,7 @@ const PageRecommendationSetting = () => {
                     disabled={inProgress}
                     classes={{ root: classes.buttonSearch }}
                   >
-                    検索する
+                    Tìm kiếm
                   </Button>
                 </Grid>
               </Grid>
@@ -636,7 +636,7 @@ const PageRecommendationSetting = () => {
                   disabled={inProgress || !recommendationDetail.id}
                   classes={{ root: classes.buttonDelete }}
                 >
-                  削除
+                  Xóa
                 </Button>
               </Box>
             </Grid>
@@ -646,7 +646,7 @@ const PageRecommendationSetting = () => {
             <Grid item sm={8}>
               <Grid container spacing={2} alignItems='center'>
                 <Grid item xs={4}>
-                  大カテゴリー
+                  Danh mục chính
                 </Grid>
                 <Grid item xs={8}>
                   <CustomSelectorBase
@@ -660,7 +660,7 @@ const PageRecommendationSetting = () => {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  小カテゴリー
+                  Danh mục phụ
                 </Grid>
                 <Grid item xs={8}>
                   <CustomSelectorBase
@@ -674,7 +674,7 @@ const PageRecommendationSetting = () => {
                   />
                 </Grid>
                 <Grid item xs={4}>
-                  商品名
+                  Tên món
                 </Grid>
                 <Grid item xs={8}>
                   <CustomSelectorBase
@@ -716,8 +716,8 @@ const PageRecommendationSetting = () => {
       <Dialog
         isOpen={showDialog}
         onClose={(isOpen) => setShowDialog(isOpen)}
-        title='削除'
-        message='このメニューのおすすめを削除しますか?'
+        title='Xác nhận'
+        message='Bạn có muốn xóa đề xuất cho món ăn này không?'
         onConfirm={() => handleRemoveMenuRecommend()}
       />
     </PageContainer>

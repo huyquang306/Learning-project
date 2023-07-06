@@ -7,6 +7,7 @@ use App\Models\MTable;
 use App\Models\TOrderGroup;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class OrderGroupRepository
 {
@@ -378,6 +379,33 @@ class OrderGroupRepository
     }
 
     /**
+     * Shop update ordergroup
+     *
+     * @param $data Array
+     * @param TOrderGroup $ordergroup
+     * @return mixed
+     */
+    public function updateOrderGroupShop($data, TOrdergroup $ordergroup)
+    {
+        $m_table_id = null;
+
+        DB::beginTransaction();
+        $ordergroup->number_of_customers = $data['number_of_customers'];
+        $m_table_id = $this->getIdMTable($data['add_hash_id']);
+        $ordergroup->mTables()->sync($m_table_id);
+
+        $ordergroup->save();
+        $ordergroup_id = $ordergroup->id ?? null;
+        DB::commit();
+
+        if ($ordergroup_id) {
+            return TOrdergroup::with(['mTables' => function ($mTables) use ($ordergroup_id, $m_table_id) {
+                $mTables->where(['m_table_id' => $m_table_id, 't_ordergroup_id' => $ordergroup_id])->first();
+            }])->where('id', $ordergroup_id)->first();
+        }
+    }
+
+    /**
      * @param TOrderGroup $orderGroup
      * @return TOrderGroup
      */
@@ -456,5 +484,88 @@ class OrderGroupRepository
                 config('const.STATUS_ORDERGROUP.REQUEST_CHECKOUT'),
                 config('const.STATUS_ORDERGROUP.WAITING_CHECKOUT'),
             ]);
+    }
+
+    /**
+     * Delete order group
+     *
+     * @param $ordergroup
+     * @return mixed
+     */
+    public function deleteOrderGroup($ordergroup)
+    {
+        DB::beginTransaction();
+        if ($ordergroup) {
+            $ordergroup->delete();
+        }
+        DB::commit();
+
+        return $ordergroup;
+    }
+
+    /**
+     * @param TOrdergroup $orderGroup
+     * @return bool
+     */
+    public function checkCourseCanExtend(TOrdergroup $orderGroup): bool
+    {
+        $orders = $orderGroup->tOrders;
+        $startTime = null;
+        $extendCountNumber = 0;
+        $courseCancel = false;
+
+        foreach ($orders as $order) {
+            // OrderGroup has main course
+            if ($order->r_shop_course_id
+                && $order->order_type == config('const.ORDER_TYPE.ORDER_COURSE')) {
+                // Case: course had been cancelled
+                if ($order->status == config('const.STATUS_CANCEL')) {
+                    $courseCancel = true;
+                } else {
+                    $courseCancel = false;
+                    $mCourse = $order->rShopCourse->mCourse->load(['childCourses']);
+                    // time start
+                    $startTime = $order->ordered_at;
+                }
+            }
+
+            // OrderGroup has extend course
+            if ($order->r_shop_course_id
+                && $order->order_type == config('const.ORDER_TYPE.ORDER_EXTEND_COURSE')) {
+                $extendCountNumber = $extendCountNumber + 1;
+            }
+        }
+
+        // Check for case cancel order course and re-order with another course.
+        if ($courseCancel) {
+            return false;
+        }
+
+        if ($mCourse && $startTime
+            && ($orderGroup->status == config('const.STATUS_ORDERGROUP.PRE_ORDER')
+                || $orderGroup->status == config('const.STATUS_ORDERGROUP.ORDERING'))) {
+            $childCourses = $mCourse->childCourses;
+            $extendCourseTime = !empty($childCourses[0]) ? $childCourses[0]['time_block_unit'] : 0;
+            $courseTime = $mCourse->time_block_unit;
+            $alertNotificationTime = $mCourse->alert_notification_time
+                ? $mCourse->alert_notification_time : config('const.COURSE_ORDER_END_TIME');
+            // now, time alert
+            $now = Carbon::now()->startOfSecond();
+
+            $alertTime = Carbon::parse($startTime)
+                ->addMinutes($courseTime)
+                ->addMinutes($extendCountNumber * $extendCourseTime)
+                ->subMinutes($alertNotificationTime)
+                ->subMinute()
+                ->startOfSecond();
+
+            // $now >= $alertTime
+            // gte function is greater than or equal
+            if ($now->gte($alertTime)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

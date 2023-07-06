@@ -147,11 +147,11 @@ const PageSettingChangePassword = (props) => {
   return (
     <>
       <PageContainer padding='0px'>
-        <HeaderAppBar title='パスワード変更' />
+        <HeaderAppBar title='Đổi mật khẩu' />
         <PageInnerContainer padding='0px 0px 25px 0px'>
           <Box p={4} className={classes.container}>
             <ConfirmPassword
-              title='新しいパスワード'
+              title='Mật khẩu mới'
               isChangePassword={true}
               handleChangeInputChangePassWord={handleChangeInput}
               handleDisabledButton={(value) => setButtonDisabled(!value)}

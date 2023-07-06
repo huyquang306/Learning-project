@@ -33,6 +33,6 @@ class TableService
      */
     public function getShopTablesWithTrashedOrderByCode(MShop $shop): ?\Illuminate\Database\Eloquent\Collection
     {
-        return $this->table_repository->getShopTablesWithTrashedOrderByCode($shop);
+        return $this->tableRepository->getShopTablesWithTrashedOrderByCode($shop);
     }
 }

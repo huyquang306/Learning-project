@@ -393,6 +393,7 @@ class MenuService
             'shop_cook_place_id',
             'm_shop_business_hour_prices',
             'm_tax_id',
+            'initial_order_flg',
         ]);
         $menu = $this->menuRepository->update($attributes, $shop, $menu);
         if ($request->add_images && count($request->add_images)) {

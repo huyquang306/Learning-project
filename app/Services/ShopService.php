@@ -12,6 +12,7 @@ use App\Repositories\ShopRepository;
 use App\Repositories\TableRepository;
 use App\Services\Auth\FirebaseService;
 use App\Services\GenreService;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
@@ -50,7 +51,7 @@ class ShopService
      *
      * @param Request $request
      * @return TTmpShop
-     * @throws \Exception
+     * @throws Exception
      */
     public function createTmpShop(Request $request): TTmpShop
     {
@@ -89,7 +90,7 @@ class ShopService
             DB::commit();
 
             return $tmpShop;
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             DB::rollBack();
 
             throw $exception;
@@ -300,5 +301,98 @@ class ShopService
         $this->shopMetaRepository->updateShopMetaByKey($shop->id, MShopMeta::INSTAGRAM_LINK_TYPE, $request->instagram_link);
 
         return $shop;
+    }
+
+    /**
+     * Generate forgot password link to email
+     *
+     * @param string $email
+     * @throws Exception
+     */
+    public function generateForgotPasswordLink(string $email)
+    {
+        $shop = $this->shopRepository->findBy('email', $email, false);
+        if (!$shop) {
+            return ;
+        }
+
+        DB::beginTransaction();
+        try {
+            $tmpShop = $this->tmpShopRepository->save([
+                'email' => $email,
+            ], TTmpShop::FORGOT_PASSWORD_TYPE);
+            $forgotLink = $this->generateVerifyLink(TTmpShop::FORGOT_PASSWORD_LINK_TYPE, $tmpShop->hash_id);
+            $this->firebaseService->sendForgotPasswordLink($email, $forgotLink);
+
+            DB::commit();
+        } catch (Exception $exception) {
+            DB::rollBack();
+
+            throw $exception;
+        }
+    }
+
+    /**
+     * Verify shop forgot password
+     *
+     * @param string $hashId
+     * @return mixed
+     */
+    public function verifyShopForgotPassword(string $hashId)
+    {
+        try {
+            // check code exist and hasn't expired
+            return $this->tmpShopRepository->validCode($hashId);
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Reset password
+     *
+     * @param string $hashId
+     * @param string $password
+     * @return bool
+     * @throws Exception
+     */
+    public function resetPassword(string $hashId, string $password): bool
+    {
+        // check code exist and hasn't expired
+        $validCode = $this->tmpShopRepository->validCode($hashId);
+        if (!$validCode) {
+            throw new Exception('Mã này đã hết hạn hoặc không hợp lệ.');
+        }
+        $shopTmp = $this->tmpShopRepository->findByHashAndType($hashId, TTmpShop::FORGOT_PASSWORD_TYPE);
+        if (!$shopTmp) {
+            throw new Exception('Cửa hàng không tồn tại');
+        }
+        $shopInfo = (array) json_decode($shopTmp->shop_info);
+
+        // check shop existed by email
+        $shopExisted = $this->shopRepository->findShopByEmail($shopInfo['email']);
+        if (!$shopExisted) {
+            throw new Exception('Shop does not existed');
+        }
+
+        DB::beginTransaction();
+        try {
+            // update verified
+            $res = $this->firebaseService->updateAccount($shopInfo['email'], [
+                'password' => $password,
+            ]);
+            if (!$res) {
+                throw new Exception('Đã có lỗi xảy ra');
+            }
+
+            // delete shop tmp
+            $shopTmp->delete();
+            DB::commit();
+
+            return true;
+        } catch (Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
     }
 }

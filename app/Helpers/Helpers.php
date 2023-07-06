@@ -30,19 +30,19 @@ function getDateTime($intTimestamp = "", $getDay = 1, $getDate = 1, $getTime = 1
     if ($intTimestamp != "") {
         $today = getdate($intTimestamp);
         $day = $today["wday"];
-        $date = date("Ngày d Tháng m Năm Y", $intTimestamp);
+        $date = date("d-m-Y", $intTimestamp);
         $time = date("H:i", $intTimestamp);
     } else {
         $today = getdate();
         $day = $today["wday"];
-        $date = date("Ngày d Tháng m Năm Y", $intTimestamp);
+        $date = date("d-m-Y", $intTimestamp);
         $time = date("H:i");
     }
     $dayArray = array("Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy");
     $strDateTime = "";
     for ($i = 0; $i <= 6; $i++) {
         if ($i == $day) {
-            if ($getDate != 0) {
+            /*if ($getDate != 0) {
                 $strDateTime .= $date . "(";
             }
             if ($getDay != 0) {
@@ -53,7 +53,8 @@ function getDateTime($intTimestamp = "", $getDay = 1, $getDate = 1, $getTime = 1
             }
             if (substr($strDateTime, -2, 2) == ", ") {
                 $strDateTime = substr($strDateTime, 0, -2);
-            }
+            }*/
+            $strDateTime = "($dayArray[$i]) $date $time";
 
             return $strDateTime;
         }

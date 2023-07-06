@@ -67,10 +67,10 @@ const PageSetting = (props) => {
       url: '/setting/cook-place/list',
       label: 'Bếp',
     },
-    {
-      url: '/setting/printer/list',
-      label: 'Máy in',
-    },
+    // {
+    //   url: '/setting/printer/list',
+    //   label: 'Máy in',
+    // },
     {
       url: '/setting/tax',
       label: 'Thuế',

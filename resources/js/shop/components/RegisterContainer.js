@@ -38,7 +38,7 @@ const RegisterContainer = (props) => {
     <StyledRegisterContainer>
       <HeaderMessage>
         {props.type === TYPES.SIGNIN && !activeShopHashId ? (
-          'Hãy đăng nhập'
+          'Đăng nhập ngay để trải nghiệm dịch vụ!'
         ) : props.type === TYPES.FORGOT_PASSWORD ? (
           'Hãy tạo mật khẩu mới'
         ) : (

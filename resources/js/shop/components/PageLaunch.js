@@ -48,7 +48,7 @@ const PageLaunch = (_props) => {
 
         <Button
           title="Đăng nhập"
-          bgcolor="#F8B62D"
+          bgcolor="#ff604c"
           onClick={() => {
             history.push('/signin');
           }}

@@ -46,6 +46,7 @@ class AppServiceProvider extends ServiceProvider
             'FunctionRepositoryInterface' => 'FunctionRepository',
             'ServicePlanRepositoryInterface' => 'ServicePlanRepository',
             'RFunctionConditionRepositoryInterface' => 'RFunctionConditionRepository',
+            'UserHistoryRepositoryInterface' => 'UserHistoryRepository',
         ];
 
         foreach ($repositories as $key => $val) {
