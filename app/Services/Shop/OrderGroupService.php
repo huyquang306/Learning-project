@@ -161,6 +161,78 @@ class OrderGroupService
     }
 
     /**
+     * @param $request
+     * @param MShop $shop
+     * @param TOrderGroup $ordergroup
+     * @return TOrderGroup|mixed
+     */
+    public function updateOrderGroup($request, MShop $shop, TOrdergroup $ordergroup)
+    {
+        // get data request
+        $data = [
+            'm_shop_id' => $shop->id,
+            'add_hash_id' => $request->add_hash_id,
+            'number_of_customers' => $request->number_of_customers,
+        ];
+
+        $ordergroup = $this->orderGroupRepository->updateOrderGroupShop($data, $ordergroup);
+
+        // Order Course
+        if ($request->course_hash_id && $request->course_price_hash_id) {
+            $tOrderData = [
+                'course_hash_id' => $request->course_hash_id,
+                'course_price_hash_id' => $request->course_price_hash_id,
+                'quantity' => $request->number_of_customers,
+            ];
+
+            $this->orderRepository->createOrder([$tOrderData], $shop, $ordergroup);
+        }
+
+        $orders = $ordergroup->tOrders->load('rShopMenu.mMenu');
+        // Update number customer of course
+        if ($request->number_of_customers_of_course && $orders && count($orders)) {
+            $dataOrderUpdate = [];
+
+            foreach ($orders as $order) {
+                // OrderGroup has main course
+                if ($order->r_shop_course_id && $order->order_type == config('const.ORDER_TYPE.ORDER_COURSE')) {
+                    $dataOrderUpdate = [
+                        'id' => $order->id,
+                        'quantity' => $request->number_of_customers_of_course,
+                    ];
+                    break;
+                }
+            }
+
+            if (!empty($dataOrderUpdate)) {
+                $this->orderRepository->updateMenus([$dataOrderUpdate]);
+            }
+        }
+
+        // Update quantity of initial menu orders
+        $numberOfCustomers = $request->number_of_customers;
+        if ($request->is_update_initial_menu_orders && $orders && count($orders)) {
+            $dataOrders = collect($orders)->filter(function ($order) {
+                return $order->order_type === config('const.ORDER_TYPE.ORDER_MENU')
+                    && $order->rShopMenu
+                    && $order->rShopMenu->mMenu
+                    && $order->rShopMenu->mMenu->initial_order_flg;
+            })->map(function ($order) use ($numberOfCustomers) {
+                return [
+                    'id' => $order->id,
+                    'quantity' => $numberOfCustomers,
+                ];
+            });
+
+            if (!empty($dataOrders)) {
+                $this->orderRepository->updateMenus($dataOrders);
+            }
+        }
+
+        return $ordergroup;
+    }
+
+    /**
      * Order initial menus when create a new t_ordergroup
      * @param MShop       $shop
      * @param TOrderGroup $orderGroup
@@ -215,5 +287,61 @@ class OrderGroupService
     public function updateBillPdfFilePath(TOrdergroup $ordergroup, string $s3_path)
     {
         return $this->orderGroupRepository->updateOrderGroupBillPdfFilePath($ordergroup, $s3_path);
+    }
+
+    /**
+     * Delete order group
+     *
+     * @param MShop $shop
+     * @param TOrderGroup $ordergroup
+     * @return mixed
+     */
+    public function deleteOrderGroup(MShop $shop, TOrderGroup $ordergroup)
+    {
+        return $this->orderGroupRepository->deleteOrderGroup($ordergroup);
+    }
+
+    /**
+     * Get orderGroup with orders data (menu|course)
+     *
+     * @param TOrderGroup $ordergroup
+     * @param array       $statuses
+     * @return mixed
+     */
+    public function getOrderGroupWithOrdersData(TOrderGroup $ordergroup, array $statuses)
+    {
+        return $ordergroup->load(
+            $this->orderGroupRepository->queryGetOrdersDataOfOrderGroup($statuses)
+        );
+    }
+
+    /**
+     * Extend order course for t_ordergroup
+     * @param array $tOrderData
+     * @param MShop $shop
+     * @param TOrderGroup $ordergroup
+     *
+     * @return TOrderGroup|null
+     * @throw  Exception
+     * @throws Exception|\Exception
+     */
+    public function extendCourse(array $tOrderData, MShop $shop, TOrderGroup $ordergroup): ?TOrderGroup
+    {
+        if (!$this->orderGroupRepository->checkCourseCanExtend($ordergroup)) {
+            return null;
+        }
+
+        if ($ordergroup->status == config('const.STATUS_ORDERGROUP.PRE_ORDER')
+            || $ordergroup->status == config('const.STATUS_ORDERGROUP.ORDERING')
+        ) {
+            $this->orderRepository->createOrder([$tOrderData], $shop, $ordergroup);
+
+            return $ordergroup->load(
+                $this->orderGroupRepository->queryGetOrdersDataOfOrderGroup()
+            );
+        }
+
+        // this_table_cannot_extend
+        throw new \Exception('Set ăn này đã kết thúc, và không thể tiếp tục');
     }
 }

@@ -17,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(
     function () {
         Route::group(
+            ['prefix' => 'auth'],
+            function () {
+                Route::post('forgot-password', 'Api\ShopController@generateForgotPasswordLink');
+                Route::get('forgot-password/verify', 'Api\ShopController@verifyShopForgotPassword');
+                Route::post('reset-password', 'Api\ShopController@resetPassword');
+            }
+        );
+
+        Route::group(
             ['prefix' => 'system', 'middleware' => ['guest:api']],
             function () {
                 // configurations

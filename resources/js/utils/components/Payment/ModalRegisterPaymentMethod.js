@@ -207,7 +207,7 @@ const ModalRegisterPaymentMethod = (props) => {
       await PaymentApiService.registerPaymentMethod(shop.hashId, paymentInfo.payment_method);
       await ShopApiService.updateServicePlanOfShop(shop.hashId, selectedPlanId);
       // TODO: translate
-      showSuccessMessage('プラン・請求情報を変更しました');
+      showSuccessMessage('Cập nhật thông tin thành công');
       window.location.reload();
       setIsLoading(false);
     } catch (e) {
@@ -265,12 +265,12 @@ const ModalRegisterPaymentMethod = (props) => {
   const selectedPlan = servicePlans.find((planTmp) => planTmp.id === selectedPlanId);
   
   return (
-    <Modal title='プラン申込' open={open} maxHeight='80vh'>
+    <Modal title='Gói dịch vụ' open={open} maxHeight='80vh'>
       <Box m={1} p={3}>
         {/* service plan select */}
         <Box mt={1} className={classes.boxItems}>
           <Box width='20%' fontWeight={600}>
-            プラン選択
+            Các gói dịch vụ
           </Box>
           
           <Box width='80%'>
@@ -295,32 +295,32 @@ const ModalRegisterPaymentMethod = (props) => {
           <>
             <Box mt={1} className={classes.boxItems}>
               <Box width='20%' fontWeight={600}>
-                プラン内容
+                Chi tiết
               </Box>
               <Box width='70%' flex={1}>
                 <Grid spacing={5} container justify='center'>
                   <Grid item xs={12}>
+                    {/*<Box mt={2} className={classes.boxItems}>*/}
+                    {/*  <Box width='25%' className={classes.ItemName}>*/}
+                    {/*    Phí tiêu chuẩn*/}
+                    {/*  </Box>*/}
+                    {/*  <Box width='75%' className={classes.ItemValue}>*/}
+                    {/*    {Number(selectedPlan.initial_price).toLocaleString()} VND*/}
+                    {/*  </Box>*/}
+                    {/*</Box>*/}
+                    
                     <Box mt={2} className={classes.boxItems}>
                       <Box width='25%' className={classes.ItemName}>
-                        初期費用
+                        Phí dịch vụ
                       </Box>
                       <Box width='75%' className={classes.ItemValue}>
-                        ¥{Number(selectedPlan.initial_price).toLocaleString()}
+                        {Number(selectedPlan.price).toLocaleString()} VND
                       </Box>
                     </Box>
                     
                     <Box mt={2} className={classes.boxItems}>
                       <Box width='25%' className={classes.ItemName}>
-                        月額基本料金
-                      </Box>
-                      <Box width='75%' className={classes.ItemValue}>
-                        ¥{Number(selectedPlan.price).toLocaleString()}
-                      </Box>
-                    </Box>
-                    
-                    <Box mt={2} className={classes.boxItems}>
-                      <Box width='25%' className={classes.ItemName}>
-                        追加QR料金
+                        Phí dùng thêm QR
                       </Box>
                       <Box width='75%' className={classes.ItemValue}>
                         {
@@ -329,10 +329,10 @@ const ModalRegisterPaymentMethod = (props) => {
                             ? (
                               <>
                               <span>
-                                1QRごと¥
                                 {
                                   Number(selectedPlan.r_function_conditions[0].m_function?.m_service_plan_options[0].additional_price) ?? 0
                                 }
+                                &nbsp mỗi QR
                               </span>
                                 <span className={classes.noteItem}>※
                                   {
@@ -342,11 +342,11 @@ const ModalRegisterPaymentMethod = (props) => {
                                       ) + 1
                                     )
                                   }
-                                  QR以上ご利用で追加料金が発生します
+                                  Sẽ phát sinh thêm phí nếu bạn sử dụng nhiều hơn số QR giới hạn
                               </span>
                               </>
                             ) : (
-                              `¥0`
+                              `0 VND`
                             )
                         }
                       </Box>
@@ -363,7 +363,7 @@ const ModalRegisterPaymentMethod = (props) => {
           <>
             <Box mt={1} className={classes.boxItems} marginTop={'30px'}>
               <Box width='20%' fontWeight={600}>
-                支払方法
+                PHương thức thanh toán
               </Box>
               <Box width='80%'>
                 <RadioGroup
@@ -375,7 +375,7 @@ const ModalRegisterPaymentMethod = (props) => {
                     <FormControlLabel
                       value={PAYMENT_METHOD_TYPES.card}
                       control={<Radio disableRipple classes={{ checked: classes.radioChecked }} />}
-                      label='クレジットカード'
+                      label='Thẻ ngân hàng'
                     />
                     {/* <FormControlLabel
                       value={PAYMENT_METHOD_TYPES.invoice}
@@ -447,8 +447,8 @@ const ModalRegisterPaymentMethod = (props) => {
                         href='#'
                         onClick={() => setIsOpenTerms(true)}
                         className={classes.termOfService}
-                      >利用規約
-                      </Link>に同意して利用する
+                      >Điều khoản dịch vụ
+                      </Link>Đồng ý với điều khoản dịch vụ
                     </Box>
                   )}
                   onChange={(event) => handleChangeCheckbox(event)}
@@ -467,7 +467,7 @@ const ModalRegisterPaymentMethod = (props) => {
       {/* Modal error when down-grade payment service over limition */}
       {isOverQrLimit && (
         <Modal
-          title='確認'
+          title='Xác nhận'
           open={open}
           actions={actionModalError()}
           maxWidth='480px'
@@ -475,12 +475,12 @@ const ModalRegisterPaymentMethod = (props) => {
         >
           <Box textAlign='center' className={classes.boxContent}>
             <Box className={classes.textModal} color='red'>
-              プランを変更できません。
+              Số lượng QR sử dụng đã vượt quá giới hạn của gói dịch vụ
             </Box>
             <Box className={classes.textModal}>
-              QR数上限を超えているため、プラン変更できません。
+            
             </Box>
-            <Box className={classes.textModal}>サポート窓口までお問い合わせください。</Box>
+            <Box className={classes.textModal}> Vui lòng liên hệ với nhà cung cấp dịch vụ để được hỗ trợ </Box>
           </Box>
         </Modal>
       )}

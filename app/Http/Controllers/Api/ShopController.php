@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\BaseApiController;
+use App\Http\Requests\Auth\ForgotPasswordRequest;
+use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Http\Requests\Auth\VerifyShopRequest;
 use App\Http\Requests\ShopRequest;
 use App\Http\Requests\TmpShopRequest;
@@ -13,6 +15,7 @@ use App\Services\ShopService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Kreait\Firebase\Auth\SendActionLink\FailedToSendActionLink;
 
 class ShopController extends BaseApiController
 {
@@ -114,5 +117,68 @@ class ShopController extends BaseApiController
         $shop = $this->shopService->getShopData($shop);
 
         return $this->responseApi(new ShopResource($shop));
+    }
+
+    /**
+     * Generate forgot password link to email
+     *
+     * @param ForgotPasswordRequest $request
+     * @return JsonResponse
+     */
+    public function generateForgotPasswordLink(ForgotPasswordRequest $request): JsonResponse
+    {
+        try {
+            $this->shopService->generateForgotPasswordLink($request->email);
+
+            return $this->responseApi(true);
+        } catch (FailedToSendActionLink $exception) {
+            if ($exception->getMessage() === config('const.exceptions.firebase.reset_password_exceed_limit')) {
+                return $this->responseApi(
+                    false,
+                    400,
+                    $exception->getMessage()
+                );
+            }
+        } catch (\Exception $exception) {
+            return $this->responseApi(true);
+        }
+
+        return $this->responseApi(true);
+    }
+
+    /**
+     * Verify shop forgot password
+     *
+     * @param VerifyShopRequest $request
+     * @return JsonResponse
+     */
+    public function verifyShopForgotPassword(VerifyShopRequest $request): JsonResponse
+    {
+        $response = $this->shopService->verifyShopForgotPassword($request->token);
+
+        return $this->responseApi($response);
+    }
+
+    /**
+     * Verify reset password
+     *
+     * @param ResetPasswordRequest $request
+     * @return JsonResponse
+     */
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+        try {
+            $response = $this->shopService->resetPassword($request->token, $request->password);
+
+            return $this->responseApi($response);
+        } catch (\PDOException $e) {
+            throw $e;
+        } catch (\Exception $e) {
+            return [
+                'status'  => 'failure',
+                'message' => 'exception',
+                'result'  => ['fields'=>'', 'errorCode'=>'exception', 'errorMessage' => $e->getMessage()]
+            ];
+        }
     }
 }

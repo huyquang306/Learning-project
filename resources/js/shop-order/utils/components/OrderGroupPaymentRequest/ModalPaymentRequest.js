@@ -152,22 +152,22 @@ const ModalPaymentRequest = (props) => {
       return (
         <div key={index} className={classes.menuItem}>
           <div className={classes.menuName}>
-            {item.status === 2 ? <div className={classes.cancelOrder}>【取消】</div> : null}
+            {item.status === 2 ? <div className={classes.cancelOrder}>【Hủy】</div> : null}
             {item.name}
           </div>
           <div className={classes.menuCount}>
             {item.quantity}
-            <span>個</span>
+            <span></span>
           </div>
           <div className={classes.menuPrice}>
             {item.amount}
-            <span>円</span>
+            <span>VND</span>
           </div>
           {item.status === 2 ? (
             <div className={classes.menuButton}></div>
           ) : (
             <div className={classes.menuButton} onClick={() => handleShowInfoClick(item)}>
-              <button>選択</button>
+              <button>Chọn</button>
             </div>
           )}
         </div>
@@ -180,7 +180,7 @@ const ModalPaymentRequest = (props) => {
       <>
         <ButtonCustom
           customClass={classes.button}
-          title="戻る"
+          title="Quay lại"
           borderRadius="28px"
           bgcolor="#828282"
           borderColor="#828282"
@@ -189,7 +189,7 @@ const ModalPaymentRequest = (props) => {
         />
         <ButtonCustom
           customClass={classes.button}
-          title="会計する"
+          title="Thanh toán"
           borderRadius="28px"
           bgcolor="#FFA04B"
           borderColor="#FFA04B"
@@ -204,18 +204,18 @@ const ModalPaymentRequest = (props) => {
     return (
       <div className={classes.payment}>
         <div className={classes.paymentHeader}>
-          <div className={'paymentHeaderLeft'}>アイテム詳細</div>
+          <div className={'paymentHeaderLeft'}>Chi tiết</div>
           <div className={'paymentHeaderRight'}>
-            <button onClick={handleRemoveOrderClick}>削除</button>
+            <button onClick={handleRemoveOrderClick}>Xóa</button>
           </div>
         </div>
         <div className={classes.paymentInfo}>
-          <div className={classes.paymentColLeft}>商品名</div>
+          <div className={classes.paymentColLeft}>Tên</div>
           <div className={classes.paymentColRight}>{order.name}</div>
         </div>
 
         <div className={classes.paymentInfo}>
-          <div className={classes.paymentColLeft}>数量</div>
+          <div className={classes.paymentColLeft}>Số lượng</div>
           <div className={classes.paymentColRight}>
             <div className={classes.paymentBoxInput}>
               <input
@@ -235,20 +235,20 @@ const ModalPaymentRequest = (props) => {
           <div className={classes.paymentColRight}>
             <div className={classes.paymentBoxInput}>
               <input type={'text'} disabled={true} value={order.quantity * order.price} onChange={() => {}} />{' '}
-              <span>円</span>
+              <span>VND</span>
             </div>
           </div>
         </div>
 
         <div className={classes.paymentButton}>
           <div className={'paymentButtonLeft'}>
-            <button onClick={handleUpdateOrderClick}>保存する</button>
+            <button onClick={handleUpdateOrderClick}>Lưu</button>
           </div>
           <div
             className={'paymentButtonRight'}
             onClick={() => setShowInfo({ isShow: false, type: null })}
           >
-            <button>キャンセル</button>
+            <button>Hủy</button>
           </div>
         </div>
       </div>
@@ -258,7 +258,7 @@ const ModalPaymentRequest = (props) => {
   return (
     <Modal
       open={props.open}
-      title="会計"
+      title="Tổng"
       onClose={props.onClose}
       actions={renderFooterActions()}
       disableBackdropClick={true}
@@ -266,9 +266,9 @@ const ModalPaymentRequest = (props) => {
       <div className={classes.modalContent}>
         <div className={classes.contentLeft}>
           <div className={`${classes.header}`}>
-            <div className="headerMenuName">商品名</div>
-            <div className="headerMenuCount">点数</div>
-            <div className="headerMenuPrice">金額</div>
+            <div className="headerMenuName">Tên món</div>
+            <div className="headerMenuCount">Số lượng</div>
+            <div className="headerMenuPrice">Đơn giá</div>
             <div className="headerMenuButton"> </div>
           </div>
 
@@ -279,7 +279,7 @@ const ModalPaymentRequest = (props) => {
           {showInfo.isShow && showInfo.type === TYPE_ORDER_MENU && renderOrderInfo()}
           <div className={classes.totalAmount}>
             <div>
-              合計金額： &nbsp; &nbsp;<span>{formatAmount(totalAmount(orderGroup))}円</span>
+              Tổng tiền： &nbsp; &nbsp;<span>{formatAmount(totalAmount(orderGroup))}VND</span>
             </div>
           </div>
         </div>

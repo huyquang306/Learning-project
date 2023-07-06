@@ -111,7 +111,7 @@ const PageForgotPassword = () => {
 
     try {
       await ShopAuthApiService.authResetPassword(passwordInfo.password, tokenVerify);
-      showSuccessMessage('パスワードを変更しました!');
+      showSuccessMessage('Đặt lại mật khẩu thành công');
 
       setTimeout(() => {
         history.push('/');
@@ -135,23 +135,23 @@ const PageForgotPassword = () => {
 
   return (
     <PageContainer>
-      <RegisterContainer>
+      <RegisterContainer type={'forgot-password'}>
         <Card
-          title='パスワード再設定'
+          title='Đặt lại mật khẩu'
           key='createAccount'
           onButtonClick={handleForgotPassword}
           buttonDisabled={isSubmit}
         >
-          <Box>新しいパスワードを設定してください。</Box>
+          {/*<Box>Hãy đặt một mật khẩu mới</Box>*/}
           <FormsContainer>
             <ConfirmPassword
             isChangePassword={false}
             handleChange={handleChangeInput}
             handleDisabledButton={(value) => setIsSubmit(!value)}
-            title='新しいパスワード'
+            title='Mật khẩu mới'
           />
 
-            <Button className={classes.cancelButton} onClick={handleCancel}>キャンセルする</Button>
+            <Button className={classes.cancelButton} onClick={handleCancel}>Hủy</Button>
           </FormsContainer>
         </Card>
       </RegisterContainer>

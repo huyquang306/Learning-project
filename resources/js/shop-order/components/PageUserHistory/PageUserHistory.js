@@ -204,7 +204,7 @@ const PageUserHistory = (props) => {
 
   return (
     <PageContainer padding="0px">
-      <HeaderAppBar title="顧客一覧" />
+      <HeaderAppBar title="Danh sách khách hàng" />
       <PageInnerWrap>
         <PageInnerContainer padding={'8px 16px'}>
           <Box flex={1} className={classes.head}>
@@ -216,7 +216,7 @@ const PageUserHistory = (props) => {
                   value={filterUser?.nick_name || ''}
                   className={classes.input}
                   labelWidth={0}
-                  placeholder="ニックネーム"
+                  placeholder="Tên"
                   onChange={(event) => inputChanged(event)}
                 />
                 <OutlinedInput
@@ -225,7 +225,7 @@ const PageUserHistory = (props) => {
                   value={filterUser?.phone_number || ''}
                   className={classes.input}
                   labelWidth={0}
-                  placeholder="電話番号"
+                  placeholder="Số điện thoại"
                   onChange={(event) => inputChanged(event)}
                 />
                 <OutlinedInput
@@ -234,7 +234,7 @@ const PageUserHistory = (props) => {
                   value={filterUser?.email || ''}
                   className={classes.input}
                   labelWidth={0}
-                  placeholder="メールアドレス"
+                  placeholder="Email"
                   onChange={(event) => inputChanged(event)}
                 />
               </Box>
@@ -275,22 +275,22 @@ const PageUserHistory = (props) => {
                   <TableHead>
                     <TableRow classes={{ root: classes.tableHead }}>
                       <TableCell classes={{ root: classes.tableCell }} align="center">
-                        ニックネーム
+                        Tên
                       </TableCell>
                       <TableCell classes={{ root: classes.tableCell }} align="center">
-                        電話番号
+                        Số điện thoại
                       </TableCell>
                       <TableCell classes={{ root: classes.tableCell }} align="center">
-                        最終来店日
+                        Ngày đến cửa hàng gần nhất
                       </TableCell>
                       <TableCell classes={{ root: classes.tableCell }} align="center">
-                        来店回数
+                        Số lần ghé thăm
                       </TableCell>
                       <TableCell classes={{ root: classes.tableCell }} align="center">
-                        顧客
+                        Thông tin khách hàng
                       </TableCell>
                       <TableCell classes={{ root: classes.tableCell }} align="center">
-                        注文履歴
+                        Chi tiết
                       </TableCell>
                     </TableRow>
                   </TableHead>
@@ -340,7 +340,7 @@ const PageUserHistory = (props) => {
                                 setUserDetailData(data);
                               }}
                             >
-                              顧客詳細
+                              Xem thông tin
                             </Button>
                           </TableCell>
                           <TableCell classes={{ root: classes.tableCell }} align="center">
@@ -350,7 +350,7 @@ const PageUserHistory = (props) => {
                                 history.push('/users/history/order-detail/' + data.hash_id);
                               }}
                             >
-                              注文詳細
+                              Xem chi tiết
                             </Button>
                           </TableCell>
                         </TableRow>

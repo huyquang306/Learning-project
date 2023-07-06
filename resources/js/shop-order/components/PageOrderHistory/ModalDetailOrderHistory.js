@@ -108,7 +108,7 @@ const ModalDetailOrderHistory = (props) => {
     return (
       <React.Fragment>
         <ButtonCustom
-          title='戻る'
+          title='Đóng'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -116,7 +116,7 @@ const ModalDetailOrderHistory = (props) => {
           onClick={props.onClose}
         />
         <ButtonCustom
-          title='保存する'
+          title='Lưu'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'
@@ -140,7 +140,7 @@ const ModalDetailOrderHistory = (props) => {
   };
 
   return (
-    <Modal open={props.open} title='アイテム詳細' onClose={props.onClose} actions={footerActions()}>
+    <Modal open={props.open} title='Chi tiết' onClose={props.onClose} actions={footerActions()}>
       <div className={classes.modalContent}>
         <Box
           textAlign='right'
@@ -150,7 +150,7 @@ const ModalDetailOrderHistory = (props) => {
           }}
         >
           <ButtonCustom
-            title='削除'
+            title='Xóa'
             borderRadius='12px'
             bgcolor='#f2c94c'
             width='100px'
@@ -163,7 +163,7 @@ const ModalDetailOrderHistory = (props) => {
         <Box style={{ maxWidth: '386px', margin: '0px auto 0' }}>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              テーブル
+              Bàn
             </Grid>
             <Grid item xs={9}>
               {orderGroup.group.code_tables}
@@ -171,7 +171,7 @@ const ModalDetailOrderHistory = (props) => {
           </Grid>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              注文時間
+              Thời gian
             </Grid>
             <Grid item xs={9}>
               {moment(orderGroup.order.ordered_at).format('YYYY/MM/DD HH:mm')}
@@ -179,7 +179,7 @@ const ModalDetailOrderHistory = (props) => {
           </Grid>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              商品名
+              Món
             </Grid>
             <Grid item xs={9}>
               {orderGroup.order.name}
@@ -188,7 +188,7 @@ const ModalDetailOrderHistory = (props) => {
           </Grid>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              数量
+              Số lượng
             </Grid>
             <Grid item xs={9}>
               <OutlinedInput
@@ -197,7 +197,7 @@ const ModalDetailOrderHistory = (props) => {
                 type='number'
                 value={quantity}
                 classes={{ root: classes.inputRoot, input: classes.input }}
-                endAdornment={<InputAdornment position='end'>個</InputAdornment>}
+                // endAdornment={<InputAdornment position='end'></InputAdornment>}
                 labelWidth={0}
                 inputProps={{ min: MIN_NUMBER_OF_QUANTITY }}
                 onChange={handleOnChangeQuantity}
@@ -207,7 +207,7 @@ const ModalDetailOrderHistory = (props) => {
           </Grid>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              価格
+              Giá
             </Grid>
             <Grid item xs={9}>
               <OutlinedInput

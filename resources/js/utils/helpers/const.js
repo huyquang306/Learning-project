@@ -75,7 +75,7 @@ export const CHARCODE_MINUS = 45;
 export const ENTER_KEY_CODE = 13;
 
 export const S3_URL = process.env.MIX_AWS_S3_BUCKET
-  ? `https://${process.env.MIX_AWS_S3_BUCKET}/`
+  ? `https://${process.env.MIX_AWS_S3_BUCKET}.s3.${process.env.MIX_AWS_S3_REGION}.amazonaws.com/`
   : `${window.location.origin}/`;
 
 export const MENU_STATUS = {

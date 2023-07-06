@@ -41,7 +41,7 @@ const PageSendEmailToForgotPassword = () => {
   const handleButtonClick = async () => {
     // Validate email
     if (authEmail.trim() === '') {
-      setErrorMessage('メールアドレスを入力して下さい。');
+      setErrorMessage('Hãy điền địa chỉ email của bạn');
 
       return;
     }
@@ -49,7 +49,7 @@ const PageSendEmailToForgotPassword = () => {
       || authEmail.length < MIN_NUMBER_CHARS_EMAIL
       || authEmail.length > MAX_NUMBER_CHARS_EMAIL
     ) {
-      setErrorMessage('メールアドレスの形式が正しくありません。');
+      setErrorMessage('Định dạng địa chỉ email không chính xác.');
 
       return;
     }
@@ -70,14 +70,14 @@ const PageSendEmailToForgotPassword = () => {
     <PageContainer>
       <RegisterContainer type='forgot-password'>
         <Card
-          title='メールアドレス認証'
+          title='Xác nhận địa chỉ eamil'
           onButtonClick={handleButtonClick}
-          buttonTitle={isSignUp ? '＋登録' : '送信'}
+          buttonTitle={isSignUp ? '＋Thêm email' : 'Gửi'}
           buttonDisabled={authEmail.trim() === ''}
           customButtons={isConfirmed && <></>}
         >
           {isConfirmed ? (
-            <Box>メールにリクエストを送信しました。 確認してください。</Box>
+            <Box>Yêu cầu đã được gửi tới email của bạn, vui lòng xác nhận!</Box>
           ) : (
             <FormsContainer>
               <TextField
@@ -85,7 +85,7 @@ const PageSendEmailToForgotPassword = () => {
                 variant='outlined'
                 value={authEmail}
                 onChange={handleChange}
-                placeholder='メールアドレス'
+                placeholder='Email'
                 fullWidth
                 inputProps={{
                   maxLength: MAX_NUMBER_CHARS_EMAIL,
@@ -102,7 +102,7 @@ const PageSendEmailToForgotPassword = () => {
       <Modal title='' open={!!errorMessage}>
         <Box>{errorMessage}</Box>
         <br />
-        <Button onClick={handleErrorModalButtonClick}>確認</Button>
+        <Button onClick={handleErrorModalButtonClick}>Xác nhận</Button>
       </Modal>
     </PageContainer>
   );

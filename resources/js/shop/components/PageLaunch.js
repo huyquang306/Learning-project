@@ -40,15 +40,15 @@ const PageLaunch = (_props) => {
         <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/logo.png`} alt="logo" />
 
         <Button
-          title="Register"
+          title="Đăng kí"
           onClick={() => {
             history.push('/register');
           }}
         />
 
         <Button
-          title="Sign-in"
-          bgcolor="#F8B62D"
+          title="Đăng nhập"
+          bgcolor="#ff604c"
           onClick={() => {
             history.push('/signin');
           }}

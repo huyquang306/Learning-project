@@ -51,4 +51,24 @@ class MStaff extends Model
             'id'
         );
     }
+
+    public function tOrders(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            TOrder::class,
+            'r_order_staff',
+            't_order_id',
+            'm_staff_id'
+        );
+    }
+
+    public function tServiceBillings(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
+        return $this->morphOne(TServiceBilling::class, 'buyer');
+    }
+
+    public function tStripeCustomer(): \Illuminate\Database\Eloquent\Relations\MorphOne
+    {
+        return $this->morphOne(TStripeCustomer::class, 'customer');
+    }
 }

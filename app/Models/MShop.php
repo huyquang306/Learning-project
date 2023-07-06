@@ -171,7 +171,7 @@ class MShop extends Model
         return $this->hasMany(MShopMeta::class, 'm_shop_id', 'id');
     }
 
-    public function mPaymentMethods()
+    public function mPaymentMethods(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(
             MPaymentMethod::class,
@@ -179,5 +179,37 @@ class MShop extends Model
             'm_shop_id',
             'm_payment_method_id'
         );
+    }
+
+    public function tServiceBillings(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TServiceBilling::class);
+    }
+
+    public function mServicePlans(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(MServicePlan::class, RShopServicePlan::class)
+            ->wherePivot('deleted_at', null)
+            ->withPivot([
+                'status',
+                'end_date',
+                'created_at',
+                'applied_date',
+                'registered_date',
+            ]);
+    }
+
+    /**
+     * staffs of shop that can pay invoice
+     */
+    public function mStaffsCanPay(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            MStaff::class,
+            'r_shop_staff',
+            'm_shop_id',
+            'm_staff_id'
+        )->wherePivot('deleted_at', null)
+            ->wherePivot('is_staff_pay', RShopStaff::IS_STAFF_PAY);
     }
 }

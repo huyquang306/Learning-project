@@ -31,8 +31,12 @@ Route::prefix('v1')->group(
                 // Ordergroups
                 Route::get('/{shop}/ordergroupsummary', 'Api\Shop\OrderGroupController@getSummary');
                 Route::get('/{shop}/history/ordergroupsummary', 'Api\Shop\OrderGroupController@getOrdergroups');
-                Route::post('/{shop}/ordergroup', 'Api\Shop\OrderGroupController@create');
-//                    ->middleware('checkUsageQRCodeOver');
+                Route::post('/{shop}/ordergroup', 'Api\Shop\OrderGroupController@create')
+                    ->middleware('checkUsageQRCodeOver');
+                Route::delete('/{shop}/ordergroup/{ordergroup}', 'Api\Shop\OrderGroupController@delete');
+                Route::put('/{shop}/ordergroup/{ordergroup}', 'Api\Shop\OrderGroupController@update');
+                Route::post('/{shop}/ordergroup/{ordergroup}/extend-time', 'Api\Shop\OrderGroupController@extendTime');
+                Route::post('/{shop}/ordergroup/{ordergroup}/auto-calculate-extend', 'Api\Shop\OrderGroupController@autoExtendCourse');
 
                 // Order
                 Route::post('/{shop}/ordergroup/{ordergroup}/order', 'Api\Shop\OrderController@create');
@@ -56,6 +60,11 @@ Route::prefix('v1')->group(
                 // Category
                 Route::apiResource('{shop}/category', 'Api\Shop\CategoryController');
 
+                // Customer
+                Route::apiResource('{shop}/users', 'Api\Shop\UserController');
+                Route::get('{shop}/history/users', 'Api\Shop\UserHistoryController@index');
+                Route::get('{shop}/history/users/{user}', 'Api\Shop\UserHistoryController@show');
+
                 // Menu
                 Route::get('{shop}/master-menus', 'Api\Shop\MenuController@getMasterMenus');
                 Route::apiResource('{shop}/menu', 'Api\Shop\MenuController')
@@ -65,6 +74,14 @@ Route::prefix('v1')->group(
                 // Cook place
                 Route::apiResource('{shop}/cook-places', 'Api\Shop\ShopCookPlaceController')
                     ->except(['show', 'create', 'edit']);
+
+                // Announcement
+                Route::group([
+                    'prefix' => '{shop}/announcements'
+                ], function () {
+                    Route::get('/', 'Api\Shop\AnnouncementController@index');
+                    Route::post('/', 'Api\Shop\AnnouncementController@update');
+                });
 
                 // Upload image
                 Route::post('{shop}/upload-image', 'Api\Shop\ImageController@store');

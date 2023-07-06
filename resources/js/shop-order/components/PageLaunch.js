@@ -41,18 +41,18 @@ const PageLaunch = (_props) => {
       backgroundImage={`${process.env.MIX_ASSETS_PATH}/img/shared/orderr_launch_background.png`}
     >
       <InnerContainer>
-        <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/orderr_logo.png`} alt="logo" />
+        <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/EzOrder.png`} alt="logo" />
 
         <Button
-          title="Register"
+          title="Đăng kí"
           onClick={() => {
             history.push('/register');
           }}
         />
 
         <Button
-          title="Sign-in"
-          bgcolor="#F8B62D"
+          title="Đăng nhập"
+          bgcolor="#ff604c"
           onClick={() => {
             history.push('/signin');
           }}

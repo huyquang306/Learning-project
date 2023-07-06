@@ -25,6 +25,7 @@ class MenuResource extends JsonResource
             'price' => $this->price,
             'current_price' => $currentPrice,
             'tax_value' => $this->tax_value,
+            'initial_order_flg' => $this->initial_order_flg,
             's_image_folder_path' => $this->s_image_folder_path,
             'm_image_folder_path' => $this->m_image_folder_path,
             'l_image_folder_path' => $this->l_image_folder_path,

@@ -83,7 +83,7 @@ const PageSignin = (props) => {
           buttonDisabled={!account.email && !account.password}
         >
           <FormsContainer>
-            <Box className={classes.labelInput}>Email Address</Box>
+            <Box className={classes.labelInput}>Email</Box>
             <TextField
               name="email"
               variant="outlined"
@@ -97,7 +97,7 @@ const PageSignin = (props) => {
               }}
             />
 
-            <Box className={`${classes.labelInput} ${classes.labelInputTop}`}>Password</Box>
+            <Box className={`${classes.labelInput} ${classes.labelInputTop}`}>Mật khẩu</Box>
             <TextField
               name="password"
               variant="outlined"
@@ -123,7 +123,7 @@ const PageSignin = (props) => {
             />
 
             <Box className={`${classes.labelInput} ${classes.labelInputTop}`}>
-              <Link to="/verify-forgot-password">Forgot Password</Link>
+              <Link to="/verify-forgot-password">Quên mật khẩu</Link>
             </Box>
           </FormsContainer>
 

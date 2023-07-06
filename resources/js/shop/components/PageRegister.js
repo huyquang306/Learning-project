@@ -834,7 +834,7 @@ const PageRegister = (props) => {
                     check('term', true);
                   }}
                 >
-                  Terms of service
+                  Điều khoản dịch vụ
                 </Link>
                 <span className={classes.required}>(*)</span>
               </Box>
@@ -864,7 +864,7 @@ const PageRegister = (props) => {
                     check('privacy', true);
                   }}
                 >
-                  Privacy policy
+                  Chính sách bảo mật
                 </Link>
                 <span className={classes.required}>(Required)</span>
               </Box>
@@ -880,7 +880,7 @@ const PageRegister = (props) => {
     
     // === step ２: shop email, password =========
     <Card
-      title='Setting login information'
+      title='Thông tin đăng nhập'
       key='createAccount'
       onButtonClick={handleClickShopAccount}
       buttonDisabled={buttonDisabled || !shop.email || disabledPassword}
@@ -891,7 +891,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} flexDirection={{ xs: 'row', sm: 'column' }}>
-              Email Address <Box className={classes.required}>(*)</Box>
+              Email <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -921,13 +921,13 @@ const PageRegister = (props) => {
     
     // === step 3: waiting confirmation ==========
     <Card
-      title='Setting login information'
+      title='Thông tin đăng nhập'
       key='waitConfirm'
       buttonDisabled={buttonDisabled}
       customButtons={<></>}
     >
       <Box>
-        <Box>I have sent a request to your email, please confirm!</Box>
+        <Box>Yêu cầu đã được gửi tới email của bạn, vui lòng xác nhận!</Box>
         <Box mt={3} mb={2}>
           {shop?.email || infoAccountTypeModelRobot?.email}
         </Box>
@@ -942,7 +942,7 @@ const PageRegister = (props) => {
               setDisabledPassword(true);
             }}
           >
-            Change address
+            Thay đổi email
           </Button>
           <Button
             bgcolor='#FFF'
@@ -982,7 +982,7 @@ const PageRegister = (props) => {
       
       {/* processing modal */}
       <WaitingModal title='' open={showWait}>
-        Please wait...
+        Vui lòng chờ...
       </WaitingModal>
       
       <FlashMessage

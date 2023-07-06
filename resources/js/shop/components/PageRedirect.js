@@ -60,9 +60,9 @@ const PageRedirect = () => {
           backgroundImage={`${process.env.MIX_ASSETS_PATH}/img/shared/orderr_launch_background.png`}
         >
           <LoadingContainer>
-            <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/orderr_logo.png`} alt='logo' />
+            <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/EzOrder.png`} alt='logo' />
             <br />
-            起動中...
+            Vui lòng chờ...
           </LoadingContainer>
         </PageContainer>
       </LoadingStyledAppContainer>

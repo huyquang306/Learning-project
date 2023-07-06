@@ -242,7 +242,7 @@ const TableInfoSiderbar = (props) => {
                 Thời gian đặt bàn: {' '}
                 <span>
                   {' ' + moment(state.ordergroup.created_at_utc).format('HH:mm')}
-                  {timeAgo ? ` ${timeAgo}` : ''}
+                  {/*{timeAgo ? ` ${timeAgo}` : ''}*/}
                 </span>
               </Box>
             </>
