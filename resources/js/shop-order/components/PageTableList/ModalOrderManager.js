@@ -339,7 +339,7 @@ const ModalOrderManager = (props) => {
     const preOrders = data.map((item, index) => (
       <div className={classes.itemMenu} key={index}>
         {item.status && item.status === ORDER_STATUS.STATUS_CANCEL ? (
-          <div className={classes.cancelOrder}>【取消】</div>
+          <div className={classes.cancelOrder}>【Hủy】</div>
         ) : (
           <div className={classes.menuStatus}>
             <span />
@@ -354,13 +354,13 @@ const ModalOrderManager = (props) => {
               <div className={classes.menuTime}>{moment(item.time).format('HH:mm')}</div>
             )}
             <div className={classes.menuName}>
-              {item.name} {checkMenuInCourse(item, LIST_FREE_ORDER) ? '(コース内)' : null}
+              {item.name} {checkMenuInCourse(item, LIST_FREE_ORDER) ? '(Trong set ăn)' : null}
             </div>
           </div>
           <div className={classes.menuOrder}>
             <div className={classes.menuNumber}>
               {item.quantity}
-              <span>個</span>
+              <span></span>
             </div>
             {item.status && item.status === ORDER_STATUS.STATUS_CANCEL ? (
               <Fragment></Fragment>
@@ -369,7 +369,7 @@ const ModalOrderManager = (props) => {
                 className={classes.menuButtonOrder}
                 onClick={handleButtonSubRemoveClick(data, index, isOld)}
               >
-                キャンセル
+                Hủy
               </button>
             )}
           </div>
@@ -384,14 +384,14 @@ const ModalOrderManager = (props) => {
       <>
         <ButtonCustom
           customClass={classes.button}
-          title="戻る"
+          title="Quay lại"
           style={styles.buttonFooter}
           bgcolor="#828282"
           onClick={props.onClose}
         />
         <ButtonCustom
           customClass={classes.button}
-          title="保存する"
+          title="Lưu"
           style={styles.buttonFooter}
           bgcolor="#FFA04B"
           onClick={handleButtonSaveClick}
@@ -432,7 +432,7 @@ const ModalOrderManager = (props) => {
   return (
     <Modal
       open={props.open}
-      title="注文追加・キャンセル"
+      title="Chi tiết"
       onClose={props.onClose}
       actions={renderFooterActions()}
       customClass={classes.modalOrderContent}
@@ -463,7 +463,7 @@ const ModalOrderManager = (props) => {
                           >
                             {item.name}
                             {checkMenuInCourse(item, CHILDREN_CATEGORY) ? (
-                              <Box className={classes.showCourseBox}>コース内</Box>
+                              <Box className={classes.showCourseBox}>Trong set ăn</Box>
                             ) : null}
                           </button>
                         </Box>
@@ -474,7 +474,7 @@ const ModalOrderManager = (props) => {
           </Grid>
 
           <Grid className={classes.contentLeft} item xs={12} sm={6}>
-            <div className={classes.headerRight}>注文一覧</div>
+            <div className={classes.headerRight}>Danh sách order</div>
             <div className={classes.menu}>
               {renderListPreOrder(listPreOrderOld, true)}
               {renderListPreOrder(listPreOrder, false)}
@@ -511,7 +511,6 @@ const ModalOrderManager = (props) => {
           <Box display="flex" alignItems="baseline" fontSize={50} fontWeight="fontWeightBold">
             {orderDetail.data.quantity}
             <Box fontSize={23} fontWeight="fontWeightRegular">
-              個
             </Box>
           </Box>
           <ButtonCore

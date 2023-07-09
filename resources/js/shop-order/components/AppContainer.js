@@ -152,7 +152,7 @@ const AppContainer = () => {
   const renderActions = () => (
     <>
       <Button onClick={() => signOut()} bgcolor="#FFA04B" borderRadius="28px" borderColor="#828282">
-        ログアウトする
+        Đăng xuất
       </Button>
     </>
   );
@@ -179,7 +179,7 @@ const AppContainer = () => {
             />
             <Modal
               open={showModalExpired}
-              title="お知らせ"
+              title="Thông báo"
               actions={renderActions()}
               maxHeight="auto"
               minHeight="120px"

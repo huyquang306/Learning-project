@@ -14,7 +14,7 @@ export const PUB_SUB_KEY = {
 export const IS_ACTIVE_SHOP_KEY = 'is-active-shop';
 export const TIME_WAITING_FOR_RESEND = 60000;
 
-export const ALARM_AUDIO_PATH = `${process.env.MIX_ASSETS_PATH}sounds/audiostock_16791.wav`;
+export const ALARM_AUDIO_PATH = `${process.env.MIX_ASSETS_PATH}/sounds/audiostock_16791.wav`;
 
 export const ON_BOARDING_CONFIG = {
     USER_GROUP_ID: {

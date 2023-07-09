@@ -162,7 +162,6 @@ const ModalAddNewMenu = (props) => {
         <Box display="flex" alignItems="baseline" fontSize={50} fontWeight="fontWeightBold">
           {newMenuData.quantity}
           <Box fontSize={23} fontWeight="fontWeightRegular">
-            個
           </Box>
         </Box>
         <ButtonCore

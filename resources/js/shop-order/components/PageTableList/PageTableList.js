@@ -6,6 +6,8 @@ moment.locale('vi');
 import { sortBy } from 'lodash';
 import PubSub from 'pubsub-js';
 import { isMobile } from 'react-device-detect';
+import Echo from "laravel-echo";
+import Pusher from "pusher-js";
 
 // Services
 import ShopAuthService from 'js/shop/shop-auth-service';
@@ -51,6 +53,7 @@ import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 import Utils from 'js/shared/utils';
 import { ORDER_STATUS, ORDER_GROUP_STATUS } from 'js/utils/helpers/courseHelper';
 import { PUB_SUB_KEY, makeRandomId } from 'js/utils/helpers/const';
+import {ALARM_AUDIO_PATH} from "../../../utils/helpers/const";
 const DEFAULT_QUANTITY_ORDER = 1;
 const MAX_CHARACTER_SHOP_NAME = 12;
 
@@ -345,6 +348,7 @@ const PageTableList = (props) => {
 
   const [timeAgo, setTimeAgo] = useState(null);
   const [shopTaxInfo, setShopTaxInfo] = useState({});
+  const [accessToken, setAccessToken] = useState('');
 
   // Refresh data after paying on popup end time
   useEffect(() => {
@@ -384,11 +388,42 @@ const PageTableList = (props) => {
       dispatch({ type: 'REFRESH' });
     }
   };
+  
+  useEffect(() => {
+    getAccessToken();
+  }, []);
 
-  // Connect to endpoint API Gateway
+  // Connect to endpoint API Pusher
   useEffect(() => {
     // onConnectWebSocket(shop.hashId);
-  }, []);
+    if (accessToken == '') {
+      return;
+    }
+    
+    // window.Pusher = Pusher;
+    const echo = new Echo({
+      broadcaster: 'pusher',
+      key: process.env.MIX_PUSHER_APP_KEY,
+      cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+      forceTLS: true,
+      auth: {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          Accept: 'application/json',
+        },
+      },
+    });
+    
+    echo.channel(`order.created.${shop.hashId}`)
+      .listen('OrderCreated', (e) => {
+        const sound = new Howl({
+          src: ALARM_AUDIO_PATH,
+          volume: 10, // 1000%
+        });
+        sound.play();
+        dispatch({ type: 'REFRESH' });
+      });
+  }, [accessToken]);
 
   // Refresh data after has new order
   useEffect(() => {
@@ -405,6 +440,12 @@ const PageTableList = (props) => {
 
     setShopTaxInfo(shopDataInfo);
   };
+  
+  const getAccessToken = async () => {
+    const token = await ShopApiService.authService.getIdToken();
+    
+    setAccessToken(token);
+  }
 
   const refreshDataWhenHasNewOrder = (msg, data) => {
     if (msg === PUB_SUB_KEY.KEY_FRESH_NEW_ORDER && !Utils.isEmpty(data)) {

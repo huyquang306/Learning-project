@@ -36,7 +36,7 @@ import { Add } from '@material-ui/icons';
 
 const useStyles = makeStyles(() => ({
   container: {
-    maxHeight: '460px',
+    maxHeight: '750px',
   },
   tableCell: {
     fontSize: '20px',

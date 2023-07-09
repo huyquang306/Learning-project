@@ -60,7 +60,7 @@ const ModalWaittingPaymentRequest = (props) => {
         data
       );
       if (response) {
-        setToast({ isShow: true, status: 'success', message: 'update successfully!' });
+        setToast({ isShow: true, status: 'success', message: 'Cập nhật thành công!' });
         dispatch({ type: 'REFRESH' });
         setWaiting(false);
         props.onClose();
@@ -88,7 +88,7 @@ const ModalWaittingPaymentRequest = (props) => {
             </div>
             <div className={classes.quantityItem}>
               {order.quantity}
-              <span className={classes.normalText}>個</span>
+              <span className={classes.normalText}></span>
             </div>
             <div className={classes.amountItem}>
               {order.amount}

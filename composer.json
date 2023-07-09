@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "league/flysystem-aws-s3-v3": "~1.0",
+        "pusher/pusher-php-server": "^7.2",
         "setasign/fpdi": "^2.3",
         "simplesoftwareio/simple-qrcode": "^3.0",
         "spatie/pdf-to-image": "^2.2",
