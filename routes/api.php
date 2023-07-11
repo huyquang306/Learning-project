@@ -67,6 +67,9 @@ Route::prefix('v1')->group(
                 Route::put('/{shop}/genre', 'Api\GenreController@update');
 
                 Route::get('{shop}/payment-methods-for-cus', 'Api\Shop\PaymentMethodForCusController@index');
+
+                // Service Plan
+                Route::get('service-plans', 'Api\Shop\ServicePlanController@index');
             }
         );
 

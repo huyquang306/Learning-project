@@ -39,4 +39,20 @@ class MTable extends Model
             'id'
         )->where('deleted_at', null);
     }
+
+    /**
+     * Relationship with TOrderGroup
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tOrdergroups(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(
+            'App\Models\TOrderGroup',
+            'r_table_ordergroup',
+            'm_table_id',
+            't_ordergroup_id'
+        )->wherePivot('deleted_at', null);
+
+    }
 }

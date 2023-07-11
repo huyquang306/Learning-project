@@ -299,30 +299,30 @@ const ModalDetailTableSetting = (props) => {
             />
           </Box>
         </Box>
-        <Box display='flex' alignItems='center' justifyContent='center'>
-        {isLoading
-          ? <CircularProgress  style={{ marginLeft: 10, width: 20, height: 20 }}/>
-          : <img
-              src={qrData}
-              style={{
-                width: '250px',
-              }}
-            />
-        }
-        </Box>
-        {Object.keys(props.tableDetailData).length !== 0 ?
-        <Box display='flex' alignItems='center' justifyContent='center'>
-          <Grid item>
-            <Button
-              onClick={()=> regenerateTableQR(tableData)}
-              className={`${classes.buttonController} + ' ' + ${classes.buttonPrintQR}`}
-            >
-              Tạo mã QR
-            </Button>
-          </Grid>
-        </Box>
-        : ''
-        }
+        {/*<Box display='flex' alignItems='center' justifyContent='center'>*/}
+        {/*{isLoading*/}
+        {/*  ? <CircularProgress  style={{ marginLeft: 10, width: 20, height: 20 }}/>*/}
+        {/*  : <img*/}
+        {/*      src={qrData}*/}
+        {/*      style={{*/}
+        {/*        width: '250px',*/}
+        {/*      }}*/}
+        {/*    />*/}
+        {/*}*/}
+        {/*</Box>*/}
+        {/*{Object.keys(props.tableDetailData).length !== 0 ?*/}
+        {/*<Box display='flex' alignItems='center' justifyContent='center'>*/}
+        {/*  <Grid item>*/}
+        {/*    <Button*/}
+        {/*      onClick={()=> regenerateTableQR(tableData)}*/}
+        {/*      className={`${classes.buttonController} + ' ' + ${classes.buttonPrintQR}`}*/}
+        {/*    >*/}
+        {/*      Tạo mã QR*/}
+        {/*    </Button>*/}
+        {/*  </Grid>*/}
+        {/*</Box>*/}
+        {/*: ''*/}
+        {/*}*/}
       </Box>
     </Modal>
   );

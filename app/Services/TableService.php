@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Http\Requests\Shop\TableRequest;
 use App\Models\MShop;
+use App\Models\MTable;
 use App\Repositories\TableRepository;
 
 class TableService
@@ -35,4 +37,60 @@ class TableService
     {
         return $this->tableRepository->getShopTablesWithTrashedOrderByCode($shop);
     }
+
+    /**
+     * Create table
+     *
+     * @param TableRequest $request
+     * @param MShop $shop
+     *
+     * @return MTable|null
+     */
+    public function createTable(TableRequest $request, MShop $shop): ?\App\Models\MTable
+    {
+        while (true) {
+            $hash_id = makeHash();
+            if ($this->tableRepository->tableDuplicateCheck('hash_id', $hash_id)) {
+                break;
+            }
+        }
+        $request->merge(
+            array(
+                'hash_id' => $hash_id
+            )
+        );
+        $data = $request->all();
+
+        return $this->tableRepository->createTable($data, $shop);
+    }
+
+    /**
+     * Update table
+     *
+     * @param TableRequest $request
+     * @param MShop $shop
+     * @param MTable $table
+     *
+     * @return MTable|null
+     */
+    public function updateTable(TableRequest $request, MShop $shop, MTable $table): ?MTable
+    {
+        $data = $request->all();
+
+        return $this->tableRepository->updateTable($data, $shop, $table);
+    }
+
+    /**
+     * Delete table
+     *
+     * @param MShop $shop
+     * @param MTable $table
+     *
+     * @return bool
+     */
+    public function deleteTable(MShop $shop, MTable $table): bool
+    {
+        return $this->tableRepository->deleteTable($shop, $table);
+    }
+
 }

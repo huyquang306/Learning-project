@@ -19,6 +19,9 @@ export const ENDPOINTS = {
   UPDATE_SHOPGENRE: ['shop/$0/genre', METHOD.PUT, true],
   UPDATE_SHOP: ['shop/$0', METHOD.PUT, true],
   GET_PAYMENT_METHODS: ['shop/$0/payment-methods-for-cus', METHOD.GET, true],
+  GET_SERVICE_PLANS: ['shop/service-plans', METHOD.GET, true],
+  UPDATE_SERVICE_PLAN_OF_SHOP: ['shop/$0/setting/service-plan', METHOD.POST, true],
+  CANCEL_CONTRACT_OF_SHOP: ['shop/$0/cancel-contract', METHOD.POST, true],
 }
 
 class ShopApiService extends ApiBase {
@@ -153,6 +156,18 @@ class ShopApiService extends ApiBase {
 
   async getPaymentMethods(shopHash) {
     return await this.request(ENDPOINTS.GET_PAYMENT_METHODS, [shopHash], null);
+  }
+  
+  async getServicePlans() {
+    return await this.request(ENDPOINTS.GET_SERVICE_PLANS, [], {});
+  }
+  
+  async updateServicePlanOfShop(shopHashId, servicePlanId) {
+    return await this.request(ENDPOINTS.UPDATE_SERVICE_PLAN_OF_SHOP, [shopHashId], {service_plan_id: servicePlanId});
+  }
+  
+  async cancelContractShop(shopHashId) {
+    return await this.request(ENDPOINTS.CANCEL_CONTRACT_OF_SHOP, [shopHashId], {});
   }
 }
 
