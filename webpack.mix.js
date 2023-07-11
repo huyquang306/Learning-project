@@ -38,6 +38,7 @@ mix.js('resources/js/customer-order/app.js', 'public/assets/js/customer-order/ap
     .react();
 
 mix.copyDirectory('resources/img', 'public/assets/img');
+mix.copyDirectory('resources/sounds', 'public/assets/sounds');
 
 // Debug
 mix.sourceMaps();

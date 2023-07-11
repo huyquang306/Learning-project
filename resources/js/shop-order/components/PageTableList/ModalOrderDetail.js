@@ -183,7 +183,7 @@ const ModalOrderDetail = (props) => {
           <Box display='flex' alignItems='baseline' fontSize={50} fontWeight='fontWeightBold'>
             {orderDetail.data.quantity}
             <Box fontSize={23} fontWeight='fontWeightRegular'>
-              {orderDetail?.data?.course_hashId ? '名' : '個'}
+              {orderDetail?.data?.course_hashId ? 'set' : ''}
             </Box>
           </Box>
           <ButtonCore

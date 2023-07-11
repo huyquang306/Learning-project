@@ -180,7 +180,7 @@ const PageUserHistoryDetail = (props) => {
                               size='small'
                               style={{ minWidth: '80px' }}
                             >
-                              <p style={styles.cellContent}>{row.quantity} 個</p>
+                              <p style={styles.cellContent}>{row.quantity}</p>
                             </TableCell>
                             <TableCell align='right' width={120} size='small'>
                               <p style={styles.cellContent}>

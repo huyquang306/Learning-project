@@ -193,7 +193,7 @@ const ModalDetailReserve = (props) => {
                 type='number'
                 value={quantity}
                 classes={{ root: classes.inputRoot, input: classes.input }}
-                endAdornment={<InputAdornment position='end'>個</InputAdornment>}
+                // endAdornment={<InputAdornment position='end'>個</InputAdornment>}
                 labelWidth={0}
                 inputProps={{ min: MIN_NUMBER_OF_QUANTITY }}
                 onChange={handleOnChangeQuantity}

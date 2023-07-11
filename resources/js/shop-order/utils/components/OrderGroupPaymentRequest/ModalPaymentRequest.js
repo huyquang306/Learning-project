@@ -226,7 +226,7 @@ const ModalPaymentRequest = (props) => {
                   setOrder({ ...order, quantity: event.target.value });
                 }}
               />
-              <span>個</span>
+              <span>&nbsp x &nbsp</span>
             </div>
           </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Events\OrderCreated;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\User\OrderRequest;
 use App\Http\Resources\User\OrderResource;
@@ -13,6 +14,8 @@ use App\Services\User\OrderService;
 use App\Services\User\PrinterService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -36,6 +39,7 @@ class OrderController extends Controller
     {
         try {
             $orders = $this->orderService->createOrder($request, $shop, $odergroup);
+            OrderCreated::dispatch($shop, $orders);
 
             // Create print file data
             /*

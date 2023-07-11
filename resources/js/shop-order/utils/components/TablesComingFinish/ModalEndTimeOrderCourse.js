@@ -83,7 +83,7 @@ const ModalEndTimeOrderCourse = (props) => {
       let data = { flag: true };
       const response = await ShopOrderApiService.waittingPayment(shop.hashId, orderGroup.hash_id, data);
       if (response) {
-        props.showSuccessMessage('Update successfully!');
+        props.showSuccessMessage('Cập nhật thành công');
         await props.refreshDataOrderGroup();
         PubSub.publish(PUB_SUB_KEY.KEY_FRESH_UPDATE_ORDER, orderGroup);
         props.onClose();
