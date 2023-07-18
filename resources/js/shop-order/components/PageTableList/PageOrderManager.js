@@ -837,7 +837,7 @@ const PageOrderManager = forwardRef((props, ref) => {
                           </Box>
                         </Box>
                         {checkMenuInCourse(item, CHILDREN_CATEGORY) ? (
-                          <Box className={classes.showCourseBox}>コース内</Box>
+                          <Box className={classes.showCourseBox}>Trong set ăn</Box>
                         ) : null}
                       </ButtonCustom>
                     </Grid>

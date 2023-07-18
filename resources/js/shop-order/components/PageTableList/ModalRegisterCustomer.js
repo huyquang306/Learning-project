@@ -589,7 +589,7 @@ const ModalRegisterCustomer = (props) => {
 
     let options = [];
     options = listCoursesSorted.map((course) => ({
-      label: `${course.name} - ${course.time_block_unit}分`,
+      label: `${course.name} - ${course.time_block_unit} phút`,
       value: course.hash_id,
     }));
     if (state?.ordergroup?.id) {

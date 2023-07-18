@@ -183,7 +183,7 @@ const ModalDetailOrderHistory = (props) => {
             </Grid>
             <Grid item xs={9}>
               {orderGroup.order.name}
-              {orderGroup.order.m_course ? <span> (コース内)</span> : null}
+              {orderGroup.order.m_course ? <span> (Trong set ăn)</span> : null}
             </Grid>
           </Grid>
           <Grid container spacing={3} alignItems='center'>

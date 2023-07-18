@@ -264,10 +264,13 @@ const ModalShopDetail = (props) => {
           {shopData.usageQRCodeInMonth}
         </TableCell>
         <TableCell classes={{root: classes.tableCell}} align='center'>
+          {/*{*/}
+          {/*  shopData.total_orders_number !== undefined && shopData.total_customer_payment !== undefined*/}
+          {/*    ? `${currencyFormat(shopData.total_orders_number)}/${currencyFormat(shopData.total_customer_payment)}`*/}
+          {/*    : null*/}
+          {/*}*/}
           {
-            shopData.total_orders_number !== undefined && shopData.total_customer_payment !== undefined
-              ? `${currencyFormat(shopData.total_orders_number)}/${currencyFormat(shopData.total_customer_payment)}`
-              : null
+            `${shopData.service_plan}`
           }
         </TableCell>
         <TableCell classes={{root: classes.tableCell}} align='center'>

@@ -226,7 +226,7 @@ const PageOrder = () => {
 
   return (
     <PageContainer padding='0' height='auto' minHeight='auto'>
-      <HeaderAppBar title='Lịch sử gọi món' />
+      <HeaderAppBar title='Các món đã gọi' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding='0px 0px 80px 0px'>
           <Box p={1}>

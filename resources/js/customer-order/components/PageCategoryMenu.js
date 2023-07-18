@@ -53,7 +53,7 @@ const useStyles = makeStyles({
     backgroundColor: '#ffffff',
   },
   pageBorderLeft: {
-    height: 'calc(100vh - 175px)',
+    height: 'calc(100vh - 120px)',
     overflowY: 'scroll',
     position: 'sticky',
     top: '43px',
@@ -152,6 +152,17 @@ const useStyles = makeStyles({
     padding: '0px 15px 0px 15px',
     display: 'flex',
     width: '100%',
+  },
+  showCourseBox: {
+    position: 'absolute',
+    // right: '3px',
+    // bottom: '3px',
+    border: '2px solid #FFE8A5',
+    borderRadius: '15px',
+    padding: '0 5px',
+    fontSize: '16px',
+    fontWeight: 600,
+    backgroundColor: '#FFE8A5',
   },
 });
 
@@ -466,7 +477,7 @@ const PageCategoryMenu = () => {
       if (product.is_belong_to_course == 0) {
         return (
           <Fragment>
-            <Box className='outOfCourse'>単品</Box>
+            <Box className='outOfCourse'></Box>
             <Box className='prodPrice'>
               {priceDisplayMode === 1
                 ? product.current_price.price_unit_without_tax
@@ -478,8 +489,9 @@ const PageCategoryMenu = () => {
       } else {
         return (
           <Fragment>
+            <Box fontSize={16} className={classes.showCourseBox}>Trong set ăn</Box>
             <Box className='prodPrice' style={{ textDecoration: 'line-through' }}>
-              <Box fontSize={11}>コース単価</Box>
+              &nbsp;
               <Box fontSize={16}>0{currencyName}</Box>
             </Box>
           </Fragment>
@@ -499,7 +511,7 @@ const PageCategoryMenu = () => {
 
   return (
     <PageContainer padding='0' height='auto' minHeight='auto'>
-      <HeaderAppBar title={category_hash_id ? parentCategory.name : 'おすすめ'} />
+      <HeaderAppBar title={category_hash_id ? parentCategory.name : 'Gợi ý từ cửa hàng'} />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding='0px 0px 0px 0px' height='auto'>
           <Box display='flex'>

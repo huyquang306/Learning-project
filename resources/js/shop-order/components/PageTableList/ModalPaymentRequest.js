@@ -334,7 +334,7 @@ const ModalPaymentRequest = (props) => {
             <Box>Thuế</Box>
           </Grid>
           <Grid item xs={5} className='heading' style={{ justifyContent: 'start' }}>
-            <Box>Số tiền(gồm thuế)</Box>
+            <Box>Số tiền (gồm thuế)</Box>
           </Grid>
         </Grid>
         {renderListOrder()}

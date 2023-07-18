@@ -69,7 +69,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * @param bool $shouldThrowException
      * @return mixed
      */
-    public function findBy(string $attribute, $value, bool $shouldThrowException)
+    public function findBy(string $attribute, $value, bool $shouldThrowException = true)
     {
         $query = $this->model->where($attribute, $value);
 
