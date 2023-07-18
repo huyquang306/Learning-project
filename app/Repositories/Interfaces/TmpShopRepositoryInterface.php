@@ -13,4 +13,6 @@ interface TmpShopRepositoryInterface extends BaseRepositoryInterface
     public function findByHashAndType(string $hashId, int $type);
 
     public function findByHashId(string $hashId);
+
+    public function findByEmail(string $email);
 }

@@ -137,14 +137,15 @@ const useRegisterPaymentMethod = makeStyles(() => ({
   },
   ItemName: {
     padding: '4px',
-    border: 'solid 1px #4b4848',
-    background: '#dcdada',
-    fontSize: '16px',
-    textAlign: 'right',
+    // border: 'solid 1px #4b4848',
+    // background: '#dcdada',
+    fontSize: '18px',
+    textAlign: 'left',
   },
   ItemValue: {
     fontWeight: 600,
     marginLeft: '10px',
+    fontSize: '18px',
   },
   noteItem: {
     fontSize: '14px',

@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests\Shop;
 
-use App\Http\Requests\BaseAPIRequest;
+use App\Http\Requests\BaseApiRequest;
 use App\Rules\Shop\Course\MenuHasInitialOrderFlgOffRule;
 
-class MenuInCourseRequest extends BaseAPIRequest
+class MenuInCourseRequest extends BaseApiRequest
 {
     /**
      * rulesPost

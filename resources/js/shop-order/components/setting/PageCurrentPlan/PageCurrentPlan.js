@@ -95,6 +95,8 @@ const PageCurrentPlan = (props) => {
   const getShopData = async () => {
     const shopRes = await ShopApiService.getShop(shop.hashId);
     setSelectedPlan(shopRes?.service_plan);
+    console.log(selectedPlan)
+    console.log(shopRes)
     getQrInformation(shopRes, shopRes?.service_plan);
     setShopData(shopRes);
   };
@@ -165,11 +167,11 @@ const PageCurrentPlan = (props) => {
           const numberOfQRRemaining = limitQRPayment - shopRes.usageQRCodeInMonth > 0
             ? limitQRPayment - shopRes.usageQRCodeInMonth
             : 0;
-          qrInformation = `${shopRes.usageQRCodeInMonth}/${limitQRPayment}(あと${numberOfQRRemaining}無料)`;
+          qrInformation = `${shopRes.usageQRCodeInMonth}/${limitQRPayment} (Còn lại ${numberOfQRRemaining})`;
         }
       } else {
         // Case: no limit QR
-        qrInformation = `${shopRes.usageQRCodeInMonth}(無制限)`;
+        qrInformation = `${shopRes.usageQRCodeInMonth}(Không giới hạn)`;
       }
     }
     setQrInfo(qrInformation);
@@ -281,7 +283,6 @@ const PageCurrentPlan = (props) => {
                   Đã dùng trong tháng
                 </Box>
                 <Box width="80%" fontSize={'14px'}>
-                  ※ Tính tới thời điểm hiện tại
                 </Box>
               </Box>
 
@@ -293,9 +294,9 @@ const PageCurrentPlan = (props) => {
                         Gói dịch vụ
                       </Box>
                       <Box width="60%" className={classes.ItemValue}>
-                        <a href="#" target="_blank" className={classes.itemLink}>
+                        {/*<a href="#" target="_blank" className={classes.itemLink}>*/}
                           {selectedPlan.name}
-                        </a>
+                        {/*</a>*/}
                       </Box>
                     </Box>
 
@@ -333,7 +334,7 @@ const PageCurrentPlan = (props) => {
                         Số QR quá giới hạn
                       </Box>
                       <Box width="60%" className={classes.ItemValue}>
-                        {formatNumberWithCommas(overLimitQRInfo)}円
+                        {formatNumberWithCommas(overLimitQRInfo)}
                       </Box>
                     </Box>
                   </Grid>

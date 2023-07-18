@@ -15,11 +15,16 @@ export const ENDPOINTS = {
   POST_AUTH_RESET_PASSWORD: ['auth/reset-password', METHOD.POST, true],
   POST_VERIFY_CREATE_SHOP: ['shop/verify', METHOD.POST, true],
   GET_SYSTEM_CONFIG: ['system/configurations', METHOD.GET, false],
+  SEND_VERIFY_EMAIL: ['auth/register/verify', METHOD.POST, false],
 }
 
 class ShopAuthApiService extends ApiBase {
   constructor(param) {
     super(param);
+  }
+  
+  async sendVerifyEmailRegister(data) {
+    return await this.request(ENDPOINTS.SEND_VERIFY_EMAIL, [], data);
   }
   
   /**

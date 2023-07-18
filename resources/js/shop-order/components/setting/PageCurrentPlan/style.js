@@ -93,13 +93,14 @@ const useStylesPageCurrentPlan = makeStyles(() => ({
   },
   textBold: {
     fontWeight: 600,
+    fontSize: '22px',
   },
   ItemName: {
     padding: '4px',
-    border: 'solid 1px #4b4848',
-    background: '#dcdada',
-    fontSize: '16px',
-    textAlign: 'right',
+    // border: 'solid 1px #4b4848',
+    // background: '#dcdada',
+    fontSize: '20px',
+    textAlign: 'left',
   },
   ItemValue: {
     fontWeight: 600,

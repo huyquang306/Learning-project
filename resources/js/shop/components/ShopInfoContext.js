@@ -42,16 +42,27 @@ export const shopInfoMapper = {
     m_country: mShop.m_country,
     m_business_hours: mShop.m_business_hours,
     mShopPosSetting: mShop.mShopPosSetting,
+    service_plan: mShop.service_plan,
+    payment_method: mShop.payment_method,
+    usageQRCodeInMonth: mShop.usageQRCodeInMonth,
+    billings_in_month: mShop.billings_in_month
   }),
   
   toDB: (shopInfo) => ({
     name: shopInfo.name,
+    genre: shopInfo.genre,
     phoneNumber: shopInfo.phone_number,
     prefecture: shopInfo.prefecture,
     city: shopInfo.city,
     address: shopInfo.address,
+    building: shopInfo.building,
     lat: shopInfo.lat,
     lon: shopInfo.lon,
+    email: shopInfo.email,
+    password: shopInfo.password,
+    start_time: shopInfo.start_time,
+    end_time: shopInfo.end_time,
+    billings_in_month: shopInfo.billings_in_month
   })
 };
 

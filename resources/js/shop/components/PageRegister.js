@@ -561,7 +561,7 @@ const PageRegister = (props) => {
               variant='outlined'
               value={filterShop.keyword}
               onChange={handleChangeSearchShop}
-              placeholder='Shop name or phone number'
+              placeholder='Nhập tên shop hoặc email'
               fullWidth
             />
           </Box>
@@ -623,14 +623,14 @@ const PageRegister = (props) => {
           className={classes.wrapButton}
         >
           <Button
-            title='create new shop'
+            title='Tạo cửa hàng mới'
             bgcolor='#FFF'
             fgcolor='#92C53D'
             borderColor='#92C53D'
             onClick={() => { setBackToModalRobot(false); handleButtonClick();}}
           ></Button>
           <Button
-            title='Select and proceed'
+            title='Chọn và tiếp tục'
             bgcolor='#86BE27'
             fgcolor='#F7FAEE'
             onClick={() => { setBackToModalRobot(true); setModalRegisterForDeactiveStatus(true)}}
@@ -653,7 +653,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Shop name <Box className={classes.required}>(*)</Box>
+              Tên cửa hàng <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -667,7 +667,7 @@ const PageRegister = (props) => {
               variant='outlined'
               value={shop.name}
               onChange={handleChange}
-              placeholder='Enter store name'
+              placeholder=''
               fullWidth
             />
           </Grid>
@@ -676,7 +676,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Phone number <Box className={classes.required}>(*)</Box>
+              Số điện thoại <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={10}>
@@ -690,7 +690,7 @@ const PageRegister = (props) => {
               variant='outlined'
               value={authPhoneNumber ? authPhoneNumber : shop.phoneNumber}
               onChange={handleChange}
-              placeholder='0399999999'
+              placeholder=''
               fullWidth
             />
           </Grid>
@@ -699,7 +699,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Postal code <Box className={classes.required}>(*)</Box>
+              Mã bưu điện <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -736,7 +736,7 @@ const PageRegister = (props) => {
           
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Municipalities <Box className={classes.required}>(*)</Box>
+              Thành phố <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -776,7 +776,7 @@ const PageRegister = (props) => {
           
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Prefectures <Box className={classes.required}>(*)</Box>
+              Quận <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -792,7 +792,7 @@ const PageRegister = (props) => {
           
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Address <Box className={classes.required}>(*)</Box>
+              Địa chỉ <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -915,6 +915,7 @@ const PageRegister = (props) => {
           handleChange={handleChange}
           handleDisabledButton={(value) => setButtonDisabled(!value)}
           shop={shop}
+          title="Mật khẩu"
         />
       </FormsContainer>
     </Card>,
@@ -954,7 +955,7 @@ const PageRegister = (props) => {
             padding={buttonResendDisabled ? '8px 32px' : '8px 76px'}
             borderColor={buttonResendDisabled ? '#00000033' : '#86BE27'}
           >
-            Resend email {buttonResendDisabled && `（${countdown} seconds left）`}
+            Gửi lại email {buttonResendDisabled && `（sau ${countdown} giây nữa）`}
           </Button>
         </Box>
       </Box>

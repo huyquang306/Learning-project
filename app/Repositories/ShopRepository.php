@@ -119,7 +119,7 @@ class ShopRepository extends BaseRepository
                     // $m_shop->mStaffs()->get() return collection of MStaff
                     if ($value) {
                         $m_shop->mStaffs()->sync(
-                            [$value->id => ['deleted_at' => Carbon::now('Asia/Bangkok')->format('Y-m-d H:i:s')]],
+                            [$value->id => ['deleted_at' => Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i:s')]],
                             false
                         );
                     }

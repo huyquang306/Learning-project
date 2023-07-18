@@ -22,6 +22,7 @@ Route::prefix('v1')->group(
                 Route::post('forgot-password', 'Api\ShopController@generateForgotPasswordLink');
                 Route::get('forgot-password/verify', 'Api\ShopController@verifyShopForgotPassword');
                 Route::post('reset-password', 'Api\ShopController@resetPassword');
+                Route::post('register/verify', 'Api\ShopController@sendEmailVerifyShopRegister');
             }
         );
 
@@ -43,6 +44,9 @@ Route::prefix('v1')->group(
 
         Route::group(['prefix' => 'shop', 'middleware' => ['guest:api']],
             function () {
+                // Service Plan
+                Route::get('service-plans', 'Api\Shop\ServicePlanController@index');
+
                 // Shop
                 Route::get('/{shop?}', 'Api\ShopController@show');
                 Route::post('/', 'Api\ShopController@createTmpShop');
@@ -61,15 +65,33 @@ Route::prefix('v1')->group(
                 Route::post('{shop}/tax', 'Api\Shop\ShopPosController@update');
                 Route::get('{shop}/tax-options', 'Api\Shop\ShopPosController@getTaxOptions');
 
-                // genre
+                // Genre
                 Route::post('/{shop}/genre', 'Api\GenreController@store');
                 Route::get('/{shop}/genre', 'Api\GenreController@show');
                 Route::put('/{shop}/genre', 'Api\GenreController@update');
 
-                Route::get('{shop}/payment-methods-for-cus', 'Api\Shop\PaymentMethodForCusController@index');
+                // Payment & Service setting
+                Route::group(
+                    ['prefix' => '{shop}/setting'],
+                    function () {
+                        // Update service plans
+                        Route::post('service-plan', 'Api\Shop\ServicePlanController@update');
 
-                // Service Plan
-                Route::get('service-plans', 'Api\Shop\ServicePlanController@index');
+                        Route::group(
+                            ['prefix' => 'payments'],
+                            function () {
+                                Route::get('customer-payment', 'Api\Shop\PaymentController@getCustomerPayment');
+                                Route::post('customer-payment', 'Api\Shop\PaymentController@registerOrUpdateCustomerPayment');
+
+                                Route::post('setup-payment-method', 'Api\Shop\PaymentController@setupPaymentMethod');
+                                Route::post('register-payment-method', 'Api\Shop\PaymentController@registerPaymentMethod');
+                                Route::post('active-card', 'Api\Shop\PaymentController@activeCard');
+                            }
+                        );
+                    }
+                );
+
+                Route::get('{shop}/payment-methods-for-cus', 'Api\Shop\PaymentMethodForCusController@index');
             }
         );
 

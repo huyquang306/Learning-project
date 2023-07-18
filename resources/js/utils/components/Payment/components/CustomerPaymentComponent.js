@@ -25,7 +25,7 @@ const CustomerPaymentComponent = (props) => {
       {/* username */}
       <Box mt={1} className={classes.boxItems}>
         <Box width='30%' fontWeight={600}>
-          請求先担当者名
+          Tên người thanh toán
         </Box>
         
         <Box width='70%'>
@@ -36,7 +36,7 @@ const CustomerPaymentComponent = (props) => {
             className={classes.input}
             labelWidth={0}
             classes={{input: classes.input}}
-            placeholder='山田太郎'
+            placeholder=''
             onChange={(event) => handleChangeInput(event)}
           />
         </Box>
@@ -45,7 +45,7 @@ const CustomerPaymentComponent = (props) => {
       {/* Zip code */}
       <Box mt={1} className={classes.boxItems}>
         <Box width='30%' fontWeight={600}>
-          郵便番号
+          Postal Code
         </Box>
         
         <Box width='70%'>
@@ -65,7 +65,7 @@ const CustomerPaymentComponent = (props) => {
       {/* address */}
       <Box mt={1} className={classes.boxItems}>
         <Box width='30%' fontWeight={600}>
-          住所
+          Địa chỉ
         </Box>
         
         <Box width='70%'>
@@ -76,7 +76,7 @@ const CustomerPaymentComponent = (props) => {
             className={classes.input}
             labelWidth={0}
             classes={{input: classes.input}}
-            placeholder='東京都 千代田区 丸の内　１－１－１'
+            placeholder=''
             onChange={(event) => handleChangeInput(event)}
           />
         </Box>
@@ -85,7 +85,7 @@ const CustomerPaymentComponent = (props) => {
       {/* phone number */}
       <Box mt={1} className={classes.boxItems}>
         <Box width='30%' fontWeight={600}>
-          電話番号
+          Số điện thoại
         </Box>
         
         <Box width='70%'>
@@ -96,7 +96,7 @@ const CustomerPaymentComponent = (props) => {
             className={classes.input}
             labelWidth={0}
             classes={{input: classes.input}}
-            placeholder='09012341234'
+            placeholder=''
             onChange={(event) => handleChangeInput(event)}
           />
         </Box>
@@ -105,7 +105,7 @@ const CustomerPaymentComponent = (props) => {
       {/* email */}
       <Box mt={1} className={classes.boxItems}>
         <Box width='30%' fontWeight={600}>
-          メールアドレス
+          Email
         </Box>
         
         <Box width='70%'>
@@ -116,7 +116,7 @@ const CustomerPaymentComponent = (props) => {
             className={classes.input}
             labelWidth={0}
             classes={{input: classes.input}}
-            placeholder='a@aaaa.aaa.jp'
+            placeholder=''
             onChange={(event) => handleChangeInput(event)}
           />
         </Box>
@@ -138,8 +138,8 @@ const CustomerPaymentComponent = (props) => {
                         href='#'
                         onClick={() => setIsOpenTerms(true)}
                         className={classes.termOfService}
-                      >利用規約
-                      </Link>に同意して利用する
+                      >Điều khoản dịch vụ
+                      </Link>
                     </Box>
                   )}
                   onChange={(event) => handleChangeCheckbox(event)}

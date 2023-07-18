@@ -66,7 +66,7 @@ const ModalRegisterPaymentMethod = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isOverQrLimit, setIsOverQrLimit] = useState(false);
   const stripePromise = loadStripe(process.env.MIX_STRIPE_PUBLIC_KEY, {
-    locale: 'ja',
+    locale: 'vi',
   });
   const [clientSecret, setClientSecret] = useState(null);
   const [isOpenTerms, setIsOpenTerms] = useState(false);
@@ -206,7 +206,7 @@ const ModalRegisterPaymentMethod = (props) => {
       await PaymentApiService.registerOrUpdateCustomerPayment(shop.hashId, customerData);
       await PaymentApiService.registerPaymentMethod(shop.hashId, paymentInfo.payment_method);
       await ShopApiService.updateServicePlanOfShop(shop.hashId, selectedPlanId);
-      // TODO: translate
+      
       showSuccessMessage('Cập nhật thông tin thành công');
       window.location.reload();
       setIsLoading(false);
@@ -329,20 +329,16 @@ const ModalRegisterPaymentMethod = (props) => {
                             ? (
                               <>
                               <span>
-                                {
-                                  Number(selectedPlan.r_function_conditions[0].m_function?.m_service_plan_options[0].additional_price) ?? 0
-                                }
-                                &nbsp mỗi QR
+                                ${Number(selectedPlan.r_function_conditions[0].m_function?.m_service_plan_options[0].additional_price) ?? 0} mỗi QR
                               </span>
-                                <span className={classes.noteItem}>※
-                                  {
+                                <span className={classes.noteItem}>
+                                  Sẽ phát sinh thêm phí nếu bạn sử dụng nhiều hơn số QR giới hạn ({
                                     formatNumberWithCommas(
                                       parseInt(
                                         selectedPlan.r_function_conditions[0]?.restricted_value
-                                      ) + 1
+                                      )
                                     )
-                                  }
-                                  Sẽ phát sinh thêm phí nếu bạn sử dụng nhiều hơn số QR giới hạn
+                                  })
                               </span>
                               </>
                             ) : (
@@ -363,7 +359,7 @@ const ModalRegisterPaymentMethod = (props) => {
           <>
             <Box mt={1} className={classes.boxItems} marginTop={'30px'}>
               <Box width='20%' fontWeight={600}>
-                PHương thức thanh toán
+                Phương thức thanh toán
               </Box>
               <Box width='80%'>
                 <RadioGroup
@@ -377,11 +373,11 @@ const ModalRegisterPaymentMethod = (props) => {
                       control={<Radio disableRipple classes={{ checked: classes.radioChecked }} />}
                       label='Thẻ ngân hàng'
                     />
-                    {/* <FormControlLabel
+                    <FormControlLabel
                       value={PAYMENT_METHOD_TYPES.invoice}
                       control={<Radio disableRipple classes={{ checked: classes.radioChecked }} />}
-                      label='請求書払い（月末〆／翌月末払い）'
-                    /> */}
+                      label='Thanh toán hóa đơn'
+                    />
                   </ListItemIcon>
                 </RadioGroup>
               </Box>
@@ -448,7 +444,7 @@ const ModalRegisterPaymentMethod = (props) => {
                         onClick={() => setIsOpenTerms(true)}
                         className={classes.termOfService}
                       >Điều khoản dịch vụ
-                      </Link>Đồng ý với điều khoản dịch vụ
+                      </Link>
                     </Box>
                   )}
                   onChange={(event) => handleChangeCheckbox(event)}

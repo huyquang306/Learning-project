@@ -78,4 +78,16 @@ class TmpShopRepository extends BaseRepository implements TmpShopRepositoryInter
         return $this->model->where('hash_id', $hashId)
             ->first();
     }
+
+    /**
+     * Find tmp shop by hashId
+     *
+     * @param string $email
+     * @return TTmpShop|null
+     */
+    public function findByEmail(string $email): ?TTmpShop
+    {
+       return $this->model->where('email', $email)
+           ->first();
+    }
 }

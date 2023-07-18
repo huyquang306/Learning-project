@@ -29,7 +29,7 @@ const ChangePaymentMethodActions = (props) => {
     return (
       <>
         <ButtonCustom
-          title='変更しない'
+          title='Không thay đổi'
           bgcolor='#828282'
           borderColor='#828282'
           borderRadius='28px'
@@ -38,7 +38,7 @@ const ChangePaymentMethodActions = (props) => {
           onClick={() => setIsConfirmUpdate(false)}
         />
         <ButtonCustom
-          title='変更する'
+          title='Thay đổi'
           borderRadius='28px'
           bgcolor='#F2994A'
           borderColor='#F2994A'
@@ -78,7 +78,7 @@ const ChangePaymentMethodActions = (props) => {
         isUpdateServicePlan ? (
           <>
             <ButtonCustom
-              title='戻る'
+              title='Quay lại'
               bgcolor='#828282'
               borderColor='#828282'
               borderRadius='28px'
@@ -87,7 +87,7 @@ const ChangePaymentMethodActions = (props) => {
               onClick={onClose}
             />
             <ButtonCustom
-              title='保存する'
+              title='Lưu'
               borderRadius='28px'
               bgcolor='#F2994A'
               borderColor='#F2994A'
@@ -101,7 +101,7 @@ const ChangePaymentMethodActions = (props) => {
             {
               isQrLimitInPoints && (
                 <ButtonCustom
-                  title='戻る'
+                  title='Quay lại'
                   bgcolor='#828282'
                   borderColor='#828282'
                   borderRadius='28px'
@@ -112,7 +112,7 @@ const ChangePaymentMethodActions = (props) => {
               )
             }
             <ButtonCustom
-              title='契約する'
+              title='Dịch vụ'
               borderRadius='28px'
               bgcolor='#F2994A'
               borderColor='#F2994A'
@@ -127,14 +127,14 @@ const ChangePaymentMethodActions = (props) => {
       {/* Modal confirm update payment service */}
       {isConfirmUpdate && (
         <Modal
-          title='確認'
+          title='Xác nhận'
           open={open}
           actions={confirmActions()}
           maxWidth='450px'
           minHeight='120px'
         >
           <Box textAlign='center' className={classes.boxContent}>
-            <Box className={classes.textModal}>プラン・請求情報を変更しますか？</Box>
+            <Box className={classes.textModal}>Bạn chắc chắn muốn lưu những thông tin được thay đổi?</Box>
           </Box>
         </Modal>
       )}

@@ -3,7 +3,7 @@ import FullScreenDialog from 'js/shared/components/FullscreenDialog';
 
 const TermsOfServiceDialog = (props) => {
   return (
-    <FullScreenDialog {...props} title="利用規約">
+    <FullScreenDialog {...props} title="Điều khoản dịch vụ">
       Terms of service
     </FullScreenDialog>
   );

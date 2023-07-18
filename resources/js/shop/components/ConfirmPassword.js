@@ -210,7 +210,7 @@ const ConfirmPassword = (props) => {
       {/* New password */}
       <Grid container spacing={4}>
         <Grid item xs={12} sm={2}>
-          <Box className={classes.label}> {title ? title : 'New password'}</Box>
+          <Box className={classes.label}> {title ? title : 'Mật khẩu mới'}</Box>
         </Grid>
         <Grid item xs={12} sm={10}>
           <TextField
@@ -273,7 +273,7 @@ const ConfirmPassword = (props) => {
       {/* Password Confirmation */}
       <Grid container spacing={4}>
         <Grid item xs={12} sm={2}>
-          <Box className={classes.label}>Nhập lại mật khẩu mới</Box>
+          <Box className={classes.label}>Nhập lại mật khẩu</Box>
         </Grid>
         <Grid item xs={12} sm={10}>
           <TextField
@@ -307,7 +307,7 @@ const ConfirmPassword = (props) => {
           <Grid item sm={10}>
             <Box textAlign='left' display='flex' mt={2} fontWeight={400} fontSize={14}>
               {matchingPassword ? <Check className={classes.check}/> : <CloseSharp className={classes.error}/>}
-              Password must match
+              Mật khẩu không trùng khớp, vui lòng kiểm tra lại
             </Box>
           </Grid>
         </Grid>
