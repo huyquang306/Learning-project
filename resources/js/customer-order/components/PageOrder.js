@@ -127,6 +127,7 @@ const PageOrder = () => {
       .then((response) => {
         setOrderList(response.orders);
         setTableName(response.code_tables);
+
       })
       .catch(() => {
         history.push('/' + shop_hash_id + '/thanks-for-customer');
@@ -353,8 +354,8 @@ const PageOrder = () => {
             </Button>
             <Box>
               {statusOrder &&
-              (statusOrder === ORDER_GROUP_STATUS.REQUEST_CHECKOUT ||
-                statusOrder === ORDER_GROUP_STATUS.WAITING_CHECKOUT) ? (
+              (statusOrder == ORDER_GROUP_STATUS.REQUEST_CHECKOUT ||
+                statusOrder == ORDER_GROUP_STATUS.WAITING_CHECKOUT) ? (
                 <Button
                   bgcolor='#ffffff'
                   fgcolor='#333333'

@@ -71,10 +71,10 @@ const PageSetting = (props) => {
     //   url: '/setting/printer/list',
     //   label: 'Máy in',
     // },
-    {
-      url: '/setting/tax',
-      label: 'Thuế',
-    },
+    // {
+    //   url: '/setting/tax',
+    //   label: 'Thuế',
+    // },
     {
       url: '/setting/current-plan',
       label: 'Gói dịch vụ',

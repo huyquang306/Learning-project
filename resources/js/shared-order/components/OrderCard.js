@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   unActive: {
     boxSizing: 'border-box',
     borderRadius: '7px',
-    height: '120px',
+    height: '200px',
     margin: '2px',
     textAlign: 'center',
     lineHeight: '95px',

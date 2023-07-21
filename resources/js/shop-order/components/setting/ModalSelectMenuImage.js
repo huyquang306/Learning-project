@@ -154,7 +154,7 @@ const ModalSelectMenuImage = (props) => {
               onClick={handleRotate}
             />
             <ButtonCustom
-              title='Tải ảnh lên'
+              title='Lưu ảnh'
               borderRadius='28px'
               bgcolor='#FFA04B'
               borderColor='#FFA04B'

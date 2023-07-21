@@ -34,6 +34,7 @@ const useStylesPageAddCourse = makeStyles(() => ({
     fontWeight: 600,
     color: '#4F4F4F',
     backgroundColor: '#DADADA',
+    textAlign: 'center',
   },
   tableCellDetail: {
     fontSize: '20px',
@@ -121,7 +122,7 @@ const useStylesPageAddCourse = makeStyles(() => ({
     maxWidth: '200px',
   },
   imageMenuItem: {
-    width: '30%',
+    width: '100%',
     margin: 'auto',
     borderRadius: '5px',
     display: 'inline-block'
@@ -151,7 +152,7 @@ const useStylesPageAddCourse = makeStyles(() => ({
     },
   },
   inputBlockCost: {
-    width: '80px',
+    width: '150px',
     marginRight: '5px',
   },
   inputBlockCostInput: {
@@ -247,7 +248,7 @@ const useStylesModalMenuList = makeStyles(() => ({
     alignItems: 'center',
   },
   container: {
-    maxHeight: 250,
+    maxHeight: '600px',
     borderRadius: 0,
   },
   tableHead: {

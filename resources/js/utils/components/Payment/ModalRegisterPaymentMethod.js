@@ -314,7 +314,7 @@ const ModalRegisterPaymentMethod = (props) => {
                         Phí dịch vụ
                       </Box>
                       <Box width='75%' className={classes.ItemValue}>
-                        {Number(selectedPlan.price).toLocaleString()} VND
+                        {Number(selectedPlan.price).toLocaleString()} ₫
                       </Box>
                     </Box>
                     
@@ -342,7 +342,7 @@ const ModalRegisterPaymentMethod = (props) => {
                               </span>
                               </>
                             ) : (
-                              `0 VND`
+                              `0 ₫`
                             )
                         }
                       </Box>

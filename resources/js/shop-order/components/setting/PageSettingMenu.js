@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router';
+import React, {useState, useEffect, useContext} from 'react';
+import {useHistory} from 'react-router';
 
 // Base Components
 import PageContainer from 'js/shared/components/PageContainer';
@@ -19,7 +19,7 @@ import Waiting from 'js/shared/components/Waiting';
 import ShopOrderApiService from 'js/shop-order/shop-order-api-service';
 
 // Components(Material-UI)
-import { makeStyles } from '@material-ui/core/styles';
+import {makeStyles} from '@material-ui/core/styles';
 import {
   Table,
   TableBody,
@@ -33,18 +33,18 @@ import {
   Paper,
   Grid,
 } from '@material-ui/core';
-import { Add } from '@material-ui/icons';
+import {Add} from '@material-ui/icons';
 
 // Utils
 import Utils from 'js/shared/utils';
-import { renderUrlImageS3 } from 'js/utils/helpers/image';
+import {renderUrlImageS3} from 'js/utils/helpers/image';
 import {
   validateParentCategory,
   validateChildCategory,
   validateName,
   validatePrice,
 } from './itemSettingMenu/validationSettingManyMenus';
-import { INITIAL_ORDER_FLG_OFF } from 'js/utils/helpers/const';
+import {INITIAL_ORDER_FLG_OFF} from 'js/utils/helpers/const';
 
 const useStyles = makeStyles(() => ({
   contentWrap: {
@@ -106,7 +106,7 @@ const useStyles = makeStyles(() => ({
   tableHead: {
     backgroundColor: '#DADADA',
   },
-
+  
   tableCell: {
     fontSize: '20px',
     fontWeight: 600,
@@ -131,7 +131,7 @@ const useStyles = makeStyles(() => ({
       padding: '5px 5px',
     },
   },
-
+  
   buttonController: {
     color: '#fff',
     borderRadius: '28px',
@@ -208,7 +208,7 @@ const DEFAULT_SMALL_CATEGORY = {
 const PageMenuSetting = (props) => {
   const classes = useStyles(props);
   const history = useHistory();
-
+  
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [categoriesData, setCategoriesData] = useState([DEFAULT_LARGE_CATEGORY]);
@@ -230,12 +230,12 @@ const PageMenuSetting = (props) => {
     message: '',
     status: 'success',
   });
-
+  
   useEffect(() => {
     getCategories();
     getMenus();
   }, [getCategories, getMenus]);
-
+  
   const getCategories = async () => {
     const parent_category_params = {
       tier_number: 1,
@@ -253,11 +253,11 @@ const PageMenuSetting = (props) => {
         smallCategories: category?.childCategories,
       });
     });
-
+    
     categoriesOptions.unshift(DEFAULT_LARGE_CATEGORY);
     setCategoriesData(categoriesOptions);
   };
-
+  
   const getMenus = async (queryParams = {}) => {
     setIsLoading(true);
     try {
@@ -272,10 +272,10 @@ const PageMenuSetting = (props) => {
         if (!Utils.isNil(menu.l_image_folder_path)) {
           menu.image = renderUrlImageS3(menu.l_image_folder_path);
         }
-
+        
         return menu;
       });
-
+      
       setMenusData(menus);
     } catch (error) {
       console.error('[getMenus] Get menus errors ', error);
@@ -283,7 +283,7 @@ const PageMenuSetting = (props) => {
       setIsLoading(false);
     }
   };
-
+  
   const showWarningMessage = (message) => {
     setToast({
       isShow: true,
@@ -291,7 +291,7 @@ const PageMenuSetting = (props) => {
       status: 'warning',
     });
   };
-
+  
   const showSuccessMessage = (message) => {
     setToast({
       isShow: true,
@@ -299,7 +299,7 @@ const PageMenuSetting = (props) => {
       status: 'success',
     });
   };
-
+  
   const categoryChanged = (event) => {
     const category = categoriesData.find((cateTmp) => cateTmp.value === event.target.value);
     const newFilterMenu = Utils.cloneDeep(filterMenu);
@@ -307,7 +307,7 @@ const PageMenuSetting = (props) => {
       newFilterMenu.category = category.value;
       newFilterMenu.selectedSmallCate = DEFAULT_CATEGORY_VALUE;
       setFilterMenu(newFilterMenu);
-
+      
       // small categories options
       let smallCatesOption = [];
       if (category?.smallCategories) {
@@ -320,19 +320,19 @@ const PageMenuSetting = (props) => {
       setSmallCateOptions(smallCatesOption);
     }
   };
-
+  
   const handleChangeSmallCate = (event) => {
     const newFilterMenu = Utils.cloneDeep(filterMenu);
     newFilterMenu.selectedSmallCate = event.target.value;
     setFilterMenu(newFilterMenu);
   };
-
+  
   const nameChanged = (event) => {
     const newFilterMenu = Utils.cloneDeep(filterMenu);
     newFilterMenu[event.target.name] = event.target.value;
     setFilterMenu(newFilterMenu);
   };
-
+  
   const execFilterMenu = () => {
     const filterData = {};
     if (filterMenu?.category && filterMenu.category !== DEFAULT_CATEGORY_VALUE) {
@@ -346,7 +346,7 @@ const PageMenuSetting = (props) => {
     }
     getMenus(filterData);
   };
-
+  
   const validateManyMenus = () => {
     let errors = [];
     menusDataUpdate?.map((item, index) => {
@@ -355,12 +355,12 @@ const PageMenuSetting = (props) => {
       validateName(item, errors, index, 'name');
       validatePrice(item, errors, index, 'price');
     });
-
+    
     const customErros = errors.reduce((arrErrors, error) => {
       const occurs = arrErrors.reduce((n, item, i) => {
         return item.indexRow === error.indexRow ? i : n;
       }, -1);
-
+      
       // If the name is found,
       if (occurs >= 0) {
         // append the current value to its list of values.
@@ -373,18 +373,18 @@ const PageMenuSetting = (props) => {
         };
         arrErrors = arrErrors.concat([obj]);
       }
-
+      
       return arrErrors;
     }, []);
-
+    
     let fillArrayError = new Array(menusData.length);
     if (customErros.length) {
       customErros.map((item) => (fillArrayError[item.indexRow] = item));
     }
-
+    
     return customErros.length ? fillArrayError : [];
   };
-
+  
   const saveManyMenus = async () => {
     setLoading(true);
     const errorsMessage = validateManyMenus();
@@ -408,12 +408,12 @@ const PageMenuSetting = (props) => {
       setLoading(false);
       return;
     }
-
+    
     setErrorsMessage([]);
-
+    
     try {
       if (menusDataTrulyUpdate.length) {
-        await ShopOrderApiService.updateMenus(shop.hashId, { menus: menusDataTrulyUpdate });
+        await ShopOrderApiService.updateMenus(shop.hashId, {menus: menusDataTrulyUpdate});
       }
       showSuccessMessage('Cập nhật thành công');
       setShowSettingAllMenus(false);
@@ -424,25 +424,25 @@ const PageMenuSetting = (props) => {
       setLoading(false);
     }
   };
-
+  
   return (
     <PageContainer padding='0px' height='auto' minHeight='auto'>
       {/* Change background color body */}
       <style>{'body { background-color: white}'}</style>
-
-      <HeaderAppBar title='Danh sách món ăn' />
+      
+      <HeaderAppBar title='Danh sách món ăn'/>
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding={'8px 16px'} height='auto'>
           <Box flex={1} className={classes.head}>
             <Box
               display={'flex'}
-              alignItems={{ xs: 'start', md: 'center' }}
+              alignItems={{xs: 'start', md: 'center'}}
               className={classes.headBar}
-              flexDirection={{ xs: 'column', md: 'row' }}
+              flexDirection={{xs: 'column', md: 'row'}}
               justifyContent='space-between'
             >
               {/* parent cate */}
-              <Box display='flex' flexDirection={{ xs: 'column', md: 'row' }}>
+              <Box display='flex' flexDirection={{xs: 'column', md: 'row'}}>
                 <CustomSelectorBase
                   className={classes.select}
                   value={filterMenu.category}
@@ -451,7 +451,7 @@ const PageMenuSetting = (props) => {
                   name='category'
                   onChange={(event) => categoryChanged(event)}
                 />
-
+                
                 {/* small cate */}
                 <CustomSelectorBase
                   className={classes.select}
@@ -461,7 +461,7 @@ const PageMenuSetting = (props) => {
                   name='smallCategory'
                   onChange={(event) => handleChangeSmallCate(event)}
                 />
-
+                
                 {/* menu name keyword */}
                 <OutlinedInput
                   id='name'
@@ -499,7 +499,7 @@ const PageMenuSetting = (props) => {
                 </Box>
               )}
             </Box>
-
+            
             {!showSettingAllMenus && (
               <Box mt={1}>
                 <TableContainer component={Paper}>
@@ -514,6 +514,7 @@ const PageMenuSetting = (props) => {
                           classes={{
                             root: classes.tableCell,
                           }}
+                          width={'25%'}
                         >
                           Danh mục
                         </TableCell>
@@ -521,6 +522,7 @@ const PageMenuSetting = (props) => {
                           classes={{
                             root: classes.tableCell,
                           }}
+                          width={'25%'}
                         >
                           Tên món
                         </TableCell>
@@ -528,6 +530,7 @@ const PageMenuSetting = (props) => {
                           classes={{
                             root: `${classes.tableCell} ${classes.menuName}`,
                           }}
+                          width={'15%'}
                         >
                           Giá
                         </TableCell>
@@ -535,6 +538,8 @@ const PageMenuSetting = (props) => {
                           classes={{
                             root: classes.tableCell,
                           }}
+                          style={{ textAlign: "center" }}
+                          width={'25%'}
                         >
                           Ảnh
                         </TableCell>
@@ -543,7 +548,6 @@ const PageMenuSetting = (props) => {
                             root: classes.tableCell,
                           }}
                         >
-                          Thao tác
                         </TableCell>
                       </TableRow>
                     </TableHead>
@@ -572,7 +576,8 @@ const PageMenuSetting = (props) => {
                               }}
                               align='left'
                             >
-                              {menu?.initial_order_flg !== INITIAL_ORDER_FLG_OFF && <Box className={classes.requiredColumn}> 必須 </Box>}
+                              {menu?.initial_order_flg !== INITIAL_ORDER_FLG_OFF &&
+                                <Box className={classes.requiredColumn}></Box>}
                               <Box> {menu.name} </Box>
                             </TableCell>
                             <TableCell
@@ -581,19 +586,20 @@ const PageMenuSetting = (props) => {
                               }}
                               align='left'
                             >
-                              {menu.price} &nbsp;
+                              {menu.price}
                               {shop?.mShopPosSetting?.m_currency?.name}
                             </TableCell>
                             <TableCell
                               classes={{
                                 root: classes.tableCellImage,
                               }}
+                              style={{padding: "10px", display: "flex", justifyContent: "center"}}
                             >
                               {menu?.main_image ? (
                                 <img
                                   className={classes.menuImage}
-                                  width={'56px'}
-                                  height={'40px'}
+                                  width={'100px'}
+                                  height={'86px'}
                                   src={renderUrlImageS3(
                                     menu?.main_image?.l_image_path || menu?.main_image?.image_path
                                   )}
@@ -637,7 +643,7 @@ const PageMenuSetting = (props) => {
                 setLoading={setLoading}
               />
             )}
-
+            
             <Footer padding={'10px'}>
               <Box textAlign='center' className={classes.breakLine}>
                 {!showSettingAllMenus ? (
@@ -658,7 +664,7 @@ const PageMenuSetting = (props) => {
                         }}
                         className={`${classes.buttonController} ${classes.buttonAdd}`}
                       >
-                        <Add /> Thêm món
+                        <Add/> Thêm món
                       </Button>
                     </Grid>
                     <Grid item>
@@ -691,7 +697,7 @@ const PageMenuSetting = (props) => {
                         onClick={saveManyMenus}
                         className={`${classes.buttonController} ${classes.buttonAdd}`}
                       >
-                        Lưu hàng loạt
+                        Lưu tất cả
                       </Button>
                     </Grid>
                   </Grid>
@@ -699,8 +705,8 @@ const PageMenuSetting = (props) => {
               </Box>
             </Footer>
           </Box>
-          <Waiting isOpen={loading} />
-
+          <Waiting isOpen={loading}/>
+          
           <ModalDetailMenuSetting
             open={showModal}
             menuData={menuData}
@@ -710,16 +716,16 @@ const PageMenuSetting = (props) => {
             showWarningMessage={showWarningMessage}
             showSuccessMessage={showSuccessMessage}
           />
-
+          
           <FlashMessage
             isOpen={toast.isShow}
-            onClose={(isOpen) => setToast({ ...toast, isShow: isOpen })}
+            onClose={(isOpen) => setToast({...toast, isShow: isOpen})}
             status={toast.status}
             message={toast.message}
           />
         </PageInnerContainer>
       </PageInnerWrap>
-      <Waiting isOpen={isLoading} />
+      <Waiting isOpen={isLoading}/>
     </PageContainer>
   );
 };

@@ -749,9 +749,13 @@ const ModalDetailMenuSetting = (props) => {
               {/*  </Button>*/}
               {/*</Grid>*/}
               
-              <Grid item>
+              <Grid
+                item
+                style={{ paddingRight: '24px' }}
+              >
                 <Button
-                  className={classes.buttonHeader}
+                  className={classes.buttonDelete}
+                  variant='outlined'
                   onClick={deleteMenu}
                   disabled={inProgress || Object.keys(props.menuData).length === 0}
                 >
@@ -763,12 +767,12 @@ const ModalDetailMenuSetting = (props) => {
 
           <Box className={classes.contentDetail} ml={3} mr={5} mt={1}>
             <Grid container spacing={2} className='wrap-menu-common'>
-              <Grid item md={9} sm={12} className='menu-common'>
+              <Grid item md={8} sm={12} className='menu-common'>
                 <Grid container spacing={2}>
-                  <Grid item sm={4} xs={12}>
+                  <Grid item sm={2} xs={12}>
                     Tên món
                   </Grid>
-                  <Grid item sm={8} xs={12}>
+                  <Grid item sm={10} xs={12}>
                     <OutlinedInput
                       id='name'
                       name='name'
@@ -780,12 +784,12 @@ const ModalDetailMenuSetting = (props) => {
                   </Grid>
                 </Grid>
                 <Grid container spacing={2}>
-                  <Grid item sm={4} xs={12}>
+                  <Grid item sm={2} xs={12}>
                     <Box mt={1} mb={-1}>
                       Danh mục
                     </Box>
                   </Grid>
-                  <Grid item sm={3} xs={12}>
+                  <Grid item sm={4} xs={12}>
                     <CustomSelectorBase
                       className={classes.select}
                       value={menuData.parentCategory.value}
@@ -800,7 +804,7 @@ const ModalDetailMenuSetting = (props) => {
                      <ArrowRight />
                     </Box>
                   </Grid>
-                  <Grid item sm={3} xs={12}>
+                  <Grid item sm={4} xs={12}>
                     <CustomSelectorBase
                       className={classes.select}
                       value={menuData.childCategory.value}
@@ -813,12 +817,12 @@ const ModalDetailMenuSetting = (props) => {
                 </Grid>
 
                 <Grid container spacing={2}>
-                  <Grid item sm={4} xs={12}>
+                  <Grid item sm={2} xs={12}>
                     <Box mt={1} mb={-1}>
-                      Giá (Bao gồm thuế)
+                      Giá
                     </Box>
                   </Grid>
-                  <Grid item sm={3} xs={12}>
+                  <Grid item sm={10} xs={12}>
                     <OutlinedInput
                       id='price'
                       name='price'
@@ -832,16 +836,16 @@ const ModalDetailMenuSetting = (props) => {
                       onBlur={(event) => handleOnKeyBlur(event)}
                     />
                   </Grid>
-                  <Grid item sm={5} xs={12}>
-                    <Box display='flex' className='select-options-tax-value'>
-                      <CustomSelectorBase
-                        className={`${classes.select} select-tax-options`}
-                        value={taxPercentageValue}
-                        optionArray={taxType}
-                        id='tax-type'
-                        name='tax-type'
-                        onChange={(event) => taxTypeChanged(event)}
-                      />
+                  {/*<Grid item sm={5} xs={12}>*/}
+                    {/*<Box display='flex' className='select-options-tax-value'>*/}
+                    {/*  <CustomSelectorBase*/}
+                    {/*    className={`${classes.select} select-tax-options`}*/}
+                    {/*    value={taxPercentageValue}*/}
+                    {/*    optionArray={taxType}*/}
+                    {/*    id='tax-type'*/}
+                    {/*    name='tax-type'*/}
+                    {/*    onChange={(event) => taxTypeChanged(event)}*/}
+                    {/*  />*/}
                       {/*<Box*/}
                       {/*  mt={1}*/}
                       {/*  ml={1}*/}
@@ -854,17 +858,17 @@ const ModalDetailMenuSetting = (props) => {
                         {/*  shop?.mShopPosSetting?.m_currency?.name*/}
                         {/*)}*/}
                       {/*</Box>*/}
-                    </Box>
-                  </Grid>
+                    {/*</Box>*/}
+                  {/*</Grid>*/}
                 </Grid>
 
                 <Grid container spacing={2} className='public-status'>
-                  <Grid item sm={4} xs={12}>
+                  <Grid item sm={2} xs={12}>
                     <Box mt={1} mb={-1}>
                       Trạng thái
                     </Box>
                   </Grid>
-                  <Grid item sm={8} xs={12}>
+                  <Grid item sm={10} xs={12}>
                     <Box display='inline-block' mr={2}>
                       <Tabs
                         value={menuData?.status}
@@ -905,12 +909,12 @@ const ModalDetailMenuSetting = (props) => {
                 </Grid>
               </Grid>
 
-              <Grid item md={3} xs={12}>
+              <Grid item md={4} xs={12}>
                 <img
                   id='file'
                   name='file'
                   className={classes.mainImage}
-                  width={'190px'}
+                  width={'300px'}
                   height={'auto'}
                   src={mainImagePath ? `${renderUrlImageS3(mainImagePath)}` : defaultMenuImage}
                 />
@@ -1033,7 +1037,7 @@ const ModalDetailMenuSetting = (props) => {
                                   color='#FFF'
                                   style={{ background: '#5de48b' }}
                                 >
-                                  Đặt làm ảnh chính
+                                
                                 </Box>
                               )}
                             </Box>

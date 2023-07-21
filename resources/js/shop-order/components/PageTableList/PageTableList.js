@@ -111,7 +111,7 @@ const DetailTableSiderbarItem = (props) => {
             >
               {parseInt(dataSidebar?.ordergroup?.status) == ORDER_GROUP_STATUS.WAITING_CHECKOUT
                 ? 'Hủy thanh toán'
-                : 'Thay đổi'}
+                : 'Gọi thêm món'}
             </Button>
           )}
         </Box>
@@ -231,7 +231,7 @@ const TableInfoSiderbar = (props) => {
                   variant='contained'
                   {...rest}
                 >
-                  Mã QR
+                  Chi tiết
                 </Button>
               )}
           </Box>
@@ -416,6 +416,16 @@ const PageTableList = (props) => {
     
     echo.channel(`order.created.${shop.hashId}`)
       .listen('OrderCreated', (e) => {
+        const sound = new Howl({
+          src: ALARM_AUDIO_PATH,
+          volume: 10, // 1000%
+        });
+        sound.play();
+        dispatch({ type: 'REFRESH' });
+      });
+    
+    echo.channel(`order.order.payment-request.${shop.hashId}`)
+      .listen('OrderPaymentRequest', (e) => {
         const sound = new Howl({
           src: ALARM_AUDIO_PATH,
           volume: 10, // 1000%
@@ -711,6 +721,7 @@ const PageTableList = (props) => {
             </div>
             <div className={classes.orderInfo}>
               <div className={classes.quantityItem}>{order.quantity}</div>
+              x
               <div className={classes.amountItem}>
                 {order.amount}
                 {shop?.mShopPosSetting?.m_currency?.name}
@@ -896,7 +907,7 @@ const PageTableList = (props) => {
               <div className={`${classes.sideBar} ${isShowMenu ? classes.menuMobile : ''}`}>
                 <TableInfoSiderbar
                   type='register'
-                  title='Chi tiết bàn'
+                  title='Đặt bàn'
                   state={state}
                   timeAgo={timeAgo}
                   disabled={state.ordergroup.code_tables === '?'}

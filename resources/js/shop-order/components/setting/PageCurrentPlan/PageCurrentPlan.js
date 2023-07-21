@@ -314,7 +314,7 @@ const PageCurrentPlan = (props) => {
                         Số tiền cần thanh toán
                       </Box>
                       <Box width="60%" className={classes.ItemValue}>
-                        {formatNumberWithCommas(calculateTotalAmount(shop?.billings_in_month))} VND
+                        {formatNumberWithCommas(calculateTotalAmount(shop?.billings_in_month))} ₫
                       </Box>
                     </Box>
                   </Grid>
@@ -325,7 +325,7 @@ const PageCurrentPlan = (props) => {
                         Phí dịch vụ
                       </Box>
                       <Box width="60%" className={classes.ItemValue}>
-                        {formatNumberWithCommas(parseInt(shop?.service_plan?.price))} VND
+                        {formatNumberWithCommas(parseInt(shop?.service_plan?.price))} ₫
                       </Box>
                     </Box>
 
@@ -382,16 +382,16 @@ const PageCurrentPlan = (props) => {
                             {data.service_name}
                           </td>
                           <td className={`${classes.tableDetail} ${classes.textRight}`}>
-                            {data.basic_price} VND
+                            {data.basic_price} ₫
                           </td>
                           <td className={`${classes.tableDetail} ${classes.textRight}`}>
                             {data.total_qr_number}
                           </td>
                           <td className={`${classes.tableDetail} ${classes.textRight}`}>
-                            {data.extend_price} VND
+                            {data.extend_price} ₫
                           </td>
                           <td className={`${classes.tableDetail} ${classes.textRight}`}>
-                            {data.total_price} VND
+                            {data.total_price} ₫
                           </td>
                           <td className={`${classes.tableDetail} ${classes.textCenter}`}>
                           {

@@ -39,7 +39,7 @@ const DEFAULT_NONE_CATEGORY_VALUE = -1;
 const DEFAULT_INITIAL_ORDER_FLAG = 0;
 const DEFAULT_NONE_CATEGORY_OPTION = {
   value: DEFAULT_NONE_CATEGORY_VALUE,
-  label: 'Danh mục',
+  label: 'Tất cả',
 };
 
 const filterMenuDefault = {

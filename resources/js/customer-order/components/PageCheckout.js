@@ -106,7 +106,7 @@ const PageCheckout = () => {
             </Box>
 
             <Box pt={4} className={classes.textGray}>
-              ※Không thanh toán thông qua hệ thống này
+              {/*※Không thanh toán thông qua hệ thống này*/}
             </Box>
             {/*<Box className={classes.textGray}>ご注文・サービスがある場合、</Box>*/}
             {/*<Box className={classes.textGray}>お会計金額が変わる可能性があります</Box>*/}

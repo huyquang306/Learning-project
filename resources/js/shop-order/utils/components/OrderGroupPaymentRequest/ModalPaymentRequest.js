@@ -161,7 +161,7 @@ const ModalPaymentRequest = (props) => {
           </div>
           <div className={classes.menuPrice}>
             {item.amount}
-            <span>VND</span>
+            <span>₫</span>
           </div>
           {item.status === 2 ? (
             <div className={classes.menuButton}></div>
@@ -235,7 +235,7 @@ const ModalPaymentRequest = (props) => {
           <div className={classes.paymentColRight}>
             <div className={classes.paymentBoxInput}>
               <input type={'text'} disabled={true} value={order.quantity * order.price} onChange={() => {}} />{' '}
-              <span>VND</span>
+              <span>₫</span>
             </div>
           </div>
         </div>
@@ -279,7 +279,7 @@ const ModalPaymentRequest = (props) => {
           {showInfo.isShow && showInfo.type === TYPE_ORDER_MENU && renderOrderInfo()}
           <div className={classes.totalAmount}>
             <div>
-              Tổng tiền： &nbsp; &nbsp;<span>{formatAmount(totalAmount(orderGroup))}VND</span>
+              Tổng tiền： &nbsp; &nbsp;<span>{formatAmount(totalAmount(orderGroup))}₫</span>
             </div>
           </div>
         </div>
