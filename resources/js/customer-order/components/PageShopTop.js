@@ -251,7 +251,7 @@ const PageShopTop = () => {
 
   useEffect(() => {
     if (!isEmpty(courseInfo)) {
-      let nowDateTime = moment().tz('Asia/Tokyo').format('YYYY-MM-DD HH:mm:ss');
+      let nowDateTime = moment().tz('Asia/Ho_Chi_Minh').format('YYYY-MM-DD HH:mm:ss');
       let nowMomentJp = moment(nowDateTime, 'YYYY-MM-DD HH:mm:ss');
       let endTime = 0;
       let alertNotificationTime = 0;

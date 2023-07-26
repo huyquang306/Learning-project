@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 // Routes for main site
 Route::group([
-    'domain' => config('app.main_domain'),
+//    'domain' => config('app.main_domain'),
     'middleware' => [
         'domain.main_domain',
     ],
@@ -31,7 +31,7 @@ Route::group([
 
 // Routes for order site
 Route::group([
-    'domain' => config('app.order_domain'),
+//    'domain' => config('app.order_domain'),
     'middleware' => [
         'domain.order_domain',
     ],

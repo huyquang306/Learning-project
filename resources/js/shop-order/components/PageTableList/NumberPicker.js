@@ -67,7 +67,7 @@ const useStyles = makeStyles(() => ({
     margin: 5,
     color: 'black',
     padding: 10,
-    width: 95,
+    width: 110,
     height: 65,
     fontSize: 20,
     fontWeight: 'bold',

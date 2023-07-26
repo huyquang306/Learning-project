@@ -521,9 +521,22 @@ const PageTableList = (props) => {
     const orderGroups = state?.ordergroup?.orders?.filter(
       (order) => order.status !== ORDER_STATUS.STATUS_CANCEL
     );
+    console.log(allOrders);
     const totalAmountDraftClone = allOrders
       ?.filter((item) => item.status !== ORDER_STATUS.STATUS_CANCEL)
-      ?.reduce((partialSum, _item) => partialSum + Number(_item.quantity) * Number(_item.price), 0);
+      ?.reduce((partialSum, _item) => {
+        if (_item?.is_menu_in_course) {
+          console.log('is_menu_in_course');
+          console.log(partialSum);
+          return partialSum;
+        } else {
+          return  partialSum + Number(_item.quantity) * Number(_item.price)
+        }
+      }, 0);
+    console.log('totalAmountDraftClone');
+    console.log(totalAmountDraftClone);
+    console.log('state.totalAmount');
+    console.log(state.totalAmount);
     setTotalAmountDraft(totalAmountDraftClone);
 
     const quantityOfAllOrders = allOrders?.reduce(
@@ -723,7 +736,7 @@ const PageTableList = (props) => {
               <div className={classes.quantityItem}>{order.quantity}</div>
               x
               <div className={classes.amountItem}>
-                {order.amount}
+                {order?.is_menu_in_course ? 0 : order.price}
                 {shop?.mShopPosSetting?.m_currency?.name}
               </div>
             </div>

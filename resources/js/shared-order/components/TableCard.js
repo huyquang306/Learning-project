@@ -257,7 +257,7 @@ const TableCard = (props) => {
           spendingTime > course.time_block_unit * 60 &&
           numberExtendCourse > 0)
       ) {
-        result = `${getTimerBySeconds(course.time_block_unit * 60)} (Thêm ${getTimerBySeconds(
+        result = `${getTimerBySeconds(course.time_block_unit * 60)} (+ ${getTimerBySeconds(
           spendingTime - course.time_block_unit * 60
         )}) `;
       }

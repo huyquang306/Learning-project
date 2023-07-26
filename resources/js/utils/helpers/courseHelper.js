@@ -93,7 +93,7 @@ const getBlockNearestNow = (course, timeStartCheck = null) => {
 const getRemainingTimeByMainCourse = (orderGroup, course) => {
   const orderHasMainCourse = getOrderHasCourse(orderGroup);
   if (orderHasMainCourse.ordered_at) {
-    const nowMomentJp = momentJP();
+    const nowMomentJp = momentVN();
     const startTimeEat = moment(orderHasMainCourse.ordered_at, DATE_TIME_SECONDS_FORMAT);
     
     // time_block_unit - (now - ordered_at)

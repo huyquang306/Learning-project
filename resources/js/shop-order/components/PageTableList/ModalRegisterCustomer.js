@@ -617,7 +617,7 @@ const ModalRegisterCustomer = (props) => {
     }
 
     options.unshift({
-      label: '--- Không có ---',
+      label: '--- Tất cả ---',
       value: NONE_COURSE_OPTION_VALUE,
     });
 
@@ -729,7 +729,7 @@ const ModalRegisterCustomer = (props) => {
           </Grid>
 
           {/* QR code limit info */}
-          <Grid container spacing={3} alignItems='center' className={classes.gridInfo}>
+          <Grid container spacing={3} alignItems='center' className={classes.gridInfo} style={{ textDecoration: 'none' }}>
             <Box className={classes.gridInfoLink}>{renderQRNumberText()}</Box>
           </Grid>
         </Box>

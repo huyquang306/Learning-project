@@ -16,7 +16,8 @@ class MainDomain
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->getHost() !== config('app.main_domain')
+        \Log::info($request->getHost());
+        if ($request->getHost() !== config('app.main_domain') && $request->getHost() !== '192.168.31.20'
             && config('app.env') !== 'testing')
         {
             return \abort(403);

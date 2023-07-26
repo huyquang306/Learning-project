@@ -86,7 +86,7 @@ const defaultCoursePrice = (status = STATUS_INACTIVE) => {
 
 const defaultChildExtendCourse = {
   hash_id: null,
-  name: '延長料金',
+  name: 'Phí gia hạn',
   time_block_unit: '',
   list_course_prices: [
     {

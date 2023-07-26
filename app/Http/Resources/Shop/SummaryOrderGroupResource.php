@@ -16,7 +16,18 @@ class SummaryOrderGroupResource extends JsonResource
     {
         $orders = $this->tOrders;
         $hasOrderNotServed = false;
+        $listMenuInCourse = [];
         foreach ($orders as &$order) {
+            if ($order->rShopCourse) {
+                $listMenuInCourse = $order->rShopCourse->mCourse->mMenus->pluck('id')->toArray();
+            }
+        }
+        foreach ($orders as &$order) {
+            $order->isMenuInSourse = false;
+            if ($order->rShopMenu && count($listMenuInCourse)) {
+                $menuId = $order->rShopMenu->mMenu->id;
+                $order->isMenuInSourse = in_array($menuId, $listMenuInCourse);
+            }
             $order->shop_id = $this->m_shop_id;
             if ($order->status == config('const.STATUS_ORDER')) {
                 $hasOrderNotServed = true;

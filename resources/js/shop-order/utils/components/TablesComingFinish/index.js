@@ -85,7 +85,7 @@ const checkAlertExtend = (orderGroup, typeCheck) => {
     ? course?.list_child_courses[0].time_block_unit
     : 0;
   const startTime = orderHasMainCourse?.ordered_at;
-  const nowMomentJp = momentJP();
+  const nowMomentJp = momentVN();
 
   let subtractTime = 0;
   if (typeCheck == TYPE_CHECK_END_TIME) {
@@ -164,7 +164,7 @@ const checkOrderGroupHasJustExpired = (orderGroup) => {
       ? course?.list_child_courses[0].time_block_unit
       : 0;
     const startTime = orderHasMainCourse?.ordered_at;
-    const nowMomentJp = momentJP();
+    const nowMomentJp = momentVN();
     const maxFinishDate = moment(startTime, DATE_TIME_SECONDS_FORMAT)
       .add(course.time_block_unit, 'minutes')
       .add(1, 'days')
