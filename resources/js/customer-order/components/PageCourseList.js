@@ -8,7 +8,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import CustomerOrderApiService from 'js/customer-order/customer-or-api-service';
 
 // Material UI component
-import { Box } from '@material-ui/core';
+import {Box, Grid} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Component
@@ -142,15 +142,25 @@ const PageCourseList = () => {
 
   return (
     <PageContainer padding='0' height='auto' minHeight='auto'>
-      <HeaderAppBar title='コース一覧' />
+      <HeaderAppBar title='Danh sách set ăn' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding='0px 0px 0px 0px'>
           <Box display='flex' height='100%' padding='0px 0px 60px 0px'>
             <Box flex={1} className={classes.pageBorder}>
-              <Box>
+              <Grid container>
                 {courseList &&
                   courseList.map((course, index) => (
-                    <Box
+                    // <Box
+                    //   key={index}
+                    //   className={classes.prodItem}
+                    //   onClick={() => handleSelectCourse(course.hash_id, course.block_hash_id)}
+                    // >
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={4}
+                      lg={3}
                       key={index}
                       className={classes.prodItem}
                       onClick={() => handleSelectCourse(course.hash_id, course.block_hash_id)}
@@ -183,9 +193,10 @@ const PageCourseList = () => {
                           {priceDisplayMode === 1 && course.price_unit > 0 && '(税抜き)'}
                         </Box>
                       </Box>
-                    </Box>
+                    {/*</Box>*/}
+                    </Grid>
                   ))}
-              </Box>
+              </Grid>
             </Box>
           </Box>
 

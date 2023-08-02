@@ -72,7 +72,7 @@ const OnsaleItemCard = (props) => {
             {props.itemName}
           </Typography>
           <Typography variant="body2" color="textSecondary" align="right">
-            {'VND' + props.itemPrice.toLocaleString()}
+            {'₫' + props.itemPrice.toLocaleString()}
           </Typography>
         </CardContent>
       </CardActionArea>

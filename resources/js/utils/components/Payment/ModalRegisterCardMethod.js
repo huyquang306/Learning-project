@@ -22,7 +22,7 @@ const appearance = {
 const ModalRegisterCardMethod = (props) => {
   const {open, onClose, handleSuccess, showSuccessMessage, showWarningMessage} = props;
   const stripePromise = loadStripe(process.env.MIX_STRIPE_PUBLIC_KEY, {
-    locale: 'ja'
+    locale: 'vi'
   });
   
   // Local state

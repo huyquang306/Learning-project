@@ -9,10 +9,10 @@ const checkValidation = (registerInfo) => {
 
 const validateCustomerNumber = (numberOfCustomers, errors) => {
   const validateRules = {
-    requiredErrorMessage: '数が必須です。',
-    max: 99,
+    requiredErrorMessage: 'Chưa nhập số khách hàng',
+    max: 999,
     min: 1,
-    minMaxErrorMessage: '人数は1~99まで入力可能です。',
+    minMaxErrorMessage: 'Số khách hàng đã vượt quá giới hạn',
   };
   if (Utils.isNil(numberOfCustomers) || numberOfCustomers.toString().trim() === '') {
     errors.push(validateRules.requiredErrorMessage);

@@ -5,7 +5,7 @@ const useStylesSettingManyMenus = makeStyles(() => ({
     justifyContent: 'center',
     alignItems: 'center',
     '& .MuiTabs-flexContainer': {
-      display: 'block'
+      // display: 'block'
     }
   },
   select: {
@@ -69,6 +69,7 @@ const useStylesSettingManyMenus = makeStyles(() => ({
     fontSize: '16px',
     color: '#828282',
     textDecorationLine: 'underline',
+    minHeight: '130px',
   },
   button: {
     background: '#FFA04B',

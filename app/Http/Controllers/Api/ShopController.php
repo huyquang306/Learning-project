@@ -40,6 +40,8 @@ class ShopController extends BaseApiController
     {
         if (!$shop->exists) {
             $shops = $this->shopService->findByUser(Auth::User()->m_staff_id);
+            \Log::info($shops);
+            \Log::info(Auth::User());
             foreach ($shops as $key => $shop) {
                 $this->shopService->generateShopTaxInfo($shop);
                 $shops[$key] = $this->shopService->getShopData($shop);
@@ -180,5 +182,13 @@ class ShopController extends BaseApiController
                 'result'  => ['fields'=>'', 'errorCode'=>'exception', 'errorMessage' => $e->getMessage()]
             ];
         }
+    }
+
+    public function sendEmailVerifyShopRegister(Request $request): JsonResponse
+    {
+        $email = $request->input('email');
+        $result = $this->shopService->sendEmailVerifyRegister($email);
+
+        return $this->responseApi($result);
     }
 }

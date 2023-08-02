@@ -43,12 +43,12 @@ import { useStylesSettingManyMenus } from './itemSettingMenu/settingManyMenusSty
 const DEFAULT_CATEGORY_VALUE = -1;
 const DEFAULT_LARGE_CATEGORY = {
   value: DEFAULT_CATEGORY_VALUE,
-  label: '大カテゴリ',
+  label: 'Danh mục lớn',
   smallCategories: [],
 };
 const DEFAULT_SMALL_CATEGORY = {
   value: DEFAULT_CATEGORY_VALUE,
-  label: '小カテゴリ',
+  label: 'Danh mục nhỏ',
 };
 
 const MENU_DEFAULT = {
@@ -332,35 +332,37 @@ const PageSettingAllMenu = (props) => {
                     root: classes.tableCell,
                   }}
                 >
-                  カテゴリ
+                  Danh mục
                 </TableCell>
                 <TableCell
                   classes={{
                     root: classes.tableCell,
                   }}
                 >
-                  商品名
+                  Tên món
                 </TableCell>
                 <TableCell
                   classes={{
                     root: `${classes.tableCell}`,
                   }}
                 >
-                  価格 (税込)
+                  Giá
                 </TableCell>
                 <TableCell
                   classes={{
                     root: classes.tableCell,
                   }}
+                  style={{ textAlign: 'center' }}
                 >
-                  写真
+                  Ảnh
                 </TableCell>
                 <TableCell
                   classes={{
                     root: `${classes.tableCell} ${classes.textCenter}`,
                   }}
+                  style={{ textAlign: 'center' }}
                 >
-                  表示
+                  Trạng thái
                 </TableCell>
                 <TableCell
                   classes={{
@@ -422,7 +424,7 @@ const PageSettingAllMenu = (props) => {
                         value={menu.name}
                         className={`${classes.input} ${classes.textArea}`}
                         labelWidth={0}
-                        placeholder='商品名'
+                        placeholder=''
                         variant='outlined'
                         onChange={(event) => inputChanged(event, index)}
                       />
@@ -442,7 +444,7 @@ const PageSettingAllMenu = (props) => {
                           input: classes.inputPrice,
                         }}
                         labelWidth={0}
-                        placeholder='9,999,950'
+                        placeholder=''
                         onChange={(event) => inputChanged(event, index)}
                       />
                     </TableCell>
@@ -452,18 +454,19 @@ const PageSettingAllMenu = (props) => {
                       }}
                       onClick={() => {
                         if (menu?.all_images?.length >= 5) {
-                          showWarningMessage('画像が上限に達したため、アップロードできません。');
+                          showWarningMessage('Số lượng ảnh đã đạt giới hạn, không thể tải thêm');
                           return;
                         }
                         setIndexActive(index);
                         setShowModalSettingImage(true);
                       }}
+                      style={{ display: 'flex', justifyContent: 'center' }}
                     >
                       {menu?.main_image || menu?.main_image_path ? (
                         <img
                           className={classes.menuImage}
-                          width={'56px'}
-                          height={'40px'}
+                          width={'100px'}
+                          height={'86px'}
                           src={renderUrlImageS3(
                             menu?.main_image_path
                               ? menu?.main_image_path
@@ -471,7 +474,7 @@ const PageSettingAllMenu = (props) => {
                           )}
                         />
                       ) : (
-                        '設定無し'
+                        'No setting'
                       )}
                     </TableCell>
                     <TableCell
@@ -480,20 +483,22 @@ const PageSettingAllMenu = (props) => {
                       }}
                     >
                       <Tabs
+                        centered
                         value={menu?.status}
                         onChange={(event, value) => onChangeTabStatus(event, value, index)}
                         aria-label='simple tabs example'
                         name='status'
                         TabIndicatorProps={{ style: { display: 'none' } }}
+                        flexContainer
                       >
                         <Tab
-                          label='公開中'
+                          label='On'
                           id='public'
                           value={MENU_STATUS.STATUS_ONSALE}
                           className={`${classes.customTab} ${classes.customTabLeft}`}
                         />
                         <Tab
-                          label='非公開'
+                          label='Off'
                           id='private'
                           value={MENU_STATUS.STATUS_OFFSALE}
                           className={`${classes.customTab} ${classes.customTabRight}`}
@@ -511,7 +516,7 @@ const PageSettingAllMenu = (props) => {
                           className={classes.buttonDelete}
                           onClick={() => deleteMenu(index)}
                         >
-                          削除
+                          Xóa
                         </Button>
                       </Box>
                     </TableCell>
@@ -526,7 +531,7 @@ const PageSettingAllMenu = (props) => {
           onClick={addNewMenuData}
           className={`${classes.buttonController} ${classes.buttonAdd}`}
         >
-          <Add /> 商品行を追加
+          <Add /> Thêm món
         </Button>
       </Box>
       <ModalSelectMenuImage
@@ -537,8 +542,8 @@ const PageSettingAllMenu = (props) => {
       <Dialog
         isOpen={showDialog}
         onClose={(isOpen) => setShowDialog(isOpen)}
-        title='削除'
-        message='このメニューを削除しますか？'
+        title='Xác nhận'
+        message='Bạn chắc chắn muốn xóa món ăn này chứ?'
         onConfirm={() => execDeleteMenu()}
       />
     </Box>

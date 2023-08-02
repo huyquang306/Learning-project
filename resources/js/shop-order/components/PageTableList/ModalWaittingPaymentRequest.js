@@ -88,7 +88,11 @@ const ModalWaittingPaymentRequest = (props) => {
             </div>
             <div className={classes.quantityItem}>
               {order.quantity}
-              <span className={classes.normalText}></span>
+              <span className={classes.normalText}>
+                &nbsp;
+                &nbsp;
+                &nbsp;
+              </span>
             </div>
             <div className={classes.amountItem}>
               {order.amount}

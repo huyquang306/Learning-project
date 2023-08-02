@@ -17,6 +17,18 @@ const useStylesSettingMenu = makeStyles(() => ({
       background: 'rgba(0, 0, 0, 0.12)',
     },
   },
+  buttonDelete: {
+    color: '#d32f2f',
+    border: '2px solid rgba(211, 47, 47, 1)',
+    height: 40,
+    alignSelf: 'center',
+    width: '220px',
+    boxShadow: '0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%)',
+    '@media (max-width: 1366px)': {
+      width: '220px',
+      height: '40px',
+    },
+  },
   contentDetail: {
     color: '#000000',
     fontSize: '18px',

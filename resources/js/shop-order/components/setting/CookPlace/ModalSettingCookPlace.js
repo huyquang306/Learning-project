@@ -143,7 +143,7 @@ const ModalSettingCookPlace = (props) => {
   const actionModal = () => (
     <Box textAlign="center">
       <ButtonCustom
-        title="戻る"
+        title="Quay lại"
         borderRadius="28px"
         bgcolor="#828282"
         borderColor="#828282"
@@ -151,7 +151,7 @@ const ModalSettingCookPlace = (props) => {
         onClick={props.onClose}
       />
       <ButtonCustom
-        title="保存"
+        title="Lưu"
         borderRadius="28px"
         bgcolor="#FFA04B"
         borderColor="#FFA04B"
@@ -166,12 +166,12 @@ const ModalSettingCookPlace = (props) => {
     <Modal
       actions={actionModal()}
       open={props.open}
-      title="調理場設定"
+      title="Kitchen Setting"
       onClose={props.onClose}
     >
       <Box mt={8} mb={5} p='0 50px'>
         <Box mt={3} display='flex' alignItems='center'>
-          <Box width='30%' textAlign='left'>調理場名</Box>
+          <Box width='30%' textAlign='left'>Tên</Box>
 
           <Box width='70%' textAlign='left'>
             <OutlinedInput

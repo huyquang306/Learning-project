@@ -15,8 +15,23 @@ class SummaryOrderGroupResource extends JsonResource
     public function toArray($request)
     {
         $orders = $this->tOrders;
+        $hasOrderNotServed = false;
+        $listMenuInCourse = [];
         foreach ($orders as &$order) {
+            if ($order->rShopCourse) {
+                $listMenuInCourse = $order->rShopCourse->mCourse->mMenus->pluck('id')->toArray();
+            }
+        }
+        foreach ($orders as &$order) {
+            $order->isMenuInSourse = false;
+            if ($order->rShopMenu && count($listMenuInCourse)) {
+                $menuId = $order->rShopMenu->mMenu->id;
+                $order->isMenuInSourse = in_array($menuId, $listMenuInCourse);
+            }
             $order->shop_id = $this->m_shop_id;
+            if ($order->status == config('const.STATUS_ORDER')) {
+                $hasOrderNotServed = true;
+            }
         }
         $orders = HistorySummaryOrderResource::collection($orders);
         $tables = TableResource::collection($this->mTables);
@@ -38,6 +53,7 @@ class SummaryOrderGroupResource extends JsonResource
             'created_at_utc' => $this->created_at,
             'code_tables' => implode(', ', $code_tables),
             'orders' => $orders,
+            'hasOrderNotServed' => $hasOrderNotServed ? 1 : 0,
             'tables' => $tables,
             'invoice_code' => makeInvoiceCode($this->created_at, $this->id),
             'total_billing' => $this->total_billing,

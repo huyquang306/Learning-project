@@ -223,6 +223,24 @@ class ShopService
     }
 
     /**
+     * Send email verification register
+     *
+     * @param string $email
+     * @return bool
+     */
+    public function sendEmailVerifyRegister(string $email): bool
+    {
+        $tmpShop = $this->tmpShopRepository->findByEmail($email);
+        if (!$tmpShop) {
+            return false;
+        }
+        $verifyLink = $this->generateVerifyLink(TTmpShop::REGISTER_LINK_TYPE, $tmpShop->hash_id);
+        $this->firebaseService->sendRegisterVerifyLink($email, $verifyLink);
+
+        return true;
+    }
+
+    /**
      * Attach shop's staffs
      *
      * @param MShop $m_shop
@@ -256,9 +274,9 @@ class ShopService
         $shop = $this->shopRepository->create($data);
 
         // Create data default
-//        $this->categoryRepository->createDefaultCategoryByShop($shop->id);
-//        $this->shopRepository->createDefaultCookPlaceByShop($shop);
-//        $this->shopRepository->createDefaultMenusByShop($shop);
+        //$this->categoryRepository->createDefaultCategoryByShop($shop->id);
+        //$this->shopRepository->createDefaultCookPlaceByShop($shop);
+        //$this->shopRepository->createDefaultMenusByShop($shop);
 
         return $shop;
     }

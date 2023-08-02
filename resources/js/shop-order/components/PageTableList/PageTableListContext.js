@@ -54,7 +54,14 @@ const totalAmount = (orderGroup) => {
     }
 
     // price by menus
-    const orderTotal = orderGroup.orders.filter(order => order.status !== ORDER_STATUS.STATUS_CANCEL).reduce((a, b) => a + (b.amount || 0), 0);
+    const orderTotal = orderGroup.orders.filter(order => order.status !== ORDER_STATUS.STATUS_CANCEL)
+      .reduce((a, b) => {
+        if (b?.is_menu_in_course) {
+          return a;
+        } else {
+          return  a + (b.amount || 0)
+        }
+      }, 0);
     total += orderTotal;
   }
 
@@ -63,7 +70,7 @@ const totalAmount = (orderGroup) => {
 
 const formatAmount = (number, n = 0, x = 3) => {
   let reg = '\\d(?=(\\d{' + x + '})+' + (n > 0 ? '\\.' : '$') + ')';
-  return number ? number.toFixed(n).replace(new RegExp(reg, 'g'), '$&,') : '0';
+  return number ? Number(number).toFixed(n).replace(new RegExp(reg, 'g'), '$&,') : '0';
 };
 
 const PageTableListContext = createContext(pageTableListDataDefault);

@@ -68,6 +68,7 @@ class HistorySummaryOrderResource extends JsonResource
             'is_first_order' => $this->is_first_order ?? null,
             'tax_value' => $this->tax_value,
             'tax_rate' => $this->tax_rate,
+            'is_menu_in_course' => $this->isMenuInSourse,
         ];
     }
 

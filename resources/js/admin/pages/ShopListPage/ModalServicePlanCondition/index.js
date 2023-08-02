@@ -350,7 +350,7 @@ const ModalServicePlanCondition = (props) => {
                 name='price'
                 className={classes.inputBox}
                 classes={{ input: classes.input }}
-                endAdornment='VND'
+                endAdornment='₫'
                 onChange={handleInputChange}
                 value={selectedPlan.price ? parseInt(selectedPlan.price) : 0}
               />
@@ -412,7 +412,7 @@ const ModalServicePlanCondition = (props) => {
                 name='additional_price'
                 className={classes.inputBox}
                 classes={{ input: classes.input }}
-                endAdornment='VND'
+                endAdornment='₫'
                 onChange={handleChangeQRExtendPrice}
                 value={(extendPrice !== null && Number(extendPrice) !== 0) ? Number(extendPrice) : ''}
                 disabled={extendPrice === null || Number(extendPrice) === 0}

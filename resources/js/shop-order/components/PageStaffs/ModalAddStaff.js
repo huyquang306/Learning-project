@@ -158,11 +158,11 @@ const ModalAddStaff = (props) => {
     <Modal
       actions={actionModal()}
       open={props.open}
-      title='スタッフ設定'
+      title='Nhân viên'
     >
       <Box mt={8} mb={5} p='0 50px'>
         <Box mt={3} display='flex' alignItems='center'>
-          <Box width='30%' textAlign='left'>スタッフ名</Box>
+          <Box width='30%' textAlign='left'>Tên nhân viên</Box>
 
           <Box width='70%' textAlign='left'>
             <OutlinedInput

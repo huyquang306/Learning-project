@@ -302,17 +302,6 @@ const PageTableSetting = (props) => {
             <Footer padding={'10px'}>
               <Box textAlign="center">
                 <Grid spacing={5} container justify={'center'}>
-                  {tableData ?
-                  <Grid item>
-                    <Button
-                      onClick={()=> getTableQRPreview()}
-                      className={`${classes.buttonController} + ' ' + ${classes.buttonPrintQR}`}
-                    >
-                    Xem mã QR
-                    </Button>
-                  </Grid>
-                  : ''
-                  }
                   <Grid item>
                     <Button
                       onClick={() => history.push('/setting')}
@@ -321,6 +310,17 @@ const PageTableSetting = (props) => {
                       Quay lại
                     </Button>
                   </Grid>
+                  {/*{tableData ?*/}
+                  {/*  <Grid item>*/}
+                  {/*    <Button*/}
+                  {/*      onClick={()=> getTableQRPreview()}*/}
+                  {/*      className={`${classes.buttonController} + ' ' + ${classes.buttonPrintQR}`}*/}
+                  {/*    >*/}
+                  {/*      Xem mã QR*/}
+                  {/*    </Button>*/}
+                  {/*  </Grid>*/}
+                  {/*  : ''*/}
+                  {/*}*/}
                   <Grid item>
                     <Button
                       onClick={() => {

@@ -28,12 +28,13 @@ const useStylesPageAddCourse = makeStyles(() => ({
   tableHead: {
     backgroundColor: '#DADADA',
   },
-
+  
   tableCell: {
     fontSize: '20px',
     fontWeight: 600,
     color: '#4F4F4F',
     backgroundColor: '#DADADA',
+    textAlign: 'center',
   },
   tableCellDetail: {
     fontSize: '20px',
@@ -45,7 +46,7 @@ const useStylesPageAddCourse = makeStyles(() => ({
     color: '#828282',
     textDecorationLine: 'underline',
   },
-
+  
   button: {
     borderRadius: '28px',
     textAlign: 'center',
@@ -69,7 +70,7 @@ const useStylesPageAddCourse = makeStyles(() => ({
       background: '#FFA04B',
     },
   },
-
+  
   buttonController: {
     color: '#fff',
     borderRadius: '28px',
@@ -110,7 +111,7 @@ const useStylesPageAddCourse = makeStyles(() => ({
   buttonRemoveImage: {
     color: 'red',
   },
-
+  
   inputHead: {
     width: '80%',
   },
@@ -121,7 +122,7 @@ const useStylesPageAddCourse = makeStyles(() => ({
     maxWidth: '200px',
   },
   imageMenuItem: {
-    width: '30%',
+    width: '100%',
     margin: 'auto',
     borderRadius: '5px',
     display: 'inline-block'
@@ -151,7 +152,7 @@ const useStylesPageAddCourse = makeStyles(() => ({
     },
   },
   inputBlockCost: {
-    width: '80px',
+    width: '150px',
     marginRight: '5px',
   },
   inputBlockCostInput: {
@@ -247,13 +248,13 @@ const useStylesModalMenuList = makeStyles(() => ({
     alignItems: 'center',
   },
   container: {
-    maxHeight: 2000,
+    maxHeight: '600px',
     borderRadius: 0,
   },
   tableHead: {
     backgroundColor: '#DADADA',
   },
-
+  
   tableCell: {
     fontSize: '20px',
     fontWeight: 600,

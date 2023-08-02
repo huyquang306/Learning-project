@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Laravel\Cashier\Cashier;
+use Stripe\Stripe;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        Cashier::ignoreMigrations();
+        Stripe::setApiKey(config('stripe.secret_key'));
     }
 
     /**
@@ -47,6 +50,8 @@ class AppServiceProvider extends ServiceProvider
             'ServicePlanRepositoryInterface' => 'ServicePlanRepository',
             'RFunctionConditionRepositoryInterface' => 'RFunctionConditionRepository',
             'UserHistoryRepositoryInterface' => 'UserHistoryRepository',
+            'BillingRepositoryInterface' => 'BillingRepository',
+
         ];
 
         foreach ($repositories as $key => $val) {

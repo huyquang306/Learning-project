@@ -164,7 +164,7 @@ const ModalPaymentRequest = (props) => {
     return state.ordergroup.orders.map((item, index) => {
       return (
         <Grid container key={index}>
-          <Grid item xs={3}>
+          <Grid item xs={4}>
             <Box
               display='flex'
               flexDirection={{ xs: 'column', sm: 'row' }}
@@ -173,23 +173,23 @@ const ModalPaymentRequest = (props) => {
             >
               {item.status === 2 && (
                 <Box className={classes.cancelOrder} whiteSpace='nowrap'>
-                  【Hủy bàn】
+                  【Hủy】
                 </Box>
               )}
               <Box className={classes.firstColumn}>{item.name}</Box>
             </Box>
           </Grid>
-          <Grid item xs={1}>
+          <Grid item xs={2}>
             <Box className={classes.textCenter} minHeight={48}>
               {item.quantity}
             </Box>
           </Grid>
-          <Grid item xs={3}>
-            <Box className={classes.textCenter} minHeight={48}>
-              {showTextConsumptionTax(item?.tax_rate)}
-            </Box>
-          </Grid>
-          <Grid item xs={5}>
+          {/*<Grid item xs={3}>*/}
+          {/*  <Box className={classes.textCenter} minHeight={48}>*/}
+          {/*    {showTextConsumptionTax(item?.tax_rate)}*/}
+          {/*  </Box>*/}
+          {/*</Grid>*/}
+          <Grid item xs={6}>
             <Box
               className={classes.textCenter}
               minHeight={48}
@@ -203,19 +203,19 @@ const ModalPaymentRequest = (props) => {
                 display='flex'
                 flexDirection={{ xs: 'column', sm: 'row' }}
               >
-                <Box mr={1}>
+                <Box mr={1} style={{ paddingLeft: '60px' }}>
                   {formatAmount(item.amount)}
                   {currencyName}
                 </Box>
-                <Box overflow='hidden' textOverflow='ellipsis'>
-                  (
-                  {item.amount == 0 ? 0 : formatAmount(
-                    hanldePriceFractionMode(item?.tax_value * item?.quantity, 0, fractionMode)
-                  )}
-                  {currencyName})
-                </Box>
+                {/*<Box overflow='hidden' textOverflow='ellipsis'>*/}
+                {/*  (*/}
+                {/*  {item.amount == 0 ? 0 : formatAmount(*/}
+                {/*    hanldePriceFractionMode(item?.tax_value * item?.quantity, 0, fractionMode)*/}
+                {/*  )}*/}
+                {/*  {currencyName})*/}
+                {/*</Box>*/}
               </Box>
-              <Box mb={1}>
+              <Box mb={1} style={{ paddingLeft: '50px' }}>
                 {item.status !== 2 && (
                   <ButtonCustom
                     bgcolor='#FFF'
@@ -256,21 +256,21 @@ const ModalPaymentRequest = (props) => {
             <Box mt={3}>
               <Grid container>
                 <Grid item sm={3} xs={3}>
-                  <Box textAlign='center'>Số tiền</Box>
+                  <Box textAlign='center'>Tổng cộng</Box>
                 </Grid>
-                <Grid item sm={3} xs={1}>
+                <Grid item sm={2} xs={1}>
                   <Box textAlign='center'></Box>
                 </Grid>
-                <Grid item sm={6} xs={8}>
+                <Grid item sm={7} xs={8}>
                   <Box display='flex' flexDirection={{ xs: 'column', sm: 'row' }}>
-                    <Box textAlign='center' mr={2} fontSize={24}>
+                    <Box textAlign='center' mr={2} fontSize={24} style={{paddingLeft: '30px'}}>
                       {infoPayment?.totalAmount}
                       {currencyName}
                     </Box>
-                    <Box alignSelf='center'>
-                      (Tiến thuế {infoPayment?.totalTax}
-                      {currencyName})
-                    </Box>
+                    {/*<Box alignSelf='center'>*/}
+                    {/*  (Tiến thuế {infoPayment?.totalTax}*/}
+                    {/*  {currencyName})*/}
+                    {/*</Box>*/}
                   </Box>
                 </Grid>
               </Grid>
@@ -324,17 +324,17 @@ const ModalPaymentRequest = (props) => {
     >
       <Box className={classes.modalContent}>
         <Grid container>
-          <Grid item xs={3} className='firstHeading'>
+          <Grid item xs={4} className='firstHeading'>
             <Box ml={{ xs: 1, sm: '45%' }}>Món</Box>
           </Grid>
-          <Grid item xs={1} className='heading'>
+          <Grid item xs={2} className='heading'>
             <Box>Số lượng</Box>
           </Grid>
-          <Grid item xs={3} className='heading'>
-            <Box>Thuế</Box>
-          </Grid>
-          <Grid item xs={5} className='heading' style={{ justifyContent: 'start' }}>
-            <Box>Số tiền(gồm thuế)</Box>
+          {/*<Grid item xs={3} className='heading'>*/}
+          {/*  <Box>Thuế</Box>*/}
+          {/*</Grid>*/}
+          <Grid item xs={6} className='heading' style={{ justifyContent: 'start', paddingLeft: '60px' }}>
+            <Box>Số tiền</Box>
           </Grid>
         </Grid>
         {renderListOrder()}
@@ -351,15 +351,15 @@ const ModalPaymentRequest = (props) => {
                 Phí dịch vụ ({Number(infoPayment.serve_charge_rate * 100)}%)
               </Box>
             </Grid>
-            <Grid item xs={1}>
+            <Grid item xs={2}>
               <Box textAlign='center'></Box>
             </Grid>
-            <Grid item xs={3}>
-              <Box justifyContent='center' alignItems='center' height='100%' display='flex'>
-                Thuế
-              </Box>
-            </Grid>
-            <Grid item xs={5}>
+            {/*<Grid item xs={3}>*/}
+            {/*  <Box justifyContent='center' alignItems='center' height='100%' display='flex'>*/}
+            {/*    Thuế*/}
+            {/*  </Box>*/}
+            {/*</Grid>*/}
+            <Grid item xs={7}>
               <Box
                 className={classes.textCenter}
                 minHeight={48}

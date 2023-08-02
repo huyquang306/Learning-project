@@ -75,13 +75,13 @@ class CourseController extends BaseApiController
         if ($inputData['course_hash_id'] && $inputData['block_hash_id']) {
             $course = $this->courseService->getCourseByHashId($inputData['course_hash_id']);
             // Create print file data
-            $outputFile = $this->printerService->createOrderByCourseTemplate(
+            /*$outputFile = $this->printerService->createOrderByCourseTemplate(
                 $shop,
                 $orderGroup,
                 $course
-            );
+            );*/
             // Insert to Job Queue
-            $position = config('const.PRINTER_POSITIONS.KITCHEN.value');
+            //$position = config('const.PRINTER_POSITIONS.KITCHEN.value');
             //$this->printerService->insertJobQueue($shop->id, $outputFile, $position);
         }
 

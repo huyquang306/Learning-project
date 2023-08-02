@@ -78,6 +78,14 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: '2px solid #FFA04B',
     },
   },
+  headerAllOrderServed: {
+    backgroundColor: '#03fa07',
+    color: '#FDFDFD',
+  },
+  headerRequestCheckout: {
+    backgroundColor: '#f50505',
+    color: '#FDFDFD',
+  },
   cardContent: {
     padding: '5px',
   },
@@ -249,7 +257,7 @@ const TableCard = (props) => {
           spendingTime > course.time_block_unit * 60 &&
           numberExtendCourse > 0)
       ) {
-        result = `${getTimerBySeconds(course.time_block_unit * 60)} (Thêm ${getTimerBySeconds(
+        result = `${getTimerBySeconds(course.time_block_unit * 60)} (+ ${getTimerBySeconds(
           spendingTime - course.time_block_unit * 60
         )}) `;
       }
@@ -282,32 +290,36 @@ const TableCard = (props) => {
             className={[
               classes.cardContent,
               classes.header,
-              table.hash_id === tableGroupName.firstId && !isEmpty(ordergroup)
-                ? classes.headerActive
-                : classes.headerInActive,
+              table.hash_id === tableGroupName.firstId && isEmpty(ordergroup)
+                ? classes.headerInActive
+                : (ordergroup?.status == ORDER_GROUP_STATUS.REQUEST_CHECKOUT
+                  ? classes.headerRequestCheckout
+                  : (!ordergroup?.hasOrderNotServed)
+                    ? classes.headerAllOrderServed
+                    : classes.headerActive),
               table.hash_id === state.table.hash_id ? 'selected' : null,
               classes.disabled,
             ].join(' ')}
           >
             <Box display={'flex'} alignItems={'center'}>
-              <Box width={'50%'} className={classes.textBold}>
+              <Box width={'30%'} className={classes.textBold}>
                 {tableGroupName.name.length > 0 ? tableGroupName.name : table.code}
               </Box>
-              <Box width={'50%'} className={classes.normalText}>
+              <Box width={'70%'} className={classes.normalText}>
                 {
                   !isEmpty(ordergroup) &&
-                  ordergroup?.status === ORDER_GROUP_STATUS.PRE_ORDER ||
-                  ordergroup?.status === ORDER_GROUP_STATUS.ORDERING
+                  ordergroup?.status == ORDER_GROUP_STATUS.PRE_ORDER ||
+                  ordergroup?.status == ORDER_GROUP_STATUS.ORDERING
                     ? 'Đang sử dụng' : null
                 }
                 {
                   !isEmpty(ordergroup) &&
-                  ordergroup?.status === ORDER_GROUP_STATUS.REQUEST_CHECKOUT
+                  ordergroup?.status == ORDER_GROUP_STATUS.REQUEST_CHECKOUT
                     ? 'Yêu cầu thanh toán' : null
                 }
                 {
                   !isEmpty(ordergroup) &&
-                  ordergroup?.status === ORDER_GROUP_STATUS.WAITING_CHECKOUT
+                  ordergroup?.status == ORDER_GROUP_STATUS.WAITING_CHECKOUT
                     ? 'Chờ thanh toán' : null
                 }
                 {

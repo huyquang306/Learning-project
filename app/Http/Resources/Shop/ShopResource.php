@@ -15,6 +15,9 @@ class ShopResource extends JsonResource
      */
     public function toArray($request)
     {
+        $staffCanPay = $this->mStaffsCanPay->first();
+        $currentServicePlan = $this->mServicePlans ? $this->mServicePlans->last() : null;
+
         return [
             'hash_id' => $this->hash_id,
             'name' => $this->name,
@@ -38,10 +41,16 @@ class ShopResource extends JsonResource
             'm_business_hours' => $this->mBusinessHours,
             'm_shop_metas' => $this->mShopMetas,
             'sns_links' => $this->getShopMetaByKey($this, MShopMeta::SNS_LINK_TYPE),
+            'service_plan' => new ServicePlanResource($currentServicePlan),
+            'payment_method' => $staffCanPay && $staffCanPay->tStripeCustomer
+                ? $staffCanPay->tStripeCustomer->payment_method
+                : null,
+            'usageQRCodeInMonth' => $this->tOrderGroups ? count($this->tOrderGroups) : 0,
             'instagram_link' => $this->getShopMetaByKey($this, MShopMeta::INSTAGRAM_LINK_TYPE),
             'mShopPosSetting' => $this->mShopPosSetting,
             'm_country' => $this->mCountry,
             'is_active' => $this->is_active,
+            'billings_in_month' => $this->tServiceBillings,
         ];
     }
 

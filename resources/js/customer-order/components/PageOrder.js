@@ -127,6 +127,7 @@ const PageOrder = () => {
       .then((response) => {
         setOrderList(response.orders);
         setTableName(response.code_tables);
+
       })
       .catch(() => {
         history.push('/' + shop_hash_id + '/thanks-for-customer');
@@ -226,7 +227,7 @@ const PageOrder = () => {
 
   return (
     <PageContainer padding='0' height='auto' minHeight='auto'>
-      <HeaderAppBar title='Lịch sử gọi món' />
+      <HeaderAppBar title='Các món đã gọi' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding='0px 0px 80px 0px'>
           <Box p={1}>
@@ -353,8 +354,8 @@ const PageOrder = () => {
             </Button>
             <Box>
               {statusOrder &&
-              (statusOrder === ORDER_GROUP_STATUS.REQUEST_CHECKOUT ||
-                statusOrder === ORDER_GROUP_STATUS.WAITING_CHECKOUT) ? (
+              (statusOrder == ORDER_GROUP_STATUS.REQUEST_CHECKOUT ||
+                statusOrder == ORDER_GROUP_STATUS.WAITING_CHECKOUT) ? (
                 <Button
                   bgcolor='#ffffff'
                   fgcolor='#333333'

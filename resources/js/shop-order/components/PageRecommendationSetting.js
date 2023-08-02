@@ -560,7 +560,7 @@ const PageRecommendationSetting = () => {
                             padding='8px 20px'
                             fullWidth
                           >
-                            Lưu
+                            Xem
                           </Button>
                         </CardActions>
                       </Card>

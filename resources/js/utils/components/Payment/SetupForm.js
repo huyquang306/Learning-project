@@ -36,7 +36,7 @@ const PaymentForm = (props) => {
     isErrorValidateRegisterForm,
     checkDownGradeServicePayment,
   } = props;
-  // const stripe = useStripe();
+  const stripe = useStripe();
   const elements = useElements();
   
   // shop context

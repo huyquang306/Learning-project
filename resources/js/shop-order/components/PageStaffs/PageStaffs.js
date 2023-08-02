@@ -98,7 +98,7 @@ const PageStaffs = (props) => {
   const actionDeleteStaff = () => (
     <Box textAlign='center'>
       <ButtonCustom
-        title='いいえ'
+        title='Quay lại'
         borderRadius='28px'
         bgcolor='#828282'
         borderColor='#828282'
@@ -109,7 +109,7 @@ const PageStaffs = (props) => {
         }}
       />
       <ButtonCustom
-        title='はい'
+        title='OK'
         borderRadius='28px'
         bgcolor='#FFA04B'
         borderColor='#FFA04B'
@@ -125,7 +125,7 @@ const PageStaffs = (props) => {
 
       getStaffs({page: pagination.current_page});
       setIsShowDelete(false);
-      showSuccessMessage('削除しました。');
+      showSuccessMessage('Xóa thành công');
     } catch (error) {
       showWarningMessage(error.message);
     }
@@ -133,7 +133,7 @@ const PageStaffs = (props) => {
 
   return (
     <PageContainer padding='0px' minHeight='auto' height='auto'>
-      <HeaderAppBar title='スタッフ設定'/>
+      <HeaderAppBar title='Cài đặt nhân viên'/>
       <PageInnerWrap>
         <PageInnerContainer padding='8px 16px 25px 16px' height='auto'>
           <Box flex={1} className={classes.head}>
@@ -142,8 +142,8 @@ const PageStaffs = (props) => {
                 <Table stickyHeader aria-label='staffs table'>
                   <TableHead>
                     <TableRow classes={{ root: classes.tableHead }}>
-                      <TableCell width='60%' classes={{ root: classes.tableCell }} align='center'>スタッフ名</TableCell>
-                      <TableCell width='40%' classes={{ root: classes.tableCell }} align='center'>操作</TableCell>
+                      <TableCell width='60%' classes={{ root: classes.tableCell }} align='center'>Tên nhân viên</TableCell>
+                      <TableCell width='40%' classes={{ root: classes.tableCell }} align='center'>Hoạt động</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -167,7 +167,7 @@ const PageStaffs = (props) => {
                                 setIsShowStaff(true);
                               }}
                             >
-                              詳細
+                              Chi tiết
                             </Button>
                             <Button
                               className={`${classes.button} ${classes.buttonDelete}`}
@@ -176,7 +176,7 @@ const PageStaffs = (props) => {
                                 setIsShowDelete(true);
                               }}
                             >
-                              削除
+                              Xóa
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -202,7 +202,7 @@ const PageStaffs = (props) => {
                     onClick={() => history.push('/setting')}
                     className={`${classes.buttonController} + ' ' + ${classes.buttonBack}`}
                   >
-                    戻る
+                    Quay lại
                   </Button>
                 </Grid>
                 <Grid item>
@@ -213,7 +213,7 @@ const PageStaffs = (props) => {
                   }}
                   className={`${classes.buttonController} + ' ' + ${classes.buttonAdd}`}
                 >
-                  <Add /> 追加する
+                  <Add /> Thêm nhân viên
                 </Button>
                 </Grid>
               </Grid>
@@ -237,10 +237,10 @@ const PageStaffs = (props) => {
           <Modal
             actions={actionDeleteStaff()}
             open={isShowDelete}
-            title='スタッフ削除'
+            title='Xác nhận'
           >
             <div className={classes.centerModal}>
-              <h2>本当に削除しますか。</h2>
+              <h2>Bạn có chắc chắn muốn xóa nhân viên này không?</h2>
             </div>
           </Modal>
           {/* END modal delete staff */}

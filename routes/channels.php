@@ -20,3 +20,7 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
 Broadcast::channel('order.created.{shopId}', function ($user, $shopId) {
     return true;
 });
+
+Broadcast::channel('order.payment-request.{shopId}', function ($user, $shopId) {
+    return true;
+});

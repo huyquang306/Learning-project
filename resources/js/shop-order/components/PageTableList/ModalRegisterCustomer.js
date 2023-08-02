@@ -589,7 +589,7 @@ const ModalRegisterCustomer = (props) => {
 
     let options = [];
     options = listCoursesSorted.map((course) => ({
-      label: `${course.name} - ${course.time_block_unit}分`,
+      label: `${course.name} - ${course.time_block_unit} phút`,
       value: course.hash_id,
     }));
     if (state?.ordergroup?.id) {
@@ -617,7 +617,7 @@ const ModalRegisterCustomer = (props) => {
     }
 
     options.unshift({
-      label: '--- Không có ---',
+      label: '--- Tất cả ---',
       value: NONE_COURSE_OPTION_VALUE,
     });
 
@@ -729,7 +729,7 @@ const ModalRegisterCustomer = (props) => {
           </Grid>
 
           {/* QR code limit info */}
-          <Grid container spacing={3} alignItems='center' className={classes.gridInfo}>
+          <Grid container spacing={3} alignItems='center' className={classes.gridInfo} style={{ textDecoration: 'none' }}>
             <Box className={classes.gridInfoLink}>{renderQRNumberText()}</Box>
           </Grid>
         </Box>

@@ -92,7 +92,7 @@ const PageSettingCookPlace = (props) => {
       setCookPlaces(newCookPlaces);
       setSelectedCookPlace(null);
       setIsShowDelete(false);
-      showSuccessMessage('削除しました。');
+      showSuccessMessage('Xóa thành công!');
     } catch (error) {
       showWarningMessage(error.message);
     }
@@ -125,7 +125,7 @@ const PageSettingCookPlace = (props) => {
   return (
     <>
       <PageContainer padding="0px" minHeight='auto' height='auto'>
-        <HeaderAppBar title="調理場設定" />
+        <HeaderAppBar title="Kitchen Setting" />
         <PageInnerContainer padding='8px 16px 25px 16px' height='auto'>
           <Box className={classes.container}>
             <Box mt={1}>
@@ -133,8 +133,8 @@ const PageSettingCookPlace = (props) => {
                 <Table aria-label="simple table">
                   <TableHead>
                     <TableRow>
-                      <TableCell classes={{root: classes.tableCell}} align='center' width='60%'>調理場名</TableCell>
-                      <TableCell classes={{root: classes.tableCell}} align='center' width='40%'>操作</TableCell>
+                      <TableCell classes={{root: classes.tableCell}} align='center' width='60%'>Khu vực bếp</TableCell>
+                      <TableCell classes={{root: classes.tableCell}} align='center' width='40%'>Nhân viên</TableCell>
                     </TableRow>
                   </TableHead>
 
@@ -156,14 +156,14 @@ const PageSettingCookPlace = (props) => {
                               setSelectedCookPlace(cookPlace);
                               setIsShowSetting(true);
                             }}
-                          >詳細</Button>
+                          >Chi tiết</Button>
                           <Button
                             className={`${classes.button} ${classes.buttonDelete}`}
                             onClick={() => {
                               setSelectedCookPlace(cookPlace);
                               setIsShowDelete(true);
                             }}
-                          >削除</Button>
+                          >Xóa</Button>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -179,7 +179,7 @@ const PageSettingCookPlace = (props) => {
                     onClick={() => history.push('/setting')}
                     className={`${classes.buttonController} + ' ' + ${classes.buttonBack}`}
                   >
-                    戻る
+                    Quay lại
                   </Button>
                 </Grid>
 
@@ -189,7 +189,7 @@ const PageSettingCookPlace = (props) => {
                     onClick={() => setIsShowSetting(true)}
                     disabled={cookPlaces.length >= MAX_COOK_PLACES_NUMBER}
                   >
-                    <Add /> 追加する
+                    <Add /> Thêm mới
                   </Button>
                 </Grid>
               </Grid>
@@ -213,14 +213,14 @@ const PageSettingCookPlace = (props) => {
           <Modal
             actions={actionDeleteCookPlace()}
             open={isShowDelete}
-            title='調理場削除'
+            title='Xác nhận xóa'
             onClose={() => {
               setIsShowDelete(false);
               setSelectedCookPlace(null);
             }}
           >
             <div className={classes.centerModal}>
-              <h2>この調理場を削除しますか？</h2>
+              <h2>Bạn có chắc chắn muốn xóa không</h2>
             </div>
           </Modal>
           {/* END modal delete CookPlace */}

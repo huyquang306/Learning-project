@@ -93,6 +93,9 @@ const useStyles = makeStyles({
     fontWeight: 600,
     textAlign: 'center',
   },
+  menuImage: {
+    margin: 'auto'
+  },
 });
 
 const styles = {
@@ -221,11 +224,11 @@ const PageListMenuInCourse = () => {
 
   return (
     <PageContainer padding="0" height='auto' minHeight='auto'>
-      <HeaderAppBar title="コース詳細" />
+      <HeaderAppBar title="Chi tiết set ăn" />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding="0px 0px 0px 0px">
           <Box p={1} height="100%" padding="0px 0px 79px 0px">
-            <Box display="flex" height="120px">
+            <Box display="flex" height="360px">
               <Box flex={1}>
                 <Box className={classes.prodItem} height="100%">
                   <Box className="prodName" fontSize={20} fontWeight={600}>
@@ -252,21 +255,22 @@ const PageListMenuInCourse = () => {
                         root: classes.tableHead,
                       }}
                     >
-                      カテゴリ
+                      Danh mục
                     </TableCell>
                     <TableCell
                       classes={{
                         root: classes.tableHead,
                       }}
                     >
-                      商品名
+                      Tên món
                     </TableCell>
                     <TableCell
                       classes={{
                         root: classes.tableHead,
                       }}
+                      width={'150px'}
                     >
-                      写真
+                      Ảnh minh họa
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -305,15 +309,15 @@ const PageListMenuInCourse = () => {
                               align="center"
                               width={'90px'}
                             >
-                              {menu.m_image_folder_path ? (
+                              {menu.main_image?.image_path ? (
                                 <img
                                   className={classes.menuImage}
-                                  width={'56px'}
-                                  height={'40px'}
-                                  src={renderUrlImageS3(menu.m_image_folder_path)}
+                                  width={'84px'}
+                                  height={'60px'}
+                                  src={renderUrlImageS3(menu.main_image?.image_path)}
                                 />
                               ) : (
-                                '設定無し'
+                                'No setting'
                               )}
                             </TableCell>
                           </TableRow>
@@ -333,8 +337,24 @@ const PageListMenuInCourse = () => {
         </PageInnerContainer>
 
         <Footer bgColor="#FFA04B" padding="6px">
-          <Box display="flex" justifyContent="center">
-            <Box>
+          <Box display="flex" alignItems='center' justifyContent='space-between'>
+            {/*<Box>*/}
+              <Button
+                bgcolor="#ffffff"
+                fgcolor="#333333"
+                classes={{
+                  root: classes.btnFooter,
+                }}
+                style={{
+                  borderStyle: 'none',
+                  padding: '8px 20px',
+                  color: '#FFA04B',
+                  boxShadow: 'none',
+                }}
+                onClick={() => (history.push('/' + shopHashId))}
+              >
+                Quay lại
+              </Button>
               <Button
                 bgcolor="#ffffff"
                 fgcolor="#333333"
@@ -348,20 +368,20 @@ const PageListMenuInCourse = () => {
                 }}
                 onClick={() => showConfirmOrderCourse()}
               >
-                注文する
+                Dùng set ăn
               </Button>
-            </Box>
+            {/*</Box>*/}
           </Box>
         </Footer>
 
         {/* Modal product  */}
         {isShowModal && (
           <Modal
-            title="詳細"
+            title="Chi tiết"
             open={isShowModal}
             actions={ModalActions()}
             maxHeight="520px"
-            maxWidth="330px"
+            maxWidth="360px"
             onClose={() => setIsShowModal(false)}
           >
             <Box fontWeight={600} fontSize={20} mb={2}>
@@ -392,7 +412,6 @@ const PageListMenuInCourse = () => {
               <Box display="flex" alignItems="baseline" fontSize={55} fontWeight="fontWeightBold">
                 {numberOfCustomer}
                 <Box fontSize={23} fontWeight="fontWeightRegular">
-                  名
                 </Box>
               </Box>
               <Button

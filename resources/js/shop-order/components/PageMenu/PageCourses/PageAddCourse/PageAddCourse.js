@@ -86,7 +86,7 @@ const defaultCoursePrice = (status = STATUS_INACTIVE) => {
 
 const defaultChildExtendCourse = {
   hash_id: null,
-  name: '延長料金',
+  name: 'Phí gia hạn',
   time_block_unit: '',
   list_course_prices: [
     {
@@ -728,7 +728,7 @@ const PageAddCourse = (props) => {
                     </Box>
 
                     <Box mt={2} display='flex' alignItems='center'>
-                      <Box width='20%'>Thời gian</Box>
+                      <Box width='20%' >Thời gian</Box>
                       <Box width='80%'>
                         <OutlinedInput
                           type='number'
@@ -843,7 +843,7 @@ const PageAddCourse = (props) => {
                 </Grid>
               </Box>
 
-              <Box flex={1} className={classes.head}>
+              <Box flex={1} className={classes.head} fontSize={'18px'}>
                 <Tabs
                   value={tab}
                   onChange={onChangeTab}
@@ -878,27 +878,27 @@ const PageAddCourse = (props) => {
                             </TableCell>
 
                             {/* name */}
-                            <TableCell classes={{ root: classes.tableCell }} width='15%'>
+                            <TableCell classes={{ root: classes.tableCell }} width='25%' fontSize={'18px'}>
                               Tên
                             </TableCell>
 
                             {/* time */}
-                            <TableCell classes={{ root: classes.tableCell }} width='30%'>
+                            <TableCell classes={{ root: classes.tableCell }} width='35%' fontSize={'18px'}>
                               Thời gian
                             </TableCell>
 
                             {/* cost */}
-                            <TableCell classes={{ root: classes.tableCell }} width='15%'>
-                              Giá (Bao gồm thuế)
+                            <TableCell classes={{ root: classes.tableCell }} width='30%'>
+                              Giá
                             </TableCell>
-                            <TableCell classes={{ root: classes.tableCell }} width='15%'>
-                              <Box textAlign='center'>Thuế</Box>
-                            </TableCell>
-                            <TableCell classes={{ root: classes.tableCell }} width='20%'>
-                              <Box whiteSpace='nowrap' textAlign='center'>
-                                Tiền thuế
-                              </Box>
-                            </TableCell>
+                            {/*<TableCell classes={{ root: classes.tableCell }} width='15%'>*/}
+                            {/*  <Box textAlign='center'>Thuế</Box>*/}
+                            {/*</TableCell>*/}
+                            {/*<TableCell classes={{ root: classes.tableCell }} width='20%'>*/}
+                            {/*  <Box whiteSpace='nowrap' textAlign='center'>*/}
+                            {/*    Tiền thuế*/}
+                            {/*  </Box>*/}
+                            {/*</TableCell>*/}
 
                             <TableCell
                               classes={{ root: classes.tableCell }}
@@ -923,13 +923,13 @@ const PageAddCourse = (props) => {
                                   <TableCell
                                     component='th'
                                     scope='row'
-                                    style={{ minWidth: '160px' }}
+                                    style={{ minWidth: '160px', fontSize: '18px' }}
                                   >
-                                    Giá cơ bản {indexBlock + 1}
+                                    Khung giờ {indexBlock + 1}
                                   </TableCell>
 
                                   <TableCell component='th' scope='row'>
-                                    <Box display={'flex'}>
+                                    <Box display={'flex'} justifyContent={'center'}>
                                       <Input
                                         className={classes.inputTimer}
                                         type='time'
@@ -963,11 +963,11 @@ const PageAddCourse = (props) => {
                                   </TableCell>
 
                                   <TableCell component='th' scope='row'>
-                                    <Box display={'flex'} alignItems={'center'}>
+                                    <Box display={'flex'} alignItems={'center'} justifyContent={'center'} fontSize={'18px'}>
                                       <OutlinedInput
                                         type='number'
                                         inputProps={{
-                                          max: 99999,
+                                          max: 99999999,
                                           min: 1,
                                         }}
                                         value={block.unit_price}
@@ -990,25 +990,25 @@ const PageAddCourse = (props) => {
                                     </Box>
                                   </TableCell>
 
-                                  <TableCell component='th' scope='row'>
-                                    <CustomSelectorBase
-                                      className={classes.selectTaxOptions}
-                                      value={Number(block.tax_rate)}
-                                      optionArray={taxType}
-                                      id='tax-type'
-                                      name='tax_rate'
-                                      disabled={block.status !== STATUS_ACTIVE}
-                                      onChange={(e) =>
-                                        taxTypeChanged(e, TYPE_ONCHANGE_INPUT_BLOCK, indexBlock)
-                                      }
-                                    />
-                                  </TableCell>
-                                  <TableCell component='th' scope='row'>
-                                    <Box textAlign='center'>
-                                      {block.tax_value || 0} &nbsp;
-                                      {currencyName}
-                                    </Box>
-                                  </TableCell>
+                                  {/*<TableCell component='th' scope='row'>*/}
+                                  {/*  <CustomSelectorBase*/}
+                                  {/*    className={classes.selectTaxOptions}*/}
+                                  {/*    value={Number(block.tax_rate)}*/}
+                                  {/*    optionArray={taxType}*/}
+                                  {/*    id='tax-type'*/}
+                                  {/*    name='tax_rate'*/}
+                                  {/*    disabled={block.status !== STATUS_ACTIVE}*/}
+                                  {/*    onChange={(e) =>*/}
+                                  {/*      taxTypeChanged(e, TYPE_ONCHANGE_INPUT_BLOCK, indexBlock)*/}
+                                  {/*    }*/}
+                                  {/*  />*/}
+                                  {/*</TableCell>*/}
+                                  {/*<TableCell component='th' scope='row'>*/}
+                                  {/*  <Box textAlign='center'>*/}
+                                  {/*    {block.tax_value || 0} &nbsp;*/}
+                                  {/*    {currencyName}*/}
+                                  {/*  </Box>*/}
+                                  {/*</TableCell>*/}
 
                                   <TableCell component="th" scope="row" >
                                     <Button
@@ -1032,12 +1032,12 @@ const PageAddCourse = (props) => {
                                 >
                                   <TableCell component='th' scope='row'></TableCell>
 
-                                  <TableCell component='th' scope='row'>
+                                  <TableCell component='th' scope='row'  style={{ fontSize: '18px' }}>
                                     Phí gia hạn
                                   </TableCell>
 
                                   <TableCell component='th' scope='row'>
-                                    <Box display={'flex'}>
+                                    <Box display={'flex'} justifyContent={'center'}>
                                       <OutlinedInput
                                         type='number'
                                         name='time_block_unit'
@@ -1058,12 +1058,12 @@ const PageAddCourse = (props) => {
                                           )
                                         }
                                       />
-                                      <Box style={{ margin: 'auto 0' }}>phút</Box>
+                                      <Box style={{ margin: 'auto 0' }} fontSize={'18px'}>phút</Box>
                                     </Box>
                                   </TableCell>
 
                                   <TableCell component='th' scope='row'>
-                                    <Box display={'flex'} alignItems={'center'}>
+                                    <Box display={'flex'} alignItems={'center'} justifyContent={'center'} fontSize={'18px'}>
                                       <OutlinedInput
                                         type='number'
                                         name='unit_price'
@@ -1071,7 +1071,7 @@ const PageAddCourse = (props) => {
                                         className={classes.inputBlockCost}
                                         placeholder='0'
                                         inputProps={{
-                                          max: 99999,
+                                          max: 99999999,
                                           min: 1,
                                         }}
                                         classes={{
@@ -1096,28 +1096,28 @@ const PageAddCourse = (props) => {
                                       {currencyName}
                                     </Box>
                                   </TableCell>
-                                  <TableCell component='th' scope='row'>
-                                    <CustomSelectorBase
-                                      className={classes.selectTaxOptions}
-                                      value={childCourse.list_course_prices[0] && Number(childCourse.list_course_prices[0].tax_rate)}
-                                      optionArray={taxType}
-                                      id='tax-type'
-                                      name='tax_rate'
-                                      onChange={(e) =>
-                                        taxTypeChanged(
-                                          e,
-                                          TYPE_ONCHANGE_INPUT_CHILD_COURSE,
-                                          indexCourse
-                                        )
-                                      }
-                                    />
-                                  </TableCell>
-                                  <TableCell component='th' scope='row'>
-                                    <Box textAlign='center'>
-                                      {childCourse.list_course_prices[0]?.tax_value || 0}
-                                      {currencyName}
-                                    </Box>
-                                  </TableCell>
+                                  {/*<TableCell component='th' scope='row'>*/}
+                                  {/*  <CustomSelectorBase*/}
+                                  {/*    className={classes.selectTaxOptions}*/}
+                                  {/*    value={childCourse.list_course_prices[0] && Number(childCourse.list_course_prices[0].tax_rate)}*/}
+                                  {/*    optionArray={taxType}*/}
+                                  {/*    id='tax-type'*/}
+                                  {/*    name='tax_rate'*/}
+                                  {/*    onChange={(e) =>*/}
+                                  {/*      taxTypeChanged(*/}
+                                  {/*        e,*/}
+                                  {/*        TYPE_ONCHANGE_INPUT_CHILD_COURSE,*/}
+                                  {/*        indexCourse*/}
+                                  {/*      )*/}
+                                  {/*    }*/}
+                                  {/*  />*/}
+                                  {/*</TableCell>*/}
+                                  {/*<TableCell component='th' scope='row'>*/}
+                                  {/*  <Box textAlign='center'>*/}
+                                  {/*    {childCourse.list_course_prices[0]?.tax_value || 0}*/}
+                                  {/*    {currencyName}*/}
+                                  {/*  </Box>*/}
+                                  {/*</TableCell>*/}
 
                                   <TableCell component="th" scope="row"></TableCell>
                                 </TableRow>
@@ -1126,63 +1126,63 @@ const PageAddCourse = (props) => {
                           {/* END block extends */}
 
                           {/* alert time */}
-                          <TableRow key='alert_time_table' className={classes.tableRowGray}>
-                            <TableCell component='th' scope='row'></TableCell>
-
-                            <TableCell component='th' scope='row'>
-                              Thông báo
-                            </TableCell>
-
-                            <TableCell component='th' scope='row'>
-                              <Box display={'flex'}>
-                                <OutlinedInput
-                                  type='number'
-                                  name='alert_notification_time'
-                                  labelWidth={0}
-                                  inputProps={{
-                                    max: 1000,
-                                    min: 0,
-                                    step: 10,
-                                  }}
-                                  placeholder='60'
-                                  className={classes.inputAlertTime}
-                                  value={newCourse.alert_notification_time}
-                                  onChange={onChangeInput}
-                                />
-                                <Box style={{ margin: 'auto 0' }}>Thông báo trước khi kết thúc</Box>
-                              </Box>
-                            </TableCell>
-                            <TableCell component='th' scope='row'>
-                              <Grid item xs={12}>
-                                <Grid container justify='flex-start'>
-                                  <FormControlLabel
-                                    control={
-                                      <GreenCheckbox
-                                        checked={newCourse.user_alert_flg ? true : false}
-                                        onChange={onChangeCheckBox}
-                                        name='user_alert_flg'
-                                        value={newCourse.user_alert_flg}
-                                      />
-                                    }
-                                    label='Báo cho khách hàng'
-                                  />
-                                  <FormControlLabel
-                                    control={
-                                      <GreenCheckbox
-                                        checked={newCourse.shop_alert_flg ? true : false}
-                                        onChange={onChangeCheckBox}
-                                        name='shop_alert_flg'
-                                        value={newCourse.shop_alert_flg}
-                                      />
-                                    }
-                                    label='Báo cho cửa hàng'
-                                  />
-                                </Grid>
-                              </Grid>
-                            </TableCell>
-                            <TableCell component='th' scope='row'></TableCell>
-                            <TableCell component='th' scope='row'></TableCell>
-                          </TableRow>
+                          {/*<TableRow key='alert_time_table' className={classes.tableRowGray}>*/}
+                          {/*  <TableCell component='th' scope='row'></TableCell>*/}
+                          
+                          {/*  <TableCell component='th' scope='row'>*/}
+                          {/*    Thông báo*/}
+                          {/*  </TableCell>*/}
+                          
+                          {/*  <TableCell component='th' scope='row'>*/}
+                          {/*    <Box display={'flex'}>*/}
+                          {/*      <OutlinedInput*/}
+                          {/*        type='number'*/}
+                          {/*        name='alert_notification_time'*/}
+                          {/*        labelWidth={0}*/}
+                          {/*        inputProps={{*/}
+                          {/*          max: 1000,*/}
+                          {/*          min: 0,*/}
+                          {/*          step: 10,*/}
+                          {/*        }}*/}
+                          {/*        placeholder='60'*/}
+                          {/*        className={classes.inputAlertTime}*/}
+                          {/*        value={newCourse.alert_notification_time}*/}
+                          {/*        onChange={onChangeInput}*/}
+                          {/*      />*/}
+                          {/*      <Box style={{ margin: 'auto 0' }}>Thông báo trước khi kết thúc</Box>*/}
+                          {/*    </Box>*/}
+                          {/*  </TableCell>*/}
+                          {/*  <TableCell component='th' scope='row'>*/}
+                          {/*    <Grid item xs={12}>*/}
+                          {/*      <Grid container justify='flex-start'>*/}
+                          {/*        <FormControlLabel*/}
+                          {/*          control={*/}
+                          {/*            <GreenCheckbox*/}
+                          {/*              checked={newCourse.user_alert_flg ? true : false}*/}
+                          {/*              onChange={onChangeCheckBox}*/}
+                          {/*              name='user_alert_flg'*/}
+                          {/*              value={newCourse.user_alert_flg}*/}
+                          {/*            />*/}
+                          {/*          }*/}
+                          {/*          label='Báo cho khách hàng'*/}
+                          {/*        />*/}
+                          {/*        <FormControlLabel*/}
+                          {/*          control={*/}
+                          {/*            <GreenCheckbox*/}
+                          {/*              checked={newCourse.shop_alert_flg ? true : false}*/}
+                          {/*              onChange={onChangeCheckBox}*/}
+                          {/*              name='shop_alert_flg'*/}
+                          {/*              value={newCourse.shop_alert_flg}*/}
+                          {/*            />*/}
+                          {/*          }*/}
+                          {/*          label='Báo cho cửa hàng'*/}
+                          {/*        />*/}
+                          {/*      </Grid>*/}
+                          {/*    </Grid>*/}
+                          {/*  </TableCell>*/}
+                          {/*  <TableCell component='th' scope='row'></TableCell>*/}
+                          {/*  <TableCell component='th' scope='row'></TableCell>*/}
+                          {/*</TableRow>*/}
                           {/* END alert time */}
                         </TableBody>
                       </Table>
@@ -1205,7 +1205,7 @@ const PageAddCourse = (props) => {
                               classes={{ root: classes.tableCell }}
                               style={{ minWidth: '120px' }}
                             >
-                              Tên
+                              Danh mục
                             </TableCell>
 
                             {/* time */}
@@ -1213,7 +1213,7 @@ const PageAddCourse = (props) => {
                               classes={{ root: classes.tableCell }}
                               style={{ minWidth: '160px' }}
                             >
-                              Thời gian
+                              Tên món
                             </TableCell>
 
                             {/* image */}
@@ -1237,7 +1237,7 @@ const PageAddCourse = (props) => {
                           {newCourse && newCourse?.list_menus
                             ? newCourse.list_menus.map((menu, indexMenu) => (
                                 <TableRow key={indexMenu}>
-                                  <TableCell component='th' scope='row' width='10%'>
+                                  <TableCell component='th' scope='row' width='10%' style={{ textAlign: 'center' }}>
                                     <IOSSwitch
                                       checked={menu.status === STATUS_ACTIVE}
                                       onChange={(e) =>
@@ -1246,18 +1246,18 @@ const PageAddCourse = (props) => {
                                     />
                                   </TableCell>
 
-                                  <TableCell component='th' scope='row' width='20%'>
+                                  <TableCell component='th' scope='row' width='20%' style={{ textAlign: 'center' }}>
                                     {menu.m_menu_category.map((category, category_index) => (
-                                      <Box mt={1} key={category_index}>
+                                      <Box mt={1} key={category_index}  style={{ fontSize: '18px' }}>
                                         {category.name}
                                       </Box>
                                     ))}
                                   </TableCell>
 
-                                  <TableCell component='th' scope='row' width='30%'>
+                                  <TableCell component='th' scope='row' width='30%' style={{ textAlign: 'center' }} style={{ fontSize: '18px' }}>
                                     {menu.name}
                                   </TableCell>
-                                  <TableCell component="th" scope="row" width="10%">
+                                  <TableCell component="th" scope="row" width="10%" style={{ textAlign: 'center' }}>
                                     {menu.main_image ? (
                                       <img
                                         src={renderUrlImageS3(menu?.main_image?.s_image_path || menu?.main_image?.image_path)}
@@ -1268,7 +1268,7 @@ const PageAddCourse = (props) => {
                                     )}
                                   </TableCell>
 
-                                  <TableCell component='th' scope='row' width='30%'>
+                                  <TableCell component='th' scope='row' width='30%' style={{ textAlign: 'center' }}>
                                     <Button
                                       className={`${classes.button} ${classes.buttonCopy}`}
                                       onClick={() => {

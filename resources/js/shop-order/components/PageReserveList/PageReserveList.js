@@ -425,7 +425,7 @@ const PageReserveList = (props) => {
                   <TableCell style={styles.cellHeader}></TableCell>
                   <TableCell style={styles.cellHeader}>Tên món</TableCell>
                   <TableCell style={styles.cellHeader}>Bàn (số người)</TableCell>
-                  <TableCell style={styles.cellHeader}>Thời gian phục vụ</TableCell>
+                  <TableCell style={styles.cellHeader}>Thời gian order</TableCell>
                   <TableCell style={styles.cellHeader}></TableCell>
                   <TableCell style={styles.cellHeader}></TableCell>
                 </TableRow>

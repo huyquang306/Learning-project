@@ -27,6 +27,9 @@ Route::prefix('v1')->group(
 
                 // Tables
                 Route::get('{shop}/table', 'Api\Shop\TableController@index');
+                Route::post('{shop}/table', 'Api\Shop\TableController@create');
+                Route::put('{shop}/table/{table}', 'Api\Shop\TableController@update');
+                Route::delete('{shop}/table/{table}', 'Api\Shop\TableController@delete');
 
                 // Ordergroups
                 Route::get('/{shop}/ordergroupsummary', 'Api\Shop\OrderGroupController@getSummary');
@@ -96,6 +99,9 @@ Route::prefix('v1')->group(
                 Route::put('/{shop}/billing/paying/ordergroup/{ordergroup}', 'Api\Shop\BillingController@paying');
                 Route::put('/{shop}/billing/close/ordergroup/{ordergroup}', 'Api\Shop\BillingController@close');
                 Route::put('/{shop}/billing/payment/ordergroup/{ordergroup}', 'Api\Shop\BillingController@payment');
+
+                // Billing for service plan
+                Route::get('/{shop}/billing/history', 'Api\Shop\BillingServicePlanController@show');
             }
         );
 
