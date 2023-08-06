@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Shop;
 
 use App\Http\Controllers\BaseApiController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Shop\ManyMenusRequest;
 use App\Http\Requests\Shop\MenuRequest;
 use App\Http\Resources\Shop\MenuResource;
 use App\Http\Resources\Shop\MenusResource;
@@ -185,5 +186,20 @@ class MenuController extends BaseApiController
 
             throw $e;
         }
+    }
+
+    /**
+     * Create or Update many menus
+     * @param ManyMenusRequest $request
+     * @param MShop $shop
+     *
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function createOrUpdateManyMenus(ManyMenusRequest $request, MShop $shop): JsonResponse
+    {
+        $menus = $this->menuService->createOrUpdateManyMenus($request, $shop);
+
+        return $this->responseApi(MenusResource::collection($menus));
     }
 }

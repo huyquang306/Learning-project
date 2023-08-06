@@ -25,7 +25,7 @@ class OrderCreated implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($shop, $orders)
+    public function __construct($shop, $orders = null)
     {
         $this->orders = $orders;
         $this->shop = $shop;

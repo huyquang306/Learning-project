@@ -45,6 +45,7 @@ import {
   validatePrice,
 } from './itemSettingMenu/validationSettingManyMenus';
 import {INITIAL_ORDER_FLG_OFF} from 'js/utils/helpers/const';
+import {formatPrice} from "../../../utils/helpers/number";
 
 const useStyles = makeStyles(() => ({
   contentWrap: {
@@ -586,7 +587,7 @@ const PageMenuSetting = (props) => {
                               }}
                               align='left'
                             >
-                              {menu.price}
+                              {formatPrice(menu.price)}
                               {shop?.mShopPosSetting?.m_currency?.name}
                             </TableCell>
                             <TableCell

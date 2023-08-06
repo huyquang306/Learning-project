@@ -344,7 +344,8 @@ const PageReserveList = (props) => {
   };
 
   const headerRightContent = () => {
-    return <Link to='/reserve/list/new'>Điều hành</Link>;
+    // return <Link to='/reserve/list/new'>Điều hành</Link>;
+    return;
   };
 
   const sortData = (data) => {
@@ -474,7 +475,7 @@ const PageReserveList = (props) => {
                             row.status === ORDER_STATUS.STATUS_CANCEL ||
                             row.status === ORDER_STATUS.STATUS_SHIPPED
                           }
-                          title='OK'
+                          title='Done'
                           borderRadius='12px'
                           bgcolor='#FFA04B'
                           width='100px'

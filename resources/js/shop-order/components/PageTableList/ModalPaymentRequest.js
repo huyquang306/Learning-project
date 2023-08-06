@@ -56,28 +56,15 @@ const ModalPaymentRequest = (props) => {
   const getDataInfoPayment = () => {
     const infoPaymentClone = Utils.cloneDeep(infoPayment);
     const priceFractionMode = props?.shopTaxInfo?.price_fraction_mode;
-    console.log(props?.shopTaxInfo);
-    console.log('priceFractionMode');
-    console.log(priceFractionMode);
     const serveRate = Number(infoPayment.serve_charge_rate);
-    console.log('serveRate');
-    console.log(serveRate);
     const ordersFilter = state?.ordergroup?.orders?.filter((item) => item?.status !== 2);
-    console.log('ordersFilter');
-    console.log(ordersFilter);
     const totalTax = hanldePriceFractionMode(
       ordersFilter?.reduce((total, item) => total + item?.tax_value * item?.quantity, 0),
       0,
       priceFractionMode
     );
-    console.log('totalTax');
-    console.log(totalTax);
     const totalGrossServeFee = Number(serveRate) * (state?.totalAmount - totalTax)
-    console.log('totalGrossServeFee');
-    console.log(totalGrossServeFee);
     const totalAmountFractionMode = props?.shopTaxInfo?.total_amount_fraction_mode;
-    console.log('totalAmountFractionMode');
-    console.log(totalAmountFractionMode);
     const totalAmount = hanldePriceFractionMode(
       state?.totalAmount + totalGrossServeFee + totalGrossServeFee * 0.1,
       0,

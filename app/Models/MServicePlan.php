@@ -34,7 +34,7 @@ class MServicePlan extends Model
         return $this->belongsToMany(RFunctionCondition::class, RServicePlanCondition::class);
     }
 
-    public function MFunctions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    public function mFunctions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
         return $this->belongsToMany(MFunction::class, MServicePlanOption::class);
     }

@@ -701,4 +701,19 @@ class ShopRepository extends BaseRepository
 
         return $shop->mStaffsCanPay->first();
     }
+
+    public function getListShopWithPaymentInfo()
+    {
+        return $this->model
+            ->where('opened', '=', 1)
+            ->with([
+                'mStaffsCanPay.tStripeCustomer',
+                'mServicePlans.rFunctionConditions.mFunction' => function($mFunction) {
+                    $mFunction->where('code', '=', 'qr')
+                    ->with('mServicePlanOptions');
+                },
+                'tOrderGroupsInLastMonth'
+            ])
+            ->get();
+    }
 }

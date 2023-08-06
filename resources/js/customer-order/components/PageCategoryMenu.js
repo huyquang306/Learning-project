@@ -31,6 +31,7 @@ import OrderFooter from '../../shared/components/OrderFooter';
 import { onConnectWebSocket, onSendNotifyHasNewOrder } from '../../utils/helpers/socket';
 import { MENU_STATUS } from 'js/utils/helpers/const';
 import { renderUrlImageS3 } from 'js/utils/helpers/image';
+import { formatPrice } from "../../utils/helpers/number";
 
 // Style
 const useStyles = makeStyles({
@@ -479,10 +480,11 @@ const PageCategoryMenu = () => {
           <Fragment>
             <Box className='outOfCourse'></Box>
             <Box className='prodPrice'>
-              {priceDisplayMode === 1
-                ? product.current_price.price_unit_without_tax
-                : product.price}{' '}
-              <Box fontSize={16}>{currencyName}</Box> <Box ml={1}>{(priceDisplayMode === 1 &&  product.price > 0) && '(chưa thuế)'}</Box>
+              {formatPrice(product.price)}{' '}
+              {/*{priceDisplayMode === 1*/}
+              {/*  ? product.current_price.price_unit_without_tax*/}
+              {/*  : product.price}{' '}*/}
+              {/*<Box fontSize={16}>{currencyName}</Box> <Box ml={1}>{(priceDisplayMode === 1 &&  product.price > 0) && '(chưa thuế)'}</Box>*/}
             </Box>
           </Fragment>
         );
@@ -501,8 +503,10 @@ const PageCategoryMenu = () => {
       return (
         <Fragment>
           <Box className='prodPrice'>
-            {priceDisplayMode === 1 ? product.current_price.price_unit_without_tax : product.price}
-            <Box fontSize={16}>{currencyName}</Box> <Box ml={1}>{(priceDisplayMode === 1 &&  product.price > 0) && '(chưa thuế)'}</Box>
+            {/*{priceDisplayMode === 1 ? product.current_price.price_unit_without_tax : product.price}*/}
+            { formatPrice(product.price) }
+            <Box fontSize={16}>{currencyName}</Box>
+            {/*<Box fontSize={16}>{currencyName}</Box> <Box ml={1}>{(priceDisplayMode === 1 &&  product.price > 0) && '(chưa thuế)'}</Box>*/}
           </Box>
         </Fragment>
       );

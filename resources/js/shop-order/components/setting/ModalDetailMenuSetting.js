@@ -53,10 +53,11 @@ import {
   validateCookTime,
 } from './itemSettingMenu/validationSettingMenu';
 import {ArrowRight} from "@material-ui/icons";
+import {formatPriceWhileTyping} from "../../../utils/helpers/const";
 
-const SETTING_PRICE_TAB = 0;
+const SETTING_PRICE_TAB = 2;
 const SETTING_PLACE_TAB = 1;
-const SETTING_IMAGE_TAB = 2;
+const SETTING_IMAGE_TAB = 0;
 
 const ROUND_DOWN = 0;
 const ROUND_UP = 1;
@@ -101,7 +102,7 @@ const ModalDetailMenuSetting = (props) => {
   const [showDialog, setShowDialog] = useState(false);
   const [confirmOffSale, setConfirmOffSale] = useState(false);
   const [isCopyData, setIsCopyData] = useState(false);
-  const [tab, setTab] = useState(SETTING_PRICE_TAB);
+  const [tab, setTab] = useState(SETTING_IMAGE_TAB);
   const [taxType, setTaxType] = useState([]);
   const [taxPercentageValue, setTaxPercentageValue] = useState(0);
   const [priceFractionMode, setPriceFractionMode] = useState(ROUND_DOWN);
@@ -376,7 +377,7 @@ const ModalDetailMenuSetting = (props) => {
       setInProgress(false);
       props.getFilterMenu();
       props.onClose();
-      setTab(SETTING_PRICE_TAB);
+      setTab(SETTING_IMAGE_TAB);
     } catch (error) {
       setInProgress(false);
       props.showWarningMessage(error.message.replace('Error: ', ''));
@@ -411,7 +412,7 @@ const ModalDetailMenuSetting = (props) => {
             props.onClose();
             setIsCopyData(false);
             resetDraftDataSettingPrice();
-            setTab(SETTING_PRICE_TAB);
+            setTab(SETTING_IMAGE_TAB);
           }}
         />
         <ButtonCustom
@@ -927,77 +928,77 @@ const ModalDetailMenuSetting = (props) => {
                 aria-label='simple tabs example'
                 TabIndicatorProps={{ style: { display: 'none' } }}
               >
-                <Tab label='Giá theo giờ' id='price-tab' value={SETTING_PRICE_TAB} />
-                <Tab label='Nơi thực hiện' id='place-tab' value={SETTING_PLACE_TAB} />
+                {/*<Tab label='Giá theo giờ' id='price-tab' value={SETTING_PRICE_TAB} />*/}
+                {/*<Tab label='Nơi thực hiện' id='place-tab' value={SETTING_PLACE_TAB} />*/}
                 <Tab label='Hình ảnh' id='image-tab' value={SETTING_IMAGE_TAB} />
               </Tabs>
             </Box>
             <Divider className={classes.horizontalLines} />
 
             <Box className={classes.wrapTabs} mt={2}>
-              {tab === SETTING_PLACE_TAB && (
-                <Box mt={2} ml={1}>
-                  <Grid container spacing={2}>
-                    <Grid md={9} sm={12}>
-                      <Grid container spacing={2}>
-                        <Grid item sm={4} xs={12}>
-                          Thời gian thực hiện
-                        </Grid>
-                        <Grid item sm={3} xs={11}>
-                          <OutlinedInput
-                            id='estimated_preparation_time'
-                            name='estimated_preparation_time'
-                            value={menuData.estimated_preparation_time}
-                            className={`${classes.input} + ' ' + ${classes.inputPrice}`}
-                            classes={{
-                              input: classes.inputPrice,
-                            }}
-                            labelWidth={0}
-                            onChange={(event) => inputChanged(event)}
-                          />
-                        </Grid>
-                        <Grid item sm={1} xs={1}>
-                          <Box mt={1} fontWeight='400'>
-                            phút
-                          </Box>
-                        </Grid>
-                        <Grid item sm={4} xs={12}></Grid>
-                      </Grid>
-                      <Grid container spacing={2}>
-                        <Grid item sm={4} xs={12}>
-                          Bếp thực hiện
-                        </Grid>
-                        <Grid item sm={3} xs={12}>
-                          <CustomSelectorBase
-                            className={classes.select}
-                            value={menuData.cookPlace?.value}
-                            optionArray={cookPlaces}
-                            id='cook-place'
-                            name='cookPlaces'
-                            onChange={(event) => cookPlaceChanged(event)}
-                          />
-                        </Grid>
-                        <Grid item sm={5} xs={12}></Grid>
-                      </Grid>
-                    </Grid>
-                    <Grid md={3} sm={12}></Grid>
-                  </Grid>
-                </Box>
-              )}
+              {/*{tab === SETTING_PLACE_TAB && (*/}
+              {/*  <Box mt={2} ml={1}>*/}
+              {/*    <Grid container spacing={2}>*/}
+              {/*      <Grid md={9} sm={12}>*/}
+              {/*        <Grid container spacing={2}>*/}
+              {/*          <Grid item sm={4} xs={12}>*/}
+              {/*            Thời gian thực hiện*/}
+              {/*          </Grid>*/}
+              {/*          <Grid item sm={3} xs={11}>*/}
+              {/*            <OutlinedInput*/}
+              {/*              id='estimated_preparation_time'*/}
+              {/*              name='estimated_preparation_time'*/}
+              {/*              value={menuData.estimated_preparation_time}*/}
+              {/*              className={`${classes.input} + ' ' + ${classes.inputPrice}`}*/}
+              {/*              classes={{*/}
+              {/*                input: classes.inputPrice,*/}
+              {/*              }}*/}
+              {/*              labelWidth={0}*/}
+              {/*              onChange={(event) => inputChanged(event)}*/}
+              {/*            />*/}
+              {/*          </Grid>*/}
+              {/*          <Grid item sm={1} xs={1}>*/}
+              {/*            <Box mt={1} fontWeight='400'>*/}
+              {/*              phút*/}
+              {/*            </Box>*/}
+              {/*          </Grid>*/}
+              {/*          <Grid item sm={4} xs={12}></Grid>*/}
+              {/*        </Grid>*/}
+              {/*        <Grid container spacing={2}>*/}
+              {/*          <Grid item sm={4} xs={12}>*/}
+              {/*            Bếp thực hiện*/}
+              {/*          </Grid>*/}
+              {/*          <Grid item sm={3} xs={12}>*/}
+              {/*            <CustomSelectorBase*/}
+              {/*              className={classes.select}*/}
+              {/*              value={menuData.cookPlace?.value}*/}
+              {/*              optionArray={cookPlaces}*/}
+              {/*              id='cook-place'*/}
+              {/*              name='cookPlaces'*/}
+              {/*              onChange={(event) => cookPlaceChanged(event)}*/}
+              {/*            />*/}
+              {/*          </Grid>*/}
+              {/*          <Grid item sm={5} xs={12}></Grid>*/}
+              {/*        </Grid>*/}
+              {/*      </Grid>*/}
+              {/*      <Grid md={3} sm={12}></Grid>*/}
+              {/*    </Grid>*/}
+              {/*  </Box>*/}
+              {/*)}*/}
 
-              {tab === SETTING_PRICE_TAB && (
-                <SettingPriceTab
-                  menuData={menuData}
-                  draftDataSettingPrice={draftDataSettingPrice}
-                  handleDraftSettingPrice={handleDraftSettingPrice}
-                  hanldePriceFractionMode={hanldePriceFractionMode}
-                  shop={shop}
-                  addNewSettingPrice={addNewSettingPrice}
-                  handleCheckBoxTime={handleCheckBoxTime}
-                  handleRemoveSettingPrice={handleRemoveSettingPrice}
-                  businessHours={businessHours}
-                />
-              )}
+              {/*{tab === SETTING_PRICE_TAB && (*/}
+              {/*  <SettingPriceTab*/}
+              {/*    menuData={menuData}*/}
+              {/*    draftDataSettingPrice={draftDataSettingPrice}*/}
+              {/*    handleDraftSettingPrice={handleDraftSettingPrice}*/}
+              {/*    hanldePriceFractionMode={hanldePriceFractionMode}*/}
+              {/*    shop={shop}*/}
+              {/*    addNewSettingPrice={addNewSettingPrice}*/}
+              {/*    handleCheckBoxTime={handleCheckBoxTime}*/}
+              {/*    handleRemoveSettingPrice={handleRemoveSettingPrice}*/}
+              {/*    businessHours={businessHours}*/}
+              {/*  />*/}
+              {/*)}*/}
 
               {tab === SETTING_IMAGE_TAB && (
                 <Box mt={2} ml={1}>

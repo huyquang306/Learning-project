@@ -512,7 +512,7 @@ const ModalRegisterCustomer = (props) => {
         />
         <ButtonCustom
           customClass={classes.button}
-          title='Lưu'
+          title='OK'
           borderRadius='28px'
           bgcolor='#FFA04B'
           borderColor='#FFA04B'

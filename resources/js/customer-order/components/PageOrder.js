@@ -40,6 +40,7 @@ import { onSendNotifyCustomerRequestCheckout, onConnectWebSocket } from 'js/util
 
 // Library
 import moment from 'moment';
+import {formatPrice} from "../../utils/helpers/number";
 moment.locale('vi');
 
 // Style
@@ -240,8 +241,8 @@ const PageOrder = () => {
                 <Box className={classes.orderInfoCommon}>Mã HĐ: {invoiceCode}</Box>
               )}
               <Box className={classes.orderInfoCommon}>
-                Tổng tiền: <span>{getTotalPrice().toLocaleString('en-US')}</span> {currencyName}
-                {(priceDisplayMode === 1 && getTotalPrice() > 0)&& '(Miễn thuế)'}
+                Tổng tiền: <span>{ getTotalPrice().toLocaleString('en-US') }</span> {currencyName}
+                {/*{(priceDisplayMode === 1 && getTotalPrice() > 0)&& '(Miễn thuế)'}*/}
               </Box>
               {courseHashId && courseInfo && getOrderCourse() && (
                 <Fragment>
@@ -302,10 +303,13 @@ const PageOrder = () => {
                         {/*<StyledTableCell component='th' scope='row' />*/}
                         <StyledTableCell align='right'>
                           <Box display='flex' justifyContent='flex-end' alignItems='baseline'>
-                            {priceDisplayMode === 1
-                              ? item.current_price.price_unit_without_tax
-                              : item.price}
-                            <Box fontSize={10}>{currencyName}{hanldeShowTaxNotIncluded(item)}</Box>
+                            {/*{priceDisplayMode === 1*/}
+                            {/*  ? item.current_price.price_unit_without_tax*/}
+                            {/*  : item.price}*/}
+                            { formatPrice(item.price) }
+                            <Box fontSize={10}>{currencyName}
+                              {/*{hanldeShowTaxNotIncluded(item)}*/}
+                            </Box>
                           </Box>
                         </StyledTableCell>
                         <StyledTableCell align='right'>
@@ -316,9 +320,11 @@ const PageOrder = () => {
                         </StyledTableCell>
                         <StyledTableCell align='right'>
                           <Box display='flex' justifyContent='flex-end' alignItems='baseline'>
-                            {(item.status !== ORDER_STATUS.STATUS_CANCEL ? (priceDisplayMode === 1
-                              ? item.current_price.price_unit_without_tax
-                              : item.price) * item?.quantity : '0')}
+                            {/*{(item.status !== ORDER_STATUS.STATUS_CANCEL ? (priceDisplayMode === 1*/}
+                            {/*  ? item.current_price.price_unit_without_tax*/}
+                            {/*  : item.price) * item?.quantity : '0')}*/}
+                            {(item.status !== ORDER_STATUS.STATUS_CANCEL ?
+                              formatPrice(item.price * item?.quantity): '0')}
                             <Box fontSize={10}>{currencyName}</Box>
                           </Box>
                         </StyledTableCell>

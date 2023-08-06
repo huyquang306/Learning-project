@@ -31,6 +31,7 @@ import { onConnectWebSocket, onSendNotifyHasNewOrder } from '../../utils/helpers
 // Utils
 import { ORDER_TYPE } from 'js/utils/helpers/courseHelper';
 import { setSuccessOrderMenu } from 'js/customer-order/utils/ordermenu';
+import {formatPrice} from "../../utils/helpers/number";
 
 // Style
 const useStyles = makeStyles({
@@ -198,13 +199,13 @@ const PagePreOrder = () => {
   
   const hanldeShowTaxNotIncluded = (value) => {
     if (priceDisplayMode === 1 &&  value.price > 0) {
-      return '(税抜き)';
+      return '(Miễn thuế)';
     }
   };
 
   return (
     <PageContainer padding='0' height='auto' minHeight='auto'>
-      <HeaderAppBar title='Các món gọi thêm' />
+      <HeaderAppBar title='Các món đang chọn' />
       <PageInnerWrap height='auto'>
         <PageInnerContainer padding='0px 0px 60px 0px'>
           {orderList &&
@@ -214,11 +215,13 @@ const PagePreOrder = () => {
                   <Box>{item.name}</Box>
                   <Box display='flex' justifyContent='flex-end' alignItems='center'>
                     <Box fontSize={21}>
-                      {priceDisplayMode === 1
-                        ? item.current_price.price_unit_without_tax
-                        : item.price}
+                      {/*{priceDisplayMode === 1*/}
+                      {/*  ? item.current_price.price_unit_without_tax*/}
+                      {/*  : item.price}*/}
+                      {formatPrice(item.price)}
                     </Box>
-                    {currencyName}<Box ml={1}>{hanldeShowTaxNotIncluded(item)}</Box>
+                    {currencyName}
+                    {/*<Box ml={1}>{hanldeShowTaxNotIncluded(item)}</Box>*/}
                   </Box>
                 </Box>
                 <Box

@@ -26,6 +26,22 @@ class MenuRepository
     }
 
     /**
+     * Find menu by id
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function find($id)
+    {
+        return MMenu::find($id)->load([
+            'mImages',
+            'mainImage',
+            'rShopMenu.mMenuCategory',
+        ]);
+    }
+
+
+    /**
      * @param $shop_id
      * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
      */
@@ -475,6 +491,38 @@ class MenuRepository
         } catch (\Exception $exception) {
             \Log::error($exception);
             Db::rollBack();
+
+            throw $exception;
+        }
+    }
+
+    /**
+     * Update the basic information of the menu
+     * @param array $menuData
+     * @param MShop $shop
+     * @param MMenu $menu
+     *
+     * @return MMenu
+     * @throws Exception
+     */
+    public function updateBasicInfoOfMenu(array $menuData, MShop $shop, MMenu $menu)
+    {
+        DB::beginTransaction();
+        try {
+            $menuData['is_recommend'] = array_key_exists('is_recommend', $menuData) && $menuData['is_recommend']
+                ? $menuData['is_recommend']
+                : 0;
+            $menu->update($menuData);
+            $rShopMenu = $menu->rShopMenu()->where('m_shop_id', $shop->id)->first();
+            if ($rShopMenu && isset($menuData['m_menu_category_ids'])) {
+                // Update category relations
+                $rShopMenu->mMenuCategory()->sync($menuData['m_menu_category_ids']);
+            }
+            DB::commit();
+
+            return $menu;
+        } catch (Exception $exception) {
+            DB::rollBack();
 
             throw $exception;
         }
