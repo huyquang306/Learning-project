@@ -642,7 +642,7 @@ const PageRegister = (props) => {
     
     // === step 1: shop name =========
     <Card
-      title='Setting the basic information of the shop'
+      title='Thông tin cơ bản của cửa hàng'
       key='name'
       onButtonClick={handleButtonClick}
       buttonDisabled={buttonDisabled || handleDisabledButton()}
