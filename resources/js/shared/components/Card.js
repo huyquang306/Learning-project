@@ -60,7 +60,7 @@ const NextButton = (props) => {
               disabled={false}
             >
               <ArrowBackIcon />
-              Back
+              Quay lại
             </Button>
           )}
           <Button
@@ -70,7 +70,7 @@ const NextButton = (props) => {
             disabled={props.buttonDisabled}
           >
             <ArrowForwardIcon />
-            Next
+            Tiếp tục
           </Button>
         </>
       );
@@ -89,7 +89,7 @@ const SkipButton = (props) => {
         onClick={props.onButtonSkipClick}
         style={{ width: props.buttonWidth }}
       >
-        Skip
+        Bỏ qua
       </Button>
     );
   } else {

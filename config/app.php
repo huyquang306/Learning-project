@@ -235,4 +235,5 @@ return [
     'main_domain' => env('MAIN_DOMAIN', 'main.domain'),
     'order_domain' => env('ORDER_DOMAIN', 'order.domain'),
     'admin_domain' => env('ADMIN_DOMAIN', 'admin.domain'),
+    'web_server_ip' => env('WEB_SERVER_IP', ''),
 ];

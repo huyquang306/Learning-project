@@ -16,7 +16,8 @@ class OrderDomain
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->getHost() !== config('app.order_domain') && $request->getHost() !== '192.168.31.20'
+        if ($request->getHost() !== config('app.order_domain')
+            && $request->getHost() !== config('app.web_server_ip')
             && config('app.env') !== 'testing')
         {
             return \abort(403);
