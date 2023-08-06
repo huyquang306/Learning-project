@@ -244,7 +244,7 @@ const ConfirmPassword = (props) => {
             <Grid item xs={12} sm={10}>
               <Box textAlign='left' display='flex' mt={1} fontWeight={400} fontSize={14}>
                 {checkList.alphabet ? <Check className={classes.check}/> : <CloseSharp className={classes.error}/>}
-                Must contain alphabetic characters
+                Mật khẩu phải chứa các kí tự chữ cái
               </Box>
             </Grid>
           </Grid>
@@ -253,7 +253,7 @@ const ConfirmPassword = (props) => {
             <Grid item sm={10}>
               <Box textAlign='left' display='flex' mt={1} fontWeight={400} fontSize={14}>
                 {checkList.number ? <Check className={classes.check}/> : <CloseSharp className={classes.error}/>}
-                Must contain numbers
+                Mật khẩu phải chứa chữ số hoặc kí tự đặc biệt
               </Box>
             </Grid>
           </Grid>
@@ -262,7 +262,7 @@ const ConfirmPassword = (props) => {
             <Grid item sm={10}>
               <Box textAlign='left' display='flex' mt={1} mb={2} fontWeight={400} fontSize={14}>
                 {checkList.eightCharacters ? <Check className={classes.check}/> : <CloseSharp className={classes.error}/>}
-                Must contain 8 characters or more
+                Mật khẩu phải có ít nhất 8 kí tự
               </Box>
             </Grid>
           </Grid>

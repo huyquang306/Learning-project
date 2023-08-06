@@ -7,7 +7,7 @@ import FullScreenDialog from 'js/shared/components/FullscreenDialog';
 
 const PrivacyPolicyDialog = (props) => {
   return (
-    <FullScreenDialog {...props} title="プライバシーポリシー">
+    <FullScreenDialog {...props} title="Chính sách bảo mật">
       Privacy Policy
     </FullScreenDialog>
   );

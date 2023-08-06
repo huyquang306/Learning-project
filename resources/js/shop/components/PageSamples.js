@@ -288,14 +288,14 @@ const PageSample04 = (_props) => {
     <PageSampleContainer>
       <Button title="モーダルを開く" bgcolor="#E35649" onClick={handleOpen} />
       <Modal open={open} onClose={handleClose}>
-        本サービスをご利用いただくにあたり、利用規約とプライバシーポリシーに同意いただく必要がございます。
+        Để sử dụng dịch vụ này, cần phải đồng ý với các điều khoản sử dụng và chính sách bảo mật.
         <div>
           <Checkbox />
-          利用規約
+          Điều khoản dịch vụ
         </div>
         <div>
           <Checkbox />
-          プライバシーポリシー
+          Chính sách bảo mật
         </div>
         <Button title="同意しない" bgcolor="#E35649" onClick={handleClose} width="170px" />
         <Button title="同意する" onClick={handleClose} width="170px" />
@@ -313,8 +313,8 @@ const PageSample05 = (_props) => {
 
   return (
     <PageSampleContainer>
-      <Card title="暗証番号" buttonTitle="+ 登録" buttonDisabled={buttonDisabledStatus}>
-        数字四桁の暗証番号を入力してください。
+      <Card title="Mã PIN" buttonTitle="+ Đăng ký" buttonDisabled={buttonDisabledStatus}>
+        Vui lòng nhập mã PIN gồm bốn chữ số của bạn
         <InputPinField buttonDisabledChange={handleChange} />
       </Card>
     </PageSampleContainer>

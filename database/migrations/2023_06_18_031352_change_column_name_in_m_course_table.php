@@ -32,7 +32,7 @@ class ChangeColumnNameInMCourseTable extends Migration
         Schema::table('m_course', function (Blueprint $table) {
             $table->renameColumn('initial_propose_flg', 'initial_propose_flag');
             $table->renameColumn('shop_alert_flg', 'shop_alert_flag');
-            $table->renameColumn('user_alert_flg', 'shop_alert_flag');
+            $table->renameColumn('user_alert_flg', 'user_alert_flag');
             $table->renameColumn('shop_end_time_alert_flg', 'shop_end_time_alert_flag');
             $table->renameColumn('user_end_time_alert_flg', 'user_end_time_alert_flag');
         });
