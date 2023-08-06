@@ -26,8 +26,6 @@ class AddColumnToMUserTable extends Migration
             $table->string('email', 128)
                 ->nullable(true)
                 ->after('firebase_uid');
-            $table->string('phone_number', 15)
-                ->nullable(false);
         });
     }
 

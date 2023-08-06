@@ -43,7 +43,7 @@ const RegisterContainer = (props) => {
           'Hãy tạo mật khẩu mới'
         ) : (
           <>
-            Easily sign-up！<strong>in 3 minutes</strong> {props.step && <Box mt={1} display={{xs: 'block', sm: 'inline-block'}}>({props.step}/2 steps)</Box>}
+            Dễ dàng đăng kí！<strong>trong vòng 3 phút</strong> {props.step && <Box mt={1} display={{xs: 'block', sm: 'inline-block'}}>(Bước {props.step}/2)</Box>}
           </>
         )}
       </HeaderMessage>

@@ -699,7 +699,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Mã bưu điện <Box className={classes.required}>(*)</Box>
+              Zipcode <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -736,7 +736,7 @@ const PageRegister = (props) => {
           
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Thành phố <Box className={classes.required}>(*)</Box>
+              Tỉnh/Thành phố <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -776,17 +776,28 @@ const PageRegister = (props) => {
           
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Quận <Box className={classes.required}>(*)</Box>
+              Quận/Huyện <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <PrefSelector
+            {/*<PrefSelector*/}
+            {/*  id='prefecture'*/}
+            {/*  variant='outlined'*/}
+            {/*  value={shop.prefecture}*/}
+            {/*  onChange={handleChange}*/}
+            {/*  fullWidth*/}
+            {/*  className={classes.textLeft}*/}
+            {/*/>*/}
+            <TextField
               id='prefecture'
+              inputProps={{
+                maxLength: 50,
+                type: 'text',
+              }}
               variant='outlined'
               value={shop.prefecture}
-              onChange={handleChange}
               fullWidth
-              className={classes.textLeft}
+              onChange={handleChange}
             />
           </Grid>
           
@@ -866,7 +877,7 @@ const PageRegister = (props) => {
                 >
                   Chính sách bảo mật
                 </Link>
-                <span className={classes.required}>(Required)</span>
+                <span className={classes.required}>(*)</span>
               </Box>
             </Grid>
           </Grid>
@@ -891,7 +902,8 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} flexDirection={{ xs: 'row', sm: 'column' }}>
-              Email <Box className={classes.required}>(*)</Box>
+              Email
+              {/*<Box className={classes.required}>(*)</Box>*/}
             </Box>
           </Grid>
           <Grid item xs={12} sm={10}>
