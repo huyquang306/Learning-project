@@ -901,7 +901,7 @@ const PageRegister = (props) => {
       <FormsContainer>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
-            <Box className={classes.label} flexDirection={{ xs: 'row', sm: 'column' }}>
+            <Box className={classes.label}>
               Email
               {/*<Box className={classes.required}>(*)</Box>*/}
             </Box>
