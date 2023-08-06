@@ -466,6 +466,7 @@ const ModalShopDetail = (props) => {
                         {getUsageQRCode(billing)}
                       </TableCell>
                       <TableCell classes={{root: classes.tableCell}} align='center'>
+                        aaaaaa
                         {currencyFormat(billing.total_orders_number)}/{currencyFormat(billing.total_customer_payment)}
                       </TableCell>
                       <TableCell classes={{root: classes.tableCell}} align='center'>

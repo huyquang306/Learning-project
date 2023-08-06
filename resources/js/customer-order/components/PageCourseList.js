@@ -23,6 +23,7 @@ import OrderFooter from '../../shared/components/OrderFooter';
 
 // Utils
 import { renderUrlImageS3 } from 'js/utils/helpers/image';
+import {formatPrice} from "../../utils/helpers/number";
 
 // Style
 const useStyles = makeStyles({
@@ -186,11 +187,12 @@ const PageCourseList = () => {
                           justifyContent='flex-end'
                           fontSize={16}
                         >
-                          {priceDisplayMode === 1
-                            ? course.current_price.price_unit_without_tax
-                            : course.current_price.price_unit_with_tax}
+                          {/*{priceDisplayMode === 1*/}
+                          {/*  ? course.current_price.price_unit_without_tax*/}
+                          {/*  : course.current_price.price_unit_with_tax}*/}
+                          {formatPrice(course.current_price.price_unit_with_tax)}
                           {currencyName}
-                          {priceDisplayMode === 1 && course.price_unit > 0 && '(税抜き)'}
+                          {/*{priceDisplayMode === 1 && course.price_unit > 0 && '(Miễn thuế)'}*/}
                         </Box>
                       </Box>
                     {/*</Box>*/}

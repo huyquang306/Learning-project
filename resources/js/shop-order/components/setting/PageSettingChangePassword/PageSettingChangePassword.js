@@ -172,7 +172,7 @@ const PageSettingChangePassword = (props) => {
                       buttonDisabled
                     }
                   >
-                    変更する
+                    Đổi mật khẩu
                     {isSubmit ? (
                       <CircularProgress style={{ marginLeft: 10, width: 20, height: 20 }} />
                     ) : null}

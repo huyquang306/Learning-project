@@ -110,7 +110,7 @@ const menuList = [
   },
   {
     url: '/reserve/list',
-    name: 'Màn hình điều khiển',
+    name: 'Order cần phục vụ',
   },
   {
     url: '/order/list',

@@ -203,6 +203,7 @@ const NumberPicker = (props) => {
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [buttonFlag, setButtonFlag] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [customerCharge, setCustomerCharge] = useState(0);
 
   useEffect(() => {
     getInfoPaymentMethods();
@@ -254,7 +255,7 @@ const NumberPicker = (props) => {
     ['7', '8', '9'],
     ['4', '5', '6'],
     ['1', '2', '3'],
-    ['0', '00', <BackspaceIcon key='backspace' />],
+    ['0', '000', <BackspaceIcon key='backspace' />],
   ];
 
   const getInfoPaymentMethods = async () => {
@@ -357,6 +358,7 @@ const NumberPicker = (props) => {
         .replace(/\./g, '')
         .replace('x', '.');
     }
+    setCustomerCharge(numberInputCalcClone);
     setNumberInputCalc(numberInputCalcClone);
     handleCalculatorAmount(numberInputCalcClone);
   };
@@ -528,17 +530,36 @@ const NumberPicker = (props) => {
                     {renderPaymentMethods()}
                     <Box
                       width='100%'
-                      display='flex'
+                      display='block'
                       justifyContent={'space-between'}
                       className={classes.changeMoney}
                     >
-                      <Box>Trả lại</Box>
-                      <Box>
-                        {formatAmount(paymentRequest?.t_payment?.change_value)}
-                        {currencyName}
+                      <Box
+                        idth='100%'
+                        display='flex'
+                        justifyContent={'space-between'}
+                      >
+                        <Box>Tiền khách trả</Box>
+                        <Box>
+                          {formatAmount(customerCharge)}
+                          {currencyName}
+                        </Box>
+                      </Box>
+                      
+                      <Box
+                        idth='100%'
+                        display='flex'
+                        justifyContent={'space-between'}
+                      >
+                        <Box>Trả lại</Box>
+                        <Box>
+                          {formatAmount(paymentRequest?.t_payment?.change_value)}
+                          {currencyName}
+                        </Box>
                       </Box>
                     </Box>
                   </Box>
+                  
                 )}
               </Box>
 

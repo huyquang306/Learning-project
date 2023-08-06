@@ -54,6 +54,7 @@ import Utils from 'js/shared/utils';
 import { ORDER_STATUS, ORDER_GROUP_STATUS } from 'js/utils/helpers/courseHelper';
 import { PUB_SUB_KEY, makeRandomId } from 'js/utils/helpers/const';
 import {ALARM_AUDIO_PATH} from "../../../utils/helpers/const";
+import {formatPrice} from "../../../utils/helpers/number";
 const DEFAULT_QUANTITY_ORDER = 1;
 const MAX_CHARACTER_SHOP_NAME = 12;
 
@@ -424,15 +425,16 @@ const PageTableList = (props) => {
         dispatch({ type: 'REFRESH' });
       });
     
-    echo.channel(`order.order.payment-request.${shop.hashId}`)
-      .listen('OrderPaymentRequest', (e) => {
-        const sound = new Howl({
-          src: ALARM_AUDIO_PATH,
-          volume: 10, // 1000%
-        });
-        sound.play();
-        dispatch({ type: 'REFRESH' });
-      });
+    // echo.channel(`order.order.payment-request.${shop.hashId}`)
+    //   .listen('OrderPaymentRequest', (e) => {
+    //     console.log('OrderPaymentRequest')
+    //     const sound = new Howl({
+    //       src: ALARM_AUDIO_PATH,
+    //       volume: 10, // 1000%
+    //     });
+    //     sound.play();
+    //     dispatch({ type: 'REFRESH' });
+    //   });
   }, [accessToken]);
 
   // Refresh data after has new order
@@ -521,7 +523,6 @@ const PageTableList = (props) => {
     const orderGroups = state?.ordergroup?.orders?.filter(
       (order) => order.status !== ORDER_STATUS.STATUS_CANCEL
     );
-    console.log(allOrders);
     const totalAmountDraftClone = allOrders
       ?.filter((item) => item.status !== ORDER_STATUS.STATUS_CANCEL)
       ?.reduce((partialSum, _item) => {
@@ -533,10 +534,6 @@ const PageTableList = (props) => {
           return  partialSum + Number(_item.quantity) * Number(_item.price)
         }
       }, 0);
-    console.log('totalAmountDraftClone');
-    console.log(totalAmountDraftClone);
-    console.log('state.totalAmount');
-    console.log(state.totalAmount);
     setTotalAmountDraft(totalAmountDraftClone);
 
     const quantityOfAllOrders = allOrders?.reduce(
@@ -736,7 +733,7 @@ const PageTableList = (props) => {
               <div className={classes.quantityItem}>{order.quantity}</div>
               x
               <div className={classes.amountItem}>
-                {order?.is_menu_in_course ? 0 : order.price}
+                {order?.is_menu_in_course ? 0 : formatPrice(order.price)}
                 {shop?.mShopPosSetting?.m_currency?.name}
               </div>
             </div>

@@ -40,8 +40,6 @@ class ShopController extends BaseApiController
     {
         if (!$shop->exists) {
             $shops = $this->shopService->findByUser(Auth::User()->m_staff_id);
-            \Log::info($shops);
-            \Log::info(Auth::User());
             foreach ($shops as $key => $shop) {
                 $this->shopService->generateShopTaxInfo($shop);
                 $shops[$key] = $this->shopService->getShopData($shop);

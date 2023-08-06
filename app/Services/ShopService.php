@@ -413,4 +413,9 @@ class ShopService
             throw $e;
         }
     }
+
+    public function getListShopWithPaymentInfo()
+    {
+        return $this->shopRepository->getListShopWithPaymentInfo();
+    }
 }

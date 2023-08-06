@@ -247,7 +247,7 @@ const ModalEndTimeOrderCourse = (props) => {
     ) : (
       <Modal
         open={props.open}
-        title="お知らせ"
+        title="Chú ý"
         actions={ModalActions()}
         maxWidth="450px"
         maxHeight="520px"
@@ -257,7 +257,7 @@ const ModalEndTimeOrderCourse = (props) => {
           <Box textAlign="right">
             <Box className={classes.lineDetail}>
               <Box className={classes.boxConfirm}>
-                コース終了です、会計をしてください。
+                Set ăn chuẩn bị hết thời gian!
               </Box>
             </Box>
           </Box>

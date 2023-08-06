@@ -292,7 +292,8 @@ const TableCard = (props) => {
               classes.header,
               table.hash_id === tableGroupName.firstId && isEmpty(ordergroup)
                 ? classes.headerInActive
-                : (ordergroup?.status == ORDER_GROUP_STATUS.REQUEST_CHECKOUT
+                : ((ordergroup?.status == ORDER_GROUP_STATUS.REQUEST_CHECKOUT
+                    || ordergroup?.status == ORDER_GROUP_STATUS.WAITING_CHECKOUT)
                   ? classes.headerRequestCheckout
                   : (!ordergroup?.hasOrderNotServed)
                     ? classes.headerAllOrderServed

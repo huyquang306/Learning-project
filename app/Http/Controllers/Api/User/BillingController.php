@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Events\OrderCreated;
 use App\Events\OrderPaymentRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\BillingOrdergroupResource;
@@ -35,7 +36,6 @@ class BillingController extends Controller
      */
     public function calculate(MShop $shop, TOrderGroup $ordergroup): array
     {
-        OrderPaymentRequest::dispatch($shop);
         return [
             "status" => "success",
             "message" => "",
@@ -50,6 +50,8 @@ class BillingController extends Controller
      */
     public function payRequest(MShop $shop, TOrderGroup $ordergroup): array
     {
+        \Log::info("Payment");
+        OrderCreated::dispatch($shop);
         // Recalculate Course Orders And Update
         $this->orderServiceUtil->recalculateCourseOrdersAndUpdate($ordergroup);
 

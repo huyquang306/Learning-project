@@ -11,6 +11,7 @@ use App\Repositories\OrderGroupRepository;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 class MenuService
 {
@@ -414,5 +415,72 @@ class MenuService
         $menu->current_price = $currentPrice;
 
         return $menu->refresh();
+    }
+
+    /**
+     * Create or Update many menus
+     * @param Request $request
+     * @param MShop $shop
+     *
+     * @return array
+     * @throws Exception
+     */
+    public function createOrUpdateManyMenus(Request $request, MShop $shop)
+    {
+        DB::beginTransaction();
+        try {
+            $menuIDs = [];
+            $allMenus = $request->menus;
+            foreach ($allMenus as $menuData) {
+                $menu = collect($menuData)->only([
+                    'id',
+                    'name',
+                    'price',
+                    'status',
+                    'tax_value',
+                    'm_tax_id',
+                    'm_menu_category_ids',
+                ])->toArray();
+                // If status is not_onsale, initial_order_flg is must be OFF
+                if ($menu['status'] === MMenu::OFF_SALE_STATUS) {
+                    $menu['initial_order_flg'] = MMenu::INITIAL_ORDER_MENU_FLAG_FALSE;
+                }
+                if (array_key_exists('id', $menu) && $menu['id']) {
+                    // Case update a menu
+                    $menuInDB = MMenu::find($menu['id']);
+                    if ($menuInDB) {
+                        $menu = $this->menuRepository->updateBasicInfoOfMenu($menu, $shop, $menuInDB);
+                        $this->updateOlderImageDataToMImage($menuInDB);
+                    }
+                } else {
+                    // Case create a new menu
+                    $menu['hash_id'] = $this->menuRepository->makeHashId();
+                    $menu = $this->menuRepository->create($menu, $shop);
+                }
+                $menuIDs[] = $menu->id;
+                if (array_key_exists('add_images', $menuData) && count($menuData['add_images'])) {
+                    $this->menuRepository->saveNewMenuImages($menu, $menuData['add_images']);
+                }
+                if (array_key_exists('main_image_path', $menuData)) {
+                    $this->menuRepository->changeMainMenuImage($menu, $menuData['main_image_path']);
+                }
+            }
+            DB::commit();
+
+            $menus = $this->menuRepository->find($menuIDs)->load([
+                'mBusinessHourPrices.mShopBusinessHour',
+                'menuCookPlace',
+                'mTax',
+            ]);
+            foreach ($menus as $menu) {
+                $currentPrice = getMenuPriceHelper($menu);
+                $menu->current_price = $currentPrice;
+            }
+
+            return $menus;
+        } catch (Exception $exception) {
+            DB::rollBack();
+            throw $exception;
+        }
     }
 }
