@@ -33,6 +33,7 @@ import {PAYMENT_METHOD_TYPES, PAYMENT_STATUS, FUNCTIONS_CODE} from 'js/utils/com
 import {currencyFormat} from 'js/utils/helpers/number';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { phoneNumberFormat } from 'js/utils/helpers/phoneNumber';
+import {formatPrice} from "../../../../utils/helpers/number";
 
 const PAGINATION_DEFAULT = {
   current_page: 1,
@@ -270,7 +271,7 @@ const ModalShopDetail = (props) => {
           {/*    : null*/}
           {/*}*/}
           {
-            `${shopData.service_plan}`
+            formatPrice(parseInt(shopData.shop_total_payment))
           }
         </TableCell>
         <TableCell classes={{root: classes.tableCell}} align='center'>
@@ -307,7 +308,10 @@ const ModalShopDetail = (props) => {
               {currencyFormat(usageQRCodeInMonth)}
             </TableCell>
             <TableCell classes={{root: classes.tableCell}} align='center'>
-              {currencyFormat(total_orders_number)}/{currencyFormat(total_customer_payment)}
+              {/*{currencyFormat(total_orders_number)}/{currencyFormat(total_customer_payment)}*/}
+              {
+                formatPrice(parseInt(shopData.shop_total_payment))
+              }
             </TableCell>
             <TableCell classes={{root: classes.tableCell}} align='center'>
               {AdminUtils.renderPaymentStatus(null, lastMonth)}
@@ -443,7 +447,7 @@ const ModalShopDetail = (props) => {
                 <TableRow classes={{ root: classes.tableHead }}>
                   <TableCell classes={{ root: classes.tableCellHead }} align='center'>Tháng</TableCell>
                   <TableCell classes={{ root: classes.tableCellHead }} align='center'>Số QR</TableCell>
-                  <TableCell classes={{ root: classes.tableCellHead }} align='center'>Đã sử dụng/Tổng số</TableCell>
+                  <TableCell classes={{ root: classes.tableCellHead }} align='center'>Số tiền thanh toán</TableCell>
                   <TableCell classes={{ root: classes.tableCellHead }} align='center'>Trạng thái</TableCell>
                 </TableRow>
               </TableHead>
@@ -466,8 +470,10 @@ const ModalShopDetail = (props) => {
                         {getUsageQRCode(billing)}
                       </TableCell>
                       <TableCell classes={{root: classes.tableCell}} align='center'>
-                        aaaaaa
-                        {currencyFormat(billing.total_orders_number)}/{currencyFormat(billing.total_customer_payment)}
+                        {/*{currencyFormat(billing.total_orders_number)}/{currencyFormat(billing.total_customer_payment)}*/}
+                        {
+                          formatPrice(parseInt(shopData.shop_total_payment))
+                        }
                       </TableCell>
                       <TableCell classes={{root: classes.tableCell}} align='center'>
                         {

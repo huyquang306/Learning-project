@@ -27,4 +27,9 @@ class TServiceBillingService
     {
         return $this->serviceBillingRepository->getShopBillingsPagination($shop);
     }
+
+    public function createMonthlyBilling($data)
+    {
+        return $this->serviceBillingRepository->createMonthlyServiceBilling($data);
+    }
 }

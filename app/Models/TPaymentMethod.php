@@ -11,6 +11,9 @@ class TPaymentMethod extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
     protected $hidden = ['id', 'created_at', 'updated_at'];
 
+    const CARD = 1;
+    const BILLING = 2;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

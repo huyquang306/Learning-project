@@ -11,15 +11,15 @@ export const renderPaymentStatus = (billing, forMonthString = '') => {
   }
   
   let totalPrice = 0;
-  let paymentStatus = '未払い';
+  let paymentStatus = 'Chưa thanh toán';
   if (Array.isArray(billing)) {
     billing.forEach(billingTmp => {
       if (billingTmp.status === PAYMENT_STATUS.SUCCESS_STATUS) {
-        paymentStatus = '支払い済';
+        paymentStatus = 'Đã thanh toán';
       }
 
       if (billingTmp.status === PAYMENT_STATUS.UNFIXED) {
-        paymentStatus = '未確定'
+        paymentStatus = 'Đang xử lý'
       }
 
       totalPrice += parseInt(billingTmp?.price) ?? 0;
@@ -27,13 +27,13 @@ export const renderPaymentStatus = (billing, forMonthString = '') => {
   } else {
     totalPrice = parseInt(billing && billing.price ? billing.price : 0);
     if (billing.status === PAYMENT_STATUS.SUCCESS_STATUS) {
-      paymentStatus = '支払い済';
+      paymentStatus = 'Đã thanh toán';
     }
 
     if (billing.status === PAYMENT_STATUS.UNFIXED) {
-      paymentStatus = '未確定'
+      paymentStatus = 'Đang xử lý'
     }
   }
 
-  return `${paymentStatus}/${currencyFormat(totalPrice)}円`;
+  return `${paymentStatus}/${currencyFormat(totalPrice)}₫`;
 };

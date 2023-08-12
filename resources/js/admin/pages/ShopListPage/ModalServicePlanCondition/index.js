@@ -398,7 +398,7 @@ const ModalServicePlanCondition = (props) => {
                   onChange={handleChangeDisableExtendPrice}
                 />
               }
-              label='Cho phép dùng quá số QR'
+              label='Không được phép dùng quá số QR'
             />
           </Box>
           <Box display='flex' alignItems='center'>

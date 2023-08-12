@@ -699,7 +699,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Zipcode <Box className={classes.required}>(*)</Box>
+              Postal code <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>
@@ -901,7 +901,7 @@ const PageRegister = (props) => {
       <FormsContainer>
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
-            <Box className={classes.label} flexDirection={{ xs: 'row', sm: 'column' }}>
+            <Box className={classes.label}>
               Email
               {/*<Box className={classes.required}>(*)</Box>*/}
             </Box>
