@@ -110,22 +110,26 @@ export default class ApiBase
       .then(response => response.json())
       .then(dataJson => {
         if (dataJson.status !== RESPONSE_STATUS.SUCCESS) {
+          if (dataJson.result?.errorCode === 'deactive_shop') {
+            PubSub.publish(PUB_SUB_KEY.DEACTIVE_SHOP, null);
+            throw CustomError('Cửa hàng đã bị khóa', dataJson.result);
+          }
+          
           throw CustomError(dataJson.message || 'unknown error', dataJson.data);
         }
         
         return dataJson.data !== undefined ? dataJson.data : dataJson.result;
-      }).catch(error => {
+      }).catch((error) => {
         let message = error.message;
         if (error.data && Array.isArray(error.data) && error.data.length) {
           const firstError = error.data[0];
           const {errorCode, errorMessage} = firstError;
           message = errorCode || errorMessage;
         }
-
-      if (error.result.errorCode === 'deactive_shop') {
-        PubSub.publish(PUB_SUB_KEY.DEACTIVE_SHOP, null);
-        throw CustomError('deactive_shop', error.result);
-      }
+      // if (error.result?.errorCode === 'deactive_shop') {
+      //   PubSub.publish(PUB_SUB_KEY.DEACTIVE_SHOP, null);
+      //   throw CustomError('deactive_shop', error.result);
+      // }
 
         throw CustomError(message, error.data);
       })

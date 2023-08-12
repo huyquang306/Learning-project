@@ -60,7 +60,7 @@ const PageRedirect = () => {
           backgroundImage={`${process.env.MIX_ASSETS_PATH}/img/shared/orderr_launch_background.png`}
         >
           <LoadingContainer>
-            <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/EzOrder.png`} alt='logo' />
+            <img width={'500px'} height={'175px'} src={`${process.env.MIX_ASSETS_PATH}/img/shared/EzOrder.png`} alt='logo' />
             <br />
             Vui lòng chờ...
           </LoadingContainer>

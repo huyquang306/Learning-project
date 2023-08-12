@@ -19,7 +19,10 @@ Route::prefix('v1')->group(
         Route::group(
             [
                 'prefix' => 'shop',
-                'middleware' => 'guest:api'
+                'middleware' => [
+                    'guest:api',
+                    'checkShopIsDeactive',
+                ]
             ],
             function () {
                 // Shop
@@ -109,7 +112,10 @@ Route::prefix('v1')->group(
         Route::group(
             [
                 'prefix' => 'user',
-                'middleware' => 'guest:api'
+                'middleware' => [
+                    'guest:api',
+                    'checkShopIsDeactive',
+                ]
             ],
             function () {
                 // customer update information
