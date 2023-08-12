@@ -28,8 +28,6 @@ class ShopListResource extends ResourceCollection
                     'address' => $item->address,
                     'building' => $item->building,
                     'phone_number' => $item->phone_number,
-                    'city_kana' => $item->city_kana,
-                    'address_kana' => $item->address_kana,
                     'fax_number' => $item->fax_number,
                     'email' => $item->email,
                     'lat' => $item->lat,

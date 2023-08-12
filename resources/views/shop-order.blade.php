@@ -6,7 +6,7 @@
     <link href=“https://fonts.googleapis.com/css2?family=Open+Sans&display=swap” rel=“stylesheet”>
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <meta name="theme-color" content="#000000" />
-    <title>Shop|Order</title>
+    <title>EzOrder - Shop</title>
 </head>
 <body style="font-family: 'Open Sans', sans-serif;">
     <noscript>JavaScript</noscript>

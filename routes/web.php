@@ -52,7 +52,7 @@ Route::group([
         'domain.admin_domain',
     ],
 ], function () {
-    Route::get(config('react.index_path_admin') . '/{path?}', function () {
+    Route::get(config('react.index_path_admin'), function () {
         return view('admin');
     })->where('path', '.*');
 });

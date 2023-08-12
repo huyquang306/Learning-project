@@ -135,7 +135,7 @@ const ModalAddStaff = (props) => {
   const actionModal = () => (
     <Box textAlign='center'>
       <ButtonCustom
-        title='戻る'
+        title='Quay lại'
         borderRadius='28px'
         bgcolor='#828282'
         borderColor='#828282'
@@ -143,7 +143,7 @@ const ModalAddStaff = (props) => {
         onClick={props.onClose}
       />
       <ButtonCustom
-        title='保存'
+        title='Lưu'
         borderRadius='28px'
         bgcolor='#FFA04B'
         borderColor='#FFA04B'

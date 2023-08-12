@@ -42,7 +42,13 @@ Route::prefix('v1')->group(
             }
         );
 
-        Route::group(['prefix' => 'shop', 'middleware' => ['guest:api']],
+        Route::group([
+            'prefix' => 'shop',
+            'middleware' => [
+                'guest:api',
+                'checkShopIsDeactive',
+            ]
+        ],
             function () {
                 // Service Plan
                 Route::get('service-plans', 'Api\Shop\ServicePlanController@index');

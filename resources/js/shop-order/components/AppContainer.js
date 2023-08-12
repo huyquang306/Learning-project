@@ -68,7 +68,7 @@ const Loading = () => {
         backgroundImage={`${process.env.MIX_ASSETS_PATH}/img/shared/orderr_launch_background.png`}
       >
         <LoadingContainer>
-          <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/EzOrder.png`} alt="logo" />
+          <img width={'500px'} height={'175px'} src={`${process.env.MIX_ASSETS_PATH}/img/shared/EzOrder.png`} alt="logo" />
           <br />
           Vui lòng chờ...
         </LoadingContainer>
@@ -88,6 +88,7 @@ const AppContainer = () => {
 
   useEffect(() => {
     console.debug('[AppContainer] authUser.statusCode ', authUser.statusCode);
+    console.log('[AppContainer] authUser.statusCode ', authUser.statusCode);
 
     if (authUser.statusCode > 0) {
       if (authUser.phoneNumber) {
@@ -103,6 +104,7 @@ const AppContainer = () => {
   }, [authUser]);
 
   const pubSubSubscribe = () => {
+    console.log('pubSubSubscribe');
     // Channel Ring alarm
     PubSub.subscribe(PUB_SUB_KEY.RING_ALARM, ringAlarm);
     // Channel show deactive shop
@@ -185,7 +187,8 @@ const AppContainer = () => {
               minHeight="120px"
             >
               <Box textAlign="center" fontWeight={600} mt={8}>
-                Của hàng này đã bị khóa
+                Của hàng này đã bị khóa <br/>
+                Vui lòng liên hệ nhà cung cấp dịch vụ để xử lý
               </Box>
             </Modal>
           </ShopInfoContext.Provider>

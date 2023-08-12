@@ -24,8 +24,6 @@ class ShopResource extends JsonResource
             'address' => $this->address,
             'building' => $this->building,
             'phone_number' => $this->phone_number,
-            'city_kana' => $this->city_kana,
-            'address_kana' => $this->address_kana,
             'fax_number' => $this->fax_number,
             'email' => $this->email,
             'lat' => $this->lat,

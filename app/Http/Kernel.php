@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\CheckShopIsDeactive;
 use App\Http\Middleware\CustomerOrderAuth;
 use App\Http\Middleware\Shop\CheckUsageCodeOverPlan;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -70,5 +71,6 @@ class Kernel extends HttpKernel
         'domain.admin_domain' => \App\Http\Middleware\AdminDomain::class,
         'customer-order.auth' => CustomerOrderAuth::class,
         'checkUsageQRCodeOver' => CheckUsageCodeOverPlan::class,
+        'checkShopIsDeactive' => CheckShopIsDeactive::class,
     ];
 }

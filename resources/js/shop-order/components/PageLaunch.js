@@ -41,7 +41,7 @@ const PageLaunch = (_props) => {
       backgroundImage={`${process.env.MIX_ASSETS_PATH}/img/shared/orderr_launch_background.png`}
     >
       <InnerContainer>
-        <img src={`${process.env.MIX_ASSETS_PATH}/img/shared/EzOrder.png`} alt="logo" />
+        <img width={'500px'} height={'175px'} src={`${process.env.MIX_ASSETS_PATH}/img/shared/EzOrder.png`} alt="logo" />
 
         <Button
           title="Đăng kí"
@@ -52,7 +52,7 @@ const PageLaunch = (_props) => {
 
         <Button
           title="Đăng nhập"
-          bgcolor="#ff604c"
+          bgcolor="#ffaf00"
           onClick={() => {
             history.push('/signin');
           }}
