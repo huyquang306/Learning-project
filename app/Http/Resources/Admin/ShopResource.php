@@ -49,6 +49,9 @@ class ShopResource extends JsonResource
             'usageQRCodeInMonth' => $this->tOrderGroups->count(),
             'billing_is_payment' => $this->checkShopDoesPayment($this->tServiceBillings),
             'service_plan' => count($this->mServicePlans) ? $this->mServicePlans->first() : null,
+            'shop_total_payment' => count($this->mServicePlans) ?
+                $this->getShopPaymentTotal($this->mServicePlans->first(), $this->tOrderGroups)
+                : 0,
             'total_orders_number' => $this->getTOrderTotal($this->tOrderGroups),
             'total_customer_payment' => $this->getCustomerPaymentTotal($this->tOrderGroups),
             'last_month' => [
@@ -90,5 +93,31 @@ class ShopResource extends JsonResource
         }
 
         return $result;
+    }
+
+    protected function getShopPaymentTotal($servicePlan, $orderGroupsInMonth)
+    {
+        $totalQRInMonth = count($orderGroupsInMonth);
+        $limitQR = 0;
+        $extendPrice = 0;
+
+        foreach ($servicePlan->rFunctionConditions as $item) {
+            if ($item->m_function_id === 1) {
+                $limitQR = $item->restricted_value;
+                $extendPrice = $item->mFunction
+                    ->where("code", "=", "qr")
+                    ->first()
+                    ->mServicePlanOptions
+                    ->where('m_service_plan_id', "=", $servicePlan->id)
+                    ->first()
+                    ->additional_price;
+            }
+        }
+
+        if ($totalQRInMonth <= $limitQR) {
+            return $servicePlan->price;
+        } else {
+            return ($totalQRInMonth - $limitQR) * $extendPrice;
+        }
     }
 }

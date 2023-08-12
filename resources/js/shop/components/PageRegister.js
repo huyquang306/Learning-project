@@ -699,7 +699,7 @@ const PageRegister = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={2}>
             <Box className={classes.label} justifyContent={{ xs: 'start', sm: 'center' }}>
-              Zipcode <Box className={classes.required}>(*)</Box>
+              Postal code <Box className={classes.required}>(*)</Box>
             </Box>
           </Grid>
           <Grid item xs={12} sm={4}>

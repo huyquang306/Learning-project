@@ -41,7 +41,7 @@ class TServiceBilling extends Model
 
     public function tServiceBillingDetails(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(TServiceBillingDetail::class);
+        return $this->hasMany(TServiceBillingDetail::class, 't_service_billing_id', 'id');
     }
 
     public function buyer()

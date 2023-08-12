@@ -11,5 +11,7 @@ interface ServiceBillingRepositoryInterface extends BaseRepositoryInterface
 
     public function getBillingById(string $stripeId);
 
-    public function updateServiceBillingStatus(TServiceBilling $serviceBilling, int $status, string $log = '');
+    public function updateServiceBilling(TServiceBilling $serviceBilling, array $data);
+
+    public function createMonthlyServiceBilling($data);
 }

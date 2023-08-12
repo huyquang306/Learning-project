@@ -130,7 +130,7 @@ const menuList = [
   },
   {
     url: '/change-password',
-    name: 'Đỏi mật khẩu',
+    name: 'Đổi mật khẩu',
   },
 ];
 

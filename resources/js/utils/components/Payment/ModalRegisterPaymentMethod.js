@@ -35,6 +35,7 @@ import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import CustomerPaymentComponent from './components/CustomerPaymentComponent';
 import ChangePaymentMethodActions from './components/ChangePaymentMethodActions';
+import {formatPrice} from "../../helpers/number";
 
 const appearance = {
   theme: 'stripe',
@@ -329,7 +330,7 @@ const ModalRegisterPaymentMethod = (props) => {
                             ? (
                               <>
                               <span>
-                                ${Number(selectedPlan.r_function_conditions[0].m_function?.m_service_plan_options[0].additional_price) ?? 0} mỗi QR
+                                {formatPrice(Number(selectedPlan.r_function_conditions[0].m_function?.m_service_plan_options[0].additional_price)) ?? 0} mỗi QR
                               </span>
                                 <span className={classes.noteItem}>
                                   Sẽ phát sinh thêm phí nếu bạn sử dụng nhiều hơn số QR giới hạn ({

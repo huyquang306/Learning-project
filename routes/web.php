@@ -56,3 +56,5 @@ Route::group([
         return view('admin');
     })->where('path', '.*');
 });
+
+Route::post('stripe/webhook', 'Webhook\PaymentWebhookController@handleWebhook');

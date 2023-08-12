@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\MShop;
 use App\Models\TServiceBilling;
+use App\Models\TServiceBillingDetail;
 use App\Repositories\Interfaces\ServiceBillingRepositoryInterface;
 
 class ServiceBillingRepository extends BaseRepository implements ServiceBillingRepositoryInterface
@@ -45,14 +46,54 @@ class ServiceBillingRepository extends BaseRepository implements ServiceBillingR
      * @param string $log
      * @return TServiceBilling
      */
-    public function updateServiceBillingStatus(TServiceBilling $serviceBilling, int $status, string $log = ''): TServiceBilling
+    public function updateServiceBilling(TServiceBilling $serviceBilling, array $data): TServiceBilling
     {
-        $serviceBilling->status = $status;
-        $serviceBilling->log = $serviceBilling->log . $log;
+        $serviceBilling->status = $data['status'];
+        $serviceBilling->stripe_hosted_invoice_url = $data['invoice_url'];
+        $serviceBilling->stripe_invoice_pdf = $data['invoice_pdf'];
+        $serviceBilling->log = $serviceBilling->log . $data['log'];
         $serviceBilling->save();
 
-        $serviceBilling->tServiceBillingDetails->update([
-            'status' => $status,
+        $serviceBilling->tServiceBillingDetails->first()->update([
+            'status' => $data['status'],
+        ]);
+
+        return $serviceBilling;
+    }
+
+    public function createMonthlyServiceBilling($data)
+    {
+        while (true) {
+            $hashId = makeHash();
+            if (!$this->model->where('hash_id', $hashId)->count()) {
+                break;
+            }
+        }
+
+        $serviceBilling = $this->model->create([
+            'hash_id' => $hashId,
+            'buyer_id' => $data['buyer_id'],
+            'buyer_type' => TServiceBilling::SHOP_BUYER_TYPE,
+            'm_shop_id' => $data['shop_id'],
+            'stripe_payment_id' => $data['stripe_payment_id'],
+            'price' => $data['price'],
+            'payment_method' => $data['payment_method'],
+            'status' => $data['status'],
+            'total_qr_number' => $data['total_qr_number'],
+            'extend_qr_number' => $data['extend_qr_number'],
+            'start_date' => now('Asia/Ho_Chi_Minh')->subMonth()->startOfMonth(),
+            'end_date' => now('Asia/Ho_Chi_Minh')->subMonth()->endOfMonth(),
+            'target_month' => now('Asia/Ho_Chi_Minh')->subMonth(),
+        ]);
+
+        $serviceBilling->tServiceBillingDetails()->create([
+            'hash_id' => $hashId,
+            'service_id' => $data['service_plan_id'],
+            'service_type' => TServiceBilling::SERVICE_PLAN_SERVICE_TYPE,
+            'name' => 'Phí dịch vụ tháng ' . now('Asia/Ho_Chi_Minh')->subMonth(),
+            'price' => $data['price'],
+            'type' => TServiceBillingDetail::PLAN_FEE_TYPE,
+            'status' => $data['status']
         ]);
 
         return $serviceBilling;

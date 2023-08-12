@@ -2,12 +2,18 @@
 
 namespace App\Console\Commands;
 
+use App\Models\TPaymentMethod;
+use App\Models\TServiceBilling;
+use App\Services\Admin\TServiceBillingService;
 use App\Services\Shop\OrderGroupService;
 use App\Services\Shop\PaymentService;
 use App\Services\Shop\StaffService;
 use App\Services\ShopService;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Stripe\Invoice;
+use Stripe\InvoiceItem;
 use Stripe\PaymentIntent;
 use Stripe\Customer;
 
@@ -31,6 +37,7 @@ class CreateMonthlyPaymentCommand extends Command
     private $staffService;
     private $orderGroupService;
     private $paymentService;
+    private $billingService;
 
     /**
      * Create a new command instance.
@@ -41,13 +48,15 @@ class CreateMonthlyPaymentCommand extends Command
         ShopService $shopService,
         StaffService $staffService,
         OrderGroupService $orderGroupService,
-        PaymentService $paymentService
+        PaymentService $paymentService,
+        TServiceBillingService $billingService
     )
     {
         $this->shopService = $shopService;
         $this->staffService = $staffService;
         $this->orderGroupService = $orderGroupService;
         $this->paymentService = $paymentService;
+        $this->billingService = $billingService;
         parent::__construct();
     }
 
@@ -91,6 +100,7 @@ class CreateMonthlyPaymentCommand extends Command
             }
 
             if ($shop->mStaffsCanPay->first() && $shop->mStaffsCanPay->first()->tStripeCustomer) {
+                $shopStaffId = $shop->mStaffsCanPay->first()->id;
                 $stripeCustomerId = $shop->mStaffsCanPay->first()->tStripeCustomer->stripe_customer_id;
                 if (!$stripeCustomerId) continue;
             }
@@ -100,18 +110,39 @@ class CreateMonthlyPaymentCommand extends Command
             }
             $totalPrice = $servicePlanInitialPrice + $extendPrice;
 
-
             try {
-                $customer = Customer::retrieve($stripeCustomerId, []);
-                $paymentIntent = PaymentIntent::create([
-                    'amount' => $totalPrice,
-                    'currency' => 'VND',
+                $invoice = Invoice::create([
                     'customer' => $stripeCustomerId,
-                    'payment_method' => $customer->invoice_settings->default_payment_method,
-                    'description' => 'EzOrder monthly payment',
-                    'confirm' => true,
+                    'auto_advance' => true,
+                    'collection_method' => 'charge_automatically',
                 ]);
+                $invoiceItem = InvoiceItem::create([
+                    'customer' => $stripeCustomerId,
+                    'invoice' => $invoice->id,
+                    'amount' => 500000,
+                    'currency' => 'VND',
+                    'description' => 'EzOrder monthly payment',
+                ]);
+
+                DB::beginTransaction();
+                $data = [
+                    'buyer_id' => $shopStaffId ?? $shop->id,
+                    'shop_id' => $shop->id,
+                    'stripe_payment_id' => $invoice->id,
+                    'price' => $totalPrice,
+                    'payment_method' => $shop->mPaymentMethods->first() ? $shop->mPaymentMethods->first()->id : 1,
+                    'status' => TServiceBilling::OPEN_STATUS,
+                    'total_qr_number' => $totalQR,
+                    'extend_qr_number' => $totalQR - $limitQR,
+                    'service_plan_id' => $shop->mServicePlans->first()->id,
+                ];
+
+                $this->billingService->createMonthlyBilling($data);
+                DB::commit();
             } catch (\Stripe\Exception\ApiErrorException $exception) {
+                Log::critical($exception->getMessage());
+            } catch (\Exception $exception) {
+                DB::rollBack();
                 Log::critical($exception->getMessage());
             }
         }

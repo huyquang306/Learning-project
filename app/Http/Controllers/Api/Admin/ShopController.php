@@ -29,6 +29,7 @@ class ShopController extends BaseApiController
     public function index(ShopsListRequest $request): \Illuminate\Http\JsonResponse
     {
         $shops = $this->shopService->getShopsData($request);
+        \Log::info($shops);
 
         return $this->responseApi(new ShopListResource($shops));
     }
