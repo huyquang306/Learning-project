@@ -176,10 +176,11 @@ const PageSignin = (props) => {
 
       <Modal title="" open={!!errorMessage} height={250}>
         <Box>{errorMessage}</Box>
-        <Box>
+        <Box style={{ textAlign: 'center' }}>
           {sendEmail ? <Button
             bgcolor='#FFF'
             fgcolor='#86BE27'
+            disabled={buttonResendDisabled}
             onClick={() => {
               sendVerifyEmail(sendEmail);
             }}

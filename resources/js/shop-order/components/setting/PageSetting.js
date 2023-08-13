@@ -59,14 +59,14 @@ const PageSetting = (props) => {
       url: '/setting/table/list',
       label: 'Bàn ăn',
     },
-    {
-      url: '/staffs',
-      label: 'Nhân viên',
-    },
-    {
-      url: '/setting/cook-place/list',
-      label: 'Bếp',
-    },
+    // {
+    //   url: '/staffs',
+    //   label: 'Nhân viên',
+    // },
+    // {
+    //   url: '/setting/cook-place/list',
+    //   label: 'Bếp',
+    // },
     // {
     //   url: '/setting/printer/list',
     //   label: 'Máy in',

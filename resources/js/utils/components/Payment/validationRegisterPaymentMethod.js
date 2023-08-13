@@ -18,9 +18,9 @@ const checkRegisterForm = (paymentData) => {
 
 const validateName = (paymentData, errors) => {
   const validate = {
-    requiredErrorMessage: '請求者名が未入力です',
+    requiredErrorMessage: 'Vui lòng nhập tên',
     maxLength: 50,
-    maxLengthErrorMessage: '請求者名が50文字以内に入力してください。',
+    maxLengthErrorMessage: 'Vui lòng nhập tên dài không quá 50 kí tự',
   };
   
   if (!Utils.isNil(paymentData.name) && paymentData.name.trim() !== '') {
@@ -37,10 +37,10 @@ const validateName = (paymentData, errors) => {
 const validateZipCode = (paymentData, errors) => {
   const zipCodeRegex = /^[0-9]*$/;
   const validate = {
-    requiredErrorMessage: '郵便番号が未入力です',
+    requiredErrorMessage: 'Bạn cần nhập postal code',
     length: 7,
-    lengthErrorMessage: ' 郵便番号が7文字で入力してください。',
-    patternErrorMessage: '郵便番号が数字文字で入力してください。'
+    lengthErrorMessage: 'Vui lòng nhập postal code bao gồm 7 ký tự',
+    patternErrorMessage: 'Vui lòng nhập postal code theo đúng định dạng'
   };
   
   if (!Utils.isNil(paymentData.zip_code) && paymentData.zip_code.trim() !== '') {
@@ -58,9 +58,9 @@ const validateZipCode = (paymentData, errors) => {
 
 const validateAddress = (paymentData, errors) => {
   const addressValidate = {
-    requiredErrorMessage: '住所が未入力です',
+    requiredErrorMessage: 'Vui lòng nhập địa chỉ',
     maxLength: 200,
-    maxLengthErrorMessage: '住所は200文字を超えることはできません',
+    maxLengthErrorMessage: 'Vui lòng nhập địa chỉ không quá 200 kí tự',
   };
   
   if (!Utils.isNil(paymentData.address) && paymentData.address.trim() !== '') {
@@ -75,13 +75,13 @@ const validateAddress = (paymentData, errors) => {
 
 const validatePhoneNumber = (paymentData, errors) => {
   const phoneNumberValidate = {
-    requiredErrorMessage: '電話番号が未入力です',
-    patternErrorMessage: '電話番号の形式が正しくありません',
+    requiredErrorMessage: 'Vui lòng nhập số diện thoại',
+    patternErrorMessage: 'Vui lòng nhập số điện thoại đúng định dạng',
     maxLength: 15,
     minLength: 10,
-    maxLengthErrorMessage: '電話番号は15文字を超えてはなりません',
+    maxLengthErrorMessage: 'Vui lòng nhập số điện thoại đúng định dạng',
     
-    minLengthErrorMessage: '電話番号の形式が正しくありません',
+    minLengthErrorMessage: 'Vui lòng nhập số điện thoại đúng định dạng',
   };
   const phoneNumberRegex = /^[0-9]*$/;
   
@@ -104,8 +104,8 @@ const validatePhoneNumber = (paymentData, errors) => {
 
 const validateEmail = (paymentData, errors) => {
   const emailValidate = {
-    requiredErrorMessage: 'メールアドレスが未入力です',
-    patternErrorMessage: 'メールアドレスの形式が正しくありません。',
+    requiredErrorMessage: 'Vui lòng nhập email',
+    patternErrorMessage: 'Vui lòng nhập email đúng định dạng',
   };
   
   if (!Utils.isNil(paymentData.email) && paymentData.email.trim() !== '') {

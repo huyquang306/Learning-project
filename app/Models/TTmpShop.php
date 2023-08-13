@@ -17,6 +17,7 @@ class TTmpShop extends Model
 
     public $fillable = [
         'hash_id',
+        'email',
         'type',
         'shop_info',
         'expired_time',

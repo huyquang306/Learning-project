@@ -237,7 +237,7 @@ const ModalRegisterPaymentMethod = (props) => {
   
   const handleRegisterCardSuccess = async () => {
     // TODO: translate
-    showSuccessMessage('Setup card success');
+    showSuccessMessage('Cập nhật thông tin thanh toán thành công');
     handleSubmit();
   };
   

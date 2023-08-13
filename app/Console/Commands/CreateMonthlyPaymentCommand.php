@@ -69,14 +69,19 @@ class CreateMonthlyPaymentCommand extends Command
     {
         $listShop = $this->shopService->getListShopWithPaymentInfo();
         foreach ($listShop as $shop) {
-            $servicePlanInitialPrice = 0;
             $totalQR = 0;
             $stripeCustomerId = '';
             $limitQR = 0;
             $extendPrice = 0;
+            $additionalPrice = 0;
+            $servicePlan = $shop->mServicePlans->filter(
+                function ($item) {
+                    return ($item->pivot->end_date === null && $item->pivot->applied_date <= now()->subMonth())
+                        || $item->pivot->end_date == now()->subMonth()->endOfMonth();
+                }
+            )->first();
 
-            if ($shop->mServicePlans->first()) {
-                $servicePlan = $shop->mServicePlans->first();
+            if ($servicePlan) {
                 $servicePlanInitialPrice = $servicePlan->price;
                 if (!$servicePlanInitialPrice) continue;
                 foreach ($servicePlan->rFunctionConditions as $item) {
@@ -106,9 +111,9 @@ class CreateMonthlyPaymentCommand extends Command
             }
 
             if ($totalQR > $limitQR) {
-                $extendPrice = ($totalQR - $limitQR) * $extendPrice;
+                $additionalPrice = ($totalQR - $limitQR) * $extendPrice;
             }
-            $totalPrice = $servicePlanInitialPrice + $extendPrice;
+            $totalPrice = $servicePlanInitialPrice + $additionalPrice;
 
             try {
                 $invoice = Invoice::create([
@@ -119,7 +124,7 @@ class CreateMonthlyPaymentCommand extends Command
                 $invoiceItem = InvoiceItem::create([
                     'customer' => $stripeCustomerId,
                     'invoice' => $invoice->id,
-                    'amount' => 500000,
+                    'amount' => $totalPrice,
                     'currency' => 'VND',
                     'description' => 'EzOrder monthly payment',
                 ]);

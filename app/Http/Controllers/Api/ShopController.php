@@ -41,6 +41,9 @@ class ShopController extends BaseApiController
         if (!$shop->exists) {
             $shops = $this->shopService->findByUser(Auth::User()->m_staff_id);
             foreach ($shops as $key => $shop) {
+                if (!$shop->mServicePlans->count()) {
+                    $this->shopService->registerDefaultFreePlan($shop);
+                }
                 $this->shopService->generateShopTaxInfo($shop);
                 $shops[$key] = $this->shopService->getShopData($shop);
             }
@@ -48,6 +51,9 @@ class ShopController extends BaseApiController
             return $this->responseApi(ShopResource::collection($shops));
         }
 
+        if (!$shop->mServicePlans->count()) {
+            $this->shopService->registerDefaultFreePlan($shop);
+        }
         $this->shopService->generateShopTaxInfo($shop);
         $shop = $this->shopService->getShopData($shop);
 

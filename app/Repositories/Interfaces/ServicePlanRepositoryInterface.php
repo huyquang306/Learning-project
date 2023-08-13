@@ -16,4 +16,6 @@ interface ServicePlanRepositoryInterface extends BaseRepositoryInterface
     public function deleteServicePlan(MServicePlan $servicePlan);
 
     public function getAllServicePlans();
+
+    public function registerDefaultFreePlan(MShop $shop): MShop;
 }

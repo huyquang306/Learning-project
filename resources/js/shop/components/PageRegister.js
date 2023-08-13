@@ -708,7 +708,7 @@ const PageRegister = (props) => {
               inputProps={{
                 maxLength: 7,
                 type: 'tel',
-                'data-pattern': '^\\d{7}$',
+                'data-pattern': '^\\d{5}$',
               }}
               variant='outlined'
               value={shop.postalCode}
