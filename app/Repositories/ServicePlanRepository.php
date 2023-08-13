@@ -46,25 +46,52 @@ class ServicePlanRepository extends BaseRepository implements ServicePlanReposit
             return $shop;
         }
 
-        // Update older service plan
-        RShopServicePlan::where('m_shop_id', $shop->id)
-            ->where('status', RShopServicePlan::ACTIVE_STATUS)
-            ->update([
-                'status' => RShopServicePlan::CANCEL_STATUS,
-            ]);
-        // Update end_date to now when upgrade other plans
-        RShopServicePlan::where('m_shop_id', $shop->id)
-            ->whereNull('end_date')
-            ->update([
-                'end_date' => now()->endOfMonth(),
-            ]);
+        $freePlan = $this->getFreeServicePlan();
+        $currentPlan = $shop-mServicePlans->filter(
+            function ($item) {
+                return ($item->end_date === null && $item->applied_date <= now())
+                    || $item->end_date == now()->endOfMonth();
+            }
+        )->first();
+        $newServicePlan = $this->find($servicePlanId);
 
-        // Create a new plan for shop
-        $shop->mServicePlans()->attach($servicePlanId, [
-            'status' => RShopServicePlan::ACTIVE_STATUS,
-            'applied_date' => now()->addMonth()->startOfMonth(),
-            'registered_date' => now(),
-        ]);
+        if (
+            ((int) $servicePlanId === $freePlan->id && $currentPlan->id !== $freePlan->id)
+            || ($currentPlan->price < $newServicePlan->price)
+        ) {
+            RShopServicePlan::where('m_shop_id', $shop->id)
+                ->where('status', RShopServicePlan::ACTIVE_STATUS)
+                ->update([
+                    'status' => RShopServicePlan::CANCEL_STATUS,
+                    'end_date' => now(),
+                ]);
+            $shop->mServicePlans()->attach($servicePlanId, [
+                'status' => RShopServicePlan::ACTIVE_STATUS,
+                'applied_date' => now()->startOfMonth(),
+                'registered_date' => now(),
+            ]);
+        } else {
+            // Update older service plan
+            RShopServicePlan::where('m_shop_id', $shop->id)
+                ->where('status', RShopServicePlan::ACTIVE_STATUS)
+                ->update([
+                    'status' => RShopServicePlan::CANCEL_STATUS,
+                ]);
+            // Update end_date to now when upgrade other plans
+            RShopServicePlan::where('m_shop_id', $shop->id)
+                ->whereNull('end_date')
+                ->update([
+                    'end_date' => now()->endOfMonth(),
+                ]);
+
+            // Create a new plan for shop
+            $shop->mServicePlans()->attach($servicePlanId, [
+                'status' => RShopServicePlan::ACTIVE_STATUS,
+                'applied_date' => now()->addMonth()->startOfMonth(),
+                'registered_date' => now(),
+            ]);
+        }
+
         $shop->load([
             'mBusinessHours',
             'mShopMetas',

@@ -496,7 +496,7 @@ const PageCurrentPlan = (props) => {
                 Trước khi dừng sử dụng dịch vụ, vui lòng đánh dấu vào ô “Đồng ý” sau khi xác nhận các nội dung sau.
               </Box>
               <Box className={classes.textDetail}>
-                1. Tại thời điểm hủy bỏ, bạn sẽ không thể sử dụng dịch vụ nữa.。
+                1. Tại thời điểm hủy bỏ, bạn sẽ không thể sử dụng dịch vụ nữa.
               </Box>
               <Box className={classes.textDetail}>
                 2. Ngay cả khi bạn hủy vào giữa tháng, bạn vẫn sẽ bị tính phí sử dụng hàng tháng cho đến tháng hiện tại.
