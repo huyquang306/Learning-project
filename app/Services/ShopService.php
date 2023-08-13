@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\MShop;
 use App\Models\MShopMeta;
 use App\Models\TTmpShop;
+use App\Repositories\Interfaces\ServicePlanRepositoryInterface as ServicePlanRepository;
 use App\Repositories\ShopMetaRepository;
 use App\Repositories\StaffRepository;
 use App\Repositories\Interfaces\TmpShopRepositoryInterface;
@@ -27,6 +28,7 @@ class ShopService
     protected $tableRepository;
     protected $shopMetaRepository;
     protected $genreService;
+    protected $servicePlanRepository;
 
     public function __construct(
         ShopRepository $shopRepository,
@@ -35,7 +37,8 @@ class ShopService
         TmpShopRepositoryInterface $tmpShopRepository,
         ShopMetaRepository $shopMetaRepository,
         FirebaseService $firebaseService,
-        GenreService $genreService
+        GenreService $genreService,
+        ServicePlanRepository $servicePlanRepository
     ) {
         $this->shopRepository = $shopRepository;
         $this->staffRepository = $staffRepository;
@@ -44,6 +47,7 @@ class ShopService
         $this->shopMetaRepository = $shopMetaRepository;
         $this->firebaseService = $firebaseService;
         $this->genreService = $genreService;
+        $this->servicePlanRepository = $servicePlanRepository;
     }
 
     /**
@@ -113,7 +117,7 @@ class ShopService
     }
 
     /**
-     * ユーザーIDから店舗情報を取得する
+     * Find shop by user
      *
      * @param int $id
      * @return Collection
@@ -299,6 +303,13 @@ class ShopService
         $this->shopRepository->updateShopCountryVN($shop);
 
         return $shop->load('mShopPosSetting.mCurrency');
+    }
+
+    public function registerDefaultFreePlan(MShop $shop): MShop
+    {
+        $this->servicePlanRepository->registerDefaultFreePlan($shop);
+
+        return $shop;
     }
 
     public function find(string $id)

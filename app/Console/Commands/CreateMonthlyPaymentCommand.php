@@ -73,11 +73,12 @@ class CreateMonthlyPaymentCommand extends Command
             $stripeCustomerId = '';
             $limitQR = 0;
             $extendPrice = 0;
+            $additionalPrice = 0;
             $servicePlan = $shop->mServicePlans->filter(
-               function ($item) {
-                   return ($item->end_date === null && $item->applied_date <= now()->subMonth())
-                       || $item->end_date == now()->subMonth()->endOfMonth();
-               }
+                function ($item) {
+                    return ($item->pivot->end_date === null && $item->pivot->applied_date <= now()->subMonth())
+                        || $item->pivot->end_date == now()->subMonth()->endOfMonth();
+                }
             )->first();
 
             if ($servicePlan) {

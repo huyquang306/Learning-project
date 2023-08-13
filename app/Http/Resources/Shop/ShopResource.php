@@ -16,7 +16,12 @@ class ShopResource extends JsonResource
     public function toArray($request)
     {
         $staffCanPay = $this->mStaffsCanPay->first();
-        $currentServicePlan = $this->mServicePlans ? $this->mServicePlans->last() : null;
+        $currentServicePlan = $this->mServicePlans ? $this->mServicePlans->filter(
+            function ($item) {
+                return ($item->pivot->end_date === null && $item->pivot->applied_date <= now())
+                    || $item->pivot->end_date == now()->endOfMonth();
+            }
+        )->first() : null;
 
         return [
             'hash_id' => $this->hash_id,

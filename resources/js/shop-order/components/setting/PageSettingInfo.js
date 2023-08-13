@@ -685,35 +685,35 @@ const PageInfoSetting = (props) => {
                 </Box>
 
                 {/* Wifi */}
-                <Box mt={2} className={classes.inputData}>
-                  <Box className={classes.label}>Tên Wifi</Box>
-                  <Box className={classes.printerData}>
-                    <OutlinedInput
-                      id='wifi-name'
-                      name='wifi_name'
-                      value={shopData.wifi_name}
-                      className={classes.input}
-                      labelWidth={0}
-                      onChange={e => handleChangeInput(e)}
-                      classes={{ input: classes.input }}
-                    />
-                  </Box>
-                </Box>
-
-                <Box mt={2} className={classes.inputData}>
-                  <Box className={classes.label}>Mật khẩu Wifi</Box>
-                  <Box className={classes.printerData}>
-                    <OutlinedInput
-                      id='wifi-pass'
-                      name='wifi_pass'
-                      value={shopData.wifi_pass}
-                      className={classes.input}
-                      labelWidth={0}
-                      onChange={e => handleChangeInput(e)}
-                      classes={{ input: classes.input }}
-                    />
-                  </Box>
-                </Box>
+                {/*<Box mt={2} className={classes.inputData}>*/}
+                {/*  <Box className={classes.label}>Tên Wifi</Box>*/}
+                {/*  <Box className={classes.printerData}>*/}
+                {/*    <OutlinedInput*/}
+                {/*      id='wifi-name'*/}
+                {/*      name='wifi_name'*/}
+                {/*      value={shopData.wifi_name}*/}
+                {/*      className={classes.input}*/}
+                {/*      labelWidth={0}*/}
+                {/*      onChange={e => handleChangeInput(e)}*/}
+                {/*      classes={{ input: classes.input }}*/}
+                {/*    />*/}
+                {/*  </Box>*/}
+                {/*</Box>*/}
+                
+                {/*<Box mt={2} className={classes.inputData}>*/}
+                {/*  <Box className={classes.label}>Mật khẩu Wifi</Box>*/}
+                {/*  <Box className={classes.printerData}>*/}
+                {/*    <OutlinedInput*/}
+                {/*      id='wifi-pass'*/}
+                {/*      name='wifi_pass'*/}
+                {/*      value={shopData.wifi_pass}*/}
+                {/*      className={classes.input}*/}
+                {/*      labelWidth={0}*/}
+                {/*      onChange={e => handleChangeInput(e)}*/}
+                {/*      classes={{ input: classes.input }}*/}
+                {/*    />*/}
+                {/*  </Box>*/}
+                {/*</Box>*/}
                 {/* END Wifi */}
 
                 {/* Business Hours */}

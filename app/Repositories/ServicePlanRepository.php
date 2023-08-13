@@ -47,10 +47,10 @@ class ServicePlanRepository extends BaseRepository implements ServicePlanReposit
         }
 
         $freePlan = $this->getFreeServicePlan();
-        $currentPlan = $shop-mServicePlans->filter(
+        $currentPlan = $shop->mServicePlans->filter(
             function ($item) {
-                return ($item->end_date === null && $item->applied_date <= now())
-                    || $item->end_date == now()->endOfMonth();
+                return ($item->pivot->end_date === null && $item->pivot->applied_date <= now())
+                    || $item->pivot->end_date == now()->endOfMonth();
             }
         )->first();
         $newServicePlan = $this->find($servicePlanId);
@@ -170,5 +170,17 @@ class ServicePlanRepository extends BaseRepository implements ServicePlanReposit
         }
 
         return $servicePlans;
+    }
+
+    public function registerDefaultFreePlan(MShop $shop): MShop
+    {
+        $freePlan = $this->getFreeServicePlan();
+        $shop->mServicePlans()->attach($freePlan->id, [
+            'status' => RShopServicePlan::ACTIVE_STATUS,
+            'applied_date' => now()->startOfMonth(),
+            'registered_date' => now(),
+        ]);
+
+        return $shop;
     }
 }

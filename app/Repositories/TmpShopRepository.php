@@ -33,6 +33,7 @@ class TmpShopRepository extends BaseRepository implements TmpShopRepositoryInter
         $tmpShopData = [
             'hash_id' => $this->makeHashId(),
             'type' => $type,
+            'email' => $shopInfo['email'],
             'shop_info' => collect($shopInfo),
             'expired_time' => $expiredTime,
         ];
