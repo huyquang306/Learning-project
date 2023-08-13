@@ -116,10 +116,10 @@ const menuList = [
     url: '/order/list',
     name: 'Lịch sử đơn hàng',
   },
-  {
-    url: '/users/history',
-    name: 'Danh sách khách hàng',
-  },
+  // {
+  //   url: '/users/history',
+  //   name: 'Danh sách khách hàng',
+  // },
   {
     url: '/menus/setting',
     name: 'Danh sách món',

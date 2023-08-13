@@ -65,6 +65,12 @@ class ShopRepository extends BaseRepository
                     ->whereDate('created_at', '<=', $lastDayInMonth)
                     ->withTrashed();
             },
+            'tServiceBillings' => function ($serviceBillingQuery) use ($firstDayInMonth, $lastDayInMonth) {
+                $serviceBillingQuery
+                    ->with('tServiceBillingDetails.service')
+                    ->whereDate('target_month', '>=', $firstDayInMonth)
+                    ->whereDate('target_month', '<=', $lastDayInMonth);
+            },
         ]);
     }
 
@@ -555,6 +561,8 @@ class ShopRepository extends BaseRepository
     {
         $firstDayInMonth = now()->startOfMonth();
         $lastDayInMonth = now()->lastOfMonth();
+        \Log::info($firstDayInMonth);
+        \Log::info($lastDayInMonth);
         $startDayInMonth = config('const.PAYMENT.START_DAY_PAYMENT_IN_MONTH');
         if ($startDayInMonth) {
             $firstDayInMonth->setDay($startDayInMonth);

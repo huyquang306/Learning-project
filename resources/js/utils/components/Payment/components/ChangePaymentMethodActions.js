@@ -29,7 +29,7 @@ const ChangePaymentMethodActions = (props) => {
     return (
       <>
         <ButtonCustom
-          title='Không thay đổi'
+          title='Hủy'
           bgcolor='#828282'
           borderColor='#828282'
           borderRadius='28px'
@@ -38,7 +38,7 @@ const ChangePaymentMethodActions = (props) => {
           onClick={() => setIsConfirmUpdate(false)}
         />
         <ButtonCustom
-          title='Thay đổi'
+          title='Lưu'
           borderRadius='28px'
           bgcolor='#F2994A'
           borderColor='#F2994A'

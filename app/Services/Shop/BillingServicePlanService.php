@@ -53,9 +53,7 @@ class BillingServicePlanService
 
             foreach ($billingDetails as $billingDetail) {
                 // Get monthly payment service name
-                if ($billingDetail->fee_type === TServiceBillingDetail::PLAN_FEE_TYPE
-                    && $billingDetail->service_type === TServiceBilling::SERVICE_PLAN_SERVICE_TYPE
-                ) {
+                if ($billingDetail->service_type === TServiceBilling::SERVICE_PLAN_SERVICE_TYPE) {
                     $paymentServiceId = $billingDetail->service_id;
                     // Get payment service by id
                     $servicePlaned = $this->servicePlanRepository->find($paymentServiceId);

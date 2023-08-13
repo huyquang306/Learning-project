@@ -309,14 +309,14 @@ const PageCurrentPlan = (props) => {
                       </Box>
                     </Box>
 
-                    <Box mt={2} display="flex" alignItems="center">
-                      <Box width="40%" className={classes.ItemName}>
-                        Số tiền cần thanh toán
-                      </Box>
-                      <Box width="60%" className={classes.ItemValue}>
-                        {formatNumberWithCommas(calculateTotalAmount(shop?.billings_in_month))} ₫
-                      </Box>
-                    </Box>
+                    {/*<Box mt={2} display="flex" alignItems="center">*/}
+                    {/*  <Box width="40%" className={classes.ItemName}>*/}
+                    {/*    Số tiền cần thanh toán*/}
+                    {/*  </Box>*/}
+                    {/*  <Box width="60%" className={classes.ItemValue}>*/}
+                    {/*    {formatNumberWithCommas(calculateTotalAmount(shop?.billings_in_month))} ₫*/}
+                    {/*  </Box>*/}
+                    {/*</Box>*/}
                   </Grid>
 
                   <Grid item xs={6}>
@@ -366,7 +366,7 @@ const PageCurrentPlan = (props) => {
                       <th className={classes.tableHeader}>Gói dịch vụ</th>
                       <th className={classes.tableHeader}>Phí dịch vụ</th>
                       <th className={classes.tableHeader}>Số QR sử dụng</th>
-                      <th className={classes.tableHeader}>Số QR vượt quá</th>
+                      <th className={classes.tableHeader}>Phí QR vượt quá</th>
                       <th className={classes.tableHeader}>Số tiền đã thanh toán</th>
                       <th className={classes.tableHeader}>Hóa đơn</th>
                     </tr>
@@ -382,7 +382,7 @@ const PageCurrentPlan = (props) => {
                             {data.service_name}
                           </td>
                           <td className={`${classes.tableDetail} ${classes.textRight}`}>
-                            {data.basic_price} ₫
+                            {data.price} ₫
                           </td>
                           <td className={`${classes.tableDetail} ${classes.textRight}`}>
                             {data.total_qr_number}
