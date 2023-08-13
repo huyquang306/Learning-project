@@ -137,9 +137,15 @@ const ShopListPage = (props) => {
     if (isSetServicePlanInFilterMonth) {
       const {service, payment_method} = billings_in_month[0];
 
-      return `${service.name}/${PAYMENT_METHOD_NAMES[payment_method]}`;
+      return `${shop.service_plan.name}/${PAYMENT_METHOD_NAMES[payment_method]}`;
     }
-
+    
+    if (billings_in_month?.length) {
+      const {payment_method} = billings_in_month[0];
+      
+      return `${shop.service_plan.name}/${PAYMENT_METHOD_NAMES[payment_method]}`;
+    }
+    
     return result;
   };
 

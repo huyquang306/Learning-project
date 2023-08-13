@@ -46,18 +46,22 @@ class ShopService
         $firebaseActiveAccounts = $this->firebaseService->getAccountsActiveByUids($allShopUIds);
         $firebaseActiveUIds = array_keys($firebaseActiveAccounts);
 
-        $from = $request->input('from') ?: Carbon::now()->startOfMonth();
-        $to = $request->input('to') ?: Carbon::now()->endOfMonth();
+        $from = $request->input('from') ? Carbon::parse($request->input('from'))->startOfMonth() : Carbon::now()->startOfMonth();
+        $to = $request->input('to') ? Carbon::parse($request->input('from'))->endOfMonth() : Carbon::now()->endOfMonth();
         $shops = $this->shopRepository->getShopsDataAdmin($firebaseActiveUIds, $from, $to);
         $freePlan = $this->servicePlanRepository->getFreeServicePlan();
-        $shops->map(function ($shop) use ($freePlan) {
+        $shops->map(function ($shop) use ($freePlan, $from, $to) {
             $mServicePlanCount = $shop->mServicePlans->count();
             if ($mServicePlanCount === 0) {
                 $shop->mServicePlans = collect([$freePlan]);
             } else {
-                $activePlan = $shop->mServicePlans->filter(function ($planTmp) {
-                    return $planTmp->pivot->status == RShopServicePlan::ACTIVE_STATUS;
-                })->first();
+                $activePlan = $shop->mServicePlans->filter(
+                    function ($item) use ($from, $to) {
+                        return ($item->pivot->end_date === null && $item->pivot->applied_date <= $to)
+                            || $item->pivot->end_date == $to;
+                    }
+                )->first();
+                \Log::info($activePlan);
                 // Active service plan
                 if ($activePlan) {
                     $shop->mServicePlans = collect([$activePlan]);

@@ -669,11 +669,12 @@ class ShopRepository extends BaseRepository
                         ->whereDate('target_month', '>=', $from)
                         ->whereDate('target_month', '<=', $to);
                 },
-                'mServicePlans' => function ($servicePlanQuery) use ($from) {
-                    $servicePlanQuery->wherePivot('status', RShopServicePlan::ACTIVE_STATUS)
-                        ->orWherePivot('end_date', '>=', $from)
-                        ->orderBy('r_shop_service_plan.created_at');
-                },
+//                'mServicePlans' => function ($servicePlanQuery) use ($from) {
+//                    $servicePlanQuery->wherePivot('status', RShopServicePlan::ACTIVE_STATUS)
+//                        ->orWherePivot('end_date', '>=', $from)
+//                        ->orderBy('r_shop_service_plan.created_at');
+//                },
+                'mServicePlans'
             ])->with('mStaffsCanPay.tStripeCustomer')
             ->whereDate('created_at', '<=', Carbon::parse($to));
 

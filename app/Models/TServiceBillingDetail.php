@@ -25,8 +25,8 @@ class TServiceBillingDetail extends Model
         return $this->belongsTo(TServiceBilling::class, 't_service_billing_id', 'id');
     }
 
-    public function service()
+    public function service(): \Illuminate\Database\Eloquent\Relations\MorphTo
     {
-        return $this->morphTo();
+        return $this->morphTo('service', 'service_type', 'service_id');
     }
 }

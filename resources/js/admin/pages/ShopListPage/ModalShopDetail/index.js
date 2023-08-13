@@ -273,6 +273,7 @@ const ModalShopDetail = (props) => {
           {
             formatPrice(parseInt(shopData.shop_total_payment))
           }
+          ₫
         </TableCell>
         <TableCell classes={{root: classes.tableCell}} align='center'>
           {
@@ -421,7 +422,7 @@ const ModalShopDetail = (props) => {
 
             <Box className={classes.boxRow} display='flex' alignItems='center'>
               <Box width='50%'>
-                Zip code <span className={classes.colonMargin}>:</span> {AdminUtils.getFormatZipCode(paymentInfo.zip_code)} {paymentInfo.address}
+                Postal code <span className={classes.colonMargin}>:</span> {AdminUtils.getFormatZipCode(paymentInfo.zip_code)} {paymentInfo.address}
               </Box>
               <Box width='50%'>
                 <Button
@@ -474,6 +475,7 @@ const ModalShopDetail = (props) => {
                         {
                           formatPrice(parseInt(shopData.shop_total_payment))
                         }
+                        ₫
                       </TableCell>
                       <TableCell classes={{root: classes.tableCell}} align='center'>
                         {
