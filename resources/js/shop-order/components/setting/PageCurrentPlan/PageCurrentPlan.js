@@ -35,6 +35,7 @@ import {
 
 // Library
 import moment from 'moment';
+import {formatPrice} from "../../../../utils/helpers/number";
 moment.locale('vi');
 
 const PageCurrentPlan = (props) => {
@@ -382,7 +383,7 @@ const PageCurrentPlan = (props) => {
                             {data.service_name}
                           </td>
                           <td className={`${classes.tableDetail} ${classes.textRight}`}>
-                            {data.price} ₫
+                            {formatPrice(parseInt(data.price))} ₫
                           </td>
                           <td className={`${classes.tableDetail} ${classes.textRight}`}>
                             {data.total_qr_number}
