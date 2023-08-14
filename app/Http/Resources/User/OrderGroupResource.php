@@ -22,6 +22,7 @@ class OrderGroupResource extends JsonResource
             ])
             ->get();
         $mCourse = $this->getCourse($orders);
+        $listMenuInCourse = [];
         if ($mCourse && $mCourse->mMenus) {
             $listMenuInCourse = $mCourse->mMenus->pluck('id')->toArray();
         }
