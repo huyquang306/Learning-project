@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\MConditionType;
+use App\Models\MFunction;
 use App\Models\MPrinter;
 use App\Models\MShopMeta;
 use App\Models\TOrder;
