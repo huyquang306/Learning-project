@@ -115,9 +115,11 @@ const PageOrder = () => {
     const keyname = priceDisplayMode === 1 ? 'price_unit_without_tax' : 'price_unit_with_tax';
 
     if (orderList.length > 0) {
+      console.log(orderList);
       total = orderList
         .filter((item) => item.status !== ORDER_STATUS.STATUS_CANCEL)
-        .reduce((subtotal, item) => subtotal + item.current_price[keyname] * item.quantity, 0);
+        .reduce((subtotal, item) =>
+          item?.is_menu_in_course ? subtotal : (subtotal + item.current_price[keyname] * item.quantity), 0);
     }
 
     return total;
@@ -248,7 +250,7 @@ const PageOrder = () => {
                 <Fragment>
                   <Box className={classes.orderInfoCommon}>Tên: {courseInfo.name}</Box>
                   <Box className={classes.orderInfoCommon}>
-                    Thời gian set ăn: {courseInfo.time_block_unit}分
+                    Thời gian set ăn: {courseInfo.time_block_unit}phút
                   </Box>
                   <Box className={classes.orderInfoCommon}>
                     Thời gian bắt đầu:

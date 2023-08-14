@@ -377,7 +377,7 @@ class PrinterService
 
                 if ($order->r_shop_course_id && $order->r_shop_menu_id) {
                     // Case: Print Ordered in Course
-                    $orderName = $orderName . "(0 VND)";
+                    $orderName = $orderName . "(0 ₫)";
                 }
 
                 fwrite($file, "[column: left: " . $orderTime . ";right: Số bàn：" . $codeStr . "]\n\n");
@@ -605,7 +605,7 @@ class PrinterService
 
             $amountOfCourses = number_format($priceOfCourse * $numberOfCustomer);
             $pdf->Multicell(100, 0, $ordergroup->mCourse->name, 1, 'C', 0, 0);
-            $pdf->Multicell(0, 0, 'VND' . $amountOfCourses, 1, 'C', 0, 1);
+            $pdf->Multicell(0, 0, '₫' . $amountOfCourses, 1, 'C', 0, 1);
         }
 
         foreach ($orders as $order) {
@@ -632,11 +632,11 @@ class PrinterService
                 $canceledMenu = "【Huy】" . $orderName;
                 $pdf->Multicell(0, 0, $canceledMenu, 0, 'L', 0, 1);
                 $pdf->Multicell(50, 0, $order->price_unit . '×' . $order->quantity, 0, 'C', 0, 0);
-                $pdf->Multicell(0, 0, $amountOrder . 'VND', 0, 'R', 0, 1, 50);
+                $pdf->Multicell(0, 0, $amountOrder . '₫', 0, 'R', 0, 1, 50);
             } else {
                 $pdf->Multicell(0, 0, $orderName, 0, 'L', 0, 1);
                 $pdf->Multicell(50, 0, $order->price_unit . '×' . $order->quantity, 0, 'C', 0, 0);
-                $pdf->Multicell(0, 0, 'VND' . $amountOrder, 0, 'R', 0, 1, 50);
+                $pdf->Multicell(0, 0, '₫' . $amountOrder, 0, 'R', 0, 1, 50);
             }
         }
 
@@ -644,9 +644,9 @@ class PrinterService
         $pdf->Cell(0, 0, "---------------------------------------------", 0, 1, 'L', 0, '', 0);
         //$pdf->Multicell(20, 0, '10% : ', 0, 'L', 0, 0);
         $pdf->Multicell(20, 0, $totalCount , 0, 'C', 0, 0, 30);
-        $pdf->Multicell(0, 0, $totalBilling . 'VND', 0, 'R', 0, 1, 40);
+        $pdf->Multicell(0, 0, $totalBilling . '₫', 0, 'R', 0, 1, 40);
         $pdf->Multicell(30, 0, "Tong so tien : ", 0, 'L', 0, 0);
-        $pdf->Multicell(0, 0, $totalBilling . 'VND', 0, 'R', 0, 1, 30);
+        $pdf->Multicell(0, 0, $totalBilling . '₫', 0, 'R', 0, 1, 30);
         $pdf->Cell(0, 0, "So ban : " . $codeStr . "　So nguoi : " . $numberOfCustomer, 0, 1, 'L', 0, '', 0);
 
         $pdf->Output($outputFile, 'F');

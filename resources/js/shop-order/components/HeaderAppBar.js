@@ -114,7 +114,7 @@ const menuList = [
   },
   {
     url: '/order/list',
-    name: 'Lịch sử đơn hàng',
+    name: 'Lịch sử order',
   },
   // {
   //   url: '/users/history',

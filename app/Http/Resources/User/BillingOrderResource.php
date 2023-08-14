@@ -69,6 +69,7 @@ class BillingOrderResource extends JsonResource
             'amount' => $this->amount,
             'order_type' => $this->order_type,
             'm_course' => $mCourse,
+            'is_menu_in_course' => $this->isMenuInSourse,
             's_image_folder_path' => $mMenu ? $mMenu->s_image_folder_path : null,
             'm_image_folder_path' => $mMenu ? $mMenu->m_image_folder_path : null,
             'l_image_folder_path' => $mMenu ? $mMenu->l_image_folder_path : null,
