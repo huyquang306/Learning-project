@@ -22,6 +22,14 @@ class OrderGroupResource extends JsonResource
             ])
             ->get();
         $mCourse = $this->getCourse($orders);
+        $listMenuInCourse = $mCourse->mMenus->pluck('id')->toArray();
+        foreach ($orders as $order) {
+            $order->isMenuInSourse = false;
+            if ($order->rShopMenu && count($listMenuInCourse)) {
+                $menuId = $order->rShopMenu->mMenu->id;
+                $order->isMenuInSourse = in_array($menuId, $listMenuInCourse);
+            }
+        }
 
         // get course extend info
         $courseExtendPrice = null;

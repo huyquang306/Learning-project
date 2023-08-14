@@ -65,20 +65,20 @@ const ModalDetailReserve = (props) => {
     };
     setWaiting(true);
     if (!quantity) {
-      setToast({ isShow: true, status: 'error', message: '数量が必須です。' });
+      setToast({ isShow: true, status: 'error', message: 'Vui lòng nhập số lượng' });
       setWaiting(false);
       return;
     }
     ShopOrderApiService.order(shop.hashId, orderGroup.group.hash_id, data, isUpdate)
       .then(() => {
         setWaiting(false);
-        setToast({ isShow: true, status: 'success', message: 'Update order success!' });
+        setToast({ isShow: true, status: 'success', message: 'Cập nhật thành công!' });
         setRefresh({ isRefresh: false, refreshAt: new Date() });
         props.onClose();
       })
       .catch(() => {
         setWaiting(false);
-        setToast({ isShow: true, status: 'error', message: '数量が必須です。' });
+        setToast({ isShow: true, status: 'error', message: 'Có lỗi xảy ra' });
       });
   };
 
@@ -92,7 +92,7 @@ const ModalDetailReserve = (props) => {
     ShopOrderApiService.order(shop.hashId, orderGroup.group.hash_id, data, isUpdate)
       .then(() => {
         setWaiting(false);
-        setToast({ isShow: true, status: 'success', message: 'Delete order success!' });
+        setToast({ isShow: true, status: 'success', message: 'Xóa order thành công' });
         setRefresh({ isRefresh: false, refreshAt: new Date() });
         props.onClose();
       })
@@ -119,7 +119,7 @@ const ModalDetailReserve = (props) => {
     return (
       <React.Fragment>
         <ButtonCustom
-          title='戻る'
+          title='Quay lại'
           borderRadius='28px'
           bgcolor='#828282'
           borderColor='#828282'
@@ -128,7 +128,7 @@ const ModalDetailReserve = (props) => {
         />
         {orderGroup.order.status !== ORDER_STATUS.STATUS_CANCEL && (
           <ButtonCustom
-            title='保存する'
+            title='Lưu'
             borderRadius='28px'
             bgcolor='#FFA04B'
             borderColor='#FFA04B'
@@ -141,12 +141,12 @@ const ModalDetailReserve = (props) => {
   };
 
   return (
-    <Modal open={props.open} title='アイテム詳細' onClose={props.onClose} actions={footerActions()}>
+    <Modal open={props.open} title='Chi tiết' onClose={props.onClose} actions={footerActions()}>
       <div className={classes.modalContent}>
         {orderGroup.order.status !== ORDER_STATUS.STATUS_CANCEL && (
           <Box textAlign='right'>
             <ButtonCustom
-              title='削除'
+              title='Xóa'
               borderRadius='12px'
               bgcolor='#f2c94c'
               width='100px'
@@ -160,7 +160,7 @@ const ModalDetailReserve = (props) => {
         <Box style={{ maxWidth: '386px', margin: '0px auto 0' }}>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              テーブル
+              Bàn
             </Grid>
             <Grid item xs={9}>
               {orderGroup.group.code_tables}
@@ -168,7 +168,7 @@ const ModalDetailReserve = (props) => {
           </Grid>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              注文時間
+              Thời gian order
             </Grid>
             <Grid item xs={9}>
               {orderGroup.order.ordered_at}
@@ -176,7 +176,7 @@ const ModalDetailReserve = (props) => {
           </Grid>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              商品名
+              Tên món
             </Grid>
             <Grid item xs={9}>
               {orderGroup.order.name}
@@ -184,7 +184,7 @@ const ModalDetailReserve = (props) => {
           </Grid>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              数量
+              Số lượng
             </Grid>
             <Grid item xs={9}>
               <OutlinedInput
@@ -203,7 +203,7 @@ const ModalDetailReserve = (props) => {
           </Grid>
           <Grid container spacing={3} alignItems='center'>
             <Grid item xs={3}>
-              価格
+              Giá
             </Grid>
             <Grid item xs={9}>
               <OutlinedInput
