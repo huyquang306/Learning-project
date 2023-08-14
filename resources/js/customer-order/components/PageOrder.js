@@ -115,7 +115,6 @@ const PageOrder = () => {
     const keyname = priceDisplayMode === 1 ? 'price_unit_without_tax' : 'price_unit_with_tax';
 
     if (orderList.length > 0) {
-      console.log(orderList);
       total = orderList
         .filter((item) => item.status !== ORDER_STATUS.STATUS_CANCEL)
         .reduce((subtotal, item) =>

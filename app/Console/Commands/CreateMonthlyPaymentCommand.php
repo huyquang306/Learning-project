@@ -67,6 +67,7 @@ class CreateMonthlyPaymentCommand extends Command
      */
     public function handle()
     {
+        Log::info("[Monthly Payment Start]");
         $listShop = $this->shopService->getListShopWithPaymentInfo();
         foreach ($listShop as $shop) {
             $totalQR = 0;
@@ -144,6 +145,8 @@ class CreateMonthlyPaymentCommand extends Command
 
                 $this->billingService->createMonthlyBilling($data);
                 DB::commit();
+                Log::info($shop->id);
+                Log::info("[Monthly Payment Finish]");
             } catch (\Stripe\Exception\ApiErrorException $exception) {
                 Log::critical($exception->getMessage());
             } catch (\Exception $exception) {
