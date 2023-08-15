@@ -156,7 +156,7 @@ const PageUserHistoryDetail = (props) => {
                             <TableCell align='left' width={'35%'} size='small'>
                               {row.status === 2 ? (
                                 <p style={styles.menuCancel}>
-                                  <span style={styles.cancelOrder}>【取消】</span>
+                                  <span style={styles.cancelOrder}>【Hủy】</span>
                                   {row.name}
                                 </p>
                               ) : (

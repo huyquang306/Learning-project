@@ -98,7 +98,7 @@ const PageOrderHistory = (props) => {
   const [filter, setFilter] = useState({
     tableId: 0,
     categoryId: 0,
-    timeStart: moment().subtract(1, 'months').startOf('month').format('YYYY-MM-DD'),
+    timeStart: moment().startOf('week').format('YYYY-MM-DD'),
     timeEnd: moment().format('YYYY-MM-DD'),
     limit: ORDER_HISTORY_PAGINATION,
   });
@@ -148,6 +148,7 @@ const PageOrderHistory = (props) => {
   const getOrderHistories = async (isHistory = false, filterData = {}) => {
     try {
       setWaiting(true);
+      console.log(filterData);
       // Data Filter
       const dataFilter = Object.assign(
         { status: '0,1,2,3,4' },
@@ -162,14 +163,14 @@ const PageOrderHistory = (props) => {
         filterData?.page ? { page: filterData.page } : 1,
         filterData.limit
       );
+      console.log(dataFilter);
 
       const response = await ShopOrderApiService.getOrderGroupSummary(
         shop.hashId,
         isHistory,
-        dataFilter
+        filterData
       );
       if (response) {
-        console.log(response.data);
         setWaiting(false);
         setOrderGroupSummany(response.data);
         setOrderGroupPagination(response.pagination);
@@ -365,7 +366,7 @@ const PageOrderHistory = (props) => {
                           >
                             {row.status === 2 ? (
                               <p style={styles.menuCancel}>
-                                <span style={styles.cancelOrder}>【取消】</span>
+                                <span style={styles.cancelOrder}>【Hủy】</span>
                                 {row.name}
                               </p>
                             ) : (

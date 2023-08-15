@@ -275,7 +275,7 @@ class OrderGroupRepository
          */
 
         $query = TOrderGroup::query();
-        if (isset($data_filter['table_id']) && !empty($data_filter['table_id'])) {
+        if (isset($data_filter['tableId']) && !empty($data_filter['tableId'])) {
             // convert table_ids to (int)
             $table_ids = explode(',', $data_filter['table_id']);
             $query->whereIn('t_ordergroup.id', function ($queryTable) use ($table_ids) {
@@ -296,7 +296,7 @@ class OrderGroupRepository
         }
 
         // filter by categories
-        if (isset($data_filter['category_id']) && !empty($data_filter['category_id'])) {
+        if (isset($data_filter['categoryId']) && !empty($data_filter['categoryId'])) {
             // convert category_ids from string to (int)
             $categories = array_map('intval', explode(',', $data_filter['category_id']));
 
@@ -323,14 +323,16 @@ class OrderGroupRepository
 
 
         // filter time_start
-        if (isset($data_filter['time_start']) && !empty($data_filter['time_start'])) {
-            $time_start = Carbon::createFromFormat('Y-m-d', $data_filter['time_start'])->setTime(00, 00, 00);
+        if (isset($data_filter['timeStart']) && !empty($data_filter['timeStart'])) {
+            $time_start = Carbon::createFromFormat('Y-m-d', $data_filter['timeStart'])->setTime(00, 00, 00);
+            \Log::info($time_start);
             $query->where('created_at', '>=', $time_start);
         }
 
         // filter time_end
-        if (isset($data_filter['time_end']) && !empty($data_filter['time_end'])) {
-            $time_end = Carbon::createFromFormat('Y-m-d', $data_filter['time_end'])->setTime(23, 59, 59);
+        if (isset($data_filter['timeEnd']) && !empty($data_filter['timeEnd'])) {
+            $time_end = Carbon::createFromFormat('Y-m-d', $data_filter['timeEnd'])->setTime(23, 59, 59);
+            \Log::info($time_end);
             $query->where('created_at', '<=', $time_end);
         }
 
@@ -567,5 +569,24 @@ class OrderGroupRepository
         }
 
         return false;
+    }
+
+    /**
+     * @param MShop $shop
+     * @param $startTime
+     * @param $endTime
+     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getOrderGroupsInTime(MShop $shop, $startTime, $endTime)
+    {
+        $startTime = Carbon::parse($startTime)->format('Y-m-d H:i:s');
+        $endTime = Carbon::parse($endTime)->format('Y-m-d H:i:s');
+
+        return TOrderGroup::query()->where('created_at', '>=', $startTime)
+            ->where('created_at', '<=', $endTime)
+            ->where('m_shop_id', '=', $shop->id)
+            ->with('tOrders.rShopMenu.mMenu')
+            ->with('mTables')
+            ->get();
     }
 }

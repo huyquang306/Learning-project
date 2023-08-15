@@ -22,6 +22,7 @@ export const ENDPOINTS = {
   GET_SERVICE_PLANS: ['shop/service-plans', METHOD.GET, true],
   UPDATE_SERVICE_PLAN_OF_SHOP: ['shop/$0/setting/service-plan', METHOD.POST, true],
   CANCEL_CONTRACT_OF_SHOP: ['shop/$0/cancel-contract', METHOD.POST, true],
+  GET_STATISTICS: ['shop/$0/statistics', METHOD.GET, true],
 }
 
 class ShopApiService extends ApiBase {
@@ -168,6 +169,10 @@ class ShopApiService extends ApiBase {
   
   async cancelContractShop(shopHashId) {
     return await this.request(ENDPOINTS.CANCEL_CONTRACT_OF_SHOP, [shopHashId], {});
+  }
+  
+  async getStatistics(shopHashId) {
+    return await this.request(ENDPOINTS.GET_STATISTICS, [shopHashId], {});
   }
 }
 

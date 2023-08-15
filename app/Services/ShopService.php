@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\MMenu;
 use App\Models\MShop;
 use App\Models\MShopMeta;
+use App\Models\MTable;
 use App\Models\TTmpShop;
 use App\Repositories\Interfaces\ServicePlanRepositoryInterface as ServicePlanRepository;
+use App\Repositories\OrderGroupRepository;
 use App\Repositories\ShopMetaRepository;
 use App\Repositories\StaffRepository;
 use App\Repositories\Interfaces\TmpShopRepositoryInterface;
@@ -13,6 +16,7 @@ use App\Repositories\ShopRepository;
 use App\Repositories\TableRepository;
 use App\Services\Auth\FirebaseService;
 use App\Services\GenreService;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Log;
@@ -29,6 +33,7 @@ class ShopService
     protected $shopMetaRepository;
     protected $genreService;
     protected $servicePlanRepository;
+    protected $orderGroupRepository;
 
     public function __construct(
         ShopRepository $shopRepository,
@@ -38,7 +43,8 @@ class ShopService
         ShopMetaRepository $shopMetaRepository,
         FirebaseService $firebaseService,
         GenreService $genreService,
-        ServicePlanRepository $servicePlanRepository
+        ServicePlanRepository $servicePlanRepository,
+        OrderGroupRepository $orderGroupRepository
     ) {
         $this->shopRepository = $shopRepository;
         $this->staffRepository = $staffRepository;
@@ -48,6 +54,7 @@ class ShopService
         $this->firebaseService = $firebaseService;
         $this->genreService = $genreService;
         $this->servicePlanRepository = $servicePlanRepository;
+        $this->orderGroupRepository = $orderGroupRepository;
     }
 
     /**
@@ -428,5 +435,76 @@ class ShopService
     public function getListShopWithPaymentInfo()
     {
         return $this->shopRepository->getListShopWithPaymentInfo();
+    }
+
+    public function getStatistics(MShop $shop, $filterData = null): array
+    {
+        if ($filterData) {
+            // TODO statistics by filter condition
+        }
+
+        $startTime = Carbon::now()->startOfMonth()->format('Y-m-d H:i:s');
+        $endTime = Carbon::now()->endOfMonth()->format('Y-m-d H:i:s');
+        $orderGroupsInMonth = $this->orderGroupRepository->getOrderGroupsInTime($shop, $startTime, $endTime);
+        $totalIncome = $orderGroupsInMonth->reduce(function ($amount, $order) {
+            return $amount + $order->total_billing;
+        }, 0);
+
+        $listMenu = [];
+        $listTable = [];
+        foreach ($orderGroupsInMonth as $orderGroup) {
+            $orders = $orderGroup->tOrders;
+            foreach ($orders as $order) {
+                if (!$order->rShopMenu) continue;
+                $menu = $order->rShopMenu->mMenu;
+                if (!in_array($menu->id, array_keys($listMenu))) {
+                    $listMenu[$menu->id] = 1;
+                } else {
+                    $listMenu[$menu->id] = $listMenu[$menu->id] + 1;
+                }
+            }
+
+            $tables = $orderGroup->mTables;
+            foreach ($tables as $table) {
+                if (!in_array($table->id, array_keys($listTable))) {
+                    $listTable[$table->id] = 1;
+                } else {
+                    $listTable[$table->id] = $listTable[$table->id] + 1;
+                }
+            }
+        }
+
+        $mostOrderedMenuIds = [];
+        $mostOrderedTableIds = [];
+        $maxMenu = max($listMenu);
+        $maxTable = max($listTable);
+        foreach ($listMenu as $key => $value) {
+            if ($value === $maxMenu) {
+                $mostOrderedMenuIds[] = $key;
+            }
+        }
+        foreach ($listTable as $key => $value) {
+            if ($value === $maxTable) {
+                $mostOrderedTableIds[] = $key;
+            }
+        }
+
+        $mostOrderedMenu = MMenu::query()->whereIn('id', $mostOrderedMenuIds)
+            ->get();
+        $mostOrderedMenu->each(function (&$item) use ($maxMenu) {
+            $item->count = $maxMenu;
+        });
+
+        $mostOrderedTable = MTable::query()->whereIn('id', $mostOrderedTableIds)
+            ->get();
+        $mostOrderedTable->each(function (&$item) use ($maxTable) {
+            $item->count = $maxTable;
+        });
+
+        return [
+            'totalIncome' => $totalIncome,
+            'mostOrderedMenu' => $mostOrderedMenu,
+            'mostOrderedTable' => $mostOrderedTable,
+        ];
     }
 }
