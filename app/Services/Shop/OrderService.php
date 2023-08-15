@@ -105,13 +105,13 @@ class OrderService
                     $order->price_unit = $currentPrice['price_unit_with_tax'];
                     $order->current_price = $currentPrice;
                 }
-                $outputFile = $this->printerService->createCreateOrderTemplate(
-                    $shop,
-                    $orderGroup,
-                    $orders,
-                    TOrder::CANCEL_ORDER_TYPE
-                );
-                $this->printerService->insertJobQueue($shop->id, $outputFile, $position);
+                //$outputFile = $this->printerService->createCreateOrderTemplate(
+                //    $shop,
+                //    $orderGroup,
+                //    $orders,
+                //    TOrder::CANCEL_ORDER_TYPE
+                //);
+                //$this->printerService->insertJobQueue($shop->id, $outputFile, $position);
             }
 
             if ($request->update_orders) {
@@ -133,13 +133,13 @@ class OrderService
                 }
 
                 if (!$update_status) {
-                    $outputFile = $this->printerService->createCreateOrderTemplate(
-                        $shop,
-                        $orderGroup,
-                        $orders,
-                        TOrder::UPDATE_ORDER_TYPE,
-                        $ordersOld
-                    );
+                    //$outputFile = $this->printerService->createCreateOrderTemplate(
+                    //    $shop,
+                    //    $orderGroup,
+                    //    $orders,
+                    //    TOrder::UPDATE_ORDER_TYPE,
+                    //    $ordersOld
+                    //);
                     //$this->printerService->insertJobQueue($shop->id, $outputFile, $position);
                 }
             }

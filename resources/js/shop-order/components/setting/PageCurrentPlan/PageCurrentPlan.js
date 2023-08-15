@@ -50,6 +50,11 @@ const PageCurrentPlan = (props) => {
   // local state
   const [shopData, setShopData] = useState({});
   const [servicePlans, setServicePlans] = useState([]);
+  const [statistics, setStatistics] = useState({
+    totalIncome: 0,
+    mostOrderedMenu: [],
+    mostOrderedTable: []
+  });
   const [updateMethodOpen, setUpdateMethodOpen] = useState(false);
   const [paymentInfo, setPaymentInfo] = useState({
     stripeCustomerId: '',
@@ -85,6 +90,7 @@ const PageCurrentPlan = (props) => {
     getServicePlans();
     getCustomerPayment();
     getBillingDetailHistory();
+    getStatistics();
   }, [shop]);
 
   useEffect(()=> {
@@ -144,6 +150,11 @@ const PageCurrentPlan = (props) => {
     const servicePlansRes = await ShopApiService.getServicePlans();
     setServicePlans(servicePlansRes);
   };
+  
+  const getStatistics = async () => {
+    const statistics = await ShopApiService.getStatistics(shop.hashId);
+    setStatistics(statistics);
+  }
 
   const getQrInformation = (shopRes, selectedPlan) => {
     let qrInformation = 0;
@@ -306,7 +317,7 @@ const PageCurrentPlan = (props) => {
                         Số QR/Giới hạn
                       </Box>
                       <Box width="60%" className={classes.ItemValue}>
-                        {qrInfo}
+                        { qrInfo}
                       </Box>
                     </Box>
 
@@ -341,7 +352,67 @@ const PageCurrentPlan = (props) => {
                   </Grid>
                 </Grid>
               </Box>
-
+              
+              <Box mt={1} display="flex" alignItems="center">
+                <Box width="20%" className={classes.textBold}>
+                  Thống kê trong tháng
+                </Box>
+                <Box width="80%" fontSize={'14px'}>
+                </Box>
+              </Box>
+              
+              <Box flex={1}>
+                <Grid spacing={5} container justify="center">
+                  <Grid item xs={6}>
+                    <Box mt={2} display="flex" alignItems="center">
+                      <Box width="40%" className={classes.ItemName}>
+                        Món ăn bán chạy nhất
+                      </Box>
+                      <Box width="60%" className={classes.ItemValue}>
+                        {statistics.mostOrderedMenu[0]?.name}
+                      </Box>
+                    </Box>
+                    
+                    <Box mt={2} display="flex" alignItems="center">
+                      <Box width="40%" className={classes.ItemName}>
+                        Số lượng
+                      </Box>
+                      <Box width="60%" className={classes.ItemValue}>
+                        {statistics.mostOrderedMenu[0]?.count}
+                      </Box>
+                    </Box>
+                  </Grid>
+                  
+                  <Grid item xs={6}>
+                    <Box mt={2} display="flex" alignItems="center">
+                      <Box width="40%" className={classes.ItemName}>
+                        Bàn được đặt nhiều nhất
+                      </Box>
+                      <Box width="60%" className={classes.ItemValue}>
+                        {statistics.mostOrderedTable[0]?.code}
+                      </Box>
+                    </Box>
+                    
+                    <Box mt={2} display="flex" alignItems="center">
+                      <Box width="40%" className={classes.ItemName}>
+                        Số lần
+                      </Box>
+                      <Box width="60%" className={classes.ItemValue}>
+                        {statistics.mostOrderedTable[0]?.count}
+                      </Box>
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Box>
+              
+              <Box mt={1} display="flex" alignItems="center">
+                <Box width="100%" className={classes.textBold}>
+                  Doanh thu trong tháng: {formatPrice(statistics.totalIncome)}₫
+                </Box>
+                <Box width="80%" fontSize={'14px'}>
+                </Box>
+              </Box>
+              
               <Box
                 mt={1}
                 display="flex"

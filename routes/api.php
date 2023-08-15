@@ -76,6 +76,8 @@ Route::prefix('v1')->group(
                 Route::get('/{shop}/genre', 'Api\GenreController@show');
                 Route::put('/{shop}/genre', 'Api\GenreController@update');
 
+                // Statistics
+                Route::get('/{shop}/statistics', 'Api\ShopController@getStatistics');
                 // Payment & Service setting
                 Route::group(
                     ['prefix' => '{shop}/setting'],

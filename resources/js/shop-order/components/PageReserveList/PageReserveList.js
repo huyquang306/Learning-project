@@ -254,7 +254,7 @@ const PageReserveList = (props) => {
   const elementStatusCancel = () => {
     return (
       <div className={classes.statusBox}>
-        <p className={classes.status}>取消</p>
+        <p className={classes.status}>Hủy</p>
       </div>
     );
   };
@@ -450,7 +450,7 @@ const PageReserveList = (props) => {
                       <TableCell component='th' scope='row' padding='none'>
                         {row.status === ORDER_STATUS.STATUS_CANCEL ? (
                           <p className={classes.menuName}>
-                            <div className={classes.cancelOrder}>【取消】</div>
+                            <div className={classes.cancelOrder}>【Hủy】</div>
                             {`${row.name} x ${row.quantity}`}
                           </p>
                         ) : (

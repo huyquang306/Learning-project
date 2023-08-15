@@ -195,4 +195,12 @@ class ShopController extends BaseApiController
 
         return $this->responseApi($result);
     }
+
+    public function getStatistics(MShop $shop, Request $request): JsonResponse
+    {
+        $filter = $request->input('filter', null);
+        $result = $this->shopService->getStatistics($shop, $filter);
+
+        return $this->responseApi($result);
+    }
 }
